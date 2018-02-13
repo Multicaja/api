@@ -1,4 +1,4 @@
-[![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/API-Multicaja_digital/master/api-users.yml)](https://raw.githubusercontent.com/Multicaja/API-Multicaja_digital/master/api-users.yml) [![TravisCI](https://travis-ci.org/Multicaja/api-mc.svg?branch=master)](https://travis-ci.org/Multicaja/API-Multicaja_digital/)
+[![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/API-Multicaja_digital/master/api-users.yml)](https://raw.githubusercontent.com/Multicaja/API-Multicaja_digital/master/api-users.yml) [![TravisCI](https://travis-ci.org/Multicaja/API-Multicaja_digital.svg?branch=master)](https://travis-ci.org/Multicaja/API-Multicaja_digital/)
  
 ## API Multicaja Digital
 
