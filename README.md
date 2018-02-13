@@ -4,4 +4,10 @@
 
 Acá iremos trabajando las APIs para los proyectos Multicaja.cl, prepago, etc. Se desarrollarán utilizando el estándar [OpenAPI] (https://github.com/OAI/OpenAPI-Specification/blob/master/README.md) 
 
+### Buenas prácticas
+
+Sigamos las buenas prácticas que indica [este post](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api) para crear nuestra API.
+
+### Forma de colaborar
+
 Por el momento haremos commits directo a *master*. Cuando tengamos las primeras versiones estables, nos quitamos permisos y trabajaremos con *pull request*
