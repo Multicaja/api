@@ -1,0 +1,238 @@
+swagger: '2.0'
+info:
+  description: REST API Multicaja
+  version: '1.0'
+  title: REST API
+  termsOfService: Terms of service
+  contact:
+    name: Matías Salinas
+    url: 'https://www.multicaja.cl'
+    email: matias.salinas@multicaja.cl
+  license:
+    name: Apache License Version 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0'
+host: 'localhost:8085'
+basePath: /
+tags:
+  - name: user-controller
+    description: User Controller
+paths:
+  /user/:
+    post:
+      tags:
+        - user-controller
+      summary: Create user
+      description: Send an object with the user information
+      operationId: createUserUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: user
+          description: user
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: Usuario creado correctamente
+          schema:
+            $ref: '#/definitions/Iterable'
+        '201':
+          description: Usuario creado correctamente
+          schema:
+            $ref: '#/definitions/Iterable'
+        '401':
+          description: No tienes permisos para realizar esta operación
+        '403':
+          description: No tienes permisos para acceder a este recurso
+        '404':
+          description: No se encontro la operación solicitada
+    put:
+      tags:
+        - user-controller
+      summary: Update user
+      description: Send an object with the user information
+      operationId: updateUserUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: user
+          description: user
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: Usuario actualizado correctamente
+          schema:
+            $ref: '#/definitions/User'
+        '201':
+          description: Created
+        '401':
+          description: No tienes permisos para realizar esta operación
+        '403':
+          description: No tienes permisos para acceder a este recurso
+        '404':
+          description: No se encontro la operación solicitada
+  '/user/{id}':
+    delete:
+      tags:
+        - user-controller
+      summary: Delete user
+      description: Send the user id
+      operationId: deteleUserUsingDELETE
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Usuario eliminado correctamente
+          schema:
+            $ref: '#/definitions/User'
+        '204':
+          description: No Content
+        '401':
+          description: No tienes permisos para realizar esta operación
+        '403':
+          description: No tienes permisos para acceder a este recurso
+        '404':
+          description: No se encontro la operación solicitada
+  '/user/{type}/{data}':
+    get:
+      tags:
+        - user-controller
+      summary: Get user
+      description: 'type can be : rut/mail/phone and data should be the param from the selected option <br />Example: /user/rut/18083146'
+      operationId: showUserUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: type
+          in: path
+          description: type
+          required: true
+          type: string
+        - name: data
+          in: path
+          description: data
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Operación exitosa
+          schema:
+            $ref: '#/definitions/User'
+        '401':
+          description: No tienes permisos para realizar esta operación
+        '403':
+          description: No tienes permisos para acceder a este recurso
+        '404':
+          description: No se encontro la operación solicitada
+definitions:
+  User:
+    type: object
+    properties:
+      address:
+        type: array
+        items:
+          $ref: '#/definitions/Address'
+      banks:
+        type: array
+        items:
+          $ref: '#/definitions/BankAccount'
+      birthday:
+        type: string
+        format: date-time
+      businessname:
+        type: string
+      created_at:
+        type: string
+        format: date-time
+      dv:
+        type: string
+      email:
+        type: string
+      email_validated:
+        type: boolean
+      gender:
+        type: string
+      id:
+        type: integer
+        format: int64
+      lastname:
+        type: string
+      name:
+        type: string
+      phone_number:
+        type: integer
+        format: int64
+      phone_number_validated:
+        type: boolean
+      rut:
+        type: integer
+        format: int32
+      rut_validated:
+        type: boolean
+      salt:
+        type: string
+      status:
+        type: integer
+        format: int32
+      type:
+        type: integer
+        format: int32
+      updated_at:
+        type: string
+        format: date-time
+  Address:
+    type: object
+    properties:
+      commune:
+        type: string
+      id:
+        type: integer
+        format: int64
+      number:
+        type: integer
+        format: int32
+      region:
+        type: string
+      street:
+        type: string
+  Iterable:
+    type: object
+  BankAccount:
+    type: object
+    properties:
+      bank_code:
+        type: string
+      bank_name:
+        type: string
+      id:
+        type: integer
+        format: int64
+      name_account:
+        type: string
+      number_account:
+        type: string
+      status:
+        type: boolean
+      type_account:
+        type: integer
+        format: int32
