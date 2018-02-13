@@ -37,7 +37,7 @@ testOpenApiSpecValidity() {
     validationUrl="http://online.swagger.io/validator/debug?url=$specUrl"
 
     echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-    echo "Validating ENV Variables: TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH"
+    echo "Validating ENV Variables: TRAVIS_BRANCH=$TRAVIS_BRANCH, BRANCH=$BRANCH"
     echo "OpenAPI Specification File=$validationUrl"
     echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"    
 
