@@ -174,7 +174,7 @@ paths:
         '201':
           description: OK
           schema:
-            $ref: '#/definitions/User'
+            type: boolean
         '404':
           description: Cliente no existe
         '422':
@@ -226,7 +226,7 @@ paths:
         '201':
           description: OK
           schema:
-            $ref: '#/definitions/User'
+            type: boolean
         '404':
           description: Cliente no existe
         '422':
@@ -257,7 +257,7 @@ paths:
         '201':
           description: OK
           schema:
-            $ref: '#/definitions/User'
+            type: boolean
         '404':
           description: Cliente no existe
   /users/{user_id}/bank_accounts:
