@@ -24,6 +24,8 @@ tags:
     description: Operaciones relacionadas con la dirección física de un cliente
   - name: parámetros
     description: Listas de parámetros inmutables
+  - name: prepago
+    description: Operaciones relacionadas con Prepago Multicaja
 paths:
   /users:
     post:
@@ -229,6 +231,286 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/User'
+        '404':
+          description: Cliente no existe
+  /users/{user_id}/prepaid:
+    get:
+      summary: Indica si el cliente tiene un Prepago Multicaja
+      tags: 
+        - prepago
+      description: |
+        Indica si el cliente tiene un Prepago Multicaja. En caso afirmativo, retorna la tarjeta truncada.
+        
+        * Si el cliente tiene Prepago Multicaja, `has_prepaid_account` será `true`.
+        * `card.timestamps.created_at` indicará la fecha en la que este cliente obtuvo su primera tarjeta de prepago
+        * `card.timestamps.updated_at` indicará la fecha de la última acción de *bloqueo*, *desbloqueo* y *reemisión*.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            required:
+              - has_prepaid_card
+            properties:
+              has_prepaid_card:
+                type: string
+                description: "`true` si el cliente tiene un Prepago Multicaja; `false` en caso contrario"
+                example: true
+              card:
+                $ref: '#/definitions/PrepaidCard'
+        '404':
+          description: Cliente no existe o no tiene un Prepago Multicaja
+  /users/{user_id}/prepaid/issue:
+    post:
+      summary: Emite un Prepago Multicaja
+      tags: 
+        - prepago
+      description: |
+        Asigna una tarjeta Prepago Multicaja a este cliente.
+        
+        **Como requisito para invocar este servicio, el cliente debe tener `name` y `lastname_1` no vacíos, y además cumplir que `(rut.status == "validado_srcei" || rut.status == "validado_tef") && email.status == "validado" && cellphone.stauts == "validado"`**
+        
+        * `initial_balance`: Saldo inicial de la tarjeta
+        * Si el cliente ya tiene un Prepago Multicaja, este servicio retornará `405`
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: body
+          name: initial_balance
+          description: Saldo inicial de la tarjeta en pesos
+          required: true
+          schema:
+            type: integer
+            example: 5000
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PrepaidCard'
+        '404':
+          description: Cliente no existe
+        '405':
+          description: Cliente ya cuenta con un Prepago Multicaja. Si quiere reemitir la tarjeta, use el método reissue.
+  /users/{user_id}/prepaid/balance:
+    get:
+      summary: Retorna el saldo
+      tags: 
+        - prepago
+      description: |
+        Retorna el saldo de la tarjeta
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: integer
+            description: Saldo de la tarjeta
+            example: 3250
+        '404':
+          description: Cliente no existe o no tiene un Prepago Multicaja
+  /users/{user_id}/prepaid/balance/topup:
+    post:
+      summary: Aumenta el saldo
+      tags: 
+        - prepago
+      description: |
+        Aumenta el saldo
+        
+        Retorna el nuevo saldo de la tarjeta y un movimiento con un código de autorización
+        
+        * `topup_amount` corresponde al monto en pesos que se desea recargar
+        * `merchant_transaction_id` corresponde a un identificador de la recarga en el canal. El servicio es idempotente para recargas con el mismo identificador y con idéntico `topup_amount`.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: body
+          name: recarga
+          required: true
+          schema:
+            type: object
+            properties:
+              merchant_transaction_id:
+                type: string
+                description: Identificador único de la recarga en el canal
+                example: "20180315-77685-12"
+              topup_amount:
+                description: Monto de la recarga
+                type: integer
+                example: 5000
+      responses:
+        '201':
+          description: OK
+          schema:
+            type: object
+            properties:
+              balance:
+                type: integer
+                description: Saldo de la tarjeta
+                example: 3250
+              transaction:
+                $ref: '#/definitions/PrepaidTransaction'
+        '404':
+          description: Cliente no existe o no tiene un Prepago Multicaja
+  /users/{user_id}/prepaid/balance/withdraw:
+    post:
+      summary: Genera un retiro
+      tags: 
+        - prepago
+      description: |
+        Disminuye el saldo de la tarjeta
+        
+        Retorna el nuevo saldo de la tarjeta y un movimiento con un código de autorización
+        
+        * `withdrawal_amount` corresponde al monto en pesos que se desea retirar
+        * `merchant_transaction_id` corresponde a un identificador del retiro en el canal. El servicio es idempotente para retiros con el mismo identificador y con idéntico `withdrawal_amount`.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: body
+          name: retiro
+          required: true
+          schema:
+            type: object
+            properties:
+              merchant_transaction_id:
+                type: string
+                description: Identificador único del retiro en el canal
+                example: "20180315-77685-12"
+              withdrawal_amount:
+                description: Monto del retiro
+                type: integer
+                example: 5000
+      responses:
+        '201':
+          description: OK
+          schema:
+            type: object
+            properties:
+              balance:
+                type: integer
+                description: Saldo de la tarjeta
+                example: 3250
+              transaction:
+                $ref: '#/definitions/PrepaidTransaction'
+        '404':
+          description: Cliente no existe o no tiene un Prepago Multicaja
+  /users/{user_id}/prepaid/reissue:
+    post:
+      summary: Reemite la tarjeta de este cliente
+      tags:
+        - prepago
+      description: |
+        Bloquea la tarjeta activa y emite una tarjeta Prepago Multicaja a este cliente.
+        
+        **Para invocar este servicio, el cliente ya debe tener un Prepago Multicaja**
+        
+        La nueva tarjeta es retornada por el servicio.
+        Si el cliente no tiene Prepago Multicaja, el servicio retornará `422`
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+      responses:
+        '201':
+          description: OK
+          schema:
+            $ref: '#/definitions/PrepaidCard'
+        '404':
+          description: Cliente no existe
+        '422':
+          description: Cliente no cuenta con un Prepago Multicaja
+  /users/{user_id}/prepaid/status/lock:
+    post:
+      summary: Bloquea la tarjeta
+      tags:
+        - prepago
+      description: |
+        Bloquea la tarjeta. Si la tarjeta ya está bloqueada, no hace nada.
+        
+        **Para invocar este servicio, el cliente ya debe tener un Prepago Multicaja**
+        
+        Si el cliente no tiene Prepago Multicaja, el servicio retornará `405`
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+      responses:
+        '201':
+          description: OK
+          schema:
+            $ref: '#/definitions/PrepaidCard'
+        '404':
+          description: Cliente no existe
+        '405':
+          description: Cliente no cuenta con un Prepago Multicaja
+  /users/{user_id}/prepaid/status/unlock:
+    post:
+      summary: Desbloquea la tarjeta
+      tags:
+        - prepago
+      description: |
+        Desbloquea la tarjeta. Si la tarjeta ya está activa o expirada, no hace nada.
+        
+        **Para invocar este servicio, el cliente ya debe tener un Prepago Multicaja**
+        
+        Si el cliente no tiene Prepago Multicaja, el servicio retornará `405`
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+      responses:
+        '201':
+          description: OK
+          schema:
+            $ref: '#/definitions/PrepaidCard'
+        '404':
+          description: Cliente no existe
+        '405':
+          description: Cliente no cuenta con un Prepago Multicaja
+  /users/{user_id}/prepaid/transactions:
+    get:
+      summary: Transacciones de la tarjeta
+      tags: 
+        - prepago
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PrepaidTransaction'
         '404':
           description: Cliente no existe
   /users/{user_id}/bank_accounts:
@@ -533,9 +815,11 @@ definitions:
       created_at:
         type: string
         format: date-time
+        example: "2018-01-14T15:27:42.669Z"
       updated_at:
         type: string
         format: date-time
+        example: "2018-03-02T10:03:12.123Z"
   Address:
     type: object
     required:
@@ -599,6 +883,62 @@ definitions:
           Estado de validación de la cuenta
           * no_validada: estado por defecto
           * validada: el usuario hizo una aviso de depósito seguido de una transferencia desde esta cuenta
+      timestamps:
+        $ref: '#/definitions/Timestamps'
+  PrepaidTransaction:
+    type: object
+    required:
+      - auth_code
+      - amount
+      - desc
+    description: Transacción realizada con la tarjeta de prepago
+    properties:
+      auth_code:
+        type: string
+        description: Identificador del movimiento en el procesador
+        example: "88457"
+      amount:
+        type: integer
+        description: Monto del movimiento
+        example: 45737
+      desc:
+        type: string
+        description: Glosa
+        example: "Abono sucursal Web"
+  PrepaidCard:
+    type: object
+    required:
+      - id
+      - pan
+    description: Tarjeta de prepago Visa o Mastercard
+    properties:
+      id:
+        type: integer
+        description: Identificador interno. Sólo viene como la respuesta de la API, nunca se puede enviar como parámetro
+        example: 7783834
+      processor_user_id:
+        type: string
+        description: Identificador del cliente en el procesador
+        example: "2231-9892-781283049685"
+      pan:
+        type: string
+        description: PAN de la tarjeta
+        example: "123456******1234"
+      expiration:
+        type: string
+        description: Fecha de expiración de la tarjeta
+        example: "11/22"
+      status:
+        type: string
+        enum:
+          - activa
+          - bloqueada
+          - expirada
+        description: |
+          Estado de la tarjeta
+          * activa: permite comprar
+          * bloqueada: la tarjeta fue bloqueada por el cliente
+          * expirada: la tarjeta expiró
       timestamps:
         $ref: '#/definitions/Timestamps'
   Param:
