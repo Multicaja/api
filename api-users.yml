@@ -99,6 +99,35 @@ paths:
           description: Cliente no existe
         '422':
           description: Datos inválidos - Revisar error
+  /users/{type}/{data}:
+    get:
+      summary: Retorna un cliente
+      tags: 
+        - clientes
+      description: |
+        Requiere que el cliente especifique que tipo de parametro va a ingresar para la consulta(rut/telefono/email).
+        Ejemplos
+          /users/rut/18083146
+          /users/email/matias.salinas@multicaja.cl
+          /users/cellphone/930569048
+      parameters:
+        - in: path
+          name: type
+          description: Tipo de peticion
+          required: true
+          type: "string"
+        - in: path
+          name: data
+          description: Datos de consulta
+          required: true
+          type: "string"
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: Cliente no existe
   /users/{user_id}/mail:
     post:
       summary: Envía un correo electrónico al cliente
