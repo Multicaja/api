@@ -426,7 +426,7 @@ definitions:
       rut:
         $ref: '#/definitions/Rut'
       cellphone:
-        $ref: '#/definitions/Celular'
+        $ref: '#/definitions/CelPhone'
       email:
         $ref: '#/definitions/Email'
       address:
@@ -504,7 +504,7 @@ definitions:
           * validado: el usuario demostró tener acceso a la casilla haciendo clic en un link enviado a ésta
       timestamps:
         $ref: '#/definitions/Timestamps'
-  Celular:
+  CelPhone:
     type: object
     required:
       - value
