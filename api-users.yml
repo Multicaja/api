@@ -4,235 +4,616 @@ info:
   version: '1.0'
   title: REST API
   termsOfService: Terms of service
-  contact:
-    name: Matías Salinas
-    url: 'https://www.multicaja.cl'
-    email: matias.salinas@multicaja.cl
   license:
     name: Apache License Version 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
-host: 'localhost:8085'
-basePath: /
+host: 'api.multicaja.cl'
+basePath: /v1.0/
+consumes:
+  - application/json
+produces:
+  - application/json
 tags:
-  - name: user-controller
-    description: User Controller
+  - name: clientes
+    description: Operaciones directamente con relacionadas un cliente
+  - name: contacto
+    description: Para contactar a un cliente y validar datos de contacto
+  - name: cuentas
+    description: Operaciones relacionadas con las cuentas bancarias de un cliente
+  - name: direcciones
+    description: Operaciones relacionadas con la dirección física de un cliente
+  - name: parámetros
+    description: Listas de parámetros inmutables
 paths:
-  /user/:
+  /users:
     post:
-      tags:
-        - user-controller
-      summary: Create user
-      description: Send an object with the user information
-      operationId: createUserUsingPOST
-      consumes:
-        - application/json
-      produces:
-        - application/json
+      summary: Registra un nuevo cliente
+      tags: 
+        - clientes
+      description: |
+        Requiere al menos los campos mínimos de User. 
+        * Si se incluye `rut.serial_number`, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, `rut.status` pasará a "validado". Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.
+        * Si se intenta crear un usuario con un `rut` que ya ha sido usado, el servicio retornará `405`.
       parameters:
         - in: body
           name: user
-          description: user
+          description: Parámetros del usuario a crear
           required: true
           schema:
             $ref: '#/definitions/User'
       responses:
-        '200':
-          description: Usuario creado correctamente
-          schema:
-            $ref: '#/definitions/Iterable'
         '201':
-          description: Usuario creado correctamente
-          schema:
-            $ref: '#/definitions/Iterable'
-        '401':
-          description: No tienes permisos para realizar esta operación
-        '403':
-          description: No tienes permisos para acceder a este recurso
-        '404':
-          description: No se encontro la operación solicitada
-    put:
-      tags:
-        - user-controller
-      summary: Update user
-      description: Send an object with the user information
-      operationId: updateUserUsingPUT
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: user
-          description: user
-          required: true
+          description: OK
           schema:
             $ref: '#/definitions/User'
-      responses:
-        '200':
-          description: Usuario actualizado correctamente
-          schema:
-            $ref: '#/definitions/User'
-        '201':
-          description: Created
-        '401':
-          description: No tienes permisos para realizar esta operación
-        '403':
-          description: No tienes permisos para acceder a este recurso
-        '404':
-          description: No se encontro la operación solicitada
-  '/user/{id}':
-    delete:
-      tags:
-        - user-controller
-      summary: Delete user
-      description: Send the user id
-      operationId: deteleUserUsingDELETE
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - name: id
-          in: path
-          description: id
-          required: true
-          type: integer
-          format: int32
-      responses:
-        '200':
-          description: Usuario eliminado correctamente
-          schema:
-            $ref: '#/definitions/User'
-        '204':
-          description: No Content
-        '401':
-          description: No tienes permisos para realizar esta operación
-        '403':
-          description: No tienes permisos para acceder a este recurso
-        '404':
-          description: No se encontro la operación solicitada
-  '/user/{type}/{data}':
+        '405':
+          description: El usuario ya existe
+  /users/{user_id}:
     get:
-      tags:
-        - user-controller
-      summary: Get user
-      description: 'type can be : rut/mail/phone and data should be the param from the selected option <br />Example: /user/rut/18083146'
-      operationId: showUserUsingGET
-      consumes:
-        - application/json
-      produces:
-        - application/json
+      summary: Retorna un cliente
+      tags: 
+        - clientes
       parameters:
-        - name: type
-          in: path
-          description: type
+        - in: path
+          name: user_id
+          description: ID del usuario
           required: true
-          type: string
-        - name: data
-          in: path
-          description: data
-          required: true
-          type: string
+          type: "integer"
       responses:
         '200':
-          description: Operación exitosa
+          description: OK
           schema:
             $ref: '#/definitions/User'
-        '401':
-          description: No tienes permisos para realizar esta operación
-        '403':
-          description: No tienes permisos para acceder a este recurso
         '404':
-          description: No se encontro la operación solicitada
+          description: Cliente no existe
+    put:
+      summary: Actualiza un cliente
+      tags: 
+        - clientes
+      description: |
+        Requiere al menos los campos mínimos de User, pero se pueden proporcionar todos los campos que se quiera modificar.
+        **Sólo incluir los campos mínimnos y los que se desee modificar**
+        * Pese a que el rut es requerido, no es modificable. Si se proporciona un RUT distinto al del cliente, el servicio retornará `422`
+        * El campo `celular.value` no se podrá modificar si el `celular.status == "validado"`. Si se intenta modificar en este caso, el servicio retornará `422`
+        * El campo `email.value` no se podrá modificar si el `email.status == "validado"`. Si se intenta modificar en este caso, el servicio retornará `422`
+        * Si se incluye `rut.serial_number`, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, `rut.status` pasará a "validado". Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.
+        * Los campos `gender`, `birthday`, `name`, `lastname_1` y `lastname_2` siempre se pueden modificar
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: body
+          name: user
+          description: Parámetros a modificar
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: Cliente no existe
+        '422':
+          description: Datos inválidos - Revisar error
+  /users/{user_id}/mail:
+    post:
+      summary: Envía un correo electrónico al cliente
+      tags: 
+        - contacto
+      description: |
+        Permite mandar una comunicación al cliente
+        **Sólo incluir `address` si el usuario ya tiene correo e intenta cambiarlo**
+        * Si el `template` requiere datos mínimos, debe incluirse estos datos en formato JSON mediante el campo `template_data`
+        * Si el `template` incluye un link para que el usuario haga click, el campo `user_callback_uri` no podrá estar vacío. En caso contrario, el servicio retornará `422`.
+        * Si se incluye `user_callback_uri` y el usuario hace clic en el link, el sistema actualizará automáticamente a `validado` el campo `email.status` del Cliente. Esto se logra incluyendo en el correo un link a una URI temporal que realiza el cambio y luego redirige a `user_callback_uri`.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: body
+          name: mail
+          description: Correo electrónico a enviar
+          required: true
+          schema:
+            type: object
+            required: 
+              - template
+            properties:
+              template:
+                type: string
+                description: Tipo de correo electrónico a enviar
+                example: "Prepago/ValidacionCorreo"
+              template_data:
+                type: string
+                description: JSON con tantos pares llave-valor como requiera el template del correo a enviar
+                example: "{'saludo': 'Estimado Pepito', 'despedida': 'Chao!'}"
+              user_callback_uri:
+                type: string
+                description: Link que incluirá el correo si el `template` lo soporta
+                example: "https://www.multicaja.cl/prepago/registro?u=3242343"
+              address:
+                type: string
+                description: Correo electrónico al que se enviará este mensaje. Si no se incluye este campo, se usará el campo `email.value`  del Cliente.
+                example: "pepito@gmail.com"
+      responses:
+        '201':
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: Cliente no existe
+        '422':
+          description: Datos inválidos - Revisar error
+  /users/{user_id}/sms:
+    post:
+      summary: Envía un sms al cliente
+      tags: 
+        - contacto
+      description: |
+        Permite mandar un mensaje por sms al cliente
+        **Sólo incluir `cellphone` si el usuario ya tiene celular e intenta cambiarlo**
+        * Si el `template` requiere datos mínimos, debe incluirse estos datos en formato JSON mediante el campo `template_data`
+        * Si el cliente indica no haber recibido el sms, reintente el envío cambiando `gateway` por `"secondary"`
+        * No intente enviar códigos de validación a mano. Use un `template` que lo soporte.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: body
+          name: mail
+          description: SMS a enviar
+          required: true
+          schema:
+            type: object
+            required: 
+              - template
+            properties:
+              template:
+                type: string
+                description: Tipo de sms a enviar
+                example: "Prepago/ValidacionCelular"
+              gateway:
+                type: string
+                enum:
+                  - primary
+                  - secondary
+                description: |
+                  Gateway por el que se enviará el SMS
+                  * primary: Gateway primaria (default)
+                  * secondary: Gateway secundaria, usar sólo si el cliente dice no haber recibido el SMS
+              cellphone:
+                type: string
+                description: Celular al que se enviará este mensaje. Corresponde a los 9 números que siguen a '+56'.  Si no se incluye este campo, se usará el campo `cellphone.value`  del Cliente.
+                example: "912345678"
+      responses:
+        '201':
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: Cliente no existe
+        '422':
+          description: Datos inválidos - Revisar error
+    put:
+      summary: Valida un código enviado por sms al cliente
+      tags: 
+        - contacto
+      description: |
+        Valida un código enviado mediante POST a `/users/{user_id}/sms`
+        
+        * Sólo invocar este método para validar celular si se ha enviado previamente un código por SMS haciendo POST a `/users/{user_id}/sms`
+        * Dependiendo del template usado en el POST a `/users/{user_id}/sms`, esta llamada podría cambiar `cellphone.status` a `"validado"`. Esto ocurrirá sólo si el código proporcionado corresponde al que fue enviado al celular`.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: body
+          name: sms_code
+          description: Código ingresado por el cliente
+          required: true
+          schema:
+            type: integer
+            example: "123456"
+      responses:
+        '201':
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: Cliente no existe
+  /users/{user_id}/bank_accounts:
+    get:
+      summary: Retorna las cuentas bancarias de este cliente
+      tags: 
+        - cuentas
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+      responses:
+        '201':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/BankAccount'
+        '404':
+          description: Cliente no existe
+    post:
+      summary: Asocia una nueva cuenta bancaria a este cliente
+      tags: 
+        - cuentas
+      description: |
+        Crea una nueva cuenta bancaria para este cliente
+        
+        * La terna (`account.bank_id`, `account.acc_type`, `account.acc_number`) debe ser única para este usuario. De lo contrario, el servicio retornará `405`
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: body
+          name: account
+          description: Cuenta bancaria
+          required: true
+          schema:
+            $ref: '#/definitions/BankAccount'
+      responses:
+        '201':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/BankAccount'
+        '404':
+          description: Cliente no existe
+        '405':
+          description: La cuenta ya existe
+  /users/{user_id}/bank_accounts/{acc_id}:
+    delete:
+      summary: Elimina la cuenta del cliente
+      tags: 
+        - cuentas
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: path
+          name: acc_id
+          description: ID de la cuenta
+          required: true
+          type: "integer"
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Cliente o Cuenta no existen
+  /users/{user_id}/addresses:
+    get:
+      summary: Retorna las direcciones de este cliente
+      tags: 
+        - direcciones
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+      responses:
+        '201':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Address'
+        '404':
+          description: Cliente no existe
+    post:
+      summary: Asocia una nueva dirección a este cliente
+      tags: 
+        - direcciones
+      description: |
+        Crea una nueva dirección para este cliente
+        
+        * La terna (`address.line_1`, `address.commune`, `address.region`) debe ser única para este usuario. De lo contrario, el servicio retornará `405`
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: body
+          name: address
+          description: Dirección
+          required: true
+          schema:
+            $ref: '#/definitions/Address'
+      responses:
+        '201':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Address'
+        '404':
+          description: Cliente no existe
+        '405':
+          description: La dirección ya existe
+  /users/{user_id}/addresses/{addr_id}:
+    delete:
+      summary: Elimina la dirección del cliente
+      tags: 
+        - direcciones
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: path
+          name: addr_id
+          description: ID de la dirección
+          required: true
+          type: "integer"
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Cliente o Dirección no existen
+  /params/banks:
+    get:
+      summary: Retorna la lista de todos los bancos
+      tags: 
+        - parámetros
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Param'
+  /params/communes:
+    get:
+      summary: Retorna la lista de todas las comunas
+      tags: 
+        - parámetros
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Param'
+  /params/regions:
+    get:
+      summary: Retorna la lista de todas las regiones
+      tags: 
+        - parámetros
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Param'
 definitions:
   User:
     type: object
+    description: Cliente persona natural
+    required:
+      - rut
+      - email
     properties:
+      id:
+        type: integer
+        description: Identificador interno. Sólo viene como la respuesta de la API, nunca se puede enviar como parámetro
+        example: 7783834
+      rut:
+        $ref: '#/definitions/Rut'
+      cellphone:
+        $ref: '#/definitions/Celular'
+      email:
+        $ref: '#/definitions/Email'
       address:
-        type: array
-        items:
-          $ref: '#/definitions/Address'
-      banks:
-        type: array
-        items:
-          $ref: '#/definitions/BankAccount'
+        $ref: '#/definitions/Address'
+      name:
+        type: string
+        description: Nombre o nombres de pila
+        example: "Juan Carlos"
+      lastname_1:
+        type: string
+        description: Apellido paterno
+        example: "López"
+      lastname_2:
+        type: string
+        description: Apellido materno
+        example: "Carrasco"
+      gender:
+        type: string
+        enum: ["M", "F", "N"]
+        description: |
+          Sexo de la persona
+          * M: Masculino
+          * F: Femenino
+          * N: Otro / prefiere no responder
       birthday:
         type: string
-        format: date-time
-      businessname:
+        format: date
+        description: Fecha de nacimiento
+        example: "1977-1-14"
+      timestamps:
+        $ref: '#/definitions/Timestamps'
+  Rut:
+    type: object
+    required:
+      - value
+    properties:
+      value:
+        type: integer
+        format: int32
+        description: El rut sin puntos, guión, ni dígito verificador
+        minimum: 1
+        maximum: 50000000
+      status:
         type: string
+        enum:
+          - no_validado
+          - validado_srcei
+          - validado_tef
+        description: |
+          Estado de validación del rut
+          * no_validado: el rut no ha sido validado o las validaciones no han sido exitosas
+          * validado_srcei: el rut fue validado exitosamente contra el registro civil
+          * validado_tef: la validación más fuerte, ya que el usuario ha realizado un aviso de depósito seguido de una transferencia desde una cuenta correspondiente a su rut
+      timestamps:
+        $ref: '#/definitions/Timestamps'
+  Email:
+    type: object
+    required:
+      - value
+    properties:
+      value:
+        type: string
+        format: email
+        example: "pepito@gmail.com"
+      status:
+        type: string
+        enum:
+          - no_validado
+          - en_proceso_de_validacion
+          - validado
+        description: |
+          Estado de validación del email
+          * no_validado: el email no ha sido validado
+          * en_proceso_de_validacion: se ha enviado al menos un correo de validación, pero el usuario no ha hecho clic en el link
+          * validado: el usuario demostró tener acceso a la casilla haciendo clic en un link enviado a ésta
+      timestamps:
+        $ref: '#/definitions/Timestamps'
+  Celular:
+    type: object
+    required:
+      - value
+    properties:
+      value:
+        type: string
+        description: Los 9 números que siguen a '+56'
+        example: "912345678"
+      status:
+        type: string
+        enum:
+          - no_validado
+          - en_proceso_de_validacion
+          - validado
+        description: |
+          Estado de validación del celular
+          * no_validado: el celular no ha sido validado
+          * en_proceso_de_validacion: se ha enviado al menos un sms de validación, pero el usuario no ha usado el código
+          * validado: el usuario demostró tener acceso al celular usando el código enviado a éste
+      timestamps:
+        $ref: '#/definitions/Timestamps'
+  Timestamps:
+    type: object
+    description: Fecha de creación y de última modificación. Sólo vienen en la respuesta de la API, nunca se pueden enviar como parámetro
+    properties:
       created_at:
         type: string
         format: date-time
-      dv:
-        type: string
-      email:
-        type: string
-      email_validated:
-        type: boolean
-      gender:
-        type: string
-      id:
-        type: integer
-        format: int64
-      lastname:
-        type: string
-      name:
-        type: string
-      phone_number:
-        type: integer
-        format: int64
-      phone_number_validated:
-        type: boolean
-      rut:
-        type: integer
-        format: int32
-      rut_validated:
-        type: boolean
-      salt:
-        type: string
-      status:
-        type: integer
-        format: int32
-      type:
-        type: integer
-        format: int32
       updated_at:
         type: string
         format: date-time
   Address:
     type: object
+    required:
+      - line_1
     properties:
-      commune:
-        type: string
       id:
         type: integer
-        format: int64
-      number:
+        description: Identificador interno. Sólo viene como la respuesta de la API, nunca se puede enviar como parámetro
+        example: 7783834
+      line_1:
+        type: string
+        description: Lo que se une a región y comuna para determinar el código postal
+        example: Suecia 1414
+      line_2:
+        type: string
+        description: Información adicional como número de departamento. No afecta el código postal.
+        example: Depto 502
+      region_id:
         type: integer
-        format: int32
-      region:
+        example: 13
+        description: ID de la comuna (ver /params/regions)
+      commune_id:
+        type: integer
+        example: 230
+        description: ID de la comuna (ver /params/communes)
+      postal_code:
         type: string
-      street:
-        type: string
-  Iterable:
-    type: object
+        description: Identificador de (`address.line_1`, `address.commune`, `address.region`)
+        example: 7710787
   BankAccount:
     type: object
+    required:
+      - bank_id
+      - acc_type
+      - acc_number
     properties:
-      bank_code:
-        type: string
-      bank_name:
-        type: string
       id:
         type: integer
-        format: int64
-      name_account:
-        type: string
-      number_account:
-        type: string
-      status:
-        type: boolean
-      type_account:
+        description: Identificador interno. Sólo viene como la respuesta de la API, nunca se puede enviar como parámetro
+        example: 7783834
+      bank_id:
         type: integer
-        format: int32
+        description: ID del banco (revisar /params/banks)
+        example: 4
+      acc_type:
+        type: string
+        description: Tipo de cuenta
+        enum:
+          - vista
+          - corriente
+          - ahorro
+      acc_number:
+        type: string
+        description: Número de cuenta sin puntos, guiones, ni ceros a la izquierda
+      status:
+        type: string
+        enum:
+          - no_validada
+          - validada
+        description: |
+          Estado de validación de la cuenta
+          * no_validada: estado por defecto
+          * validada: el usuario hizo una aviso de depósito seguido de una transferencia desde esta cuenta
+      timestamps:
+        $ref: '#/definitions/Timestamps'
+  Param:
+    type: object
+    required:
+      - id
+      - value
+    description: Parámetro básico
+    properties:
+      id:
+        type: integer
+        description: identificador del parámetro
+      value:
+        type: string
+        description: nombre del parámetro
+      desc:
+        type: string
+        description: descripción del parámetro
