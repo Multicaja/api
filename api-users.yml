@@ -101,6 +101,35 @@ paths:
           description: Cliente no existe
         '422':
           description: Datos inválidos - Revisar error
+  /users/find:
+    get:
+      summary: Retorna un cliente
+      tags: 
+        - clientes
+      description: |
+        Requiere que el cliente especifique que tipo de parametro va a ingresar para la consulta(rut/telefono/email).
+      parameters:
+        - name: "type"
+          in: "query"
+          description: "Tipo de busqueda (rut/mail/cellphone)"
+          required: true
+          type: "string"
+          enum:
+            - rut
+            - email
+            - cellphone
+        - name: "data"
+          in: "query"
+          description: "texto de busqueda por ejemplo en caso de rut 18083146"
+          required: true
+          type: "string"
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: Cliente no existe
   /users/{user_id}/mail:
     post:
       summary: Envía un correo electrónico al cliente
@@ -147,7 +176,7 @@ paths:
         '201':
           description: OK
           schema:
-            $ref: '#/definitions/User'
+            type: boolean
         '404':
           description: Cliente no existe
         '422':
@@ -199,7 +228,7 @@ paths:
         '201':
           description: OK
           schema:
-            $ref: '#/definitions/User'
+            type: boolean
         '404':
           description: Cliente no existe
         '422':
@@ -230,7 +259,7 @@ paths:
         '201':
           description: OK
           schema:
-            $ref: '#/definitions/User'
+            type: boolean
         '404':
           description: Cliente no existe
   /users/{user_id}/prepaid:
@@ -708,7 +737,7 @@ definitions:
       rut:
         $ref: '#/definitions/Rut'
       cellphone:
-        $ref: '#/definitions/Celular'
+        $ref: '#/definitions/CellPhone'
       email:
         $ref: '#/definitions/Email'
       address:
@@ -786,7 +815,7 @@ definitions:
           * validado: el usuario demostró tener acceso a la casilla haciendo clic en un link enviado a ésta
       timestamps:
         $ref: '#/definitions/Timestamps'
-  Celular:
+  CellPhone:
     type: object
     required:
       - value
