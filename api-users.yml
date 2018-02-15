@@ -101,26 +101,26 @@ paths:
           description: Cliente no existe
         '422':
           description: Datos inválidos - Revisar error
-  /users/{type}/{data}:
+  /users/find:
     get:
       summary: Retorna un cliente
       tags: 
         - clientes
       description: |
         Requiere que el cliente especifique que tipo de parametro va a ingresar para la consulta(rut/telefono/email).
-        Ejemplos
-          /users/rut/18083146
-          /users/email/matias.salinas@multicaja.cl
-          /users/cellphone/930569048
       parameters:
-        - in: path
-          name: type
-          description: Tipo de peticion
+        - name: "type"
+          in: "query"
+          description: "Tipo de busqueda (rut/mail/cellphone)"
           required: true
           type: "string"
-        - in: path
-          name: data
-          description: Datos de consulta
+          enum:
+            - rut
+            - email
+            - cellphone
+        - name: "data"
+          in: "query"
+          description: "texto de busqueda por ejemplo en caso de rut 18083146"
           required: true
           type: "string"
       responses:
@@ -737,7 +737,7 @@ definitions:
       rut:
         $ref: '#/definitions/Rut'
       cellphone:
-        $ref: '#/definitions/CelPhone'
+        $ref: '#/definitions/CellPhone'
       email:
         $ref: '#/definitions/Email'
       address:
@@ -815,7 +815,7 @@ definitions:
           * validado: el usuario demostró tener acceso a la casilla haciendo clic en un link enviado a ésta
       timestamps:
         $ref: '#/definitions/Timestamps'
-  CelPhone:
+  CellPhone:
     type: object
     required:
       - value
