@@ -33,9 +33,12 @@ paths:
       tags: 
         - clientes
       description: |
-        Requiere al menos los campos mínimos de User. 
+        Requiere al menos los campos mínimos de User: rut y correo.
+        * Si se intenta crear un usuario con un `rut` o un `email` que ya ha sido usado, el servicio retornará `405`.
         * Si se incluye `rut.serial_number`, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, `rut.status` pasará a "validado". Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.
-        * Si se intenta crear un usuario con un `rut` que ya ha sido usado, el servicio retornará `405`.
+        
+        ## Buenas prácticas
+        * Cuando registre un nuevo cliente, búsquelo primero por `rut` y luego por `email` usando el método `/users/find`
       parameters:
         - in: body
           name: user
@@ -74,12 +77,18 @@ paths:
         - clientes
       description: |
         Requiere al menos los campos mínimos de User, pero se pueden proporcionar todos los campos que se quiera modificar.
-        **Sólo incluir los campos mínimnos y los que se desee modificar**
+        
         * Pese a que el rut es requerido, no es modificable. Si se proporciona un RUT distinto al del cliente, el servicio retornará `422`
-        * El campo `celular.value` no se podrá modificar si el `celular.status == "validado"`. Si se intenta modificar en este caso, el servicio retornará `422`
-        * El campo `email.value` no se podrá modificar si el `email.status == "validado"`. Si se intenta modificar en este caso, el servicio retornará `422`
+        * No se podrá modificar `email.value` si cliente no tiene clave. Si se intenta modificar un email de un cliente que no tiene clave, el servicio retornará `422`.
+        * No se podrá modificar `email.value` si `email.status == "validado"`. Si se intenta modificar un email validado a través de este método, el servicio retornará `422`. Para modificar un correo validado, se debe usar los métodos de la URL `/user/{user_id}/mail`
+        * No se podrá modificar `cellphone.value` si `celular.status == "validado"`. Si se intenta modificar un celular validado a través de este método, el servicio retornará `422`. Para modificar un celular validado, se debe usar los métodos de la URL `/user/{user_id}/sms`
         * Si se incluye `rut.serial_number`, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, `rut.status` pasará a "validado". Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.
         * Los campos `gender`, `birthday`, `name`, `lastname_1` y `lastname_2` siempre se pueden modificar
+        
+        ## Buenas prácticas
+        * Sólo envíe los campos mínimos y los que se desee modificar. Por ejemplo, para cambiar el nombre, sólo incluya `rut.value`, `email.value` y `name`. Para validar la cédula contra el SRCeI, sólo incluya `rut.value`, `email.value` y `rut.status`.
+        * Si se desea cambiar la clave del cliente, valide la clave anterior en primer lugar
+        
       parameters:
         - in: path
           name: user_id
@@ -107,22 +116,20 @@ paths:
       tags: 
         - clientes
       description: |
-        Requiere que el cliente especifique que tipo de parametro va a ingresar para la consulta(rut/telefono/email).
+        Busca a un cliente por rut, por email o por celular
       parameters:
-        - name: "type"
+        - name: "rut"
           in: "query"
-          description: "Tipo de busqueda (rut/mail/cellphone)"
-          required: true
-          type: "string"
-          enum:
-            - rut
-            - email
-            - cellphone
-        - name: "data"
+          description: "Rut sin puntos ni dígito verificador"
+          type: integer
+        - name: "email"
           in: "query"
-          description: "texto de busqueda por ejemplo en caso de rut 18083146"
-          required: true
-          type: "string"
+          description: "Email"
+          type: string
+        - name: "cellphone"
+          in: "query"
+          description: "Celular (9 dígitos)"
+          type: string
       responses:
         '200':
           description: OK
@@ -136,11 +143,13 @@ paths:
       tags: 
         - contacto
       description: |
-        Permite mandar una comunicación al cliente
-        **Sólo incluir `address` si el usuario ya tiene correo e intenta cambiarlo**
-        * Si el `template` requiere datos mínimos, debe incluirse estos datos en formato JSON mediante el campo `template_data`
-        * Si el `template` incluye un link para que el usuario haga click, el campo `user_callback_uri` no podrá estar vacío. En caso contrario, el servicio retornará `422`.
-        * Si se incluye `user_callback_uri` y el usuario hace clic en el link, el sistema actualizará automáticamente a `validado` el campo `email.status` del Cliente. Esto se logra incluyendo en el correo un link a una URI temporal que realiza el cambio y luego redirige a `user_callback_uri`.
+        Permite mandar una comunicación o correo de validación al cliente
+
+        * `template_data` debe incluirse si el `template` requiere datos mínimos. Los datos deben ir en formato JSON. En caso contrario, el servicio retornará `422`.
+        * `user_callback_uri` debe incluirse si el `template` incluye un link para que el usuario haga click. En caso contrario, el servicio retornará `422`.
+        * Si se incluye `user_callback_uri`, no se incluye `address`, y el usuario hace clic en el link que indica el correo, el sistema actualizará automáticamente a `validado` el campo `email.status` del Cliente. Esto se logra incluyendo en el correo un link a una URI temporal que realiza el cambio y luego redirige a `user_callback_uri`.
+        * `address` permite cambiar el correo electrónico cuando el cliente tiene un correo validado. Si se incluye tanto `user_callback_uri`  como `address`, y el usuario hace clic en el link que indica el correo, el sistema cambiará automáticamente el correo del cliente a la dirección que indica `address` y lo dejará como `validado`. 
+        * La validación de correos se logra incluyendo en el correo un link a una URI temporal que realiza el cambio de estatus y luego redirige a `user_callback_uri`.
       parameters:
         - in: path
           name: user_id
@@ -740,8 +749,10 @@ definitions:
         $ref: '#/definitions/CellPhone'
       email:
         $ref: '#/definitions/Email'
-      address:
-        $ref: '#/definitions/Address'
+      clave:
+        type: string
+        description: Clave de autenticación de 4 dígitos. Campo write-only.
+        example: 8922
       name:
         type: string
         description: Nombre o nombres de pila
@@ -767,6 +778,8 @@ definitions:
         format: date
         description: Fecha de nacimiento
         example: "1977-1-14"
+      address:
+        $ref: '#/definitions/Address'
       timestamps:
         $ref: '#/definitions/Timestamps'
   Rut:
@@ -780,6 +793,10 @@ definitions:
         description: El rut sin puntos, guión, ni dígito verificador
         minimum: 1
         maximum: 50000000
+      serial_number:
+        type: string
+        description: Número de serie o número de documento. Éste es un campo write-only.
+        example: "A026582309"
       status:
         type: string
         enum:
