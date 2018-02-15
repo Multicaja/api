@@ -703,6 +703,12 @@ paths:
       summary: Retorna la lista de todas las comunas
       tags: 
         - parámetros
+      parameters:
+        - name: "region"
+          in: "query"
+          description: "id de region para busqueda"
+          required: false
+          type: "integer"
       responses:
         '200':
           description: OK
@@ -780,6 +786,10 @@ definitions:
         description: El rut sin puntos, guión, ni dígito verificador
         minimum: 1
         maximum: 50000000
+      dv:
+        type: string
+        description: digito verificador
+        maxLength: 1
       status:
         type: string
         enum:
