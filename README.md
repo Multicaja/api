@@ -2,7 +2,7 @@
  
 ## API Multicaja Digital
 
-Acá iremos trabajando las APIs para los proyectos Multicaja.cl, prepago, etc. Se desarrollarán utilizando el estándar [OpenAPI] (https://github.com/OAI/OpenAPI-Specification/blob/master/README.md) 
+Este proyecto documenta las APIs que Multicaja expone al público y a sus propios canales. El documento sigue el estándar [OpenAPI] (https://github.com/OAI/OpenAPI-Specification/blob/master/README.md)
 
 ### Buenas prácticas
 
@@ -10,7 +10,7 @@ Sigamos las buenas prácticas que indica [este post](http://www.vinaysahni.com/b
 
 ### Seguridad
 
-Sigamos las recomendaciones que OWASP indica [aquí](https://www.owasp.org/index.php/REST_Security_Cheat_Sheet) para los temas de seguirdad de nuestra API
+Para la implementación de las APIs, seguiremos las recomendaciones que OWASP indica [aquí](https://www.owasp.org/index.php/REST_Security_Cheat_Sheet)
 
 ### Forma de colaborar
 
