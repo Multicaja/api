@@ -786,6 +786,10 @@ definitions:
         description: El rut sin puntos, guión, ni dígito verificador
         minimum: 1
         maximum: 50000000
+      dv:
+        type: string
+        description: digito verificador
+        maxLength: 1
       status:
         type: string
         enum:
