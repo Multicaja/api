@@ -8,6 +8,10 @@ Acá iremos trabajando las APIs para los proyectos Multicaja.cl, prepago, etc. S
 
 Sigamos las buenas prácticas que indica [este post](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api) para crear nuestra API.
 
+### Seguridad
+
+Sigamos las recomendaciones que OWASP indica [aquí](https://www.owasp.org/index.php/REST_Security_Cheat_Sheet) para los temas de seguirdad de nuestra API
+
 ### Forma de colaborar
 
-Por el momento haremos commits directo a *master*. Cuando tengamos las primeras versiones estables, nos quitamos permisos y trabajaremos con *pull request*
+Trabajaremos con *pull request*
