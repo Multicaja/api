@@ -712,6 +712,12 @@ paths:
       summary: Retorna la lista de todas las comunas
       tags: 
         - parámetros
+      parameters:
+        - name: "region"
+          in: "query"
+          description: "id de region para busqueda"
+          required: false
+          type: "integer"
       responses:
         '200':
           description: OK
@@ -797,6 +803,10 @@ definitions:
         type: string
         description: Número de serie o número de documento. Éste es un campo write-only.
         example: "A026582309"
+      dv:
+        type: string
+        description: digito verificador
+        maxLength: 1
       status:
         type: string
         enum:
