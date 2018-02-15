@@ -704,7 +704,7 @@ paths:
       tags: 
         - parámetros
       parameters:
-        - name: "type"
+        - name: "region"
           in: "query"
           description: "id de region para busqueda"
           required: false
