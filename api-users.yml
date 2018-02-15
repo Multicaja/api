@@ -703,6 +703,12 @@ paths:
       summary: Retorna la lista de todas las comunas
       tags: 
         - parámetros
+      parameters:
+        - name: "type"
+          in: "query"
+          description: "id de region para busqueda"
+          required: false
+          type: "integer"
       responses:
         '200':
           description: OK
