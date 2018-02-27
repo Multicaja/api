@@ -33,12 +33,17 @@ paths:
       tags: 
         - clientes
       description: |
-        Requiere al menos los campos mínimos de User: rut y correo.
-        * Si se intenta crear un usuario con un `rut` o un `email` que ya ha sido usado, el servicio retornará `405`.
-        * Si se incluye `rut.serial_number`, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, `rut.status` pasará a "validado". Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.
+        Registra a un nuevo cliente. 
+        ### Notas
+        * Requiere al menos los campos mínimos de User: rut y correo.
+        * El servicio también funcionará con el `rut` de un cliente existente con `globalStatus` `"pre-registro"`.
+        * Si se intenta crear un usuario con un `rut` o un `email` que ya ha sido usado y con `globalStatus` distinto de `"pre-registro"`, el servicio retornará `405`.
+        * `clave` debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de `rut.value`
+        * Si se incluye el campo `clave`, `globalStatus` cambiará a `"activo"`
+        * Si se incluye `rut.serial_number`, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, `rut.status` pasará a "validado". Si la validación no fuera exitosa, `rut.status` cambiará a (o seguirá siendo) "no validado". Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.
         
-        ## Buenas prácticas
-        * Cuando registre un nuevo cliente, búsquelo primero por `rut` y luego por `email` usando el método `/users/find`
+        ### Recomendaciones
+        * Dado que el servicio no funciona si el `rut` o el `email` ya han sido usados (a menos que pertenezcan a un cliente con `globalStatus` `"pre-registro"`), debería buscarlo primero por `rut` y luego por `email` usando el método `/users/find`
       parameters:
         - in: body
           name: user
@@ -55,9 +60,13 @@ paths:
           description: El usuario ya existe
   /users/{user_id}:
     get:
-      summary: Retorna un cliente
+      summary: Retorna un cliente.
       tags: 
         - clientes
+      description: |
+        Lee los datos de un cliente.
+        ### Notas
+        * Incluye los objetos `rut`, `email` y `cellphone`
       parameters:
         - in: path
           name: user_id
@@ -76,16 +85,19 @@ paths:
       tags: 
         - clientes
       description: |
-        Requiere al menos los campos mínimos de User, pero se pueden proporcionar todos los campos que se quiera modificar.
+        Modifica los datos de un cliente
         
-        * Pese a que el rut es requerido, no es modificable. Si se proporciona un RUT distinto al del cliente, el servicio retornará `422`
+        ### Notas
+        * Pese a que el rut es requerido, no es modificable. Si se proporciona un RUT distinto al del cliente `{user_id}`, el servicio retornará `422`
+        * `clave` debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de `rut.value`
+        * Si se incluye el campo `clave` y `globalStatus` era `"pre-registro"`, `globalStatus` cambiará a `"activo"`
         * No se podrá modificar `email.value` si cliente no tiene clave. Si se intenta modificar un email de un cliente que no tiene clave, el servicio retornará `422`.
-        * No se podrá modificar `email.value` si `email.status == "validado"`. Si se intenta modificar un email validado a través de este método, el servicio retornará `422`. Para modificar un correo validado, se debe usar los métodos de la URL `/user/{user_id}/mail`
-        * No se podrá modificar `cellphone.value` si `celular.status == "validado"`. Si se intenta modificar un celular validado a través de este método, el servicio retornará `422`. Para modificar un celular validado, se debe usar los métodos de la URL `/user/{user_id}/sms`
-        * Si se incluye `rut.serial_number`, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, `rut.status` pasará a "validado". Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.
-        * Los campos `gender`, `birthday`, `name`, `lastname_1` y `lastname_2` siempre se pueden modificar
+        * No se podrá modificar `email.value` si `email.status == "validado"`. Si se intenta modificar un email validado a través de este método, el servicio retornará `422`. Para modificar un correo validado, se debe usar los métodos de la URL `/user/{user_id}/mail`. La excepción a esta regla son los clientes con `globalStatus == "pre-registro"`. Si se intenta modificar un email validado de un cliente "pre-registro", la modificación tendrá éxito y `email.status` pasará a ser `"no validado"`.
+        * No se podrá modificar `cellphone.value` si `celular.status == "validado"`. Si se intenta modificar un celular validado a través de este método, el servicio retornará `422`. Para modificar un celular validado, se debe usar los métodos de la URL `/user/{user_id}/sms`. La excepción a esta regla son los clientes con `globalStatus == "pre-registro"`. Si se intenta modificar un celular validado de un cliente "pre-registro", la modificación tendrá éxito y `celular.status` pasará a ser `"no validado"`.
+        * Si se incluye `rut.serial_number`, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, `rut.status` pasará a "validado". Si la validación no fuera exitosa, `rut.status` cambiará a (o seguirá siendo) "no validado". Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.
+        * Los campos `gender`, `birthday`, `name`, `lastname_1` y `lastname_2` no tienen restricciones de modificación
         
-        ## Buenas prácticas
+        ### Recomendaciones
         * Sólo envíe los campos mínimos y los que se desee modificar. Por ejemplo, para cambiar el nombre, sólo incluya `rut.value`, `email.value` y `name`. Para validar la cédula contra el SRCeI, sólo incluya `rut.value`, `email.value` y `rut.status`.
         * Si se desea cambiar la clave del cliente, valide la clave anterior en primer lugar
         
@@ -143,8 +155,9 @@ paths:
       tags: 
         - contacto
       description: |
-        Permite mandar una comunicación o correo de validación al cliente
+        Envía una comunicación o correo de validación al cliente
 
+        ### Notas
         * `template_data` debe incluirse si el `template` requiere datos mínimos. Los datos deben ir en formato JSON. En caso contrario, el servicio retornará `422`.
         * `user_callback_uri` debe incluirse si el `template` incluye un link para que el usuario haga click. En caso contrario, el servicio retornará `422`.
         * Si se incluye `user_callback_uri`, no se incluye `address`, y el usuario hace clic en el link que indica el correo, el sistema actualizará automáticamente a `validado` el campo `email.status` del Cliente. Esto se logra incluyendo en el correo un link a una URI temporal que realiza el cambio y luego redirige a `user_callback_uri`.
@@ -197,6 +210,7 @@ paths:
         - contacto
       description: |
         Permite mandar un mensaje por sms al cliente
+        ### Notas
         **Sólo incluir `cellphone` si el usuario ya tiene celular e intenta cambiarlo**
         * Si el `template` requiere datos mínimos, debe incluirse estos datos en formato JSON mediante el campo `template_data`
         * Si el cliente indica no haber recibido el sms, reintente el envío cambiando `gateway` por `"secondary"`
@@ -248,7 +262,7 @@ paths:
         - contacto
       description: |
         Valida un código enviado mediante POST a `/users/{user_id}/sms`
-        
+        ### Notas
         * Sólo invocar este método para validar celular si se ha enviado previamente un código por SMS haciendo POST a `/users/{user_id}/sms`
         * Dependiendo del template usado en el POST a `/users/{user_id}/sms`, esta llamada podría cambiar `cellphone.status` a `"validado"`. Esto ocurrirá sólo si el código proporcionado corresponde al que fue enviado al celular`.
       parameters:
@@ -747,7 +761,7 @@ definitions:
     properties:
       id:
         type: integer
-        description: Identificador interno. Sólo viene como la respuesta de la API, nunca se puede enviar como parámetro
+        description: Identificador interno. Campo read-only.
         example: 7783834
       rut:
         $ref: '#/definitions/Rut'
@@ -786,6 +800,19 @@ definitions:
         example: "1977-1-14"
       address:
         $ref: '#/definitions/Address'
+      globalStatus:
+        type: string
+        enum:
+          - pre-registro
+          - activo
+          - bloqueado
+          - borrado
+        description: |
+          Estado del cliente. Campo read-only.
+          * "pre-registro": cliente no posee clave
+          * "activo": cliente con clave que puede transar
+          * "bloqueado": cuenta temporalmente congelada
+          * "borrado": eliminación lógica del cliente, no admite ningún cambio
       timestamps:
         $ref: '#/definitions/Timestamps'
   Rut:
@@ -801,7 +828,7 @@ definitions:
         maximum: 50000000
       serial_number:
         type: string
-        description: Número de serie o número de documento. Éste es un campo write-only.
+        description: "Número de serie o número de documento. Éste es un campo write-only, por lo que *nunca* vendrá como respuesta de la API"
         example: "A026582309"
       dv:
         type: string
@@ -866,7 +893,7 @@ definitions:
         $ref: '#/definitions/Timestamps'
   Timestamps:
     type: object
-    description: Fecha de creación y de última modificación. Sólo vienen en la respuesta de la API, nunca se pueden enviar como parámetro
+    description: Fecha de creación y de última modificación.  Campo read-only.
     properties:
       created_at:
         type: string
@@ -883,7 +910,7 @@ definitions:
     properties:
       id:
         type: integer
-        description: Identificador interno. Sólo viene como la respuesta de la API, nunca se puede enviar como parámetro
+        description: Identificador interno. Campo read-only.
         example: 7783834
       line_1:
         type: string
@@ -914,7 +941,7 @@ definitions:
     properties:
       id:
         type: integer
-        description: Identificador interno. Sólo viene como la respuesta de la API, nunca se puede enviar como parámetro
+        description: Identificador interno. Campo read-only.
         example: 7783834
       bank_id:
         type: integer
@@ -970,7 +997,7 @@ definitions:
     properties:
       id:
         type: integer
-        description: Identificador interno. Sólo viene como la respuesta de la API, nunca se puede enviar como parámetro
+        description: Identificador interno. Campo read-only.
         example: 7783834
       processor_user_id:
         type: string
