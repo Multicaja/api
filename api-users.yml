@@ -265,6 +265,7 @@ paths:
         ### Notas
         * Sólo invocar este método para validar celular si se ha enviado previamente un código por SMS haciendo POST a `/users/{user_id}/sms`
         * Dependiendo del template usado en el POST a `/users/{user_id}/sms`, esta llamada podría cambiar `cellphone.status` a `"validado"`. Esto ocurrirá sólo si el código proporcionado corresponde al que fue enviado al celular`.
+        * Si el código ingresado no corresponde al que fue enviado al cliente, el servicio retornará `422`.
       parameters:
         - in: path
           name: user_id
@@ -285,6 +286,8 @@ paths:
             type: boolean
         '404':
           description: Cliente no existe
+        '422':
+          description: Código no es válido
   /users/{user_id}/prepaid:
     get:
       summary: Indica si el cliente tiene un Prepago Multicaja
