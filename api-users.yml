@@ -219,7 +219,7 @@ paths:
       description: |
         Permite mandar un mensaje por sms al cliente
         ### Notas
-        **Sólo incluir `cellphone` si el usuario ya tiene celular e intenta cambiarlo**
+        * Sólo incluir `cellphone` si el usuario ya tiene celular e intenta cambiarlo
         * Si el `template` requiere datos mínimos, debe incluirse estos datos en formato JSON mediante el campo `template_data`
         * Si el cliente indica no haber recibido el sms, reintente el envío cambiando `gateway` por `"secondary"`
         * No intente enviar códigos de validación a mano. Use un `template` que lo soporte.
@@ -230,7 +230,7 @@ paths:
           required: true
           type: "integer"
         - in: body
-          name: mail
+          name: sms
           description: SMS a enviar
           required: true
           schema:
