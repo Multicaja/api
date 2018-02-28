@@ -1043,3 +1043,34 @@ definitions:
       desc:
         type: string
         description: descripción del parámetro
+  ErrorObj:
+    type: object
+    required:
+      - code
+    properties:
+      code:
+        type: integer
+        format: int32
+        description: Código que representa el error. No será igual al código HTTP.
+        example: 1024
+      message:
+        type: string
+        description: Descripción corta del error
+        example: "El cliente no pasó la validación"
+      details:
+        type: array
+        items:
+          $ref: '#/definitions/ErrorObjDetail'
+  ErrorObjDetail:
+    type: object
+    description: Cuando el error está compuesto por una lista de sub-errores, vendrán en este arreglo.
+    properties:
+      code:
+        type: integer
+        format: int32
+        description: Código que representa el sub-error
+        example: 227
+      message:
+        type: string
+        description: Descripción del sub-error
+        example: "El nombre no puede estar vacío"
