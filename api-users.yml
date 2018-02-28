@@ -58,6 +58,10 @@ paths:
             $ref: '#/definitions/User'
         '405':
           description: El usuario ya existe
+        '422':
+          description: El Cliente contiene datos inválidos
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/{user_id}:
     get:
       summary: Retorna un cliente.
@@ -121,7 +125,9 @@ paths:
         '404':
           description: Cliente no existe
         '422':
-          description: Datos inválidos - Revisar error
+          description: El Cliente contiene datos inválidos
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/find:
     get:
       summary: Retorna un cliente
@@ -202,7 +208,9 @@ paths:
         '404':
           description: Cliente no existe
         '422':
-          description: Datos inválidos - Revisar error
+          description: El mail contiene datos inválidos
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/{user_id}/sms:
     post:
       summary: Envía un sms al cliente
@@ -255,7 +263,9 @@ paths:
         '404':
           description: Cliente no existe
         '422':
-          description: Datos inválidos - Revisar error
+          description: El sms contiene datos inválidos
+          schema:
+            $ref: '#/definitions/ErrorObj'
     put:
       summary: Valida un código enviado por sms al cliente
       tags: 
@@ -287,7 +297,9 @@ paths:
         '404':
           description: Cliente no existe
         '422':
-          description: Código no es válido
+          description: El código ingresado no es válido
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/{user_id}/prepaid:
     get:
       summary: Indica si el cliente tiene un Prepago Multicaja
@@ -355,6 +367,10 @@ paths:
           description: Cliente no existe
         '405':
           description: Cliente ya cuenta con un Prepago Multicaja. Si quiere reemitir la tarjeta, use el método reissue.
+        '422':
+          description: Hubo un error de validación
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/{user_id}/prepaid/balance:
     get:
       summary: Retorna el saldo
@@ -423,6 +439,10 @@ paths:
                 $ref: '#/definitions/PrepaidTransaction'
         '404':
           description: Cliente no existe o no tiene un Prepago Multicaja
+        '422':
+          description: La recarga contiene datos inválidos
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/{user_id}/prepaid/balance/withdraw:
     post:
       summary: Genera un retiro
@@ -469,6 +489,10 @@ paths:
                 $ref: '#/definitions/PrepaidTransaction'
         '404':
           description: Cliente no existe o no tiene un Prepago Multicaja
+        '422':
+          description: El retiro contiene datos inválidos
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/{user_id}/prepaid/reissue:
     post:
       summary: Reemite la tarjeta de este cliente
@@ -619,6 +643,10 @@ paths:
           description: Cliente no existe
         '405':
           description: La cuenta ya existe
+        '422':
+          description: La cuenta contiene datos inválidos
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/{user_id}/bank_accounts/{acc_id}:
     delete:
       summary: Elimina la cuenta del cliente
@@ -691,6 +719,10 @@ paths:
           description: Cliente no existe
         '405':
           description: La dirección ya existe
+        '422':
+          description: La dirección contiene datos inválidos
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/{user_id}/addresses/{addr_id}:
     delete:
       summary: Elimina la dirección del cliente
