@@ -928,7 +928,7 @@ definitions:
   Email:
     description: Correo Electrónico
     allOf:
-      - $ref: "#/definitions/NewRut"
+      - $ref: "#/definitions/NewEmail"
       - type: object
         required:
           - status
@@ -960,7 +960,7 @@ definitions:
   CellPhone:
     description: Teléfono Celular
     allOf:
-      - $ref: "#/definitions/NewRut"
+      - $ref: "#/definitions/NewCellPhone"
       - type: object
         required:
           - status
