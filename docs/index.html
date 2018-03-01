@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>REST API | API Reference</title>
+    <title>API Multicaja (Alpha) | API Reference</title>
     <link rel="stylesheet" href="stylesheets/foundation.min.css" />
     <link rel="stylesheet" href="stylesheets/spectacle.min.css" />
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -24,16 +24,16 @@
             <a href="#tag-clientes">clientes</a>
             <ul>
               <li>
-                <a href="#operation--users-post"> Registra un nuevo cliente </a>
+                <a href="#operation--users-post"> Crear </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--get"> Retorna un cliente. </a>
+                <a href="#operation--users--user_id--get"> Leer </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--put"> Actualiza un cliente </a>
+                <a href="#operation--users--user_id--put"> Actualizar </a>
               </li>
               <li>
-                <a href="#operation--users-find-get"> Retorna un cliente </a>
+                <a href="#operation--users-find-get"> Buscar </a>
               </li>
             </ul>
           </section>
@@ -41,13 +41,13 @@
             <a href="#tag-contacto">contacto</a>
             <ul>
               <li>
-                <a href="#operation--users--user_id--mail-post"> Envía un correo electrónico al cliente </a>
+                <a href="#operation--users--user_id--mail-post"> Enviar correo </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--sms-post"> Envía un sms al cliente </a>
+                <a href="#operation--users--user_id--sms-post"> Enviar sms </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--sms-put"> Valida un código enviado por sms al cliente </a>
+                <a href="#operation--users--user_id--sms-put"> Validar código sms </a>
               </li>
             </ul>
           </section>
@@ -55,13 +55,13 @@
             <a href="#tag-cuentas">cuentas</a>
             <ul>
               <li>
-                <a href="#operation--users--user_id--bank_accounts-get"> Retorna las cuentas bancarias de este cliente </a>
+                <a href="#operation--users--user_id--bank_accounts-get"> Listar </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--bank_accounts-post"> Asocia una nueva cuenta bancaria a este cliente </a>
+                <a href="#operation--users--user_id--bank_accounts-post"> Crear </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--bank_accounts--acc_id--delete"> Elimina la cuenta del cliente </a>
+                <a href="#operation--users--user_id--bank_accounts--acc_id--delete"> Eliminar </a>
               </li>
             </ul>
           </section>
@@ -69,13 +69,13 @@
             <a href="#tag-direcciones">direcciones</a>
             <ul>
               <li>
-                <a href="#operation--users--user_id--addresses-get"> Retorna las direcciones de este cliente </a>
+                <a href="#operation--users--user_id--addresses-get"> Listar </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--addresses-post"> Asocia una nueva dirección a este cliente </a>
+                <a href="#operation--users--user_id--addresses-post"> Crear </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--addresses--addr_id--delete"> Elimina la dirección del cliente </a>
+                <a href="#operation--users--user_id--addresses--addr_id--delete"> Eliminar </a>
               </li>
             </ul>
           </section>
@@ -83,13 +83,13 @@
             <a href="#tag-par-metros">parámetros</a>
             <ul>
               <li>
-                <a href="#operation--params-banks-get"> Retorna la lista de todos los bancos </a>
+                <a href="#operation--params-banks-get"> Lista bancos </a>
               </li>
               <li>
-                <a href="#operation--params-communes-get"> Retorna la lista de todas las comunas </a>
+                <a href="#operation--params-communes-get"> Lista comunas </a>
               </li>
               <li>
-                <a href="#operation--params-regions-get"> Retorna la lista de todas las regiones </a>
+                <a href="#operation--params-regions-get"> Lista regiones </a>
               </li>
             </ul>
           </section>
@@ -97,31 +97,31 @@
             <a href="#tag-prepago">prepago</a>
             <ul>
               <li>
-                <a href="#operation--users--user_id--prepaid-get"> Indica si el cliente tiene un Prepago Multicaja </a>
+                <a href="#operation--users--user_id--prepaid-get"> Consultar </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--prepaid-issue-post"> Emite un Prepago Multicaja </a>
+                <a href="#operation--users--user_id--prepaid-issue-post"> Emitir </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--prepaid-balance-get"> Retorna el saldo </a>
+                <a href="#operation--users--user_id--prepaid-balance-get"> Ver saldo </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--prepaid-balance-topup-post"> Aumenta el saldo </a>
+                <a href="#operation--users--user_id--prepaid-balance-topup-post"> Aumentar saldo </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--prepaid-balance-withdraw-post"> Genera un retiro </a>
+                <a href="#operation--users--user_id--prepaid-balance-withdraw-post"> Retirar </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--prepaid-reissue-post"> Reemite la tarjeta de este cliente </a>
+                <a href="#operation--users--user_id--prepaid-reissue-post"> Reemitir </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--prepaid-status-lock-post"> Bloquea la tarjeta </a>
+                <a href="#operation--users--user_id--prepaid-status-lock-post"> Bloquear </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--prepaid-status-unlock-post"> Desbloquea la tarjeta </a>
+                <a href="#operation--users--user_id--prepaid-status-unlock-post"> Desbloquear </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--prepaid-transactions-get"> Transacciones de la tarjeta </a>
+                <a href="#operation--users--user_id--prepaid-transactions-get"> Buscar transacciones </a>
               </li>
             </ul>
           </section>
@@ -147,21 +147,24 @@
         <div class="example-box doc-content"></div>
         <article>
           <div id="introduction" data-traverse-target="introduction">
-            <h1 class="doc-title">REST API
+            <h1 class="doc-title">API Multicaja (Alpha)
               <span>API Reference</span>
             </h1>
             <div class="doc-row">
               <div class="doc-copy">
-                <p>REST API Multicaja</p>
+                <p>Bienvenido a la API de
+                  <a href="https://www.multicaja.cl">Multicaja</a> (Alpha)</p>
+                <p>
+                  <strong> Este es un proyecto alpha y por lo tanto sufrirá muchos cambios </strong>
+                </p>
+                <p>Todos los requests son autenticados usando un <code>api-key</code>.</p>
+                <p>Existen dos ambientes: <code>qa</code> y <code>producción</code>. El <code>host</code> de <code>qa</code> es <code>apiqa.multicaja.cl</code>.</p>
               </div>
               <div class="doc-examples">
                 <section>
                   <h5>API Endpoint</h5>
-                  <!-- <div class="hljs"> --><pre><code>http://api.multicaja.cl/v1.0/</code></pre>
+                  <!-- <div class="hljs"> --><pre><code>http://api.multicaja.cl/v0.1-alpha/</code></pre>
                   <!-- </div> -->
-                  <h5>Terms of Service:
-                    <a href="Terms of service">Terms of service</a>
-                  </h5>
                   <h5>Request Content-Types:
                     <span>application/json</span>
                   </h5>
@@ -169,7 +172,7 @@
                     <span>application/json</span>
                   </h5>
                   <h5>Version:
-                    <span>1.0</span>
+                    <span>0.1</span>
                   </h5>
                 </section>
               </div>
@@ -191,7 +194,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Registra un nuevo cliente</span>
+              <span class="operation-summary">Crear</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -246,7 +249,7 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer (int32)&quot;</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
     <span class="hljs-attr">&quot;serial_number&quot;</span>: <span class="hljs-string">&quot;A026582309&quot;</span>,
     <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -345,7 +348,7 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer (int32)&quot;</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
     <span class="hljs-attr">&quot;serial_number&quot;</span>: <span class="hljs-string">&quot;A026582309&quot;</span>,
     <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -423,7 +426,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Retorna un cliente.</span>
+              <span class="operation-summary">Leer</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -506,7 +509,7 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer (int32)&quot;</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
     <span class="hljs-attr">&quot;serial_number&quot;</span>: <span class="hljs-string">&quot;A026582309&quot;</span>,
     <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -567,7 +570,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Actualiza un cliente</span>
+              <span class="operation-summary">Actualizar</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -647,7 +650,7 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer (int32)&quot;</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
     <span class="hljs-attr">&quot;serial_number&quot;</span>: <span class="hljs-string">&quot;A026582309&quot;</span>,
     <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -746,7 +749,7 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer (int32)&quot;</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
     <span class="hljs-attr">&quot;serial_number&quot;</span>: <span class="hljs-string">&quot;A026582309&quot;</span>,
     <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -824,7 +827,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Retorna un cliente</span>
+              <span class="operation-summary">Buscar</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -940,7 +943,7 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer (int32)&quot;</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
     <span class="hljs-attr">&quot;serial_number&quot;</span>: <span class="hljs-string">&quot;A026582309&quot;</span>,
     <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -1007,7 +1010,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Env&#xED;a un correo electr&#xF3;nico al cliente</span>
+              <span class="operation-summary">Enviar correo</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -1187,7 +1190,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Env&#xED;a un sms al cliente</span>
+              <span class="operation-summary">Enviar sms</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -1365,7 +1368,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Valida un c&#xF3;digo enviado por sms al cliente</span>
+              <span class="operation-summary">Validar c&#xF3;digo sms</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -1507,7 +1510,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Retorna las cuentas bancarias de este cliente</span>
+              <span class="operation-summary">Listar</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -1605,7 +1608,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Asocia una nueva cuenta bancaria a este cliente</span>
+              <span class="operation-summary">Crear</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -1785,7 +1788,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Elimina la cuenta del cliente</span>
+              <span class="operation-summary">Eliminar</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -1882,7 +1885,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Retorna las direcciones de este cliente</span>
+              <span class="operation-summary">Listar</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -1977,7 +1980,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Asocia una nueva direcci&#xF3;n a este cliente</span>
+              <span class="operation-summary">Crear</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -2151,7 +2154,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Elimina la direcci&#xF3;n del cliente</span>
+              <span class="operation-summary">Eliminar</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -2248,7 +2251,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Retorna la lista de todos los bancos</span>
+              <span class="operation-summary">Lista bancos</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -2309,7 +2312,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Retorna la lista de todas las comunas</span>
+              <span class="operation-summary">Lista comunas</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -2392,7 +2395,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Retorna la lista de todas las regiones</span>
+              <span class="operation-summary">Lista regiones</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -2459,7 +2462,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Indica si el cliente tiene un Prepago Multicaja</span>
+              <span class="operation-summary">Consultar</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -2569,7 +2572,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Emite un Prepago Multicaja</span>
+              <span class="operation-summary">Emitir</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -2728,7 +2731,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Retorna el saldo</span>
+              <span class="operation-summary">Ver saldo</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -2817,7 +2820,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Aumenta el saldo</span>
+              <span class="operation-summary">Aumentar saldo</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -2981,7 +2984,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Genera un retiro</span>
+              <span class="operation-summary">Retirar</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -3145,7 +3148,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Reemite la tarjeta de este cliente</span>
+              <span class="operation-summary">Reemitir</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -3260,7 +3263,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Bloquea la tarjeta</span>
+              <span class="operation-summary">Bloquear</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -3375,7 +3378,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Desbloquea la tarjeta</span>
+              <span class="operation-summary">Desbloquear</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -3490,7 +3493,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Transacciones de la tarjeta</span>
+              <span class="operation-summary">Buscar transacciones</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -3732,7 +3735,7 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer (int32)&quot;</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
     <span class="hljs-attr">&quot;serial_number&quot;</span>: <span class="hljs-string">&quot;A026582309&quot;</span>,
     <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -3799,8 +3802,7 @@
                     <dt data-property-name="value" class="has-description">
                       <span class="json-property-name">value:</span>
                       <span class="json-property-type">integer</span>
-                      <span class="json-property-format">(int32)</span>
-                      <span class="json-property-range" title="Value limits">1 ≤ x ≤ 50000000</span>
+                      <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
                     </dt>
                     <dd>
@@ -3858,7 +3860,7 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer (int32)&quot;</span>,
+  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
   <span class="hljs-attr">&quot;serial_number&quot;</span>: <span class="hljs-string">&quot;A026582309&quot;</span>,
   <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
