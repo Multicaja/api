@@ -1,8 +1,10 @@
-[![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/API-Multicaja_digital/master/api-users.yml)](https://raw.githubusercontent.com/Multicaja/API-Multicaja_digital/master/api-users.yml) [![TravisCI](https://travis-ci.org/Multicaja/API-Multicaja_digital.svg?branch=master)](https://travis-ci.org/Multicaja/API-Multicaja_digital/)
+[![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-users.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-users.yml) [![TravisCI](https://travis-ci.org/Multicaja/api.svg?branch=master)](https://travis-ci.org/Multicaja/api/)
  
-## API Multicaja Digital
+## API Multicaja (Área Negocios Digitales)
 
-Este proyecto documenta las APIs que Multicaja expone al público y a sus propios canales. El documento sigue el estándar [OpenAPI] (https://github.com/OAI/OpenAPI-Specification/blob/master/README.md)
+[Especificación](api-users.yml) y [documentación](https://multicaja.github.io/api) de las APIs que Multicaja expone al público y a sus propios canales. 
+
+La especificación sigue el estándar [OpenAPI](https://github.com/OAI/OpenAPI-Specification/blob/master/README.md)
 
 ### Buenas prácticas
 

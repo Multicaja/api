@@ -1,14 +1,17 @@
 swagger: '2.0'
 info:
-  description: REST API Multicaja
-  version: '1.0'
-  title: REST API
-  termsOfService: Terms of service
-  license:
-    name: Apache License Version 2.0
-    url: 'https://www.apache.org/licenses/LICENSE-2.0'
+  description: |
+    Bienvenido a la API de [Multicaja](https://www.multicaja.cl) (Alpha)
+
+    ** Este es un proyecto alpha y por lo tanto sufrirá muchos cambios **
+
+    Todos los requests son autenticados usando un `api-key`.
+
+    Existen dos ambientes: `qa` y `producción`. El `host` de `qa` es `apiqa.multicaja.cl`.
+  version: '0.1'
+  title: API Multicaja (Alpha)
 host: 'api.multicaja.cl'
-basePath: /v1.0/
+basePath: /v0.1-alpha/
 consumes:
   - application/json
 produces:
@@ -29,16 +32,21 @@ tags:
 paths:
   /users:
     post:
-      summary: Registra un nuevo cliente
+      summary: Crear
       tags: 
         - clientes
       description: |
-        Requiere al menos los campos mínimos de User: rut y correo.
-        * Si se intenta crear un usuario con un `rut` o un `email` que ya ha sido usado, el servicio retornará `405`.
-        * Si se incluye `rut.serial_number`, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, `rut.status` pasará a "validado". Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.
+        Registra a un nuevo cliente. 
+        ### Notas
+        * Requiere al menos los campos mínimos de User: rut y correo.
+        * El servicio también funcionará con el `rut` de un cliente existente con `globalStatus` `"pre-registro"`.
+        * Si se intenta crear un usuario con un `rut` o un `email` que ya ha sido usado y con `globalStatus` distinto de `"pre-registro"`, el servicio retornará `405`.
+        * `clave` debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de `rut.value`
+        * Si se incluye el campo `clave`, `globalStatus` cambiará a `"activo"`
+        * Si se incluye `rut.serial_number`, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, `rut.status` pasará a "validado". Si la validación no fuera exitosa, `rut.status` cambiará a (o seguirá siendo) "no validado". Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.
         
-        ## Buenas prácticas
-        * Cuando registre un nuevo cliente, búsquelo primero por `rut` y luego por `email` usando el método `/users/find`
+        ### Recomendaciones
+        * Dado que el servicio no funciona si el `rut` o el `email` ya han sido usados (a menos que pertenezcan a un cliente con `globalStatus` `"pre-registro"`), debería buscarlo primero por `rut` y luego por `email` usando el método `/users/find`
       parameters:
         - in: body
           name: user
@@ -53,11 +61,19 @@ paths:
             $ref: '#/definitions/User'
         '405':
           description: El usuario ya existe
+        '422':
+          description: El Cliente contiene datos inválidos
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/{user_id}:
     get:
-      summary: Retorna un cliente
+      summary: Leer
       tags: 
         - clientes
+      description: |
+        Lee los datos de un cliente.
+        ### Notas
+        * Incluye los objetos `rut`, `email` y `cellphone`
       parameters:
         - in: path
           name: user_id
@@ -72,20 +88,23 @@ paths:
         '404':
           description: Cliente no existe
     put:
-      summary: Actualiza un cliente
+      summary: Actualizar
       tags: 
         - clientes
       description: |
-        Requiere al menos los campos mínimos de User, pero se pueden proporcionar todos los campos que se quiera modificar.
+        Modifica los datos de un cliente
         
-        * Pese a que el rut es requerido, no es modificable. Si se proporciona un RUT distinto al del cliente, el servicio retornará `422`
+        ### Notas
+        * Pese a que el rut es requerido, no es modificable. Si se proporciona un RUT distinto al del cliente `{user_id}`, el servicio retornará `422`
+        * `clave` debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de `rut.value`
+        * Si se incluye el campo `clave` y `globalStatus` era `"pre-registro"`, `globalStatus` cambiará a `"activo"`
         * No se podrá modificar `email.value` si cliente no tiene clave. Si se intenta modificar un email de un cliente que no tiene clave, el servicio retornará `422`.
-        * No se podrá modificar `email.value` si `email.status == "validado"`. Si se intenta modificar un email validado a través de este método, el servicio retornará `422`. Para modificar un correo validado, se debe usar los métodos de la URL `/user/{user_id}/mail`
-        * No se podrá modificar `cellphone.value` si `celular.status == "validado"`. Si se intenta modificar un celular validado a través de este método, el servicio retornará `422`. Para modificar un celular validado, se debe usar los métodos de la URL `/user/{user_id}/sms`
-        * Si se incluye `rut.serial_number`, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, `rut.status` pasará a "validado". Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.
-        * Los campos `gender`, `birthday`, `name`, `lastname_1` y `lastname_2` siempre se pueden modificar
+        * No se podrá modificar `email.value` si `email.status == "validado"`. Si se intenta modificar un email validado a través de este método, el servicio retornará `422`. Para modificar un correo validado, se debe usar los métodos de la URL `/user/{user_id}/mail`. La excepción a esta regla son los clientes con `globalStatus == "pre-registro"`. Si se intenta modificar un email validado de un cliente "pre-registro", la modificación tendrá éxito y `email.status` pasará a ser `"no validado"`.
+        * No se podrá modificar `cellphone.value` si `celular.status == "validado"`. Si se intenta modificar un celular validado a través de este método, el servicio retornará `422`. Para modificar un celular validado, se debe usar los métodos de la URL `/user/{user_id}/sms`. La excepción a esta regla son los clientes con `globalStatus == "pre-registro"`. Si se intenta modificar un celular validado de un cliente "pre-registro", la modificación tendrá éxito y `celular.status` pasará a ser `"no validado"`.
+        * Si se incluye `rut.serial_number`, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, `rut.status` pasará a "validado". Si la validación no fuera exitosa, `rut.status` cambiará a (o seguirá siendo) "no validado". Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.
+        * Los campos `gender`, `birthday`, `name`, `lastname_1` y `lastname_2` no tienen restricciones de modificación
         
-        ## Buenas prácticas
+        ### Recomendaciones
         * Sólo envíe los campos mínimos y los que se desee modificar. Por ejemplo, para cambiar el nombre, sólo incluya `rut.value`, `email.value` y `name`. Para validar la cédula contra el SRCeI, sólo incluya `rut.value`, `email.value` y `rut.status`.
         * Si se desea cambiar la clave del cliente, valide la clave anterior en primer lugar
         
@@ -109,10 +128,12 @@ paths:
         '404':
           description: Cliente no existe
         '422':
-          description: Datos inválidos - Revisar error
+          description: El Cliente contiene datos inválidos
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/find:
     get:
-      summary: Retorna un cliente
+      summary: Buscar
       tags: 
         - clientes
       description: |
@@ -139,12 +160,13 @@ paths:
           description: Cliente no existe
   /users/{user_id}/mail:
     post:
-      summary: Envía un correo electrónico al cliente
+      summary: Enviar correo
       tags: 
         - contacto
       description: |
-        Permite mandar una comunicación o correo de validación al cliente
+        Envía una comunicación o correo de validación al cliente
 
+        ### Notas
         * `template_data` debe incluirse si el `template` requiere datos mínimos. Los datos deben ir en formato JSON. En caso contrario, el servicio retornará `422`.
         * `user_callback_uri` debe incluirse si el `template` incluye un link para que el usuario haga click. En caso contrario, el servicio retornará `422`.
         * Si se incluye `user_callback_uri`, no se incluye `address`, y el usuario hace clic en el link que indica el correo, el sistema actualizará automáticamente a `validado` el campo `email.status` del Cliente. Esto se logra incluyendo en el correo un link a una URI temporal que realiza el cambio y luego redirige a `user_callback_uri`.
@@ -189,15 +211,18 @@ paths:
         '404':
           description: Cliente no existe
         '422':
-          description: Datos inválidos - Revisar error
+          description: El mail contiene datos inválidos
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/{user_id}/sms:
     post:
-      summary: Envía un sms al cliente
+      summary: Enviar sms
       tags: 
         - contacto
       description: |
         Permite mandar un mensaje por sms al cliente
-        **Sólo incluir `cellphone` si el usuario ya tiene celular e intenta cambiarlo**
+        ### Notas
+        * Sólo incluir `cellphone` si el usuario ya tiene celular e intenta cambiarlo
         * Si el `template` requiere datos mínimos, debe incluirse estos datos en formato JSON mediante el campo `template_data`
         * Si el cliente indica no haber recibido el sms, reintente el envío cambiando `gateway` por `"secondary"`
         * No intente enviar códigos de validación a mano. Use un `template` que lo soporte.
@@ -208,7 +233,7 @@ paths:
           required: true
           type: "integer"
         - in: body
-          name: mail
+          name: sms
           description: SMS a enviar
           required: true
           schema:
@@ -241,16 +266,19 @@ paths:
         '404':
           description: Cliente no existe
         '422':
-          description: Datos inválidos - Revisar error
+          description: El sms contiene datos inválidos
+          schema:
+            $ref: '#/definitions/ErrorObj'
     put:
-      summary: Valida un código enviado por sms al cliente
+      summary: Validar código sms
       tags: 
         - contacto
       description: |
         Valida un código enviado mediante POST a `/users/{user_id}/sms`
-        
+        ### Notas
         * Sólo invocar este método para validar celular si se ha enviado previamente un código por SMS haciendo POST a `/users/{user_id}/sms`
         * Dependiendo del template usado en el POST a `/users/{user_id}/sms`, esta llamada podría cambiar `cellphone.status` a `"validado"`. Esto ocurrirá sólo si el código proporcionado corresponde al que fue enviado al celular`.
+        * Si el código ingresado no corresponde al que fue enviado al cliente, el servicio retornará `422`.
       parameters:
         - in: path
           name: user_id
@@ -271,9 +299,13 @@ paths:
             type: boolean
         '404':
           description: Cliente no existe
+        '422':
+          description: El código ingresado no es válido
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/{user_id}/prepaid:
     get:
-      summary: Indica si el cliente tiene un Prepago Multicaja
+      summary: Consultar
       tags: 
         - prepago
       description: |
@@ -306,7 +338,7 @@ paths:
           description: Cliente no existe o no tiene un Prepago Multicaja
   /users/{user_id}/prepaid/issue:
     post:
-      summary: Emite un Prepago Multicaja
+      summary: Emitir
       tags: 
         - prepago
       description: |
@@ -338,9 +370,13 @@ paths:
           description: Cliente no existe
         '405':
           description: Cliente ya cuenta con un Prepago Multicaja. Si quiere reemitir la tarjeta, use el método reissue.
+        '422':
+          description: Hubo un error de validación
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/{user_id}/prepaid/balance:
     get:
-      summary: Retorna el saldo
+      summary: Ver saldo
       tags: 
         - prepago
       description: |
@@ -362,7 +398,7 @@ paths:
           description: Cliente no existe o no tiene un Prepago Multicaja
   /users/{user_id}/prepaid/balance/topup:
     post:
-      summary: Aumenta el saldo
+      summary: Aumentar saldo
       tags: 
         - prepago
       description: |
@@ -406,9 +442,13 @@ paths:
                 $ref: '#/definitions/PrepaidTransaction'
         '404':
           description: Cliente no existe o no tiene un Prepago Multicaja
+        '422':
+          description: La recarga contiene datos inválidos
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/{user_id}/prepaid/balance/withdraw:
     post:
-      summary: Genera un retiro
+      summary: Retirar
       tags: 
         - prepago
       description: |
@@ -452,9 +492,13 @@ paths:
                 $ref: '#/definitions/PrepaidTransaction'
         '404':
           description: Cliente no existe o no tiene un Prepago Multicaja
+        '422':
+          description: El retiro contiene datos inválidos
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/{user_id}/prepaid/reissue:
     post:
-      summary: Reemite la tarjeta de este cliente
+      summary: Reemitir
       tags:
         - prepago
       description: |
@@ -481,7 +525,7 @@ paths:
           description: Cliente no cuenta con un Prepago Multicaja
   /users/{user_id}/prepaid/status/lock:
     post:
-      summary: Bloquea la tarjeta
+      summary: Bloquear
       tags:
         - prepago
       description: |
@@ -507,7 +551,7 @@ paths:
           description: Cliente no cuenta con un Prepago Multicaja
   /users/{user_id}/prepaid/status/unlock:
     post:
-      summary: Desbloquea la tarjeta
+      summary: Desbloquear
       tags:
         - prepago
       description: |
@@ -533,7 +577,7 @@ paths:
           description: Cliente no cuenta con un Prepago Multicaja
   /users/{user_id}/prepaid/transactions:
     get:
-      summary: Transacciones de la tarjeta
+      summary: Buscar transacciones
       tags: 
         - prepago
       parameters:
@@ -553,7 +597,7 @@ paths:
           description: Cliente no existe
   /users/{user_id}/bank_accounts:
     get:
-      summary: Retorna las cuentas bancarias de este cliente
+      summary: Listar
       tags: 
         - cuentas
       parameters:
@@ -572,7 +616,7 @@ paths:
         '404':
           description: Cliente no existe
     post:
-      summary: Asocia una nueva cuenta bancaria a este cliente
+      summary: Crear
       tags: 
         - cuentas
       description: |
@@ -602,9 +646,13 @@ paths:
           description: Cliente no existe
         '405':
           description: La cuenta ya existe
+        '422':
+          description: La cuenta contiene datos inválidos
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/{user_id}/bank_accounts/{acc_id}:
     delete:
-      summary: Elimina la cuenta del cliente
+      summary: Eliminar
       tags: 
         - cuentas
       parameters:
@@ -625,7 +673,7 @@ paths:
           description: Cliente o Cuenta no existen
   /users/{user_id}/addresses:
     get:
-      summary: Retorna las direcciones de este cliente
+      summary: Listar
       tags: 
         - direcciones
       parameters:
@@ -644,7 +692,7 @@ paths:
         '404':
           description: Cliente no existe
     post:
-      summary: Asocia una nueva dirección a este cliente
+      summary: Crear
       tags: 
         - direcciones
       description: |
@@ -674,9 +722,13 @@ paths:
           description: Cliente no existe
         '405':
           description: La dirección ya existe
+        '422':
+          description: La dirección contiene datos inválidos
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/{user_id}/addresses/{addr_id}:
     delete:
-      summary: Elimina la dirección del cliente
+      summary: Eliminar
       tags: 
         - direcciones
       parameters:
@@ -697,7 +749,7 @@ paths:
           description: Cliente o Dirección no existen
   /params/banks:
     get:
-      summary: Retorna la lista de todos los bancos
+      summary: Lista bancos
       tags: 
         - parámetros
       responses:
@@ -709,7 +761,7 @@ paths:
               $ref: '#/definitions/Param'
   /params/communes:
     get:
-      summary: Retorna la lista de todas las comunas
+      summary: Lista comunas
       tags: 
         - parámetros
       parameters:
@@ -727,7 +779,7 @@ paths:
               $ref: '#/definitions/Param'
   /params/regions:
     get:
-      summary: Retorna la lista de todas las regiones
+      summary: Lista regiones
       tags: 
         - parámetros
       responses:
@@ -747,7 +799,7 @@ definitions:
     properties:
       id:
         type: integer
-        description: Identificador interno. Sólo viene como la respuesta de la API, nunca se puede enviar como parámetro
+        description: Identificador interno. Campo read-only.
         example: 7783834
       rut:
         $ref: '#/definitions/Rut'
@@ -790,6 +842,19 @@ definitions:
         example: "1977-1-14"
       address:
         $ref: '#/definitions/Address'
+      globalStatus:
+        type: string
+        enum:
+          - pre-registro
+          - activo
+          - bloqueado
+          - borrado
+        description: |
+          Estado del cliente. Campo read-only.
+          * "pre-registro": cliente no posee clave
+          * "activo": cliente con clave que puede transar
+          * "bloqueado": cuenta temporalmente congelada
+          * "borrado": eliminación lógica del cliente, no admite ningún cambio
       timestamps:
         $ref: '#/definitions/Timestamps'
   Rut:
@@ -799,13 +864,10 @@ definitions:
     properties:
       value:
         type: integer
-        format: int32
         description: El rut sin puntos, guión, ni dígito verificador
-        minimum: 1
-        maximum: 50000000
       serial_number:
         type: string
-        description: Número de serie o número de documento. Éste es un campo write-only.
+        description: "Número de serie o número de documento. Éste es un campo write-only, por lo que *nunca* vendrá como respuesta de la API"
         example: "A026582309"
       dv:
         type: string
@@ -870,7 +932,7 @@ definitions:
         $ref: '#/definitions/Timestamps'
   Timestamps:
     type: object
-    description: Fecha de creación y de última modificación. Sólo vienen en la respuesta de la API, nunca se pueden enviar como parámetro
+    description: Fecha de creación y de última modificación.  Campo read-only.
     properties:
       created_at:
         type: string
@@ -887,7 +949,7 @@ definitions:
     properties:
       id:
         type: integer
-        description: Identificador interno. Sólo viene como la respuesta de la API, nunca se puede enviar como parámetro
+        description: Identificador interno. Campo read-only.
         example: 7783834
       line_1:
         type: string
@@ -918,7 +980,7 @@ definitions:
     properties:
       id:
         type: integer
-        description: Identificador interno. Sólo viene como la respuesta de la API, nunca se puede enviar como parámetro
+        description: Identificador interno. Campo read-only.
         example: 7783834
       bank_id:
         type: integer
@@ -974,7 +1036,7 @@ definitions:
     properties:
       id:
         type: integer
-        description: Identificador interno. Sólo viene como la respuesta de la API, nunca se puede enviar como parámetro
+        description: Identificador interno. Campo read-only.
         example: 7783834
       processor_user_id:
         type: string
@@ -1017,3 +1079,34 @@ definitions:
       desc:
         type: string
         description: descripción del parámetro
+  ErrorObj:
+    type: object
+    required:
+      - code
+    properties:
+      code:
+        type: integer
+        format: int32
+        description: Código que representa el error. No será igual al código HTTP.
+        example: 1024
+      message:
+        type: string
+        description: Descripción corta del error
+        example: "El cliente no pasó la validación"
+      details:
+        type: array
+        items:
+          $ref: '#/definitions/ErrorObjDetail'
+  ErrorObjDetail:
+    type: object
+    description: Cuando el error está compuesto por una lista de sub-errores, vendrán en este arreglo.
+    properties:
+      code:
+        type: integer
+        format: int32
+        description: Código que representa el sub-error
+        example: 227
+      message:
+        type: string
+        description: Descripción del sub-error
+        example: "El nombre no puede estar vacío"

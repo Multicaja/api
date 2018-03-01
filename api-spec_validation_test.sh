@@ -8,7 +8,7 @@ setUp()
   # Setup local variables to dynamically generate the API spec URL from pull request.
   githubRawResourceBaseUrl=https://raw.githubusercontent.com
   githubUsername=Multicaja
-  githubProjectId=API-Multicaja_digital
+  githubProjectId=api
   openApiSpecFileName=api-users.yml
   
 
