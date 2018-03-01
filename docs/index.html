@@ -126,12 +126,19 @@
             </ul>
           </section>
           <h5>Schema Definitions</h5>
+          <a href="#definition-NewUser"> NewUser </a>
           <a href="#definition-User"> User </a>
+          <a href="#definition-UserBasicFields"> UserBasicFields </a>
+          <a href="#definition-NewRut"> NewRut </a>
           <a href="#definition-Rut"> Rut </a>
+          <a href="#definition-NewEmail"> NewEmail </a>
           <a href="#definition-Email"> Email </a>
+          <a href="#definition-NewCellPhone"> NewCellPhone </a>
           <a href="#definition-CellPhone"> CellPhone </a>
           <a href="#definition-Timestamps"> Timestamps </a>
+          <a href="#definition-NewAddress"> NewAddress </a>
           <a href="#definition-Address"> Address </a>
+          <a href="#definition-NewBankAccount"> NewBankAccount </a>
           <a href="#definition-BankAccount"> BankAccount </a>
           <a href="#definition-PrepaidTransaction"> PrepaidTransaction </a>
           <a href="#definition-PrepaidCard"> PrepaidCard </a>
@@ -172,7 +179,7 @@
                     <span>application/json</span>
                   </h5>
                   <h5>Version:
-                    <span>0.1</span>
+                    <span>0.2</span>
                   </h5>
                 </section>
               </div>
@@ -231,7 +238,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/User">User</a>
+                          <a class="json-schema-ref" href="#/definitions/NewUser">NewUser</a>
                         </span>
                       </div>
                     </div>
@@ -247,52 +254,18 @@
                 <section>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
     <span class="hljs-attr">&quot;serial_number&quot;</span>: <span class="hljs-string">&quot;A026582309&quot;</span>,
-    <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-    }
+    <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;K&quot;</span>
   },
   <span class="hljs-attr">&quot;cellphone&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;912345678&quot;</span>,
-    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-    }
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;912345678&quot;</span>
   },
   <span class="hljs-attr">&quot;email&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
-    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-    }
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>
   },
-  <span class="hljs-attr">&quot;clave&quot;</span>: <span class="hljs-number">8922</span>,
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
-  <span class="hljs-attr">&quot;lastname_1&quot;</span>: <span class="hljs-string">&quot;L&#xF3;pez&quot;</span>,
-  <span class="hljs-attr">&quot;lastname_2&quot;</span>: <span class="hljs-string">&quot;Carrasco&quot;</span>,
-  <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>,
-  <span class="hljs-attr">&quot;address&quot;</span>: {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-    <span class="hljs-attr">&quot;line_1&quot;</span>: <span class="hljs-string">&quot;Suecia 1414&quot;</span>,
-    <span class="hljs-attr">&quot;line_2&quot;</span>: <span class="hljs-string">&quot;Depto 502&quot;</span>,
-    <span class="hljs-attr">&quot;region_id&quot;</span>: <span class="hljs-number">13</span>,
-    <span class="hljs-attr">&quot;commune_id&quot;</span>: <span class="hljs-number">230</span>,
-    <span class="hljs-attr">&quot;postal_code&quot;</span>: <span class="hljs-number">7710787</span>
-  },
-  <span class="hljs-attr">&quot;globalStatus&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-  }
+  <span class="hljs-attr">&quot;clave&quot;</span>: <span class="hljs-number">8922</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -348,9 +321,6 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
-    <span class="hljs-attr">&quot;serial_number&quot;</span>: <span class="hljs-string">&quot;A026582309&quot;</span>,
-    <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;timestamps&quot;</span>: {
       <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -358,7 +328,6 @@
     }
   },
   <span class="hljs-attr">&quot;cellphone&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;912345678&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;timestamps&quot;</span>: {
       <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -366,26 +335,11 @@
     }
   },
   <span class="hljs-attr">&quot;email&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;timestamps&quot;</span>: {
       <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
       <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
     }
-  },
-  <span class="hljs-attr">&quot;clave&quot;</span>: <span class="hljs-number">8922</span>,
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
-  <span class="hljs-attr">&quot;lastname_1&quot;</span>: <span class="hljs-string">&quot;L&#xF3;pez&quot;</span>,
-  <span class="hljs-attr">&quot;lastname_2&quot;</span>: <span class="hljs-string">&quot;Carrasco&quot;</span>,
-  <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>,
-  <span class="hljs-attr">&quot;address&quot;</span>: {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-    <span class="hljs-attr">&quot;line_1&quot;</span>: <span class="hljs-string">&quot;Suecia 1414&quot;</span>,
-    <span class="hljs-attr">&quot;line_2&quot;</span>: <span class="hljs-string">&quot;Depto 502&quot;</span>,
-    <span class="hljs-attr">&quot;region_id&quot;</span>: <span class="hljs-number">13</span>,
-    <span class="hljs-attr">&quot;commune_id&quot;</span>: <span class="hljs-number">230</span>,
-    <span class="hljs-attr">&quot;postal_code&quot;</span>: <span class="hljs-number">7710787</span>
   },
   <span class="hljs-attr">&quot;globalStatus&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
@@ -509,9 +463,6 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
-    <span class="hljs-attr">&quot;serial_number&quot;</span>: <span class="hljs-string">&quot;A026582309&quot;</span>,
-    <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;timestamps&quot;</span>: {
       <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -519,7 +470,6 @@
     }
   },
   <span class="hljs-attr">&quot;cellphone&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;912345678&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;timestamps&quot;</span>: {
       <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -527,26 +477,11 @@
     }
   },
   <span class="hljs-attr">&quot;email&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;timestamps&quot;</span>: {
       <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
       <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
     }
-  },
-  <span class="hljs-attr">&quot;clave&quot;</span>: <span class="hljs-number">8922</span>,
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
-  <span class="hljs-attr">&quot;lastname_1&quot;</span>: <span class="hljs-string">&quot;L&#xF3;pez&quot;</span>,
-  <span class="hljs-attr">&quot;lastname_2&quot;</span>: <span class="hljs-string">&quot;Carrasco&quot;</span>,
-  <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>,
-  <span class="hljs-attr">&quot;address&quot;</span>: {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-    <span class="hljs-attr">&quot;line_1&quot;</span>: <span class="hljs-string">&quot;Suecia 1414&quot;</span>,
-    <span class="hljs-attr">&quot;line_2&quot;</span>: <span class="hljs-string">&quot;Depto 502&quot;</span>,
-    <span class="hljs-attr">&quot;region_id&quot;</span>: <span class="hljs-number">13</span>,
-    <span class="hljs-attr">&quot;commune_id&quot;</span>: <span class="hljs-number">230</span>,
-    <span class="hljs-attr">&quot;postal_code&quot;</span>: <span class="hljs-number">7710787</span>
   },
   <span class="hljs-attr">&quot;globalStatus&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
@@ -610,7 +545,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/User">User</a>
+                          <a class="json-schema-ref" href="#/definitions/NewUser">NewUser</a>
                         </span>
                       </div>
                     </div>
@@ -648,52 +583,18 @@
                 <section>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
     <span class="hljs-attr">&quot;serial_number&quot;</span>: <span class="hljs-string">&quot;A026582309&quot;</span>,
-    <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-    }
+    <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;K&quot;</span>
   },
   <span class="hljs-attr">&quot;cellphone&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;912345678&quot;</span>,
-    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-    }
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;912345678&quot;</span>
   },
   <span class="hljs-attr">&quot;email&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
-    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-    }
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>
   },
-  <span class="hljs-attr">&quot;clave&quot;</span>: <span class="hljs-number">8922</span>,
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
-  <span class="hljs-attr">&quot;lastname_1&quot;</span>: <span class="hljs-string">&quot;L&#xF3;pez&quot;</span>,
-  <span class="hljs-attr">&quot;lastname_2&quot;</span>: <span class="hljs-string">&quot;Carrasco&quot;</span>,
-  <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>,
-  <span class="hljs-attr">&quot;address&quot;</span>: {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-    <span class="hljs-attr">&quot;line_1&quot;</span>: <span class="hljs-string">&quot;Suecia 1414&quot;</span>,
-    <span class="hljs-attr">&quot;line_2&quot;</span>: <span class="hljs-string">&quot;Depto 502&quot;</span>,
-    <span class="hljs-attr">&quot;region_id&quot;</span>: <span class="hljs-number">13</span>,
-    <span class="hljs-attr">&quot;commune_id&quot;</span>: <span class="hljs-number">230</span>,
-    <span class="hljs-attr">&quot;postal_code&quot;</span>: <span class="hljs-number">7710787</span>
-  },
-  <span class="hljs-attr">&quot;globalStatus&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-  }
+  <span class="hljs-attr">&quot;clave&quot;</span>: <span class="hljs-number">8922</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -749,9 +650,6 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
-    <span class="hljs-attr">&quot;serial_number&quot;</span>: <span class="hljs-string">&quot;A026582309&quot;</span>,
-    <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;timestamps&quot;</span>: {
       <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -759,7 +657,6 @@
     }
   },
   <span class="hljs-attr">&quot;cellphone&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;912345678&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;timestamps&quot;</span>: {
       <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -767,26 +664,11 @@
     }
   },
   <span class="hljs-attr">&quot;email&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;timestamps&quot;</span>: {
       <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
       <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
     }
-  },
-  <span class="hljs-attr">&quot;clave&quot;</span>: <span class="hljs-number">8922</span>,
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
-  <span class="hljs-attr">&quot;lastname_1&quot;</span>: <span class="hljs-string">&quot;L&#xF3;pez&quot;</span>,
-  <span class="hljs-attr">&quot;lastname_2&quot;</span>: <span class="hljs-string">&quot;Carrasco&quot;</span>,
-  <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>,
-  <span class="hljs-attr">&quot;address&quot;</span>: {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-    <span class="hljs-attr">&quot;line_1&quot;</span>: <span class="hljs-string">&quot;Suecia 1414&quot;</span>,
-    <span class="hljs-attr">&quot;line_2&quot;</span>: <span class="hljs-string">&quot;Depto 502&quot;</span>,
-    <span class="hljs-attr">&quot;region_id&quot;</span>: <span class="hljs-number">13</span>,
-    <span class="hljs-attr">&quot;commune_id&quot;</span>: <span class="hljs-number">230</span>,
-    <span class="hljs-attr">&quot;postal_code&quot;</span>: <span class="hljs-number">7710787</span>
   },
   <span class="hljs-attr">&quot;globalStatus&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
@@ -943,9 +825,6 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
-    <span class="hljs-attr">&quot;serial_number&quot;</span>: <span class="hljs-string">&quot;A026582309&quot;</span>,
-    <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;timestamps&quot;</span>: {
       <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -953,7 +832,6 @@
     }
   },
   <span class="hljs-attr">&quot;cellphone&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;912345678&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;timestamps&quot;</span>: {
       <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -961,26 +839,11 @@
     }
   },
   <span class="hljs-attr">&quot;email&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;timestamps&quot;</span>: {
       <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
       <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
     }
-  },
-  <span class="hljs-attr">&quot;clave&quot;</span>: <span class="hljs-number">8922</span>,
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
-  <span class="hljs-attr">&quot;lastname_1&quot;</span>: <span class="hljs-string">&quot;L&#xF3;pez&quot;</span>,
-  <span class="hljs-attr">&quot;lastname_2&quot;</span>: <span class="hljs-string">&quot;Carrasco&quot;</span>,
-  <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>,
-  <span class="hljs-attr">&quot;address&quot;</span>: {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-    <span class="hljs-attr">&quot;line_1&quot;</span>: <span class="hljs-string">&quot;Suecia 1414&quot;</span>,
-    <span class="hljs-attr">&quot;line_2&quot;</span>: <span class="hljs-string">&quot;Depto 502&quot;</span>,
-    <span class="hljs-attr">&quot;region_id&quot;</span>: <span class="hljs-number">13</span>,
-    <span class="hljs-attr">&quot;commune_id&quot;</span>: <span class="hljs-number">230</span>,
-    <span class="hljs-attr">&quot;postal_code&quot;</span>: <span class="hljs-number">7710787</span>
   },
   <span class="hljs-attr">&quot;globalStatus&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
@@ -1635,7 +1498,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/BankAccount">BankAccount</a>
+                          <a class="json-schema-ref" href="#/definitions/NewBankAccount">NewBankAccount</a>
                         </span>
                       </div>
                     </div>
@@ -1673,15 +1536,9 @@
                 <section>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">4</span>,
   <span class="hljs-attr">&quot;acc_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;acc_number&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-  }
+  <span class="hljs-attr">&quot;acc_number&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1957,11 +1814,10 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
   {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-    <span class="hljs-attr">&quot;line_1&quot;</span>: <span class="hljs-string">&quot;Suecia 1414&quot;</span>,
-    <span class="hljs-attr">&quot;line_2&quot;</span>: <span class="hljs-string">&quot;Depto 502&quot;</span>,
-    <span class="hljs-attr">&quot;region_id&quot;</span>: <span class="hljs-number">13</span>,
-    <span class="hljs-attr">&quot;commune_id&quot;</span>: <span class="hljs-number">230</span>,
-    <span class="hljs-attr">&quot;postal_code&quot;</span>: <span class="hljs-number">7710787</span>
+    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+    }
   }
 ]
 </code></pre>
@@ -2007,7 +1863,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/Address">Address</a>
+                          <a class="json-schema-ref" href="#/definitions/NewAddress">NewAddress</a>
                         </span>
                       </div>
                     </div>
@@ -2045,7 +1901,6 @@
                 <section>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;line_1&quot;</span>: <span class="hljs-string">&quot;Suecia 1414&quot;</span>,
   <span class="hljs-attr">&quot;line_2&quot;</span>: <span class="hljs-string">&quot;Depto 502&quot;</span>,
   <span class="hljs-attr">&quot;region_id&quot;</span>: <span class="hljs-number">13</span>,
@@ -2114,11 +1969,10 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
   {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-    <span class="hljs-attr">&quot;line_1&quot;</span>: <span class="hljs-string">&quot;Suecia 1414&quot;</span>,
-    <span class="hljs-attr">&quot;line_2&quot;</span>: <span class="hljs-string">&quot;Depto 502&quot;</span>,
-    <span class="hljs-attr">&quot;region_id&quot;</span>: <span class="hljs-number">13</span>,
-    <span class="hljs-attr">&quot;commune_id&quot;</span>: <span class="hljs-number">230</span>,
-    <span class="hljs-attr">&quot;postal_code&quot;</span>: <span class="hljs-number">7710787</span>
+    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+    }
   }
 ]
 </code></pre>
@@ -3576,10 +3430,99 @@
             </div>
           </div>
           <h1>Schema Definitions</h1>
+          <div id="definition-NewUser" class="definition panel" data-traverse-target="definition-NewUser">
+            <h2 class="panel-title">
+              <a name="/definitions/NewUser"></a>NewUser:
+              <!-- <span class="json-property-type"><span class="json-property-type"></span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Cliente persona natural</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="rut">
+                      <span class="json-property-name">rut:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/NewRut">NewRut</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="cellphone">
+                      <span class="json-property-name">cellphone:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/NewCellPhone">NewCellPhone</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="email">
+                      <span class="json-property-name">email:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/NewEmail">NewEmail</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="clave" class="has-description">
+                      <span class="json-property-name">clave:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Clave de autenticación de 4 dígitos. Campo write-only.</p>
+                    </dd>
+                  </dl>
+                </section>
+                <section class="json-schema-allOf">
+                  <section class="json-schema-allOf-inherited">
+                    <ul>
+                      <span class="">
+                        <a class="json-schema-ref" href="#/definitions/UserBasicFields">UserBasicFields</a>
+                      </span>
+                    </ul>
+                  </section>
+                  <section class="json-schema-allOf-additional"> </section>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;rut&quot;</span>: {
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
+    <span class="hljs-attr">&quot;serial_number&quot;</span>: <span class="hljs-string">&quot;A026582309&quot;</span>,
+    <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;K&quot;</span>
+  },
+  <span class="hljs-attr">&quot;cellphone&quot;</span>: {
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;912345678&quot;</span>
+  },
+  <span class="hljs-attr">&quot;email&quot;</span>: {
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>
+  },
+  <span class="hljs-attr">&quot;clave&quot;</span>: <span class="hljs-number">8922</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
           <div id="definition-User" class="definition panel" data-traverse-target="definition-User">
             <h2 class="panel-title">
-              <a name="/definitions/User"></a>User: object
-              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <a name="/definitions/User"></a>User:
+              <!-- <span class="json-property-type"><span class="json-property-type"></span>
               <span class="json-property-range" title="Value limits"></span>
               
               
@@ -3596,6 +3539,7 @@
                       <span class="json-property-name">id:</span>
                       <span class="json-property-type">integer</span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
                     </dt>
                     <dd>
                       <p>Identificador interno. Campo read-only.</p>
@@ -3629,14 +3573,104 @@
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
                     </dt>
-                    <dt data-property-name="clave" class="has-description">
-                      <span class="json-property-name">clave:</span>
+                    <dt data-property-name="globalStatus" class="has-description">
+                      <span class="json-property-name">globalStatus:</span>
                       <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">pre-registro</span>,
+                        <span class="json-property-enum-item">activo</span>,
+                        <span class="json-property-enum-item">bloqueado</span>,
+                        <span class="json-property-enum-item">borrado</span>
+                      </span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
                     </dt>
                     <dd>
-                      <p>Clave de autenticación de 4 dígitos. Campo write-only.</p>
+                      <p>Estado del cliente. Campo read-only.</p>
+                      <ul>
+                        <li>&quot;pre-registro&quot;: cliente no posee clave</li>
+                        <li>&quot;activo&quot;: cliente con clave que puede transar</li>
+                        <li>&quot;bloqueado&quot;: cuenta temporalmente congelada</li>
+                        <li>&quot;borrado&quot;: eliminación lógica del cliente, no admite ningún cambio</li>
+                      </ul>
                     </dd>
+                    <dt data-property-name="timestamps">
+                      <span class="json-property-name">timestamps:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Timestamps">Timestamps</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                  </dl>
+                </section>
+                <section class="json-schema-allOf">
+                  <section class="json-schema-allOf-inherited">
+                    <ul>
+                      <span class="">
+                        <a class="json-schema-ref" href="#/definitions/UserBasicFields">UserBasicFields</a>
+                      </span>
+                    </ul>
+                  </section>
+                  <section class="json-schema-allOf-additional"> </section>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
+  <span class="hljs-attr">&quot;rut&quot;</span>: {
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+    }
+  },
+  <span class="hljs-attr">&quot;cellphone&quot;</span>: {
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+    }
+  },
+  <span class="hljs-attr">&quot;email&quot;</span>: {
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+    }
+  },
+  <span class="hljs-attr">&quot;globalStatus&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-UserBasicFields" class="definition panel" data-traverse-target="definition-UserBasicFields">
+            <h2 class="panel-title">
+              <a name="/definitions/UserBasicFields"></a>UserBasicFields: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Nombre, Sexo, y Fecha de nacimiento de una persona</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
                     <dt data-property-name="name" class="has-description">
                       <span class="json-property-name">name:</span>
                       <span class="json-property-type">string</span>
@@ -3688,44 +3722,6 @@
                     <dd>
                       <p>Fecha de nacimiento</p>
                     </dd>
-                    <dt data-property-name="address">
-                      <span class="json-property-name">address:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/Address">Address</a>
-                        </span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="globalStatus" class="has-description">
-                      <span class="json-property-name">globalStatus:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-enum" title="Possible values">
-                        <span class="json-property-enum-item">pre-registro</span>,
-                        <span class="json-property-enum-item">activo</span>,
-                        <span class="json-property-enum-item">bloqueado</span>,
-                        <span class="json-property-enum-item">borrado</span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Estado del cliente. Campo read-only.</p>
-                      <ul>
-                        <li>&quot;pre-registro&quot;: cliente no posee clave</li>
-                        <li>&quot;activo&quot;: cliente con clave que puede transar</li>
-                        <li>&quot;bloqueado&quot;: cuenta temporalmente congelada</li>
-                        <li>&quot;borrado&quot;: eliminación lógica del cliente, no admite ningún cambio</li>
-                      </ul>
-                    </dd>
-                    <dt data-property-name="timestamps">
-                      <span class="json-property-name">timestamps:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/Timestamps">Timestamps</a>
-                        </span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
                   </dl>
                 </section>
               </div>
@@ -3733,52 +3729,11 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-  <span class="hljs-attr">&quot;rut&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
-    <span class="hljs-attr">&quot;serial_number&quot;</span>: <span class="hljs-string">&quot;A026582309&quot;</span>,
-    <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-    }
-  },
-  <span class="hljs-attr">&quot;cellphone&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;912345678&quot;</span>,
-    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-    }
-  },
-  <span class="hljs-attr">&quot;email&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
-    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-    }
-  },
-  <span class="hljs-attr">&quot;clave&quot;</span>: <span class="hljs-number">8922</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
   <span class="hljs-attr">&quot;lastname_1&quot;</span>: <span class="hljs-string">&quot;L&#xF3;pez&quot;</span>,
   <span class="hljs-attr">&quot;lastname_2&quot;</span>: <span class="hljs-string">&quot;Carrasco&quot;</span>,
   <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>,
-  <span class="hljs-attr">&quot;address&quot;</span>: {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-    <span class="hljs-attr">&quot;line_1&quot;</span>: <span class="hljs-string">&quot;Suecia 1414&quot;</span>,
-    <span class="hljs-attr">&quot;line_2&quot;</span>: <span class="hljs-string">&quot;Depto 502&quot;</span>,
-    <span class="hljs-attr">&quot;region_id&quot;</span>: <span class="hljs-number">13</span>,
-    <span class="hljs-attr">&quot;commune_id&quot;</span>: <span class="hljs-number">230</span>,
-    <span class="hljs-attr">&quot;postal_code&quot;</span>: <span class="hljs-number">7710787</span>
-  },
-  <span class="hljs-attr">&quot;globalStatus&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-  }
+  <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -3786,9 +3741,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-Rut" class="definition panel" data-traverse-target="definition-Rut">
+          <div id="definition-NewRut" class="definition panel" data-traverse-target="definition-NewRut">
             <h2 class="panel-title">
-              <a name="/definitions/Rut"></a>Rut: object
+              <a name="/definitions/NewRut"></a>NewRut: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -3821,11 +3776,40 @@
                       <span class="json-property-name">dv:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-range" title="String length limits"> (up to 1 chars) </span>
                     </dt>
                     <dd>
                       <p>digito verificador</p>
                     </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
+  <span class="hljs-attr">&quot;serial_number&quot;</span>: <span class="hljs-string">&quot;A026582309&quot;</span>,
+  <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;K&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-Rut" class="definition panel" data-traverse-target="definition-Rut">
+            <h2 class="panel-title">
+              <a name="/definitions/Rut"></a>Rut:
+              <!-- <span class="json-property-type"><span class="json-property-type"></span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
                     <dt data-property-name="status" class="has-description">
                       <span class="json-property-name">status:</span>
                       <span class="json-property-type">string</span>
@@ -3835,6 +3819,7 @@
                         <span class="json-property-enum-item">validado_tef</span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
                     </dt>
                     <dd>
                       <p>Estado de validación del rut</p>
@@ -3852,17 +3837,25 @@
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
                     </dt>
                   </dl>
+                </section>
+                <section class="json-schema-allOf">
+                  <section class="json-schema-allOf-inherited">
+                    <ul>
+                      <span class="">
+                        <a class="json-schema-ref" href="#/definitions/NewRut">NewRut</a>
+                      </span>
+                    </ul>
+                  </section>
+                  <section class="json-schema-allOf-additional"> </section>
                 </section>
               </div>
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
-  <span class="hljs-attr">&quot;serial_number&quot;</span>: <span class="hljs-string">&quot;A026582309&quot;</span>,
-  <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -3875,9 +3868,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-Email" class="definition panel" data-traverse-target="definition-Email">
+          <div id="definition-NewEmail" class="definition panel" data-traverse-target="definition-NewEmail">
             <h2 class="panel-title">
-              <a name="/definitions/Email"></a>Email: object
+              <a name="/definitions/NewEmail"></a>NewEmail: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -3895,6 +3888,34 @@
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
                     </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-Email" class="definition panel" data-traverse-target="definition-Email">
+            <h2 class="panel-title">
+              <a name="/definitions/Email"></a>Email:
+              <!-- <span class="json-property-type"><span class="json-property-type"></span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
                     <dt data-property-name="status" class="has-description">
                       <span class="json-property-name">status:</span>
                       <span class="json-property-type">string</span>
@@ -3904,6 +3925,7 @@
                         <span class="json-property-enum-item">validado</span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
                     </dt>
                     <dd>
                       <p>Estado de validación del email</p>
@@ -3921,15 +3943,25 @@
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
                     </dt>
                   </dl>
+                </section>
+                <section class="json-schema-allOf">
+                  <section class="json-schema-allOf-inherited">
+                    <ul>
+                      <span class="">
+                        <a class="json-schema-ref" href="#/definitions/NewRut">NewRut</a>
+                      </span>
+                    </ul>
+                  </section>
+                  <section class="json-schema-allOf-additional"> </section>
                 </section>
               </div>
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -3942,9 +3974,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-CellPhone" class="definition panel" data-traverse-target="definition-CellPhone">
+          <div id="definition-NewCellPhone" class="definition panel" data-traverse-target="definition-NewCellPhone">
             <h2 class="panel-title">
-              <a name="/definitions/CellPhone"></a>CellPhone: object
+              <a name="/definitions/NewCellPhone"></a>NewCellPhone: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -3964,6 +3996,34 @@
                     <dd>
                       <p>Los 9 números que siguen a &#39;+56&#39;</p>
                     </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;912345678&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-CellPhone" class="definition panel" data-traverse-target="definition-CellPhone">
+            <h2 class="panel-title">
+              <a name="/definitions/CellPhone"></a>CellPhone:
+              <!-- <span class="json-property-type"><span class="json-property-type"></span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
                     <dt data-property-name="status" class="has-description">
                       <span class="json-property-name">status:</span>
                       <span class="json-property-type">string</span>
@@ -3973,6 +4033,7 @@
                         <span class="json-property-enum-item">validado</span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
                     </dt>
                     <dd>
                       <p>Estado de validación del celular</p>
@@ -3990,15 +4051,25 @@
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
                     </dt>
                   </dl>
+                </section>
+                <section class="json-schema-allOf">
+                  <section class="json-schema-allOf-inherited">
+                    <ul>
+                      <span class="">
+                        <a class="json-schema-ref" href="#/definitions/NewRut">NewRut</a>
+                      </span>
+                    </ul>
+                  </section>
+                  <section class="json-schema-allOf-additional"> </section>
                 </section>
               </div>
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;912345678&quot;</span>,
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -4055,9 +4126,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-Address" class="definition panel" data-traverse-target="definition-Address">
+          <div id="definition-NewAddress" class="definition panel" data-traverse-target="definition-NewAddress">
             <h2 class="panel-title">
-              <a name="/definitions/Address"></a>Address: object
+              <a name="/definitions/NewAddress"></a>NewAddress: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -4068,14 +4139,6 @@
               <div class="doc-copy">
                 <section class="json-schema-properties">
                   <dl>
-                    <dt data-property-name="id" class="has-description">
-                      <span class="json-property-name">id:</span>
-                      <span class="json-property-type">integer</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Identificador interno. Campo read-only.</p>
-                    </dd>
                     <dt data-property-name="line_1" class="has-description">
                       <span class="json-property-name">line_1:</span>
                       <span class="json-property-type">string</span>
@@ -4124,7 +4187,6 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;line_1&quot;</span>: <span class="hljs-string">&quot;Suecia 1414&quot;</span>,
   <span class="hljs-attr">&quot;line_2&quot;</span>: <span class="hljs-string">&quot;Depto 502&quot;</span>,
   <span class="hljs-attr">&quot;region_id&quot;</span>: <span class="hljs-number">13</span>,
@@ -4137,10 +4199,10 @@
               </div>
             </div>
           </div>
-          <div id="definition-BankAccount" class="definition panel" data-traverse-target="definition-BankAccount">
+          <div id="definition-Address" class="definition panel" data-traverse-target="definition-Address">
             <h2 class="panel-title">
-              <a name="/definitions/BankAccount"></a>BankAccount: object
-              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <a name="/definitions/Address"></a>Address:
+              <!-- <span class="json-property-type"><span class="json-property-type"></span>
               <span class="json-property-range" title="Value limits"></span>
               
               
@@ -4154,10 +4216,63 @@
                       <span class="json-property-name">id:</span>
                       <span class="json-property-type">integer</span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
                     </dt>
                     <dd>
                       <p>Identificador interno. Campo read-only.</p>
                     </dd>
+                    <dt data-property-name="timestamps">
+                      <span class="json-property-name">timestamps:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Timestamps">Timestamps</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                  </dl>
+                </section>
+                <section class="json-schema-allOf">
+                  <section class="json-schema-allOf-inherited">
+                    <ul>
+                      <span class="">
+                        <a class="json-schema-ref" href="#/definitions/NewRut">NewRut</a>
+                      </span>
+                    </ul>
+                  </section>
+                  <section class="json-schema-allOf-additional"> </section>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
+  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-NewBankAccount" class="definition panel" data-traverse-target="definition-NewBankAccount">
+            <h2 class="panel-title">
+              <a name="/definitions/NewBankAccount"></a>NewBankAccount: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
                     <dt data-property-name="bank_id" class="has-description">
                       <span class="json-property-name">bank_id:</span>
                       <span class="json-property-type">integer</span>
@@ -4190,6 +4305,74 @@
                     <dd>
                       <p>Número de cuenta sin puntos, guiones, ni ceros a la izquierda</p>
                     </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">4</span>,
+  <span class="hljs-attr">&quot;acc_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;acc_number&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-BankAccount" class="definition panel" data-traverse-target="definition-BankAccount">
+            <h2 class="panel-title">
+              <a name="/definitions/BankAccount"></a>BankAccount:
+              <!-- <span class="json-property-type"><span class="json-property-type"></span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="id" class="has-description">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Identificador interno. Campo read-only.</p>
+                    </dd>
+                    <dt data-property-name="bank_id" class="has-description">
+                      <span class="json-property-name">bank_id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>ID del banco (revisar /params/banks)</p>
+                    </dd>
+                    <dt data-property-name="acc_type" class="has-description">
+                      <span class="json-property-name">acc_type:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">vista</span>,
+                        <span class="json-property-enum-item">corriente</span>,
+                        <span class="json-property-enum-item">ahorro</span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Tipo de cuenta</p>
+                    </dd>
+                    <dt data-property-name="acc_number" class="has-description">
+                      <span class="json-property-name">acc_number:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Número de cuenta sin puntos, guiones, ni ceros a la izquierda</p>
+                    </dd>
                     <dt data-property-name="status" class="has-description">
                       <span class="json-property-name">status:</span>
                       <span class="json-property-type">string</span>
@@ -4198,6 +4381,7 @@
                         <span class="json-property-enum-item">validada</span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
                     </dt>
                     <dd>
                       <p>Estado de validación de la cuenta</p>
@@ -4214,8 +4398,19 @@
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
                     </dt>
                   </dl>
+                </section>
+                <section class="json-schema-allOf">
+                  <section class="json-schema-allOf-inherited">
+                    <ul>
+                      <span class="">
+                        <a class="json-schema-ref" href="#/definitions/NewBankAccount">NewBankAccount</a>
+                      </span>
+                    </ul>
+                  </section>
+                  <section class="json-schema-allOf-additional"> </section>
                 </section>
               </div>
               <div class="doc-examples">
