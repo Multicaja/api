@@ -1,15 +1,17 @@
 swagger: '2.0'
 info:
   description: |
-    Bienvenido a la API Beta de [Multicaja](https://www.multicaja.cl)
+    Bienvenido a la API de [Multicaja](https://www.multicaja.cl) (Alpha)
+
+    ** Este es un proyecto alpha y por lo tanto sufrirá muchos cambios **
 
     Todos los requests son autenticados usando un `api-key`.
 
     Existen dos ambientes: `qa` y `producción`. El `host` de `qa` es `apiqa.multicaja.cl`.
   version: '0.1'
-  title: REST API
+  title: API Multicaja (Alpha)
 host: 'api.multicaja.cl'
-basePath: /v0.1-beta/
+basePath: /v0.1-alpha/
 consumes:
   - application/json
 produces:
