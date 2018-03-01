@@ -791,7 +791,7 @@ paths:
               $ref: '#/definitions/Param'
 definitions:
   NewUser:
-    description: Cliente persona natural
+    description: Cliente persona natural **(Request)**
     allOf:
       - $ref: "#/definitions/UserBasicFields"
       - type: object
@@ -810,7 +810,8 @@ definitions:
             description: Clave de autenticación de 4 dígitos. Campo write-only.
             example: 8922
   User:
-    description: Cliente persona natural
+    type: object
+    description: Cliente persona natural **(Response)**
     allOf:
       - $ref: "#/definitions/UserBasicFields"
       - type: object
@@ -848,7 +849,10 @@ definitions:
             $ref: '#/definitions/Timestamps'
   UserBasicFields:
     type: object
-    description: Nombre, Sexo, y Fecha de nacimiento de una persona
+    description: |
+      Nombre, Sexo, y Fecha de nacimiento de una persona
+      Padre de `User` y `NewUser`
+      **No se usa de manera independiente en la API**
     properties:
       name:
         type: string
@@ -877,7 +881,7 @@ definitions:
         example: "1977-1-14"
   NewRut:
     type: object
-    description: Identificador Chileno
+    description: Identificador Chileno **(Request)**
     required:
       - value
     properties:
@@ -894,7 +898,8 @@ definitions:
         description: digito verificador
         example: "K"
   Rut:
-    description: Identificador Chileno
+    type: object
+    description: Identificador Chileno **(Response)**
     allOf:
       - $ref: "#/definitions/NewRut"
       - type: object
@@ -917,7 +922,7 @@ definitions:
             $ref: '#/definitions/Timestamps'
   NewEmail:
     type: object
-    description: Correo Electrónico
+    description: Correo Electrónico **(Request)**
     required:
       - value
     properties:
@@ -926,7 +931,8 @@ definitions:
         format: email
         example: "pepito@gmail.com"
   Email:
-    description: Correo Electrónico
+    type: object
+    description: Correo Electrónico **(Response)**
     allOf:
       - $ref: "#/definitions/NewEmail"
       - type: object
@@ -949,7 +955,7 @@ definitions:
             $ref: '#/definitions/Timestamps'
   NewCellPhone:
     type: object
-    description: Teléfono Celular
+    description: Teléfono Celular **(Request)**
     required:
       - value
     properties:
@@ -958,7 +964,8 @@ definitions:
         description: Los 9 números que siguen a '+56'
         example: "912345678"
   CellPhone:
-    description: Teléfono Celular
+    type: object
+    description: Teléfono Celular **(Response)**
     allOf:
       - $ref: "#/definitions/NewCellPhone"
       - type: object
@@ -981,7 +988,10 @@ definitions:
             $ref: '#/definitions/Timestamps'
   Timestamps:
     type: object
-    description: Fecha de creación y de última modificación.  Campo read-only.
+    description: |
+      Fecha de creación y de última modificación.  Campo read-only.
+      Componente de `Address`, `User`, `Rut`, `CellPhone`, `Email` y `BankAccount`
+      **No se usa de manera independiente en la API**
     properties:
       created_at:
         type: string
@@ -993,6 +1003,7 @@ definitions:
         example: "2018-03-02T10:03:12.123Z"
   NewAddress:
     type: object
+    description: Dirección física **(Request)**
     required:
       - line_1
     properties:
@@ -1017,7 +1028,8 @@ definitions:
         description: Identificador de (`address.line_1`, `address.commune`, `address.region`)
         example: 7710787
   Address:
-    description: Dirección física
+    type: object
+    description: Dirección física **(Response)**
     allOf:
       - $ref: "#/definitions/NewRut"
       - type: object
@@ -1033,7 +1045,7 @@ definitions:
             $ref: '#/definitions/Timestamps'
   NewBankAccount:
     type: object
-    description: Cuenta bancaria personal
+    description: Cuenta bancaria personal **(Request)**
     required:
       - bank_id
       - acc_type
@@ -1054,7 +1066,8 @@ definitions:
         type: string
         description: Número de cuenta sin puntos, guiones, ni ceros a la izquierda
   BankAccount:
-    description: Cuenta bancaria personal
+    type: object
+    description: Cuenta bancaria personal **(Response)**
     allOf:
       - $ref: "#/definitions/NewBankAccount"
       - type: object
@@ -1098,7 +1111,7 @@ definitions:
       - auth_code
       - amount
       - desc
-    description: Transacción realizada con la tarjeta de prepago
+    description: Transacción realizada con la tarjeta de prepago **(Response)**
     properties:
       auth_code:
         type: string
@@ -1117,7 +1130,7 @@ definitions:
     required:
       - id
       - pan
-    description: Tarjeta de prepago Visa o Mastercard
+    description: Tarjeta de prepago Visa o Mastercard **(Response)**
     properties:
       id:
         type: integer
@@ -1153,7 +1166,7 @@ definitions:
     required:
       - id
       - value
-    description: Parámetro básico
+    description: Parámetro básico **(Response)**
     properties:
       id:
         type: integer
@@ -1166,6 +1179,7 @@ definitions:
         description: descripción del parámetro
   ErrorObj:
     type: object
+    description: Error que devuelve la api ante un `HTTP 422` **(Response)**
     required:
       - code
     properties:
@@ -1184,7 +1198,10 @@ definitions:
           $ref: '#/definitions/ErrorObjDetail'
   ErrorObjDetail:
     type: object
-    description: Cuando el error está compuesto por una lista de sub-errores, vendrán en este arreglo.
+    description: |
+      Cuando un error está compuesto por una lista de sub-errores, vendrán en este objeto
+      Componente de `ErrorObj`
+      **No se usa de manera independiente en la API**
     properties:
       code:
         type: integer

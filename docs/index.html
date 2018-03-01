@@ -3498,7 +3498,9 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Cliente persona natural</p>
+                  <p>Cliente persona natural
+                    <strong>(Request)</strong>
+                  </p>
                 </section>
                 <section class="json-schema-allOf">
                   <section class="json-schema-allOf-inherited">
@@ -3583,7 +3585,7 @@
           </div>
           <div id="definition-User" class="definition panel" data-traverse-target="definition-User">
             <h2 class="panel-title">
-              <a name="/definitions/User"></a>User:
+              <a name="/definitions/User"></a>User: object
               <!-- <span class="json-property-type"><span class="json-property-type"></span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -3593,7 +3595,9 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Cliente persona natural</p>
+                  <p>Cliente persona natural
+                    <strong>(Response)</strong>
+                  </p>
                 </section>
                 <section class="json-schema-allOf">
                   <section class="json-schema-allOf-inherited">
@@ -3740,7 +3744,9 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Nombre, Sexo, y Fecha de nacimiento de una persona</p>
+                  <p>Nombre, Sexo, y Fecha de nacimiento de una persona Padre de <code>User</code> y <code>NewUser</code>
+                    <strong>No se usa de manera independiente en la API</strong>
+                  </p>
                 </section>
                 <section class="json-schema-properties">
                   <dl>
@@ -3826,7 +3832,9 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Identificador Chileno</p>
+                  <p>Identificador Chileno
+                    <strong>(Request)</strong>
+                  </p>
                 </section>
                 <section class="json-schema-properties">
                   <dl>
@@ -3875,7 +3883,7 @@
           </div>
           <div id="definition-Rut" class="definition panel" data-traverse-target="definition-Rut">
             <h2 class="panel-title">
-              <a name="/definitions/Rut"></a>Rut:
+              <a name="/definitions/Rut"></a>Rut: object
               <!-- <span class="json-property-type"><span class="json-property-type"></span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -3885,7 +3893,9 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Identificador Chileno</p>
+                  <p>Identificador Chileno
+                    <strong>(Response)</strong>
+                  </p>
                 </section>
                 <section class="json-schema-allOf">
                   <section class="json-schema-allOf-inherited">
@@ -3963,7 +3973,9 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Correo Electrónico</p>
+                  <p>Correo Electrónico
+                    <strong>(Request)</strong>
+                  </p>
                 </section>
                 <section class="json-schema-properties">
                   <dl>
@@ -3991,7 +4003,7 @@
           </div>
           <div id="definition-Email" class="definition panel" data-traverse-target="definition-Email">
             <h2 class="panel-title">
-              <a name="/definitions/Email"></a>Email:
+              <a name="/definitions/Email"></a>Email: object
               <!-- <span class="json-property-type"><span class="json-property-type"></span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -4001,7 +4013,9 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Correo Electrónico</p>
+                  <p>Correo Electrónico
+                    <strong>(Response)</strong>
+                  </p>
                 </section>
                 <section class="json-schema-allOf">
                   <section class="json-schema-allOf-inherited">
@@ -4077,7 +4091,9 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Teléfono Celular</p>
+                  <p>Teléfono Celular
+                    <strong>(Request)</strong>
+                  </p>
                 </section>
                 <section class="json-schema-properties">
                   <dl>
@@ -4107,7 +4123,7 @@
           </div>
           <div id="definition-CellPhone" class="definition panel" data-traverse-target="definition-CellPhone">
             <h2 class="panel-title">
-              <a name="/definitions/CellPhone"></a>CellPhone:
+              <a name="/definitions/CellPhone"></a>CellPhone: object
               <!-- <span class="json-property-type"><span class="json-property-type"></span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -4117,7 +4133,9 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Teléfono Celular</p>
+                  <p>Teléfono Celular
+                    <strong>(Response)</strong>
+                  </p>
                 </section>
                 <section class="json-schema-allOf">
                   <section class="json-schema-allOf-inherited">
@@ -4193,7 +4211,9 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Fecha de creación y de última modificación. Campo read-only.</p>
+                  <p>Fecha de creación y de última modificación. Campo read-only. Componente de <code>Address</code>, <code>User</code>, <code>Rut</code>, <code>CellPhone</code>, <code>Email</code> y <code>BankAccount</code>
+                    <strong>No se usa de manera independiente en la API</strong>
+                  </p>
                 </section>
                 <section class="json-schema-properties">
                   <dl>
@@ -4236,6 +4256,11 @@
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Dirección física
+                    <strong>(Request)</strong>
+                  </p>
+                </section>
                 <section class="json-schema-properties">
                   <dl>
                     <dt data-property-name="line_1" class="has-description">
@@ -4300,7 +4325,7 @@
           </div>
           <div id="definition-Address" class="definition panel" data-traverse-target="definition-Address">
             <h2 class="panel-title">
-              <a name="/definitions/Address"></a>Address:
+              <a name="/definitions/Address"></a>Address: object
               <!-- <span class="json-property-type"><span class="json-property-type"></span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -4310,7 +4335,9 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Dirección física</p>
+                  <p>Dirección física
+                    <strong>(Response)</strong>
+                  </p>
                 </section>
                 <section class="json-schema-allOf">
                   <section class="json-schema-allOf-inherited">
@@ -4378,7 +4405,9 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Cuenta bancaria personal</p>
+                  <p>Cuenta bancaria personal
+                    <strong>(Request)</strong>
+                  </p>
                 </section>
                 <section class="json-schema-properties">
                   <dl>
@@ -4433,7 +4462,7 @@
           </div>
           <div id="definition-BankAccount" class="definition panel" data-traverse-target="definition-BankAccount">
             <h2 class="panel-title">
-              <a name="/definitions/BankAccount"></a>BankAccount:
+              <a name="/definitions/BankAccount"></a>BankAccount: object
               <!-- <span class="json-property-type"><span class="json-property-type"></span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -4443,7 +4472,9 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Cuenta bancaria personal</p>
+                  <p>Cuenta bancaria personal
+                    <strong>(Response)</strong>
+                  </p>
                 </section>
                 <section class="json-schema-allOf">
                   <section class="json-schema-allOf-inherited">
@@ -4558,7 +4589,9 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Transacción realizada con la tarjeta de prepago</p>
+                  <p>Transacción realizada con la tarjeta de prepago
+                    <strong>(Response)</strong>
+                  </p>
                 </section>
                 <section class="json-schema-properties">
                   <dl>
@@ -4618,7 +4651,9 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Tarjeta de prepago Visa o Mastercard</p>
+                  <p>Tarjeta de prepago Visa o Mastercard
+                    <strong>(Response)</strong>
+                  </p>
                 </section>
                 <section class="json-schema-properties">
                   <dl>
@@ -4718,7 +4753,9 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Parámetro básico</p>
+                  <p>Parámetro básico
+                    <strong>(Response)</strong>
+                  </p>
                 </section>
                 <section class="json-schema-properties">
                   <dl>
@@ -4776,6 +4813,11 @@
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Error que devuelve la api ante un <code>HTTP 422</code>
+                    <strong>(Response)</strong>
+                  </p>
+                </section>
                 <section class="json-schema-properties">
                   <dl>
                     <dt data-property-name="code" class="has-description">
@@ -4839,7 +4881,9 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Cuando el error está compuesto por una lista de sub-errores, vendrán en este arreglo.</p>
+                  <p>Cuando un error está compuesto por una lista de sub-errores, vendrán en este objeto Componente de <code>ErrorObj</code>
+                    <strong>No se usa de manera independiente en la API</strong>
+                  </p>
                 </section>
                 <section class="json-schema-properties">
                   <dl>
