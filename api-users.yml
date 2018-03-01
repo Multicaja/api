@@ -1,10 +1,15 @@
 swagger: '2.0'
 info:
-  description: Api Multicaja - Área Negocios Digitales
-  version: '1.0'
+  description: |
+    Bienvenido a la API Beta de [Multicaja](https://www.multicaja.cl)
+
+    Todos los requests son autenticados usando un `api-key`.
+
+    Existen dos ambientes: `qa` y `producción`. El `host` de `qa` es `apiqa.multicaja.cl`.
+  version: '0.1'
   title: REST API
 host: 'api.multicaja.cl'
-basePath: /v1.0/
+basePath: /v0.1-beta/
 consumes:
   - application/json
 produces:
@@ -853,10 +858,7 @@ definitions:
     properties:
       value:
         type: integer
-        format: int32
         description: El rut sin puntos, guión, ni dígito verificador
-        minimum: 1
-        maximum: 50000000
       serial_number:
         type: string
         description: "Número de serie o número de documento. Éste es un campo write-only, por lo que *nunca* vendrá como respuesta de la API"
