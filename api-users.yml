@@ -1,12 +1,8 @@
 swagger: '2.0'
 info:
-  description: REST API Multicaja
+  description: Api Multicaja - Área Negocios Digitales
   version: '1.0'
   title: REST API
-  termsOfService: Terms of service
-  license:
-    name: Apache License Version 2.0
-    url: 'https://www.apache.org/licenses/LICENSE-2.0'
 host: 'api.multicaja.cl'
 basePath: /v1.0/
 consumes:
@@ -29,7 +25,7 @@ tags:
 paths:
   /users:
     post:
-      summary: Registra un nuevo cliente
+      summary: Crear
       tags: 
         - clientes
       description: |
@@ -64,7 +60,7 @@ paths:
             $ref: '#/definitions/ErrorObj'
   /users/{user_id}:
     get:
-      summary: Retorna un cliente.
+      summary: Leer
       tags: 
         - clientes
       description: |
@@ -85,7 +81,7 @@ paths:
         '404':
           description: Cliente no existe
     put:
-      summary: Actualiza un cliente
+      summary: Actualizar
       tags: 
         - clientes
       description: |
@@ -130,7 +126,7 @@ paths:
             $ref: '#/definitions/ErrorObj'
   /users/find:
     get:
-      summary: Retorna un cliente
+      summary: Buscar
       tags: 
         - clientes
       description: |
@@ -157,7 +153,7 @@ paths:
           description: Cliente no existe
   /users/{user_id}/mail:
     post:
-      summary: Envía un correo electrónico al cliente
+      summary: Enviar correo
       tags: 
         - contacto
       description: |
@@ -213,7 +209,7 @@ paths:
             $ref: '#/definitions/ErrorObj'
   /users/{user_id}/sms:
     post:
-      summary: Envía un sms al cliente
+      summary: Enviar sms
       tags: 
         - contacto
       description: |
@@ -267,7 +263,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorObj'
     put:
-      summary: Valida un código enviado por sms al cliente
+      summary: Validar código sms
       tags: 
         - contacto
       description: |
@@ -302,7 +298,7 @@ paths:
             $ref: '#/definitions/ErrorObj'
   /users/{user_id}/prepaid:
     get:
-      summary: Indica si el cliente tiene un Prepago Multicaja
+      summary: Consultar
       tags: 
         - prepago
       description: |
@@ -335,7 +331,7 @@ paths:
           description: Cliente no existe o no tiene un Prepago Multicaja
   /users/{user_id}/prepaid/issue:
     post:
-      summary: Emite un Prepago Multicaja
+      summary: Emitir
       tags: 
         - prepago
       description: |
@@ -373,7 +369,7 @@ paths:
             $ref: '#/definitions/ErrorObj'
   /users/{user_id}/prepaid/balance:
     get:
-      summary: Retorna el saldo
+      summary: Ver saldo
       tags: 
         - prepago
       description: |
@@ -395,7 +391,7 @@ paths:
           description: Cliente no existe o no tiene un Prepago Multicaja
   /users/{user_id}/prepaid/balance/topup:
     post:
-      summary: Aumenta el saldo
+      summary: Aumentar saldo
       tags: 
         - prepago
       description: |
@@ -445,7 +441,7 @@ paths:
             $ref: '#/definitions/ErrorObj'
   /users/{user_id}/prepaid/balance/withdraw:
     post:
-      summary: Genera un retiro
+      summary: Retirar
       tags: 
         - prepago
       description: |
@@ -495,7 +491,7 @@ paths:
             $ref: '#/definitions/ErrorObj'
   /users/{user_id}/prepaid/reissue:
     post:
-      summary: Reemite la tarjeta de este cliente
+      summary: Reemitir
       tags:
         - prepago
       description: |
@@ -522,7 +518,7 @@ paths:
           description: Cliente no cuenta con un Prepago Multicaja
   /users/{user_id}/prepaid/status/lock:
     post:
-      summary: Bloquea la tarjeta
+      summary: Bloquear
       tags:
         - prepago
       description: |
@@ -548,7 +544,7 @@ paths:
           description: Cliente no cuenta con un Prepago Multicaja
   /users/{user_id}/prepaid/status/unlock:
     post:
-      summary: Desbloquea la tarjeta
+      summary: Desbloquear
       tags:
         - prepago
       description: |
@@ -574,7 +570,7 @@ paths:
           description: Cliente no cuenta con un Prepago Multicaja
   /users/{user_id}/prepaid/transactions:
     get:
-      summary: Transacciones de la tarjeta
+      summary: Buscar transacciones
       tags: 
         - prepago
       parameters:
@@ -594,7 +590,7 @@ paths:
           description: Cliente no existe
   /users/{user_id}/bank_accounts:
     get:
-      summary: Retorna las cuentas bancarias de este cliente
+      summary: Listar
       tags: 
         - cuentas
       parameters:
@@ -613,7 +609,7 @@ paths:
         '404':
           description: Cliente no existe
     post:
-      summary: Asocia una nueva cuenta bancaria a este cliente
+      summary: Crear
       tags: 
         - cuentas
       description: |
@@ -649,7 +645,7 @@ paths:
             $ref: '#/definitions/ErrorObj'
   /users/{user_id}/bank_accounts/{acc_id}:
     delete:
-      summary: Elimina la cuenta del cliente
+      summary: Eliminar
       tags: 
         - cuentas
       parameters:
@@ -670,7 +666,7 @@ paths:
           description: Cliente o Cuenta no existen
   /users/{user_id}/addresses:
     get:
-      summary: Retorna las direcciones de este cliente
+      summary: Listar
       tags: 
         - direcciones
       parameters:
@@ -689,7 +685,7 @@ paths:
         '404':
           description: Cliente no existe
     post:
-      summary: Asocia una nueva dirección a este cliente
+      summary: Crear
       tags: 
         - direcciones
       description: |
@@ -725,7 +721,7 @@ paths:
             $ref: '#/definitions/ErrorObj'
   /users/{user_id}/addresses/{addr_id}:
     delete:
-      summary: Elimina la dirección del cliente
+      summary: Eliminar
       tags: 
         - direcciones
       parameters:
@@ -746,7 +742,7 @@ paths:
           description: Cliente o Dirección no existen
   /params/banks:
     get:
-      summary: Retorna la lista de todos los bancos
+      summary: Lista bancos
       tags: 
         - parámetros
       responses:
@@ -758,7 +754,7 @@ paths:
               $ref: '#/definitions/Param'
   /params/communes:
     get:
-      summary: Retorna la lista de todas las comunas
+      summary: Lista comunas
       tags: 
         - parámetros
       parameters:
@@ -776,7 +772,7 @@ paths:
               $ref: '#/definitions/Param'
   /params/regions:
     get:
-      summary: Retorna la lista de todas las regiones
+      summary: Lista regiones
       tags: 
         - parámetros
       responses:
