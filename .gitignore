@@ -36,6 +36,9 @@ build/Release
 node_modules/
 jspm_packages/
 
+# Spectacle default docs folder
+public/
+
 # Typescript v1 declaration files
 typings/
 
