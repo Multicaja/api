@@ -53,7 +53,7 @@ paths:
           description: Parámetros del usuario a crear
           required: true
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/NewUser'
       responses:
         '201':
           description: OK
@@ -119,7 +119,7 @@ paths:
           description: Parámetros a modificar
           required: true
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/NewUser'
       responses:
         '200':
           description: OK
@@ -634,7 +634,7 @@ paths:
           description: Cuenta bancaria
           required: true
           schema:
-            $ref: '#/definitions/BankAccount'
+            $ref: '#/definitions/NewBankAccount'
       responses:
         '201':
           description: OK
@@ -710,7 +710,7 @@ paths:
           description: Dirección
           required: true
           schema:
-            $ref: '#/definitions/Address'
+            $ref: '#/definitions/NewAddress'
       responses:
         '201':
           description: OK
@@ -790,12 +790,34 @@ paths:
             items:
               $ref: '#/definitions/Param'
 definitions:
-  User:
-    type: object
+  NewUser:
+    allOf:
+      - $ref: "#/definitions/UserBasicFields"
     description: Cliente persona natural
     required:
       - rut
       - email
+    properties:
+      rut:
+        $ref: '#/definitions/NewRut'
+      cellphone:
+        $ref: '#/definitions/NewCellPhone'
+      email:
+        $ref: '#/definitions/NewEmail'
+      clave:
+        type: string
+        description: Clave de autenticación de 4 dígitos. Campo write-only.
+        example: 8922
+  User:
+    allOf:
+      - $ref: "#/definitions/UserBasicFields"
+    description: Cliente persona natural
+    required:
+      - id 
+      - rut
+      - email
+      - timestamps
+      - globalStatus
     properties:
       id:
         type: integer
@@ -807,10 +829,25 @@ definitions:
         $ref: '#/definitions/CellPhone'
       email:
         $ref: '#/definitions/Email'
-      clave:
+      globalStatus:
         type: string
-        description: Clave de autenticación de 4 dígitos. Campo write-only.
-        example: 8922
+        enum:
+          - pre-registro
+          - activo
+          - bloqueado
+          - borrado
+        description: |
+          Estado del cliente. Campo read-only.
+          * "pre-registro": cliente no posee clave
+          * "activo": cliente con clave que puede transar
+          * "bloqueado": cuenta temporalmente congelada
+          * "borrado": eliminación lógica del cliente, no admite ningún cambio
+      timestamps:
+        $ref: '#/definitions/Timestamps'
+  UserBasicFields:
+    type: object
+    description: Nombre, Sexo, y Fecha de nacimiento de una persona
+    properties:
       name:
         type: string
         description: Nombre o nombres de pila
@@ -836,24 +873,7 @@ definitions:
         format: date
         description: Fecha de nacimiento
         example: "1977-1-14"
-      address:
-        $ref: '#/definitions/Address'
-      globalStatus:
-        type: string
-        enum:
-          - pre-registro
-          - activo
-          - bloqueado
-          - borrado
-        description: |
-          Estado del cliente. Campo read-only.
-          * "pre-registro": cliente no posee clave
-          * "activo": cliente con clave que puede transar
-          * "bloqueado": cuenta temporalmente congelada
-          * "borrado": eliminación lógica del cliente, no admite ningún cambio
-      timestamps:
-        $ref: '#/definitions/Timestamps'
-  Rut:
+  NewRut:
     type: object
     required:
       - value
@@ -861,6 +881,7 @@ definitions:
       value:
         type: integer
         description: El rut sin puntos, guión, ni dígito verificador
+        example: 14569484
       serial_number:
         type: string
         description: "Número de serie o número de documento. Éste es un campo write-only, por lo que *nunca* vendrá como respuesta de la API"
@@ -868,7 +889,14 @@ definitions:
       dv:
         type: string
         description: digito verificador
-        maxLength: 1
+        example: "K"
+  Rut:
+    allOf:
+      - $ref: "#/definitions/NewRut"
+    required:
+      - status
+      - timestamps
+    properties:
       status:
         type: string
         enum:
@@ -882,7 +910,7 @@ definitions:
           * validado_tef: la validación más fuerte, ya que el usuario ha realizado un aviso de depósito seguido de una transferencia desde una cuenta correspondiente a su rut
       timestamps:
         $ref: '#/definitions/Timestamps'
-  Email:
+  NewEmail:
     type: object
     required:
       - value
@@ -891,6 +919,13 @@ definitions:
         type: string
         format: email
         example: "pepito@gmail.com"
+  Email:
+    allOf:
+      - $ref: "#/definitions/NewRut"
+    required:
+      - status
+      - timestamps
+    properties:
       status:
         type: string
         enum:
@@ -904,7 +939,7 @@ definitions:
           * validado: el usuario demostró tener acceso a la casilla haciendo clic en un link enviado a ésta
       timestamps:
         $ref: '#/definitions/Timestamps'
-  CellPhone:
+  NewCellPhone:
     type: object
     required:
       - value
@@ -913,6 +948,13 @@ definitions:
         type: string
         description: Los 9 números que siguen a '+56'
         example: "912345678"
+  CellPhone:
+    allOf:
+      - $ref: "#/definitions/NewRut"
+    required:
+      - status
+      - timestamps
+    properties:
       status:
         type: string
         enum:
@@ -938,15 +980,11 @@ definitions:
         type: string
         format: date-time
         example: "2018-03-02T10:03:12.123Z"
-  Address:
+  NewAddress:
     type: object
     required:
       - line_1
     properties:
-      id:
-        type: integer
-        description: Identificador interno. Campo read-only.
-        example: 7783834
       line_1:
         type: string
         description: Lo que se une a región y comuna para determinar el código postal
@@ -967,12 +1005,47 @@ definitions:
         type: string
         description: Identificador de (`address.line_1`, `address.commune`, `address.region`)
         example: 7710787
-  BankAccount:
+  Address:
+    allOf:
+      - $ref: "#/definitions/NewRut"
+    required:
+      - id
+      - timestamps
+    properties:
+      id:
+        type: integer
+        description: Identificador interno. Campo read-only.
+        example: 7783834
+      timestamps:
+        $ref: '#/definitions/Timestamps'
+  NewBankAccount:
     type: object
     required:
       - bank_id
       - acc_type
       - acc_number
+    properties:
+      bank_id:
+        type: integer
+        description: ID del banco (revisar /params/banks)
+        example: 4
+      acc_type:
+        type: string
+        description: Tipo de cuenta
+        enum:
+          - vista
+          - corriente
+          - ahorro
+      acc_number:
+        type: string
+        description: Número de cuenta sin puntos, guiones, ni ceros a la izquierda
+  BankAccount:
+    allOf:
+      - $ref: "#/definitions/NewBankAccount"
+    required:
+      - id
+      - status
+      - timestamps
     properties:
       id:
         type: integer
