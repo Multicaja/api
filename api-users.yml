@@ -791,62 +791,68 @@ paths:
               $ref: '#/definitions/Param'
 definitions:
   NewUser:
+    description: Cliente persona natural **(Request)**
     allOf:
       - $ref: "#/definitions/UserBasicFields"
-    description: Cliente persona natural
-    required:
-      - rut
-      - email
-    properties:
-      rut:
-        $ref: '#/definitions/NewRut'
-      cellphone:
-        $ref: '#/definitions/NewCellPhone'
-      email:
-        $ref: '#/definitions/NewEmail'
-      clave:
-        type: string
-        description: Clave de autenticación de 4 dígitos. Campo write-only.
-        example: 8922
+      - type: object
+        required:
+          - rut
+          - email
+        properties:
+          rut:
+            $ref: '#/definitions/NewRut'
+          cellphone:
+            $ref: '#/definitions/NewCellPhone'
+          email:
+            $ref: '#/definitions/NewEmail'
+          clave:
+            type: string
+            description: Clave de autenticación de 4 dígitos. Campo write-only.
+            example: 8922
   User:
+    type: object
+    description: Cliente persona natural **(Response)**
     allOf:
       - $ref: "#/definitions/UserBasicFields"
-    description: Cliente persona natural
-    required:
-      - id 
-      - rut
-      - email
-      - timestamps
-      - globalStatus
-    properties:
-      id:
-        type: integer
-        description: Identificador interno. Campo read-only.
-        example: 7783834
-      rut:
-        $ref: '#/definitions/Rut'
-      cellphone:
-        $ref: '#/definitions/CellPhone'
-      email:
-        $ref: '#/definitions/Email'
-      globalStatus:
-        type: string
-        enum:
-          - pre-registro
-          - activo
-          - bloqueado
-          - borrado
-        description: |
-          Estado del cliente. Campo read-only.
-          * "pre-registro": cliente no posee clave
-          * "activo": cliente con clave que puede transar
-          * "bloqueado": cuenta temporalmente congelada
-          * "borrado": eliminación lógica del cliente, no admite ningún cambio
-      timestamps:
-        $ref: '#/definitions/Timestamps'
+      - type: object
+        required:
+          - id 
+          - rut
+          - email
+          - timestamps
+          - globalStatus
+        properties:
+          id:
+            type: integer
+            description: Identificador interno. Campo read-only.
+            example: 7783834
+          rut:
+            $ref: '#/definitions/Rut'
+          cellphone:
+            $ref: '#/definitions/CellPhone'
+          email:
+            $ref: '#/definitions/Email'
+          globalStatus:
+            type: string
+            enum:
+              - pre-registro
+              - activo
+              - bloqueado
+              - borrado
+            description: |
+              Estado del cliente. Campo read-only.
+              * "pre-registro": cliente no posee clave
+              * "activo": cliente con clave que puede transar
+              * "bloqueado": cuenta temporalmente congelada
+              * "borrado": eliminación lógica del cliente, no admite ningún cambio
+          timestamps:
+            $ref: '#/definitions/Timestamps'
   UserBasicFields:
     type: object
-    description: Nombre, Sexo, y Fecha de nacimiento de una persona
+    description: |
+      Nombre, Sexo, y Fecha de nacimiento de una persona
+      Padre de `User` y `NewUser`
+      **No se usa de manera independiente en la API**
     properties:
       name:
         type: string
@@ -875,6 +881,7 @@ definitions:
         example: "1977-1-14"
   NewRut:
     type: object
+    description: Identificador Chileno **(Request)**
     required:
       - value
     properties:
@@ -884,34 +891,38 @@ definitions:
         example: 14569484
       serial_number:
         type: string
-        description: "Número de serie o número de documento. Éste es un campo write-only, por lo que *nunca* vendrá como respuesta de la API"
+        description: Número de serie o número de documento. Éste es un campo write-only, por lo que *nunca* vendrá como respuesta de la API
         example: "A026582309"
       dv:
         type: string
         description: digito verificador
         example: "K"
   Rut:
+    type: object
+    description: Identificador Chileno **(Response)**
     allOf:
       - $ref: "#/definitions/NewRut"
-    required:
-      - status
-      - timestamps
-    properties:
-      status:
-        type: string
-        enum:
-          - no_validado
-          - validado_srcei
-          - validado_tef
-        description: |
-          Estado de validación del rut
-          * no_validado: el rut no ha sido validado o las validaciones no han sido exitosas
-          * validado_srcei: el rut fue validado exitosamente contra el registro civil
-          * validado_tef: la validación más fuerte, ya que el usuario ha realizado un aviso de depósito seguido de una transferencia desde una cuenta correspondiente a su rut
-      timestamps:
-        $ref: '#/definitions/Timestamps'
+      - type: object
+        required:
+          - status
+          - timestamps
+        properties:
+          status:
+            type: string
+            enum:
+              - no_validado
+              - validado_srcei
+              - validado_tef
+            description: |
+              Estado de validación del rut
+              * no_validado: el rut no ha sido validado o las validaciones no han sido exitosas
+              * validado_srcei: el rut fue validado exitosamente contra el registro civil
+              * validado_tef: la validación más fuerte, ya que el usuario ha realizado un aviso de depósito seguido de una transferencia desde una cuenta correspondiente a su rut
+          timestamps:
+            $ref: '#/definitions/Timestamps'
   NewEmail:
     type: object
+    description: Correo Electrónico **(Request)**
     required:
       - value
     properties:
@@ -920,27 +931,31 @@ definitions:
         format: email
         example: "pepito@gmail.com"
   Email:
+    type: object
+    description: Correo Electrónico **(Response)**
     allOf:
-      - $ref: "#/definitions/NewRut"
-    required:
-      - status
-      - timestamps
-    properties:
-      status:
-        type: string
-        enum:
-          - no_validado
-          - en_proceso_de_validacion
-          - validado
-        description: |
-          Estado de validación del email
-          * no_validado: el email no ha sido validado
-          * en_proceso_de_validacion: se ha enviado al menos un correo de validación, pero el usuario no ha hecho clic en el link
-          * validado: el usuario demostró tener acceso a la casilla haciendo clic en un link enviado a ésta
-      timestamps:
-        $ref: '#/definitions/Timestamps'
+      - $ref: "#/definitions/NewEmail"
+      - type: object
+        required:
+          - status
+          - timestamps
+        properties:
+          status:
+            type: string
+            enum:
+              - no_validado
+              - en_proceso_de_validacion
+              - validado
+            description: |
+              Estado de validación del email
+              * no_validado: el email no ha sido validado
+              * en_proceso_de_validacion: se ha enviado al menos un correo de validación, pero el usuario no ha hecho clic en el link
+              * validado: el usuario demostró tener acceso a la casilla haciendo clic en un link enviado a ésta
+          timestamps:
+            $ref: '#/definitions/Timestamps'
   NewCellPhone:
     type: object
+    description: Teléfono Celular **(Request)**
     required:
       - value
     properties:
@@ -949,28 +964,34 @@ definitions:
         description: Los 9 números que siguen a '+56'
         example: "912345678"
   CellPhone:
+    type: object
+    description: Teléfono Celular **(Response)**
     allOf:
-      - $ref: "#/definitions/NewRut"
-    required:
-      - status
-      - timestamps
-    properties:
-      status:
-        type: string
-        enum:
-          - no_validado
-          - en_proceso_de_validacion
-          - validado
-        description: |
-          Estado de validación del celular
-          * no_validado: el celular no ha sido validado
-          * en_proceso_de_validacion: se ha enviado al menos un sms de validación, pero el usuario no ha usado el código
-          * validado: el usuario demostró tener acceso al celular usando el código enviado a éste
-      timestamps:
-        $ref: '#/definitions/Timestamps'
+      - $ref: "#/definitions/NewCellPhone"
+      - type: object
+        required:
+          - status
+          - timestamps
+        properties:
+          status:
+            type: string
+            enum:
+              - no_validado
+              - en_proceso_de_validacion
+              - validado
+            description: |
+              Estado de validación del celular
+              * no_validado: el celular no ha sido validado
+              * en_proceso_de_validacion: se ha enviado al menos un sms de validación, pero el usuario no ha usado el código
+              * validado: el usuario demostró tener acceso al celular usando el código enviado a éste
+          timestamps:
+            $ref: '#/definitions/Timestamps'
   Timestamps:
     type: object
-    description: Fecha de creación y de última modificación.  Campo read-only.
+    description: |
+      Fecha de creación y de última modificación.  Campo read-only.
+      Componente de `Address`, `User`, `Rut`, `CellPhone`, `Email` y `BankAccount`
+      **No se usa de manera independiente en la API**
     properties:
       created_at:
         type: string
@@ -982,6 +1003,7 @@ definitions:
         example: "2018-03-02T10:03:12.123Z"
   NewAddress:
     type: object
+    description: Dirección física **(Request)**
     required:
       - line_1
     properties:
@@ -1006,20 +1028,24 @@ definitions:
         description: Identificador de (`address.line_1`, `address.commune`, `address.region`)
         example: 7710787
   Address:
+    type: object
+    description: Dirección física **(Response)**
     allOf:
       - $ref: "#/definitions/NewRut"
-    required:
-      - id
-      - timestamps
-    properties:
-      id:
-        type: integer
-        description: Identificador interno. Campo read-only.
-        example: 7783834
-      timestamps:
-        $ref: '#/definitions/Timestamps'
+      - type: object
+        required:
+          - id
+          - timestamps
+        properties:
+          id:
+            type: integer
+            description: Identificador interno. Campo read-only.
+            example: 7783834
+          timestamps:
+            $ref: '#/definitions/Timestamps'
   NewBankAccount:
     type: object
+    description: Cuenta bancaria personal **(Request)**
     required:
       - bank_id
       - acc_type
@@ -1040,49 +1066,52 @@ definitions:
         type: string
         description: Número de cuenta sin puntos, guiones, ni ceros a la izquierda
   BankAccount:
+    type: object
+    description: Cuenta bancaria personal **(Response)**
     allOf:
       - $ref: "#/definitions/NewBankAccount"
-    required:
-      - id
-      - status
-      - timestamps
-    properties:
-      id:
-        type: integer
-        description: Identificador interno. Campo read-only.
-        example: 7783834
-      bank_id:
-        type: integer
-        description: ID del banco (revisar /params/banks)
-        example: 4
-      acc_type:
-        type: string
-        description: Tipo de cuenta
-        enum:
-          - vista
-          - corriente
-          - ahorro
-      acc_number:
-        type: string
-        description: Número de cuenta sin puntos, guiones, ni ceros a la izquierda
-      status:
-        type: string
-        enum:
-          - no_validada
-          - validada
-        description: |
-          Estado de validación de la cuenta
-          * no_validada: estado por defecto
-          * validada: el usuario hizo una aviso de depósito seguido de una transferencia desde esta cuenta
-      timestamps:
-        $ref: '#/definitions/Timestamps'
+      - type: object
+        required:
+          - id
+          - status
+          - timestamps
+        properties:
+          id:
+            type: integer
+            description: Identificador interno. Campo read-only.
+            example: 7783834
+          bank_id:
+            type: integer
+            description: ID del banco (revisar /params/banks)
+            example: 4
+          acc_type:
+            type: string
+            description: Tipo de cuenta
+            enum:
+              - vista
+              - corriente
+              - ahorro
+          acc_number:
+            type: string
+            description: Número de cuenta sin puntos, guiones, ni ceros a la izquierda
+          status:
+            type: string
+            enum:
+              - no_validada
+              - validada
+            description: |
+              Estado de validación de la cuenta
+              * no_validada: estado por defecto
+              * validada: el usuario hizo una aviso de depósito seguido de una transferencia desde esta cuenta
+          timestamps:
+            $ref: '#/definitions/Timestamps'
   PrepaidTransaction:
     type: object
     required:
       - auth_code
       - amount
       - desc
-    description: Transacción realizada con la tarjeta de prepago
+    description: Transacción realizada con la tarjeta de prepago **(Response)**
     properties:
       auth_code:
         type: string
@@ -1101,7 +1130,7 @@ definitions:
     required:
       - id
       - pan
-    description: Tarjeta de prepago Visa o Mastercard
+    description: Tarjeta de prepago Visa o Mastercard **(Response)**
     properties:
       id:
         type: integer
@@ -1137,7 +1166,7 @@ definitions:
     required:
       - id
       - value
-    description: Parámetro básico
+    description: Parámetro básico **(Response)**
     properties:
       id:
         type: integer
@@ -1150,6 +1179,7 @@ definitions:
         description: descripción del parámetro
   ErrorObj:
     type: object
+    description: Error que devuelve la api ante un `HTTP 422` **(Response)**
     required:
       - code
     properties:
@@ -1168,7 +1198,10 @@ definitions:
           $ref: '#/definitions/ErrorObjDetail'
   ErrorObjDetail:
     type: object
-    description: Cuando el error está compuesto por una lista de sub-errores, vendrán en este arreglo.
+    description: |
+      Cuando un error está compuesto por una lista de sub-errores, vendrán en este objeto
+      Componente de `ErrorObj`
+      **No se usa de manera independiente en la API**
     properties:
       code:
         type: integer
