@@ -1054,6 +1054,7 @@ definitions:
       - bank_id
       - acc_type
       - acc_number
+      - acc_name
     properties:
       bank_id:
         type: integer
@@ -1069,6 +1070,9 @@ definitions:
       acc_number:
         type: string
         description: Número de cuenta sin puntos, guiones, ni ceros a la izquierda
+      acc_name:
+        type: string
+        description: Nombre referencia para la cuenta
   BankAccount:
     type: object
     description: Cuenta bancaria personal **(Response)**
@@ -1098,6 +1102,9 @@ definitions:
           acc_number:
             type: string
             description: Número de cuenta sin puntos, guiones, ni ceros a la izquierda
+          acc_name:
+            type: string
+            description: Nombre referencia para la cuenta
           status:
             type: string
             enum:
