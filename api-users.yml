@@ -858,10 +858,6 @@ definitions:
         type: string
         description: Nombre o nombres de pila
         example: "Juan Carlos"
-      business_name:
-        type: string
-        description: Nombre de empresa (Razón social)
-        example: "Multicaja"
       lastname_1:
         type: string
         description: Apellido paterno
