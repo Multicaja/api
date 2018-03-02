@@ -123,6 +123,9 @@
               <li>
                 <a href="#operation--users--user_id--prepaid-transactions-get"> Buscar transacciones </a>
               </li>
+              <li>
+                <a href="#operation--prepaid-processor-notification-post"> Notificación (Callback) </a>
+              </li>
             </ul>
           </section>
           <h5>Schema Definitions</h5>
@@ -140,6 +143,7 @@
           <a href="#definition-Address"> Address </a>
           <a href="#definition-NewBankAccount"> NewBankAccount </a>
           <a href="#definition-BankAccount"> BankAccount </a>
+          <a href="#definition-ISO8583Transaction"> ISO8583Transaction </a>
           <a href="#definition-PrepaidTransaction"> PrepaidTransaction </a>
           <a href="#definition-PrepaidCard"> PrepaidCard </a>
           <a href="#definition-Param"> Param </a>
@@ -3485,6 +3489,156 @@
               </div>
             </div>
           </div>
+          <div id="operation--prepaid-processor-notification-post" class="operation panel" data-traverse-target="operation--prepaid-processor-notification-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-prepago">prepago</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Notificaci&#xF3;n (Callback)</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/prepaid/processor/notification</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Notifica una transacción ocurrida en una tarjeta de prepago</p>
+                  <p>
+                    <strong>Mensaje invocado por el procesador emisor</strong>
+                  </p>
+                  <ul>
+                    <li>Si el mensaje de entrada no corresponde an un <code>ISO8583Transaction</code>, el servicio responderá <code>422</code></li>
+                  </ul>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ISO8583Transaction">ISO8583Transaction</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Transacción</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;entidad_codigo&quot;</span>: <span class="hljs-string">&quot;9603&quot;</span>,
+  <span class="hljs-attr">&quot;cliente&quot;</span>: {
+    <span class="hljs-attr">&quot;centro_alta&quot;</span>: <span class="hljs-string">&quot;0001&quot;</span>,
+    <span class="hljs-attr">&quot;cuenta&quot;</span>: <span class="hljs-string">&quot;000000012345&quot;</span>,
+    <span class="hljs-attr">&quot;tipo_documento&quot;</span>: <span class="hljs-string">&quot;RUT&quot;</span>,
+    <span class="hljs-attr">&quot;numero_documento&quot;</span>: <span class="hljs-string">&quot;14569484&quot;</span>
+  },
+  <span class="hljs-attr">&quot;tarjeta&quot;</span>: {
+    <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;4111111111111111&quot;</span>,
+    <span class="hljs-attr">&quot;expiracion&quot;</span>: <span class="hljs-string">&quot;03/22&quot;</span>,
+    <span class="hljs-attr">&quot;bloqueo_codigo&quot;</span>: <span class="hljs-string">&quot;010&quot;</span>,
+    <span class="hljs-attr">&quot;bloqueo_descripcion&quot;</span>: <span class="hljs-string">&quot;MORA GRAVE&quot;</span>,
+    <span class="hljs-attr">&quot;saldo&quot;</span>: {
+      <span class="hljs-attr">&quot;codigo_moneda&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
+      <span class="hljs-attr">&quot;saldo_dispuesto_antes&quot;</span>: <span class="hljs-string">&quot;1983000&quot;</span>,
+      <span class="hljs-attr">&quot;saldo_autorizado_antes&quot;</span>: <span class="hljs-string">&quot;100000&quot;</span>,
+      <span class="hljs-attr">&quot;saldo_dispuesto_despues&quot;</span>: <span class="hljs-string">&quot;1882900&quot;</span>,
+      <span class="hljs-attr">&quot;saldo_autorizado_despues&quot;</span>: <span class="hljs-string">&quot;200100&quot;</span>
+    }
+  },
+  <span class="hljs-attr">&quot;mensaje_entrada&quot;</span>: {
+    <span class="hljs-attr">&quot;codigo_moneda_local&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
+    <span class="hljs-attr">&quot;monto_local&quot;</span>: <span class="hljs-string">&quot;100100&quot;</span>,
+    <span class="hljs-attr">&quot;codigo_moneda_origen&quot;</span>: <span class="hljs-string">&quot;EUR&quot;</span>,
+    <span class="hljs-attr">&quot;monto_origen&quot;</span>: <span class="hljs-string">&quot;154&quot;</span>,
+    <span class="hljs-attr">&quot;comercio_nombre&quot;</span>: <span class="hljs-string">&quot;AMAZON UK&quot;</span>,
+    <span class="hljs-attr">&quot;comercio_pais&quot;</span>: <span class="hljs-string">&quot;GBR&quot;</span>,
+    <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>
+  },
+  <span class="hljs-attr">&quot;mensaje_respuesta&quot;</span>: {
+    <span class="hljs-attr">&quot;factura_codigo&quot;</span>: <span class="hljs-string">&quot;TF491&quot;</span>,
+    <span class="hljs-attr">&quot;factura_descripcion&quot;</span>: <span class="hljs-string">&quot;COMPRA EN CUOTAS&quot;</span>,
+    <span class="hljs-attr">&quot;codigo_autorizacion&quot;</span>: <span class="hljs-string">&quot;100100&quot;</span>,
+    <span class="hljs-attr">&quot;respuesta_tipo_codigo&quot;</span>: <span class="hljs-string">&quot;110&quot;</span>,
+    <span class="hljs-attr">&quot;respuesta_tipo_descripcion&quot;</span>: <span class="hljs-string">&quot;APROBADO&quot;</span>,
+    <span class="hljs-attr">&quot;respuesta_codigo_autorizacion&quot;</span>: <span class="hljs-string">&quot;123456&quot;</span>,
+    <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>
+  },
+  <span class="hljs-attr">&quot;raw_iso_8583_request&quot;</span>: <span class="hljs-string">&quot;TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvS4=&quot;</span>,
+  <span class="hljs-attr">&quot;raw_iso_8583_response&quot;</span>: <span class="hljs-string">&quot;vdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c=&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">422 Unprocessable Entity</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>El mensaje <code>ISO8583Transaction</code> tiene errores</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(422 Unprocessable Entity)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
+  <span class="hljs-attr">&quot;details&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
+      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
           <h1>Schema Definitions</h1>
           <div id="definition-NewUser" class="definition panel" data-traverse-target="definition-NewUser">
             <h2 class="panel-title">
@@ -4570,6 +4724,132 @@
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
   }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-ISO8583Transaction" class="definition panel" data-traverse-target="definition-ISO8583Transaction">
+            <h2 class="panel-title">
+              <a name="/definitions/ISO8583Transaction"></a>ISO8583Transaction: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Request y response en formato ISO 8583</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="entidad_codigo" class="has-description">
+                      <span class="json-property-name">entidad_codigo:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Código de entidad en el procesador</p>
+                    </dd>
+                    <dt data-property-name="cliente" class="has-description">
+                      <span class="json-property-name">cliente:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>cliente afectado por la transacción</p>
+                    </dd>
+                    <dt data-property-name="tarjeta" class="has-description">
+                      <span class="json-property-name">tarjeta:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>tarjeta afectada por la transacción</p>
+                    </dd>
+                    <dt data-property-name="mensaje_entrada" class="has-description">
+                      <span class="json-property-name">mensaje_entrada:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Mensaje que llegó al procesador</p>
+                    </dd>
+                    <dt data-property-name="mensaje_respuesta" class="has-description">
+                      <span class="json-property-name">mensaje_respuesta:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Mensaje que respondió el procesador</p>
+                    </dd>
+                    <dt data-property-name="raw_iso_8583_request" class="has-description">
+                      <span class="json-property-name">raw_iso_8583_request:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Mensaje de entrada ISO 8583 codificado en base64</p>
+                    </dd>
+                    <dt data-property-name="raw_iso_8583_response" class="has-description">
+                      <span class="json-property-name">raw_iso_8583_response:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Mensaje de respuesta ISO 8583 codificado en base64</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;entidad_codigo&quot;</span>: <span class="hljs-string">&quot;9603&quot;</span>,
+  <span class="hljs-attr">&quot;cliente&quot;</span>: {
+    <span class="hljs-attr">&quot;centro_alta&quot;</span>: <span class="hljs-string">&quot;0001&quot;</span>,
+    <span class="hljs-attr">&quot;cuenta&quot;</span>: <span class="hljs-string">&quot;000000012345&quot;</span>,
+    <span class="hljs-attr">&quot;tipo_documento&quot;</span>: <span class="hljs-string">&quot;RUT&quot;</span>,
+    <span class="hljs-attr">&quot;numero_documento&quot;</span>: <span class="hljs-string">&quot;14569484&quot;</span>
+  },
+  <span class="hljs-attr">&quot;tarjeta&quot;</span>: {
+    <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;4111111111111111&quot;</span>,
+    <span class="hljs-attr">&quot;expiracion&quot;</span>: <span class="hljs-string">&quot;03/22&quot;</span>,
+    <span class="hljs-attr">&quot;bloqueo_codigo&quot;</span>: <span class="hljs-string">&quot;010&quot;</span>,
+    <span class="hljs-attr">&quot;bloqueo_descripcion&quot;</span>: <span class="hljs-string">&quot;MORA GRAVE&quot;</span>,
+    <span class="hljs-attr">&quot;saldo&quot;</span>: {
+      <span class="hljs-attr">&quot;codigo_moneda&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
+      <span class="hljs-attr">&quot;saldo_dispuesto_antes&quot;</span>: <span class="hljs-string">&quot;1983000&quot;</span>,
+      <span class="hljs-attr">&quot;saldo_autorizado_antes&quot;</span>: <span class="hljs-string">&quot;100000&quot;</span>,
+      <span class="hljs-attr">&quot;saldo_dispuesto_despues&quot;</span>: <span class="hljs-string">&quot;1882900&quot;</span>,
+      <span class="hljs-attr">&quot;saldo_autorizado_despues&quot;</span>: <span class="hljs-string">&quot;200100&quot;</span>
+    }
+  },
+  <span class="hljs-attr">&quot;mensaje_entrada&quot;</span>: {
+    <span class="hljs-attr">&quot;codigo_moneda_local&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
+    <span class="hljs-attr">&quot;monto_local&quot;</span>: <span class="hljs-string">&quot;100100&quot;</span>,
+    <span class="hljs-attr">&quot;codigo_moneda_origen&quot;</span>: <span class="hljs-string">&quot;EUR&quot;</span>,
+    <span class="hljs-attr">&quot;monto_origen&quot;</span>: <span class="hljs-string">&quot;154&quot;</span>,
+    <span class="hljs-attr">&quot;comercio_nombre&quot;</span>: <span class="hljs-string">&quot;AMAZON UK&quot;</span>,
+    <span class="hljs-attr">&quot;comercio_pais&quot;</span>: <span class="hljs-string">&quot;GBR&quot;</span>,
+    <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>
+  },
+  <span class="hljs-attr">&quot;mensaje_respuesta&quot;</span>: {
+    <span class="hljs-attr">&quot;factura_codigo&quot;</span>: <span class="hljs-string">&quot;TF491&quot;</span>,
+    <span class="hljs-attr">&quot;factura_descripcion&quot;</span>: <span class="hljs-string">&quot;COMPRA EN CUOTAS&quot;</span>,
+    <span class="hljs-attr">&quot;codigo_autorizacion&quot;</span>: <span class="hljs-string">&quot;100100&quot;</span>,
+    <span class="hljs-attr">&quot;respuesta_tipo_codigo&quot;</span>: <span class="hljs-string">&quot;110&quot;</span>,
+    <span class="hljs-attr">&quot;respuesta_tipo_descripcion&quot;</span>: <span class="hljs-string">&quot;APROBADO&quot;</span>,
+    <span class="hljs-attr">&quot;respuesta_codigo_autorizacion&quot;</span>: <span class="hljs-string">&quot;123456&quot;</span>,
+    <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>
+  },
+  <span class="hljs-attr">&quot;raw_iso_8583_request&quot;</span>: <span class="hljs-string">&quot;TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvS4=&quot;</span>,
+  <span class="hljs-attr">&quot;raw_iso_8583_response&quot;</span>: <span class="hljs-string">&quot;vdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c=&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
