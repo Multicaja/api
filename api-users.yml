@@ -8,10 +8,10 @@ info:
     Todos los requests son autenticados usando un `api-key`.
 
     Existen dos ambientes: `qa` y `producción`. El `host` de `qa` es `apiqa.multicaja.cl`.
-  version: '0.2'
+  version: '0.3'
   title: API Multicaja (Alpha)
 host: 'api.multicaja.cl'
-basePath: /v0.1-alpha/
+basePath: /v0.3-alpha/
 consumes:
   - application/json
 produces:
