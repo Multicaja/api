@@ -1056,7 +1056,7 @@ definitions:
     type: object
     description: Dirección física **(Response)**
     allOf:
-      - $ref: "#/definitions/NewRut"
+      - $ref: "#/definitions/NewAddress"
       - type: object
         required:
           - id
