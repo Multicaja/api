@@ -8,10 +8,10 @@ info:
     Todos los requests son autenticados usando un `api-key`.
 
     Existen dos ambientes: `qa` y `producción`. El `host` de `qa` es `apiqa.multicaja.cl`.
-  version: '0.3'
+  version: '0.4'
   title: API Multicaja (Alpha)
 host: 'api.multicaja.cl'
-basePath: /v0.3-alpha/
+basePath: /v0.4-alpha/
 consumes:
   - application/json
 produces:
@@ -926,7 +926,8 @@ definitions:
               * "borrado": eliminación lógica del cliente, no admite ningún cambio
           has_clave:
             type: string
-            description: `"true"` si el usuario tiene `clave`; `"false"` en otro caso
+            description: |
+              `"true"` si el usuario tiene `clave`; `"false"` en otro caso
             example: "true"
           timestamps:
             $ref: '#/definitions/Timestamps'
