@@ -36,9 +36,10 @@ paths:
       tags: 
         - clientes
       description: |
-        Registra a un nuevo cliente. 
+        Registra a un nuevo cliente, el que puede ser persona natural (`rut.value < 50000000`) o empresa (`rut.value >= 50000000`).
         ### Notas
         * Requiere al menos los campos mínimos de User: rut y correo.
+        * Si es una empresa, debe incluir `company_data`.
         * El servicio también funcionará con el `rut` de un cliente existente con `globalStatus` `"pre-registro"`.
         * Si se intenta crear un usuario con un `rut` o un `email` que ya ha sido usado y con `globalStatus` distinto de `"pre-registro"`, el servicio retornará `405`.
         * `clave` debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de `rut.value`
@@ -92,10 +93,11 @@ paths:
       tags: 
         - clientes
       description: |
-        Modifica los datos de un cliente
+        Modifica los datos de un cliente, el que puede ser persona natural (`rut.value < 50000000`) o empresa (`rut.value >= 50000000`).
         
         ### Notas
         * Pese a que el rut es requerido, no es modificable. Si se proporciona un RUT distinto al del cliente `{user_id}`, el servicio retornará `422`
+        * Si es una empresa, debe incluir `company_data`.
         * `clave` debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de `rut.value`
         * Si se incluye el campo `clave` y `globalStatus` era `"pre-registro"`, `globalStatus` cambiará a `"activo"`
         * No se podrá modificar `email.value` si cliente no tiene clave. Si se intenta modificar un email de un cliente que no tiene clave, el servicio retornará `422`.
