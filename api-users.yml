@@ -857,6 +857,7 @@ paths:
               $ref: '#/definitions/Param'
 definitions:
   NewUser:
+    type: object
     description: |
       Cliente **(Request)**
 
@@ -1109,7 +1110,8 @@ definitions:
     type: object
     description: |
       Fecha de creación y de última modificación.  Campo read-only.
-      Componente de `Address`, `User`, `Rut`, `CellPhone`, `Email` y `BankAccount`
+      Componente de `Address`, `User`, `Rut`, `CellPhone`, `Email`, `BankAccount` y `CompanyData`
+      
       **No se usa de manera independiente en la API**
     properties:
       created_at:
