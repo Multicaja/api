@@ -1154,6 +1154,10 @@ definitions:
     required:
       - line_1
     properties:
+      alias:
+        type: string
+        description: Nombre que el usuario le da a esta dirección
+        example: "Casa"
       line_1:
         type: string
         description: Lo que se une a región y comuna para determinar el código postal
