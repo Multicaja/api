@@ -8,10 +8,10 @@ info:
     Todos los requests son autenticados usando un `api-key`.
 
     Existen dos ambientes: `qa` y `producción`. El `host` de `qa` es `apiqa.multicaja.cl`.
-  version: '0.3'
+  version: '0.4'
   title: API Multicaja (Alpha)
 host: 'api.multicaja.cl'
-basePath: /v0.3-alpha/
+basePath: /v0.4-alpha/
 consumes:
   - application/json
 produces:
@@ -149,8 +149,8 @@ paths:
           in: "query"
           description: "Email"
           type: string
-        - name: "cellphone"
-          in: "query"
+        - in: "query"
+          name: "cellphone"
           description: "Celular (9 dígitos)"
           type: string
       responses:
@@ -167,17 +167,19 @@ paths:
         - clientes
       description: |
         Busca a un cliente por (rut y clave) o por (email y clave)
+      consumes:
+        - application/x-www-form-urlencoded
       parameters:
         - name: rut
-          in: body
+          in: formData
           description: "Rut sin puntos ni dígito verificador"
           type: integer
         - name: email
-          in: body
+          in: formData
           description: "Email"
           type: string
-        - name: clave
-          in: body
+        - in: formData
+          name: clave
           description: "Clave de 4 dígitos"
           type: string
       responses:
@@ -857,6 +859,7 @@ paths:
               $ref: '#/definitions/Param'
 definitions:
   NewUser:
+    type: object
     description: |
       Cliente **(Request)**
 
@@ -926,7 +929,8 @@ definitions:
               * "borrado": eliminación lógica del cliente, no admite ningún cambio
           has_clave:
             type: string
-            description: `"true"` si el usuario tiene `clave`; `"false"` en otro caso
+            description: |
+              `"true"` si el usuario tiene `clave`; `"false"` en otro caso
             example: "true"
           timestamps:
             $ref: '#/definitions/Timestamps'
@@ -964,7 +968,10 @@ definitions:
         example: "1977-1-14"
   NewRut:
     type: object
-    description: Identificador Chileno **(Request)**
+    description: |
+      Identificador Chileno **(Request)**
+      
+      **No se usa de manera independiente en la API**
     required:
       - value
     properties:
@@ -982,7 +989,10 @@ definitions:
         example: "K"
   Rut:
     type: object
-    description: Identificador Chileno **(Response)**
+    description: |
+      Identificador Chileno **(Response)**
+      
+      **No se usa de manera independiente en la API**
     allOf:
       - $ref: "#/definitions/NewRut"
       - type: object
@@ -1005,7 +1015,10 @@ definitions:
             $ref: '#/definitions/Timestamps'
   NewEmail:
     type: object
-    description: Correo Electrónico **(Request)**
+    description: |
+      Correo Electrónico **(Request)**
+      
+      **No se usa de manera independiente en la API**
     required:
       - value
     properties:
@@ -1015,7 +1028,10 @@ definitions:
         example: "pepito@gmail.com"
   Email:
     type: object
-    description: Correo Electrónico **(Response)**
+    description: |
+      Correo Electrónico **(Response)**
+      
+      **No se usa de manera independiente en la API**
     allOf:
       - $ref: "#/definitions/NewEmail"
       - type: object
@@ -1038,7 +1054,10 @@ definitions:
             $ref: '#/definitions/Timestamps'
   NewCellPhone:
     type: object
-    description: Teléfono Celular **(Request)**
+    description: |
+      Teléfono Celular **(Request)**
+      
+      **No se usa de manera independiente en la API**
     required:
       - value
     properties:
@@ -1048,7 +1067,10 @@ definitions:
         example: "912345678"
   CellPhone:
     type: object
-    description: Teléfono Celular **(Response)**
+    description: |
+      Teléfono Celular **(Response)**
+      
+      **No se usa de manera independiente en la API**
     allOf:
       - $ref: "#/definitions/NewCellPhone"
       - type: object
@@ -1071,7 +1093,10 @@ definitions:
             $ref: '#/definitions/Timestamps'
   NewCompanyData:
     type: object
-    description: Datos de la empresa a la que corresponde este Cliente **(Request)**
+    description: |
+      Datos de la empresa a la que corresponde este Cliente **(Request)**
+      
+      **No se usa de manera independiente en la API**
     required:
       - razon_social
     properties:
@@ -1085,7 +1110,10 @@ definitions:
         description: ID del giro (ver /params/giros)
   CompanyData:
     type: object
-    description: Datos de la empresa a la que corresponde este Cliente **(Response)**
+    description: |
+      Datos de la empresa a la que corresponde este Cliente **(Response)**
+      
+      **No se usa de manera independiente en la API**
     allOf:
       - $ref: "#/definitions/NewCompanyData"
       - type: object
@@ -1108,7 +1136,8 @@ definitions:
     type: object
     description: |
       Fecha de creación y de última modificación.  Campo read-only.
-      Componente de `Address`, `User`, `Rut`, `CellPhone`, `Email` y `BankAccount`
+      Componente de `Address`, `User`, `Rut`, `CellPhone`, `Email`, `BankAccount` y `CompanyData`
+
       **No se usa de manera independiente en la API**
     properties:
       created_at:
@@ -1463,6 +1492,7 @@ definitions:
     description: |
       Cuando un error está compuesto por una lista de sub-errores, vendrán en este objeto
       Componente de `ErrorObj`
+      
       **No se usa de manera independiente en la API**
     properties:
       code:
