@@ -160,6 +160,33 @@ paths:
             $ref: '#/definitions/User'
         '404':
           description: Cliente no existe
+  /users/login:
+    get:
+      summary: Buscar por ID y clave
+      tags: 
+        - clientes
+      description: |
+        Busca a un cliente por (rut y clave) o por (email y clave)
+      parameters:
+        - name: rut
+          in: body
+          description: "Rut sin puntos ni dígito verificador"
+          type: integer
+        - name: email
+          in: body
+          description: "Email"
+          type: string
+        - name: clave
+          in: body
+          description: "Clave de 4 dígitos"
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: Cliente no existe (puede representar clave inválida)
   /users/{user_id}/mail:
     post:
       summary: Enviar correo
