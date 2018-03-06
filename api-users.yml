@@ -814,9 +814,25 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Param'
+  /params/giros:
+    get:
+      summary: Lista giros comerciales
+      tags: 
+        - parámetros
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Param'
 definitions:
   NewUser:
-    description: Cliente persona natural **(Request)**
+    description: |
+      Cliente **(Request)**
+
+      * Si el RUT es inferior a 50.000.000, corresponde a Persona Natural y `company_data` deberá ser `null`.
+      * Si el RUT es igual o superior a 50.000.000, corresponde a Empresa y `company_data` debe existir.
     allOf:
       - $ref: "#/definitions/UserBasicFields"
       - type: object
@@ -830,13 +846,19 @@ definitions:
             $ref: '#/definitions/NewCellPhone'
           email:
             $ref: '#/definitions/NewEmail'
+          company_data:
+            $ref: "#/definitions/NewCompanyData"
           clave:
             type: string
             description: Clave de autenticación de 4 dígitos. Campo write-only.
             example: 8922
   User:
     type: object
-    description: Cliente persona natural **(Response)**
+    description: |
+      Cliente **(Response)**
+
+      * Si el RUT es inferior a 50.000.000, corresponde a Persona Natural y `company_data` deberá ser `null`.
+      * Si el RUT es igual o superior a 50.000.000, corresponde a Empresa y `company_data` es obligatorio
     allOf:
       - $ref: "#/definitions/UserBasicFields"
       - type: object
@@ -857,6 +879,8 @@ definitions:
             $ref: '#/definitions/CellPhone'
           email:
             $ref: '#/definitions/Email'
+          company_data:
+            $ref: "#/definitions/CompanyData"
           globalStatus:
             type: string
             enum:
@@ -1009,6 +1033,41 @@ definitions:
               * no_validado: el celular no ha sido validado
               * en_proceso_de_validacion: se ha enviado al menos un sms de validación, pero el usuario no ha usado el código
               * validado: el usuario demostró tener acceso al celular usando el código enviado a éste
+          timestamps:
+            $ref: '#/definitions/Timestamps'
+  NewCompanyData:
+    type: object
+    description: Datos de la empresa a la que corresponde este Cliente **(Request)**
+    required:
+      - razon_social
+    properties:
+      razon_social:
+        type: string
+        description: Nombre legal de la empresa
+        example: "Reparaciones Joselito Ltda."
+      giro:
+        type: integer
+        example: 772
+        description: ID del giro (ver /params/giros)
+  CompanyData:
+    type: object
+    description: Datos de la empresa a la que corresponde este Cliente **(Response)**
+    allOf:
+      - $ref: "#/definitions/NewCompanyData"
+      - type: object
+        required:
+          - status
+          - timestamps
+        properties:
+          status:
+            type: string
+            enum:
+              - no_validado
+              - validado_sii
+            description: |
+              Estado de validación de la razón social
+              * no_validado: la razón social no ha sido validada
+              * validado_sii: la razón social fue validada mediante el SII
           timestamps:
             $ref: '#/definitions/Timestamps'
   Timestamps:
