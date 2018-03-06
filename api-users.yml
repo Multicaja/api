@@ -859,6 +859,7 @@ definitions:
     description: |
       Cliente **(Response)**
 
+      * Este objeto representa tanto a una persona natural como a una empresa
       * Si el RUT es inferior a 50.000.000, corresponde a Persona Natural y `company_data` deberá ser `null`.
       * Si el RUT es igual o superior a 50.000.000, corresponde a Empresa y `company_data` es obligatorio
     allOf:
@@ -896,6 +897,10 @@ definitions:
               * "activo": cliente con clave que puede transar
               * "bloqueado": cuenta temporalmente congelada
               * "borrado": eliminación lógica del cliente, no admite ningún cambio
+          has_clave:
+            type: string
+            description: `"true"` si el usuario tiene `clave`; `"false"` en otro caso
+            example: "true"
           timestamps:
             $ref: '#/definitions/Timestamps'
   UserBasicFields:
