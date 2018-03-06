@@ -182,7 +182,7 @@
               <div class="doc-examples">
                 <section>
                   <h5>API Endpoint</h5>
-                  <!-- <div class="hljs"> --><pre><code>http://api.multicaja.cl/v0.4-alpha/</code></pre>
+                  <!-- <div class="hljs"> --><pre><code>http://api.multicaja.cl/v0.5-alpha/</code></pre>
                   <!-- </div> -->
                   <h5>Request Content-Types:
                     <span>application/json</span>
@@ -191,7 +191,7 @@
                     <span>application/json</span>
                   </h5>
                   <h5>Version:
-                    <span>0.4</span>
+                    <span>0.5</span>
                   </h5>
                 </section>
               </div>
@@ -2108,6 +2108,7 @@
       <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
       <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
     },
+    <span class="hljs-attr">&quot;alias&quot;</span>: <span class="hljs-string">&quot;Casa&quot;</span>,
     <span class="hljs-attr">&quot;line_1&quot;</span>: <span class="hljs-string">&quot;Suecia 1414&quot;</span>,
     <span class="hljs-attr">&quot;line_2&quot;</span>: <span class="hljs-string">&quot;Depto 502&quot;</span>,
     <span class="hljs-attr">&quot;region_id&quot;</span>: <span class="hljs-number">13</span>,
@@ -2196,6 +2197,7 @@
                 <section>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;alias&quot;</span>: <span class="hljs-string">&quot;Casa&quot;</span>,
   <span class="hljs-attr">&quot;line_1&quot;</span>: <span class="hljs-string">&quot;Suecia 1414&quot;</span>,
   <span class="hljs-attr">&quot;line_2&quot;</span>: <span class="hljs-string">&quot;Depto 502&quot;</span>,
   <span class="hljs-attr">&quot;region_id&quot;</span>: <span class="hljs-number">13</span>,
@@ -2268,6 +2270,7 @@
       <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
       <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
     },
+    <span class="hljs-attr">&quot;alias&quot;</span>: <span class="hljs-string">&quot;Casa&quot;</span>,
     <span class="hljs-attr">&quot;line_1&quot;</span>: <span class="hljs-string">&quot;Suecia 1414&quot;</span>,
     <span class="hljs-attr">&quot;line_2&quot;</span>: <span class="hljs-string">&quot;Depto 502&quot;</span>,
     <span class="hljs-attr">&quot;region_id&quot;</span>: <span class="hljs-number">13</span>,
@@ -4920,6 +4923,14 @@
                 </section>
                 <section class="json-schema-properties">
                   <dl>
+                    <dt data-property-name="alias" class="has-description">
+                      <span class="json-property-name">alias:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Nombre que el usuario le da a esta dirección</p>
+                    </dd>
                     <dt data-property-name="line_1" class="has-description">
                       <span class="json-property-name">line_1:</span>
                       <span class="json-property-type">string</span>
@@ -4968,6 +4979,7 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;alias&quot;</span>: <span class="hljs-string">&quot;Casa&quot;</span>,
   <span class="hljs-attr">&quot;line_1&quot;</span>: <span class="hljs-string">&quot;Suecia 1414&quot;</span>,
   <span class="hljs-attr">&quot;line_2&quot;</span>: <span class="hljs-string">&quot;Depto 502&quot;</span>,
   <span class="hljs-attr">&quot;region_id&quot;</span>: <span class="hljs-number">13</span>,
@@ -5040,6 +5052,7 @@
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
   },
+  <span class="hljs-attr">&quot;alias&quot;</span>: <span class="hljs-string">&quot;Casa&quot;</span>,
   <span class="hljs-attr">&quot;line_1&quot;</span>: <span class="hljs-string">&quot;Suecia 1414&quot;</span>,
   <span class="hljs-attr">&quot;line_2&quot;</span>: <span class="hljs-string">&quot;Depto 502&quot;</span>,
   <span class="hljs-attr">&quot;region_id&quot;</span>: <span class="hljs-number">13</span>,
