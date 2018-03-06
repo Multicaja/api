@@ -36,9 +36,10 @@ paths:
       tags: 
         - clientes
       description: |
-        Registra a un nuevo cliente. 
+        Registra a un nuevo cliente, el que puede ser persona natural (`rut.value < 50000000`) o empresa (`rut.value >= 50000000`).
         ### Notas
         * Requiere al menos los campos mínimos de User: rut y correo.
+        * Si es una empresa, debe incluir `company_data`.
         * El servicio también funcionará con el `rut` de un cliente existente con `globalStatus` `"pre-registro"`.
         * Si se intenta crear un usuario con un `rut` o un `email` que ya ha sido usado y con `globalStatus` distinto de `"pre-registro"`, el servicio retornará `405`.
         * `clave` debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de `rut.value`
@@ -92,10 +93,11 @@ paths:
       tags: 
         - clientes
       description: |
-        Modifica los datos de un cliente
+        Modifica los datos de un cliente, el que puede ser persona natural (`rut.value < 50000000`) o empresa (`rut.value >= 50000000`).
         
         ### Notas
         * Pese a que el rut es requerido, no es modificable. Si se proporciona un RUT distinto al del cliente `{user_id}`, el servicio retornará `422`
+        * Si es una empresa, debe incluir `company_data`.
         * `clave` debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de `rut.value`
         * Si se incluye el campo `clave` y `globalStatus` era `"pre-registro"`, `globalStatus` cambiará a `"activo"`
         * No se podrá modificar `email.value` si cliente no tiene clave. Si se intenta modificar un email de un cliente que no tiene clave, el servicio retornará `422`.
@@ -158,6 +160,33 @@ paths:
             $ref: '#/definitions/User'
         '404':
           description: Cliente no existe
+  /users/login:
+    get:
+      summary: Buscar por ID y clave
+      tags: 
+        - clientes
+      description: |
+        Busca a un cliente por (rut y clave) o por (email y clave)
+      parameters:
+        - name: rut
+          in: body
+          description: "Rut sin puntos ni dígito verificador"
+          type: integer
+        - name: email
+          in: body
+          description: "Email"
+          type: string
+        - name: clave
+          in: body
+          description: "Clave de 4 dígitos"
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: Cliente no existe (puede representar clave inválida)
   /users/{user_id}/mail:
     post:
       summary: Enviar correo
@@ -814,9 +843,25 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Param'
+  /params/giros:
+    get:
+      summary: Lista giros comerciales
+      tags: 
+        - parámetros
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Param'
 definitions:
   NewUser:
-    description: Cliente persona natural **(Request)**
+    description: |
+      Cliente **(Request)**
+
+      * Si el RUT es inferior a 50.000.000, corresponde a Persona Natural y `company_data` deberá ser `null`.
+      * Si el RUT es igual o superior a 50.000.000, corresponde a Empresa y `company_data` debe existir.
     allOf:
       - $ref: "#/definitions/UserBasicFields"
       - type: object
@@ -830,13 +875,20 @@ definitions:
             $ref: '#/definitions/NewCellPhone'
           email:
             $ref: '#/definitions/NewEmail'
+          company_data:
+            $ref: "#/definitions/NewCompanyData"
           clave:
             type: string
             description: Clave de autenticación de 4 dígitos. Campo write-only.
             example: 8922
   User:
     type: object
-    description: Cliente persona natural **(Response)**
+    description: |
+      Cliente **(Response)**
+
+      * Este objeto representa tanto a una persona natural como a una empresa
+      * Si el RUT es inferior a 50.000.000, corresponde a Persona Natural y `company_data` deberá ser `null`.
+      * Si el RUT es igual o superior a 50.000.000, corresponde a Empresa y `company_data` es obligatorio
     allOf:
       - $ref: "#/definitions/UserBasicFields"
       - type: object
@@ -857,6 +909,8 @@ definitions:
             $ref: '#/definitions/CellPhone'
           email:
             $ref: '#/definitions/Email'
+          company_data:
+            $ref: "#/definitions/CompanyData"
           globalStatus:
             type: string
             enum:
@@ -870,6 +924,10 @@ definitions:
               * "activo": cliente con clave que puede transar
               * "bloqueado": cuenta temporalmente congelada
               * "borrado": eliminación lógica del cliente, no admite ningún cambio
+          has_clave:
+            type: string
+            description: `"true"` si el usuario tiene `clave`; `"false"` en otro caso
+            example: "true"
           timestamps:
             $ref: '#/definitions/Timestamps'
   UserBasicFields:
@@ -1009,6 +1067,41 @@ definitions:
               * no_validado: el celular no ha sido validado
               * en_proceso_de_validacion: se ha enviado al menos un sms de validación, pero el usuario no ha usado el código
               * validado: el usuario demostró tener acceso al celular usando el código enviado a éste
+          timestamps:
+            $ref: '#/definitions/Timestamps'
+  NewCompanyData:
+    type: object
+    description: Datos de la empresa a la que corresponde este Cliente **(Request)**
+    required:
+      - razon_social
+    properties:
+      razon_social:
+        type: string
+        description: Nombre legal de la empresa
+        example: "Reparaciones Joselito Ltda."
+      giro:
+        type: integer
+        example: 772
+        description: ID del giro (ver /params/giros)
+  CompanyData:
+    type: object
+    description: Datos de la empresa a la que corresponde este Cliente **(Response)**
+    allOf:
+      - $ref: "#/definitions/NewCompanyData"
+      - type: object
+        required:
+          - status
+          - timestamps
+        properties:
+          status:
+            type: string
+            enum:
+              - no_validado
+              - validado_sii
+            description: |
+              Estado de validación de la razón social
+              * no_validado: la razón social no ha sido validada
+              * validado_sii: la razón social fue validada mediante el SII
           timestamps:
             $ref: '#/definitions/Timestamps'
   Timestamps:
