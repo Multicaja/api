@@ -149,8 +149,8 @@ paths:
           in: "query"
           description: "Email"
           type: string
-        - name: "cellphone"
-          in: "query"
+        - in: "query"
+          name: "cellphone"
           description: "Celular (9 dígitos)"
           type: string
       responses:
@@ -167,17 +167,19 @@ paths:
         - clientes
       description: |
         Busca a un cliente por (rut y clave) o por (email y clave)
+      consumes:
+        - application/x-www-form-urlencoded
       parameters:
         - name: rut
-          in: body
+          in: formData
           description: "Rut sin puntos ni dígito verificador"
           type: integer
         - name: email
-          in: body
+          in: formData
           description: "Email"
           type: string
-        - name: clave
-          in: body
+        - in: formData
+          name: clave
           description: "Clave de 4 dígitos"
           type: string
       responses:
