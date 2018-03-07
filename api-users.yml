@@ -880,7 +880,7 @@ definitions:
             $ref: '#/definitions/NewEmail'
           company_data:
             $ref: "#/definitions/NewCompanyData"
-          clave:
+          password:
             type: string
             description: Clave de autenticación de 4 dígitos. Campo write-only.
             example: 8922
@@ -1095,16 +1095,15 @@ definitions:
     type: object
     description: |
       Datos de la empresa a la que corresponde este Cliente **(Request)**
-      
       **No se usa de manera independiente en la API**
     required:
-      - razon_social
+      - business_name
     properties:
-      razon_social:
+      business_name:
         type: string
         description: Nombre legal de la empresa
         example: "Reparaciones Joselito Ltda."
-      giro:
+      commercial_activity:
         type: integer
         example: 772
         description: ID del giro (ver /params/giros)
