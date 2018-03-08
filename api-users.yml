@@ -25,8 +25,6 @@ tags:
     description: Operaciones relacionadas con las cuentas bancarias de un cliente
   - name: direcciones
     description: Operaciones relacionadas con la dirección física de un cliente
-  - name: parámetros
-    description: Listas de parámetros inmutables
   - name: prepago
     description: Operaciones relacionadas con Prepago Multicaja
 paths:
@@ -803,60 +801,6 @@ paths:
           description: OK
         '404':
           description: Cliente o Dirección no existen
-  /params/banks:
-    get:
-      summary: Lista bancos
-      tags: 
-        - parámetros
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Param'
-  /params/communes:
-    get:
-      summary: Lista comunas
-      tags: 
-        - parámetros
-      parameters:
-        - name: "region"
-          in: "query"
-          description: "id de region para busqueda"
-          required: false
-          type: "integer"
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Param'
-  /params/regions:
-    get:
-      summary: Lista regiones
-      tags: 
-        - parámetros
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Param'
-  /params/giros:
-    get:
-      summary: Lista giros comerciales
-      tags: 
-        - parámetros
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Param'
 definitions:
   NewUser:
     type: object
@@ -1455,22 +1399,6 @@ definitions:
           * expirada: la tarjeta expiró
       timestamps:
         $ref: '#/definitions/Timestamps'
-  Param:
-    type: object
-    required:
-      - id
-      - value
-    description: Parámetro básico **(Response)**
-    properties:
-      id:
-        type: integer
-        description: identificador del parámetro
-      value:
-        type: string
-        description: nombre del parámetro
-      desc:
-        type: string
-        description: descripción del parámetro
   ErrorObj:
     type: object
     description: Error que devuelve la api ante un `HTTP 422` **(Response)**
