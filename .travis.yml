@@ -10,7 +10,10 @@ script:
   - export BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
   # All variables ready - run the test script
   - bash api-spec_validation_test.sh
+  # Build docs pages
   - spectacle --target-dir docs --target-file api-users.html api-users.yml
+  - spectacle --target-dir docs --target-file api-prepaid.html api-prepaid.yml
+  - spectacle --target-dir docs --target-file api-helpers.html api-helpers.yml
  
 deploy:
   edge:
