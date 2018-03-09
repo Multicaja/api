@@ -19,5 +19,3 @@ deploy:
   keep-history: true
   local-dir: docs
   verbose: true
-  on:
-    branch: master 
