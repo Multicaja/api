@@ -13,6 +13,8 @@ script:
   - spectacle --target-dir docs --target-file api-users.html api-users.yml
  
 deploy:
+  edge:
+    branch: v1.8.47 # https://github.com/travis-ci/travis-ci/issues/9312
   provider: pages
   skip-cleanup: true
   github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
