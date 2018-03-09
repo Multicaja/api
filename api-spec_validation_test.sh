@@ -9,7 +9,6 @@ setUp()
   githubRawResourceBaseUrl=https://raw.githubusercontent.com
   githubUsername=Multicaja
   githubProjectId=api
-  #openApiSpecFileName=api-users.yml
   
   openApiSpecFileNames=(
      'api-users.yml'
