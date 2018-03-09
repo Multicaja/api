@@ -17,4 +17,4 @@ script:
   - export BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
   # All variables ready - run the test script
   - bash api-spec_validation_test.sh
-  - spectacle --target-dir docs --target-file api-users.yml api-users.html
+  - spectacle --target-dir docs --target-file api-users.html api-users.yml
