@@ -1,7 +1,15 @@
 language: bash
 
+before_install:
+  - git config --global user.email "travis@travis-ci.org"
+  - git config --global user.name "Travis CI"
+  - git config --global push.default simple
+  - git remote set-url origin https://${GH_TOKEN}@github.com/Multicaja/api.git
+  - npm -v
+
 before_script:
   - curl -L "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/shunit2/shunit2-2.1.6.tgz" | tar zx
+  - npm install -g spectacles
 
 script:
   # Get proper branch name based on http://graysonkoonce.com/getting-the-current-branch-name-during-a-pull-request-in-travis-ci/
