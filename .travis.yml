@@ -9,8 +9,7 @@ before_install:
 
 before_script:
   - curl -L "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/shunit2/shunit2-2.1.6.tgz" | tar zx
-  - npm i -g npm
-  - npm install -g spectacles
+  - npm install -g spectacle-docs
 
 script:
   # Get proper branch name based on http://graysonkoonce.com/getting-the-current-branch-name-during-a-pull-request-in-travis-ci/
@@ -18,3 +17,4 @@ script:
   - export BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
   # All variables ready - run the test script
   - bash api-spec_validation_test.sh
+  - spectacle --target-dir docs --target-file api-users.yml api-users.html
