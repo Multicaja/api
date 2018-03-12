@@ -26,7 +26,7 @@ paths:
       tags: 
         - prepago
       description: |
-        Indica si el cliente tiene un Prepago Multicaja. En caso afirmativo, retorna la tarjeta truncada.
+        Indica si el cliente tiene un Prepago Multicaja. En caso afirmativo, retorna la tarjeta truncada y sus límites.
         
         * Si el cliente tiene Prepago Multicaja, `has_prepaid_account` será `true`.
         * `card.timestamps.created_at` indicará la fecha en la que este cliente obtuvo su primera tarjeta de prepago
@@ -51,6 +51,12 @@ paths:
                 example: true
               card:
                 $ref: '#/definitions/PrepaidCard'
+              limits:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/definitions/PrepaidCardLimit'
+
         '404':
           description: Cliente no existe o no tiene un Prepago Multicaja
     post:
@@ -559,6 +565,21 @@ definitions:
       primary_balance:
         $ref: '#/definitions/AmountAndCurrency'
       secondary_balance:
+        $ref: '#/definitions/AmountAndCurrency'
+  PrepaidCardLimit:
+    type: object
+    description: |
+      Límite de uso para este usuario
+    properties:
+      id:
+        type: string
+        description: Identificador del límite
+        example: "001"
+      name:
+        type: string
+        description: Nombre del límite
+        example: "Saldo máximo"
+      amount:
         $ref: '#/definitions/AmountAndCurrency'
   NewPrepaidTransaction:
     type: object
