@@ -503,7 +503,69 @@ definitions:
           currency_description:
             type: integer
             description: Nombre de la moneda en español
-            example: "Dólar Americano"
+            example: "Peso Chileno"
+  Place:
+    type: object
+    description: Lugar donde ocurrió la transacción **(Response)**
+    required:
+      - country_iso_3266_code
+    properties:
+      country_iso_3266_code:
+        type: integer
+        description: Código ISO 3266-1 (numeric) del país
+        example: 152
+      country_description:
+        type: string
+        description: Nombre del país en español
+        example: "República de Chile"
+      place_name:
+        type: string
+        description: Nombre del lugar donde ocurrió el movimiento
+        example: "Santiago"
+  Merchant:
+    type: object
+    description: Comercio de origen **(Response)**
+    required:
+      - code
+      - name
+    properties:
+      code:
+        type: string
+        description: Código único que identifica al comercio
+        example: "0008902131"
+      name:
+        type: string
+        description: Nombre del comercio
+        example: "AMAZON UK"
+  TransactionType:
+    type: object
+    description: Tipo de transacción **(Response)**
+    required:
+      - type_code
+      - type_description
+      - is_ammendment
+      - is_positive
+    properties:
+      type_code:
+        type: string
+        description: Tipo de factura
+        example: "0012"
+      type_description:
+        type: string
+        description: Descripción tipo de factura
+        example: "COMPRA EN CUOTAS"
+      is_ammendment:
+        type: string
+        description: |
+          `true`: es una corrección
+          `false`: no es una corrección
+        example: "false"
+      is_positive:
+        type: string
+        description: |
+          `true`: es positivo
+          `false`: es negativo
+        example: "true"
   PrepaidCardBalance:
     type: object
     description: |
@@ -521,23 +583,53 @@ definitions:
   PrepaidTransaction:
     type: object
     required:
+      - transaction_type
       - auth_code
-      - amount
-      - desc
-    description: Transacción realizada con la tarjeta de prepago **(Response)**
+      - processor_transaction_id
+      - pan
+      - real_date
+      - ampunt_primary
+    description: |
+      Transacción realizada con la tarjeta de prepago **(Response)**
+
+      ### Notas
+      - `amount_primary` es el monto de la transacción en pesos. Éste es el monto que afectó al saldo.
+      - `amount_foreign` es el monto de la transacción en la moneda de origen. 
     properties:
+      transaction_type:
+        $ref: '#/definitions/TransactionType'
       auth_code:
         type: string
-        description: Identificador del movimiento en el procesador
-        example: "88457"
-      amount:
-        type: integer
-        description: Monto del movimiento
-        example: 45737
-      desc:
+        description: Identificador del movimiento enviado a la marca
+        example: "884157"
+      processor_transaction_id:
         type: string
-        description: Glosa
-        example: "Abono sucursal Web"
+        description: Identificador del movimiento en el procesador
+        example: "112100908"
+      pan:
+        type: string
+        description: Número de tarjeta truncado
+        example: "556677******1234"
+      real_date:
+        type: string
+        description: Fecha en la que ocurrió el movimiento, en formato yyyy-MM-dd
+        example: "2018-03-17"
+      accounting_date:
+        type: string
+        description: Fecha en la que quedó contabilizado el movimiento, en formato yyyy-MM-dd
+        example: "2018-03-19"
+      processing_date:
+        type: string
+        description: Fecha en la que se presentó el movimiento, en formato yyyy-MM-dd
+        example: "2018-03-18"
+      amount_primary:
+        $ref: '#/definitions/AmountAndCurrency'
+      amount_foreign:
+        $ref: '#/definitions/AmountAndCurrency'
+      country:
+        $ref: '#/definitions/Country'
+      merchant:
+        $ref: '#/definitions/Merchant'
   PrepaidCard:
     type: object
     required:
