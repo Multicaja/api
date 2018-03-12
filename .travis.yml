@@ -8,7 +8,7 @@ before_install:
 
 before_script:
   - curl -L "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/shunit2/shunit2-2.1.6.tgz" | tar zx
-  - npm install -g spectacles
+  - npm install -g spectacle-docs
 
 script:
   # Get proper branch name based on http://graysonkoonce.com/getting-the-current-branch-name-during-a-pull-request-in-travis-ci/
@@ -16,3 +16,20 @@ script:
   - export BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
   # All variables ready - run the test script
   - bash api-spec_validation_test.sh
+  # Build docs pages
+  - spectacle --target-dir docs --target-file api-users.html api-users.yml
+  - spectacle --target-dir docs-prepaid --target-file api-prepaid.html api-prepaid.yml
+  - spectacle --target-dir docs-helpers --target-file api-helpers.html api-helpers.yml
+  - mv docs-prepaid/api-prepaid.html docs/
+  - mv docs-helpers/api-helpers.html docs/
+  - cp README.md docs/
+ 
+deploy:
+  edge:
+    branch: v1.8.47 # https://github.com/travis-ci/travis-ci/issues/9312
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
+  keep-history: true
+  local-dir: docs
+  verbose: true

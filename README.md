@@ -1,10 +1,12 @@
-[![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-users.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-users.yml) [![TravisCI](https://travis-ci.org/Multicaja/api.svg?branch=master)](https://travis-ci.org/Multicaja/api/)
+[![TravisCI](https://travis-ci.org/Multicaja/api.svg?branch=master)](https://travis-ci.org/Multicaja/api/)
  
-## API Multicaja (Área Negocios Digitales)
+## API Multicaja
 
-[Especificación](api-users.yml) y [documentación](https://multicaja.github.io/api) de las APIs que Multicaja expone al público y a sus propios canales. 
-
-La especificación sigue el estándar [OpenAPI](https://github.com/OAI/OpenAPI-Specification/blob/master/README.md)
+| API        | Status        | Descripción |
+| ---------- |:-------------:|------------:|
+| [Users](https://multicaja.github.io/api/api-users.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-users.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-users.yml) | Usuarios, contacto, cuentas, direcciones |
+| [Prepaid](https://multicaja.github.io/api/api-prepaid.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-prepaid.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-prepaid.yml) | Tarjetas de prepago, saldo, emisión, transacciones |
+| [Helpers](https://multicaja.github.io/api/api-helpers.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-helpers.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-helpers.yml) | Comunas, bancos, regiones |
 
 ### Buenas prácticas
 
@@ -17,3 +19,5 @@ Para la implementación de las APIs, seguiremos las recomendaciones que OWASP in
 ### Forma de colaborar
 
 Trabajaremos con *pull request*
+
+La especificación sigue el estándar [OpenAPI](https://github.com/OAI/OpenAPI-Specification/blob/master/README.md)

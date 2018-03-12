@@ -9,7 +9,12 @@ setUp()
   githubRawResourceBaseUrl=https://raw.githubusercontent.com
   githubUsername=Multicaja
   githubProjectId=api
-  openApiSpecFileName=api-users.yml
+  
+  openApiSpecFileNames=(
+     'api-users.yml'
+     'api-helpers.yml'
+     'api-prepaid.yml'
+   )
   
 
   
@@ -32,22 +37,25 @@ setUp()
 testOpenApiSpecValidity() {
     expectedOutput="{}"
     expectedOutputSize=${#expectedOutput} 
-    specUrl="$githubRawResourceBaseUrl/$githubUsername/$githubProjectId/$BRANCH/$openApiSpecFileName"
-    # Now prepare the open API spec file to use the online validator service.
-    validationUrl="http://online.swagger.io/validator/debug?url=$specUrl"
-
-    echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-    echo "Validating ENV Variables: TRAVIS_BRANCH=$TRAVIS_BRANCH, BRANCH=$BRANCH"
-    echo "OpenAPI Specification File=$validationUrl"
-    echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"    
-
-    validationOutput=$(curl $validationUrl)
-    validationOutputSize=${#validationOutput}
-    echo "Testing swagger validation - current output is: $validationOutput"
-    echo "Expected valid size: $expectedOutputSize, current output: $validationOutputSize"
-    echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
     
-    assertEquals "Validation failed - service unavailable or error found." $expectedOutputSize $validationOutputSize
+    for currentApiFileName in ${openApiSpecFileNames[@]}; do
+      specUrl="$githubRawResourceBaseUrl/$githubUsername/$githubProjectId/$BRANCH/${currentApiFileName}"
+      # Now prepare the open API spec file to use the online validator service.
+      validationUrl="http://online.swagger.io/validator/debug?url=$specUrl"
+
+      echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+      echo "Validating ENV Variables: TRAVIS_BRANCH=$TRAVIS_BRANCH, BRANCH=$BRANCH"
+      echo "OpenAPI Specification File=$validationUrl"
+      echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"    
+
+      validationOutput=$(curl $validationUrl)
+      validationOutputSize=${#validationOutput}
+      echo "Testing swagger validation - current output is: $validationOutput"
+      echo "Expected valid size: $expectedOutputSize, current output: $validationOutputSize"
+      echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+
+      assertEquals "Validation failed - service unavailable or error found." $expectedOutputSize $validationOutputSize
+     done
 }
 
 
