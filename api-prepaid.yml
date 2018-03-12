@@ -52,10 +52,9 @@ paths:
               card:
                 $ref: '#/definitions/PrepaidCard'
               limits:
-                schema:
-                  type: array
-                  items:
-                    $ref: '#/definitions/PrepaidCardLimit'
+                type: array
+                items:
+                  $ref: '#/definitions/PrepaidCardLimit'
 
         '404':
           description: Cliente no existe o no tiene un Prepago Multicaja
