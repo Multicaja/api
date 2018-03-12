@@ -1,5 +1,11 @@
 language: bash
 
+before_install:
+  - git config --global user.email "travis@travis-ci.org"
+  - git config --global user.name "Travis CI"
+  - git config --global push.default simple
+  - git remote set-url origin https://${GH_TOKEN}@github.com/Multicaja/api.git
+
 before_script:
   - curl -L "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/shunit2/shunit2-2.1.6.tgz" | tar zx
   - npm install -g spectacle-docs
