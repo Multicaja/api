@@ -36,7 +36,7 @@
                 <a href="#operation--users--get"> Buscar </a>
               </li>
               <li>
-                <a href="#operation--users-login-get"> Buscar por ID y clave </a>
+                <a href="#operation--users-login-get"> Buscar por ID y password </a>
               </li>
             </ul>
           </section>
@@ -177,8 +177,8 @@
                     <li>Si es una empresa, debe incluir <code>company_data</code>.</li>
                     <li>El servicio también funcionará con el <code>rut</code> de un cliente existente con <code>globalStatus</code> <code>&quot;pre-registro&quot;</code>.</li>
                     <li>Si se intenta crear un usuario con un <code>rut</code> o un <code>email</code> que ya ha sido usado y con <code>globalStatus</code> distinto de <code>&quot;pre-registro&quot;</code>, el servicio retornará <code>405</code>.</li>
-                    <li><code>clave</code> debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de <code>rut.value</code></li>
-                    <li>Si se incluye el campo <code>clave</code>, <code>globalStatus</code> cambiará a <code>&quot;activo&quot;</code></li>
+                    <li><code>password</code> debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de <code>rut.value</code></li>
+                    <li>Si se incluye el campo <code>password</code>, <code>globalStatus</code> cambiará a <code>&quot;activo&quot;</code></li>
                     <li>Si se incluye <code>rut.serial_number</code>, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, <code>rut.status</code> pasará a &quot;validado&quot;. Si la validación no fuera exitosa, <code>rut.status</code> cambiará a (o seguirá siendo) &quot;no validado&quot;. Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.</li>
                   </ul>
                   <h3 id="recomendaciones">Recomendaciones</h3>
@@ -322,7 +322,7 @@
     <span class="hljs-attr">&quot;commercial_activity&quot;</span>: <span class="hljs-number">772</span>
   },
   <span class="hljs-attr">&quot;globalStatus&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;has_clave&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
+  <span class="hljs-attr">&quot;has_password&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
@@ -484,7 +484,7 @@
     <span class="hljs-attr">&quot;commercial_activity&quot;</span>: <span class="hljs-number">772</span>
   },
   <span class="hljs-attr">&quot;globalStatus&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;has_clave&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
+  <span class="hljs-attr">&quot;has_password&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
@@ -529,9 +529,9 @@
                   <ul>
                     <li>Pese a que el rut es requerido, no es modificable. Si se proporciona un RUT distinto al del cliente <code>{user_id}</code>, el servicio retornará <code>422</code></li>
                     <li>Si es una empresa, debe incluir <code>company_data</code>.</li>
-                    <li><code>clave</code> debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de <code>rut.value</code></li>
-                    <li>Si se incluye el campo <code>clave</code> y <code>globalStatus</code> era <code>&quot;pre-registro&quot;</code>, <code>globalStatus</code> cambiará a <code>&quot;activo&quot;</code></li>
-                    <li>No se podrá modificar <code>email.value</code> si cliente no tiene clave. Si se intenta modificar un email de un cliente que no tiene clave, el servicio retornará <code>422</code>.</li>
+                    <li><code>password</code> debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de <code>rut.value</code></li>
+                    <li>Si se incluye el campo <code>password</code> y <code>globalStatus</code> era <code>&quot;pre-registro&quot;</code>, <code>globalStatus</code> cambiará a <code>&quot;activo&quot;</code></li>
+                    <li>No se podrá modificar <code>email.value</code> si cliente no tiene password. Si se intenta modificar un email de un cliente que no tiene password, el servicio retornará <code>422</code>.</li>
                     <li>No se podrá modificar <code>email.value</code> si <code>email.status == &quot;validado&quot;</code>. Si se intenta modificar un email validado a través de este método, el servicio retornará <code>422</code>. Para modificar un correo validado, se debe usar los métodos de la URL <code>/user/{user_id}/mail</code>. La excepción a esta regla son los clientes con <code>globalStatus == &quot;pre-registro&quot;</code>. Si se intenta modificar un email validado de un cliente &quot;pre-registro&quot;, la modificación tendrá éxito y <code>email.status</code> pasará a ser <code>&quot;no validado&quot;</code>.</li>
                     <li>No se podrá modificar <code>cellphone.value</code> si <code>celular.status == &quot;validado&quot;</code>. Si se intenta modificar un celular validado a través de este método, el servicio retornará <code>422</code>. Para modificar un celular validado, se debe usar los métodos de la URL <code>/user/{user_id}/sms</code>. La excepción a esta regla son los clientes con <code>globalStatus == &quot;pre-registro&quot;</code>. Si se intenta modificar un celular validado de un cliente &quot;pre-registro&quot;, la modificación tendrá éxito y <code>celular.status</code> pasará a ser <code>&quot;no validado&quot;</code>.</li>
                     <li>Si se incluye <code>rut.serial_number</code>, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, <code>rut.status</code> pasará a &quot;validado&quot;. Si la validación no fuera exitosa, <code>rut.status</code> cambiará a (o seguirá siendo) &quot;no validado&quot;. Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.</li>
@@ -540,7 +540,7 @@
                   <h3 id="recomendaciones">Recomendaciones</h3>
                   <ul>
                     <li>Sólo envíe los campos mínimos y los que se desee modificar. Por ejemplo, para cambiar el nombre, sólo incluya <code>rut.value</code>, <code>email.value</code> y <code>name</code>. Para validar la cédula contra el SRCeI, sólo incluya <code>rut.value</code>, <code>email.value</code> y <code>rut.status</code>.</li>
-                    <li>Si se desea cambiar la clave del cliente, valide la clave anterior en primer lugar</li>
+                    <li>Si se desea cambiar la password del cliente, valide la password anterior en primer lugar</li>
                   </ul>
                 </section>
               </div>
@@ -701,7 +701,7 @@
     <span class="hljs-attr">&quot;commercial_activity&quot;</span>: <span class="hljs-number">772</span>
   },
   <span class="hljs-attr">&quot;globalStatus&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;has_clave&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
+  <span class="hljs-attr">&quot;has_password&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
@@ -896,7 +896,7 @@
     <span class="hljs-attr">&quot;commercial_activity&quot;</span>: <span class="hljs-number">772</span>
   },
   <span class="hljs-attr">&quot;globalStatus&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;has_clave&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
+  <span class="hljs-attr">&quot;has_password&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
@@ -923,7 +923,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Buscar por ID y clave</span>
+              <span class="operation-summary">Buscar por ID y password</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -936,7 +936,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Busca a un cliente por (rut y clave) o por (email y clave)</p>
+                  <p>Busca a un cliente por (rut y password) o por (email y password)</p>
                 </section>
               </div>
             </div>
@@ -983,10 +983,10 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">clave</div>
+                      <div class="prop-title">password</div>
                     </div>
                     <div class="prop-value">
-                      <p>Clave de 4 dígitos</p>
+                      <p>password de 4 dígitos</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -1026,7 +1026,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>Cliente no existe (puede representar clave inválida)</p>
+                      <p>Cliente no existe (puede representar password inválida)</p>
                     </div>
                   </div>
                 </section>
@@ -1074,7 +1074,7 @@
     <span class="hljs-attr">&quot;commercial_activity&quot;</span>: <span class="hljs-number">772</span>
   },
   <span class="hljs-attr">&quot;globalStatus&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;has_clave&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
+  <span class="hljs-attr">&quot;has_password&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
@@ -2412,7 +2412,7 @@
                           <span class="json-property-range" title="Value limits"></span>
                         </dt>
                         <dd>
-                          <p>Clave de autenticación de 4 dígitos. Campo write-only.</p>
+                          <p>password de autenticación de 4 dígitos. Campo write-only.</p>
                         </dd>
                       </dl>
                     </section>
@@ -2545,19 +2545,19 @@
                         <dd>
                           <p>Estado del cliente. Campo read-only.</p>
                           <ul>
-                            <li>&quot;pre-registro&quot;: cliente no posee clave</li>
-                            <li>&quot;activo&quot;: cliente con clave que puede transar</li>
+                            <li>&quot;pre-registro&quot;: cliente no posee password</li>
+                            <li>&quot;activo&quot;: cliente con password que puede transar</li>
                             <li>&quot;bloqueado&quot;: cuenta temporalmente congelada</li>
                             <li>&quot;borrado&quot;: eliminación lógica del cliente, no admite ningún cambio</li>
                           </ul>
                         </dd>
-                        <dt data-property-name="has_clave" class="has-description">
-                          <span class="json-property-name">has_clave:</span>
+                        <dt data-property-name="has_password" class="has-description">
+                          <span class="json-property-name">has_password:</span>
                           <span class="json-property-type">string</span>
                           <span class="json-property-range" title="Value limits"></span>
                         </dt>
                         <dd>
-                          <p><code>&quot;true&quot;</code> si el usuario tiene <code>clave</code>; <code>&quot;false&quot;</code> en otro caso</p>
+                          <p><code>&quot;true&quot;</code> si el usuario tiene <code>password</code>; <code>&quot;false&quot;</code> en otro caso</p>
                         </dd>
                         <dt data-property-name="timestamps">
                           <span class="json-property-name">timestamps:</span>
@@ -2615,7 +2615,7 @@
     <span class="hljs-attr">&quot;commercial_activity&quot;</span>: <span class="hljs-number">772</span>
   },
   <span class="hljs-attr">&quot;globalStatus&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;has_clave&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
+  <span class="hljs-attr">&quot;has_password&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
@@ -3210,7 +3210,7 @@
                           <span class="json-property-required"></span>
                         </dt>
                         <dd>
-                          <p>Estado de validación de la razón social</p>
+                          <p>Estado de validación de la razón social (business_name)</p>
                           <ul>
                             <li>no_validado: la razón social no ha sido validada</li>
                             <li>validado_sii: la razón social fue validada mediante el SII</li>
