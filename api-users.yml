@@ -43,7 +43,7 @@ paths:
         * Si se incluye `rut.serial_number`, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, `rut.status` pasará a "validado". Si la validación no fuera exitosa, `rut.status` cambiará a (o seguirá siendo) "no validado". Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.
         
         ### Recomendaciones
-        * Dado que el servicio no funciona si el `rut` o el `email` ya han sido usados (a menos que pertenezcan a un cliente con `globalStatus` `"pre-registro"`), debería buscarlo primero por `rut` y luego por `email` usando el método `/users/find`
+        * Dado que el servicio no funciona si el `rut` o el `email` ya han sido usados (a menos que pertenezcan a un cliente con `globalStatus` `"pre-registro"`), debería buscarlo primero por `rut` y luego por `email` usando el método `/users/`
       parameters:
         - in: body
           name: user
@@ -129,7 +129,7 @@ paths:
           description: El Cliente contiene datos inválidos
           schema:
             $ref: '#/definitions/ErrorObj'
-  /users/find:
+  /users/:
     get:
       summary: Buscar
       tags: 
