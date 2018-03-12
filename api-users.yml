@@ -751,7 +751,7 @@ definitions:
               - no_validado
               - validado_sii
             description: |
-              Estado de validación de la razón social
+              Estado de validación de la razón social (business_name)
               * no_validado: la razón social no ha sido validada
               * validado_sii: la razón social fue validada mediante el SII
           timestamps:
