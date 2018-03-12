@@ -64,7 +64,7 @@ paths:
         - Como requisito para invocar este servicio, el cliente debe tener `name` y `lastname_1` no vacíos, y además cumplir que `(rut.status == "validado_srcei" || rut.status == "validado_tef") && email.status == "validado" && cellphone.stauts == "validado"`
         - Si el usuario ya tenía una tarjeta, este método eliminará la anterior.
         - `first_load_amount` **debe** incluirse la primera vez que si invoca este método en un usuario.
-        - `first_load_amount` **no debe** incluirse cuando se reemite una tarjeta.
+        - `first_load_amount` **no debe** incluirse cuando se reemite una tarjeta, ya que la reemisión no incluye una carga.
       parameters:
         - in: path
           name: user_id
@@ -76,9 +76,9 @@ paths:
           description: |
             Monto de la primera carga en pesos
 
-            `first_load_amount.currency_code` **debe** ser 152
+            `first_load_amount.amount.currency_code` **debe** ser 152
           schema:
-            $ref: '#/definitions/NewAmountAndCurrency'
+            $ref: '#/definitions/NewPrepaidTransaction'
       responses:
         '201':
           description: OK
@@ -112,16 +112,15 @@ paths:
           description: Cliente no existe o no tiene un Prepago Multicaja
   /prepaid/{user_id}/balance/topup:
     post:
-      summary: Aumentar saldo
+      summary: Cargar
       tags: 
         - prepago
       description: |
-        Aumenta el saldo
+        Aumenta el saldo de la tarjeta
         
-        Retorna el nuevo saldo de la tarjeta y un movimiento con un código de autorización
-        
-        * `topup_amount` corresponde al monto en pesos que se desea recargar
-        * `merchant_transaction_id` corresponde a un identificador de la recarga en el canal. El servicio es idempotente para recargas con el mismo identificador y con idéntico `topup_amount`.
+        ### Notas
+        - Retorna el nuevo saldo de la tarjeta y un movimiento con un código de autorización
+        - `recarga.amount.currency_code` **debe** ser `152`.
       parameters:
         - in: path
           name: user_id
@@ -132,16 +131,7 @@ paths:
           name: recarga
           required: true
           schema:
-            type: object
-            properties:
-              merchant_transaction_id:
-                type: string
-                description: Identificador único de la recarga en el canal
-                example: "20180315-77685-12"
-              topup_amount:
-                description: Monto de la recarga
-                type: integer
-                example: 5000
+            $ref: '#/definitions/NewPrepaidTransaction'
       responses:
         '201':
           description: OK
@@ -149,11 +139,11 @@ paths:
             type: object
             properties:
               balance:
-                type: integer
-                description: Saldo de la tarjeta
-                example: 3250
-              transaction:
-                $ref: '#/definitions/PrepaidTransaction'
+                $ref: '#/definitions/PrepaidCardBalance'
+              processor_transaction_id:
+                type: string
+                description: Identificador del movimiento en el procesador
+                example: "112100908"
         '404':
           description: Cliente no existe o no tiene un Prepago Multicaja
         '422':
@@ -168,10 +158,9 @@ paths:
       description: |
         Disminuye el saldo de la tarjeta
         
-        Retorna el nuevo saldo de la tarjeta y un movimiento con un código de autorización
-        
-        * `withdrawal_amount` corresponde al monto en pesos que se desea retirar
-        * `merchant_transaction_id` corresponde a un identificador del retiro en el canal. El servicio es idempotente para retiros con el mismo identificador y con idéntico `withdrawal_amount`.
+        ### Notas
+        - Retorna el nuevo saldo de la tarjeta y un movimiento con un código de autorización
+        - `recarga.amount.currency_code` **debe** ser `152`.
       parameters:
         - in: path
           name: user_id
@@ -182,16 +171,7 @@ paths:
           name: retiro
           required: true
           schema:
-            type: object
-            properties:
-              merchant_transaction_id:
-                type: string
-                description: Identificador único del retiro en el canal
-                example: "20180315-77685-12"
-              withdrawal_amount:
-                description: Monto del retiro
-                type: integer
-                example: 5000
+            $ref: '#/definitions/NewPrepaidTransaction' 
       responses:
         '201':
           description: OK
@@ -199,11 +179,11 @@ paths:
             type: object
             properties:
               balance:
-                type: integer
-                description: Saldo de la tarjeta
-                example: 3250
-              transaction:
-                $ref: '#/definitions/PrepaidTransaction'
+                $ref: '#/definitions/PrepaidCardBalance'
+              processor_transaction_id:
+                type: string
+                description: Identificador del movimiento en el procesador
+                example: "112100908"
         '404':
           description: Cliente no existe o no tiene un Prepago Multicaja
         '422':
@@ -580,15 +560,28 @@ definitions:
         $ref: '#/definitions/AmountAndCurrency'
       secondary_balance:
         $ref: '#/definitions/AmountAndCurrency'
+  NewPrepaidTransaction:
+    type: object
+    required:
+      - amount
+      - new_transaction_id
+    description: |
+      Solicitud de abono o retiro **(Request)**
+    properties:
+      amount:
+        $ref: '#/definitions/NewAmountAndCurrency'
+      new_transaction_id:
+        type: integer
+        description: |
+          Identificador único para evitar repeticiones
+
+          **Importante:** La tupla `({user_id}, {fecha_actual}, {new_transaction_id})` debe ser única
+        example: 2
   PrepaidTransaction:
     type: object
     required:
       - transaction_type
-      - auth_code
       - processor_transaction_id
-      - pan
-      - real_date
-      - ampunt_primary
     description: |
       Transacción realizada con la tarjeta de prepago **(Response)**
 
