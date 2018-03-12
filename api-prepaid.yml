@@ -1,17 +1,17 @@
 swagger: '2.0'
 info:
   description: |
-    Bienvenido a la API de [Multicaja](https://www.multicaja.cl) (Alpha)
+    API de Prepago Multicaja (Alpha)
 
     ** Este es un proyecto alpha y por lo tanto sufrirá muchos cambios **
 
     Todos los requests son autenticados usando un `api-key`.
 
-    Existen dos ambientes: `qa` y `producción`. El `host` de `qa` es `apiqa.multicaja.cl`.
-  version: '0.5'
+    Existen dos ambientes: `qa` y `producción`. El `host` de `qa` es `apiqa.multicaja.cl/prepaid`.
+  version: '0.6'
   title: API Multicaja (Alpha)
 host: 'api.multicaja.cl'
-basePath: /v0.1-alpha/
+basePath: /v0.6-alpha/
 consumes:
   - application/json
 produces:
@@ -108,9 +108,7 @@ paths:
         '200':
           description: OK
           schema:
-            type: integer
-            description: Saldo de la tarjeta
-            example: 3250
+            $ref: '#/definitions/PrepaidCardBalance'
         '404':
           description: Cliente no existe o no tiene un Prepago Multicaja
   /prepaid/{user_id}/prepaid/balance/topup:
@@ -498,6 +496,39 @@ definitions:
         type: string
         description: Mensaje de respuesta ISO 8583 codificado en base64
         example: vdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c=
+  AmountAndCurrency:
+    type: object
+    description: Monto en una moneda específica
+    properties:
+      currency_code:
+        type: string
+        description: Código ISO 4217 (numeric) de la moneda
+        example: 152
+      amount:
+        type: string
+        description: |
+          Saldo de la tarjeta
+
+          ### Formato
+          - Este campo es un número con parte decimal en el formato [parte entera].[parte decimal]
+          - El separador de decimales es un punto (".")
+          - Siempre vendrán dos decimales a la derecha del punto
+          - El string no incluye separador de miles ni código de moneda
+        example: "1000.00"
+  PrepaidCardBalance:
+    type: object
+    description: |
+      Saldo de la tarjeta de prepago
+
+      ### Notas
+      - Este objeto contiene el saldo el pesos y el saldo en dólares
+      - El saldo en pesos viene en `primary_balance`
+      - El saldo en dólares viene en `secondary_balance`
+    properties:
+      primary_balance:
+        $ref: '#/definitions/AmountAndCurrency'
+      secondary_balance:
+        $ref: '#/definitions/AmountAndCurrency'
   PrepaidTransaction:
     type: object
     required:
