@@ -38,8 +38,8 @@ paths:
         * Si es una empresa, debe incluir `company_data`.
         * El servicio también funcionará con el `rut` de un cliente existente con `globalStatus` `"pre-registro"`.
         * Si se intenta crear un usuario con un `rut` o un `email` que ya ha sido usado y con `globalStatus` distinto de `"pre-registro"`, el servicio retornará `405`.
-        * `clave` debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de `rut.value`
-        * Si se incluye el campo `clave`, `globalStatus` cambiará a `"activo"`
+        * `password` debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de `rut.value`
+        * Si se incluye el campo `password`, `globalStatus` cambiará a `"activo"`
         * Si se incluye `rut.serial_number`, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, `rut.status` pasará a "validado". Si la validación no fuera exitosa, `rut.status` cambiará a (o seguirá siendo) "no validado". Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.
         
         ### Recomendaciones
@@ -94,9 +94,9 @@ paths:
         ### Notas
         * Pese a que el rut es requerido, no es modificable. Si se proporciona un RUT distinto al del cliente `{user_id}`, el servicio retornará `422`
         * Si es una empresa, debe incluir `company_data`.
-        * `clave` debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de `rut.value`
-        * Si se incluye el campo `clave` y `globalStatus` era `"pre-registro"`, `globalStatus` cambiará a `"activo"`
-        * No se podrá modificar `email.value` si cliente no tiene clave. Si se intenta modificar un email de un cliente que no tiene clave, el servicio retornará `422`.
+        * `password` debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de `rut.value`
+        * Si se incluye el campo `password` y `globalStatus` era `"pre-registro"`, `globalStatus` cambiará a `"activo"`
+        * No se podrá modificar `email.value` si cliente no tiene password. Si se intenta modificar un email de un cliente que no tiene password, el servicio retornará `422`.
         * No se podrá modificar `email.value` si `email.status == "validado"`. Si se intenta modificar un email validado a través de este método, el servicio retornará `422`. Para modificar un correo validado, se debe usar los métodos de la URL `/user/{user_id}/mail`. La excepción a esta regla son los clientes con `globalStatus == "pre-registro"`. Si se intenta modificar un email validado de un cliente "pre-registro", la modificación tendrá éxito y `email.status` pasará a ser `"no validado"`.
         * No se podrá modificar `cellphone.value` si `celular.status == "validado"`. Si se intenta modificar un celular validado a través de este método, el servicio retornará `422`. Para modificar un celular validado, se debe usar los métodos de la URL `/user/{user_id}/sms`. La excepción a esta regla son los clientes con `globalStatus == "pre-registro"`. Si se intenta modificar un celular validado de un cliente "pre-registro", la modificación tendrá éxito y `celular.status` pasará a ser `"no validado"`.
         * Si se incluye `rut.serial_number`, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, `rut.status` pasará a "validado". Si la validación no fuera exitosa, `rut.status` cambiará a (o seguirá siendo) "no validado". Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.
@@ -104,7 +104,7 @@ paths:
         
         ### Recomendaciones
         * Sólo envíe los campos mínimos y los que se desee modificar. Por ejemplo, para cambiar el nombre, sólo incluya `rut.value`, `email.value` y `name`. Para validar la cédula contra el SRCeI, sólo incluya `rut.value`, `email.value` y `rut.status`.
-        * Si se desea cambiar la clave del cliente, valide la clave anterior en primer lugar
+        * Si se desea cambiar la password del cliente, valide la password anterior en primer lugar
         
       parameters:
         - in: path
@@ -158,11 +158,11 @@ paths:
           description: Cliente no existe
   /users/login:
     get:
-      summary: Buscar por ID y clave
+      summary: Buscar por ID y password
       tags: 
         - clientes
       description: |
-        Busca a un cliente por (rut y clave) o por (email y clave)
+        Busca a un cliente por (rut y password) o por (email y password)
       consumes:
         - application/x-www-form-urlencoded
       parameters:
@@ -175,8 +175,8 @@ paths:
           description: "Email"
           type: string
         - in: formData
-          name: clave
-          description: "Clave de 4 dígitos"
+          name: password
+          description: "password de 4 dígitos"
           type: string
       responses:
         '200':
@@ -184,7 +184,7 @@ paths:
           schema:
             $ref: '#/definitions/User'
         '404':
-          description: Cliente no existe (puede representar clave inválida)
+          description: Cliente no existe (puede representar password inválida)
   /users/{user_id}/mail:
     post:
       summary: Enviar correo
@@ -507,7 +507,7 @@ definitions:
             $ref: "#/definitions/NewCompanyData"
           password:
             type: string
-            description: Clave de autenticación de 4 dígitos. Campo write-only.
+            description: password de autenticación de 4 dígitos. Campo write-only.
             example: 8922
   User:
     type: object
@@ -548,14 +548,14 @@ definitions:
               - borrado
             description: |
               Estado del cliente. Campo read-only.
-              * "pre-registro": cliente no posee clave
-              * "activo": cliente con clave que puede transar
+              * "pre-registro": cliente no posee password
+              * "activo": cliente con password que puede transar
               * "bloqueado": cuenta temporalmente congelada
               * "borrado": eliminación lógica del cliente, no admite ningún cambio
-          has_clave:
+          has_password:
             type: string
             description: |
-              `"true"` si el usuario tiene `clave`; `"false"` en otro caso
+              `"true"` si el usuario tiene `password`; `"false"` en otro caso
             example: "true"
           timestamps:
             $ref: '#/definitions/Timestamps'
