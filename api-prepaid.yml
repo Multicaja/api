@@ -619,8 +619,8 @@ definitions:
         $ref: '#/definitions/AmountAndCurrency'
       amount_foreign:
         $ref: '#/definitions/AmountAndCurrency'
-      country:
-        $ref: '#/definitions/Country'
+      place:
+        $ref: '#/definitions/Place'
       merchant:
         $ref: '#/definitions/Merchant'
   PrepaidCard:
