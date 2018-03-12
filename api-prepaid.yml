@@ -78,7 +78,7 @@ paths:
 
             `first_load_amount.currency_code` **debe** ser 152
           schema:
-            $ref: '#/definitions/AmountAndCurrency'
+            $ref: '#/definitions/NewAmountAndCurrency'
       responses:
         '201':
           description: OK
@@ -468,12 +468,15 @@ definitions:
         type: string
         description: Mensaje de respuesta ISO 8583 codificado en base64
         example: vdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c=
-  AmountAndCurrency:
+  NewAmountAndCurrency:
     type: object
-    description: Monto en una moneda específica
+    description: Monto en una moneda específica **(Request)**
+    required:
+      - currency_code
+      - amount
     properties:
       currency_code:
-        type: string
+        type: integer
         description: Código ISO 4217 (numeric) de la moneda
         example: 152
       amount:
@@ -487,6 +490,20 @@ definitions:
           - Siempre vendrán dos decimales a la derecha del punto
           - El string no incluye separador de miles ni código de moneda
         example: "1000.00"
+  AmountAndCurrency:
+    type: object
+    description: |
+       Monto en una moneda específica **(Response)**
+    allOf:
+      - $ref: "#/definitions/NewAmountAndCurrency"
+      - type: object
+        required:
+          - currency_description
+        properties:
+          currency_description:
+            type: integer
+            description: Nombre de la moneda en español
+            example: "Dólar Americano"
   PrepaidCardBalance:
     type: object
     description: |
