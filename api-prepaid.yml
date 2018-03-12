@@ -53,18 +53,18 @@ paths:
                 $ref: '#/definitions/PrepaidCard'
         '404':
           description: Cliente no existe o no tiene un Prepago Multicaja
-  /prepaid/{user_id}:
     post:
-      summary: Emitir
+      summary: Emitir (o reemitir) una tarjeta a este usuario
       tags: 
         - prepago
       description: |
-        Asigna una tarjeta Prepago Multicaja a este cliente.
-        
-        **Como requisito para invocar este servicio, el cliente debe tener `name` y `lastname_1` no vacíos, y además cumplir que `(rut.status == "validado_srcei" || rut.status == "validado_tef") && email.status == "validado" && cellphone.stauts == "validado"`**
-        
-        * `initial_balance`: Saldo inicial de la tarjeta
-        * Si el cliente ya tiene un Prepago Multicaja, este servicio retornará `405`
+        Asigna una nueva tarjeta Prepago Multicaja a este cliente.
+
+        ### Notas
+        - Como requisito para invocar este servicio, el cliente debe tener `name` y `lastname_1` no vacíos, y además cumplir que `(rut.status == "validado_srcei" || rut.status == "validado_tef") && email.status == "validado" && cellphone.stauts == "validado"`
+        - Si el usuario ya tenía una tarjeta, este método eliminará la anterior.
+        - `first_load_amount` **debe** incluirse la primera vez que si invoca este método en un usuario.
+        - `first_load_amount` **no debe** incluirse cuando se reemite una tarjeta.
       parameters:
         - in: path
           name: user_id
@@ -72,12 +72,13 @@ paths:
           required: true
           type: "integer"
         - in: body
-          name: initial_balance
-          description: Saldo inicial de la tarjeta en pesos
-          required: true
+          name: first_load_amount
+          description: |
+            Monto de la primera carga en pesos
+
+            `first_load_amount.currency_code` **debe** ser 152
           schema:
-            type: integer
-            example: 5000
+            $ref: '#/definitions/AmountAndCurrency'
       responses:
         '200':
           description: OK
@@ -85,8 +86,6 @@ paths:
             $ref: '#/definitions/PrepaidCard'
         '404':
           description: Cliente no existe
-        '405':
-          description: Cliente ya cuenta con un Prepago Multicaja. Si quiere reemitir la tarjeta, use el método reissue.
         '422':
           description: Hubo un error de validación
           schema:
@@ -211,33 +210,6 @@ paths:
           description: El retiro contiene datos inválidos
           schema:
             $ref: '#/definitions/ErrorObj'
-  /prepaid/{user_id}/reissue:
-    post:
-      summary: Reemitir
-      tags:
-        - prepago
-      description: |
-        Bloquea la tarjeta activa y emite una tarjeta Prepago Multicaja a este cliente.
-        
-        **Para invocar este servicio, el cliente ya debe tener un Prepago Multicaja**
-        
-        La nueva tarjeta es retornada por el servicio.
-        Si el cliente no tiene Prepago Multicaja, el servicio retornará `422`
-      parameters:
-        - in: path
-          name: user_id
-          description: ID del usuario
-          required: true
-          type: "integer"
-      responses:
-        '201':
-          description: OK
-          schema:
-            $ref: '#/definitions/PrepaidCard'
-        '404':
-          description: Cliente no existe
-        '422':
-          description: Cliente no cuenta con un Prepago Multicaja
   /prepaid/{user_id}/status/lock:
     post:
       summary: Bloquear
