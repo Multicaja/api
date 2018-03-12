@@ -96,6 +96,7 @@
           <a href="#definition-Merchant"> Merchant </a>
           <a href="#definition-TransactionType"> TransactionType </a>
           <a href="#definition-PrepaidCardBalance"> PrepaidCardBalance </a>
+          <a href="#definition-PrepaidCardLimit"> PrepaidCardLimit </a>
           <a href="#definition-NewPrepaidTransaction"> NewPrepaidTransaction </a>
           <a href="#definition-PrepaidTransaction"> PrepaidTransaction </a>
           <a href="#definition-PrepaidCard"> PrepaidCard </a>
@@ -165,7 +166,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Indica si el cliente tiene un Prepago Multicaja. En caso afirmativo, retorna la tarjeta truncada.</p>
+                  <p>Indica si el cliente tiene un Prepago Multicaja. En caso afirmativo, retorna la tarjeta truncada y sus límites.</p>
                   <ul>
                     <li>Si el cliente tiene Prepago Multicaja, <code>has_prepaid_account</code> será <code>true</code>.</li>
                     <li><code>card.timestamps.created_at</code> indicará la fecha en la que este cliente obtuvo su primera tarjeta de prepago</li>
@@ -239,12 +240,24 @@
     <span class="hljs-attr">&quot;processor_user_id&quot;</span>: <span class="hljs-string">&quot;2231-9892-781283049685&quot;</span>,
     <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;123456******1234&quot;</span>,
     <span class="hljs-attr">&quot;expiration&quot;</span>: <span class="hljs-string">&quot;11/22&quot;</span>,
+    <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;JUAN PEREZ P.&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;timestamps&quot;</span>: {
       <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
       <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
     }
-  }
+  },
+  <span class="hljs-attr">&quot;limits&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;001&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Saldo m&#xE1;ximo&quot;</span>,
+      <span class="hljs-attr">&quot;amount&quot;</span>: {
+        <span class="hljs-attr">&quot;currency_description&quot;</span>: <span class="hljs-string">&quot;Peso Chileno&quot;</span>,
+        <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+        <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+      }
+    }
+  ]
 }
 </code></pre>
                   <!-- </div> -->
@@ -397,6 +410,7 @@
   <span class="hljs-attr">&quot;processor_user_id&quot;</span>: <span class="hljs-string">&quot;2231-9892-781283049685&quot;</span>,
   <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;123456******1234&quot;</span>,
   <span class="hljs-attr">&quot;expiration&quot;</span>: <span class="hljs-string">&quot;11/22&quot;</span>,
+  <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;JUAN PEREZ P.&quot;</span>,
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -973,6 +987,7 @@
   <span class="hljs-attr">&quot;processor_user_id&quot;</span>: <span class="hljs-string">&quot;2231-9892-781283049685&quot;</span>,
   <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;123456******1234&quot;</span>,
   <span class="hljs-attr">&quot;expiration&quot;</span>: <span class="hljs-string">&quot;11/22&quot;</span>,
+  <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;JUAN PEREZ P.&quot;</span>,
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -1089,6 +1104,7 @@
   <span class="hljs-attr">&quot;processor_user_id&quot;</span>: <span class="hljs-string">&quot;2231-9892-781283049685&quot;</span>,
   <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;123456******1234&quot;</span>,
   <span class="hljs-attr">&quot;expiration&quot;</span>: <span class="hljs-string">&quot;11/22&quot;</span>,
+  <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;JUAN PEREZ P.&quot;</span>,
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -1204,6 +1220,11 @@
       <span class="hljs-attr">&quot;currency_description&quot;</span>: <span class="hljs-string">&quot;Peso Chileno&quot;</span>,
       <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
       <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;place&quot;</span>: {
+      <span class="hljs-attr">&quot;country_iso_3266_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;country_description&quot;</span>: <span class="hljs-string">&quot;Rep&#xFA;blica de Chile&quot;</span>,
+      <span class="hljs-attr">&quot;place_name&quot;</span>: <span class="hljs-string">&quot;Santiago&quot;</span>
     },
     <span class="hljs-attr">&quot;merchant&quot;</span>: {
       <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;0008902131&quot;</span>,
@@ -1904,6 +1925,68 @@
               </div>
             </div>
           </div>
+          <div id="definition-PrepaidCardLimit" class="definition panel" data-traverse-target="definition-PrepaidCardLimit">
+            <h2 class="panel-title">
+              <a name="/definitions/PrepaidCardLimit"></a>PrepaidCardLimit: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Límite de uso para este usuario</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="id" class="has-description">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Identificador del límite</p>
+                    </dd>
+                    <dt data-property-name="name" class="has-description">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Nombre del límite</p>
+                    </dd>
+                    <dt data-property-name="amount">
+                      <span class="json-property-name">amount:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/AmountAndCurrency">AmountAndCurrency</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;001&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Saldo m&#xE1;ximo&quot;</span>,
+  <span class="hljs-attr">&quot;amount&quot;</span>: {
+    <span class="hljs-attr">&quot;currency_description&quot;</span>: <span class="hljs-string">&quot;Peso Chileno&quot;</span>,
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
           <div id="definition-NewPrepaidTransaction" class="definition panel" data-traverse-target="definition-NewPrepaidTransaction">
             <h2 class="panel-title">
               <a name="/definitions/NewPrepaidTransaction"></a>NewPrepaidTransaction: object
@@ -2062,11 +2145,11 @@
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dt data-property-name="country">
-                      <span class="json-property-name">country:</span>
+                    <dt data-property-name="place">
+                      <span class="json-property-name">place:</span>
                       <span class="json-property-type">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/Country">Country</a>
+                          <a class="json-schema-ref" href="#/definitions/Place">Place</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
@@ -2108,6 +2191,11 @@
     <span class="hljs-attr">&quot;currency_description&quot;</span>: <span class="hljs-string">&quot;Peso Chileno&quot;</span>,
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  },
+  <span class="hljs-attr">&quot;place&quot;</span>: {
+    <span class="hljs-attr">&quot;country_iso_3266_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;country_description&quot;</span>: <span class="hljs-string">&quot;Rep&#xFA;blica de Chile&quot;</span>,
+    <span class="hljs-attr">&quot;place_name&quot;</span>: <span class="hljs-string">&quot;Santiago&quot;</span>
   },
   <span class="hljs-attr">&quot;merchant&quot;</span>: {
     <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;0008902131&quot;</span>,
@@ -2172,6 +2260,14 @@
                     <dd>
                       <p>Fecha de expiración de la tarjeta</p>
                     </dd>
+                    <dt data-property-name="name_on_card" class="has-description">
+                      <span class="json-property-name">name_on_card:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Nombre impreso en la tarjeta</p>
+                    </dd>
                     <dt data-property-name="status" class="has-description">
                       <span class="json-property-name">status:</span>
                       <span class="json-property-type">string</span>
@@ -2210,6 +2306,7 @@
   <span class="hljs-attr">&quot;processor_user_id&quot;</span>: <span class="hljs-string">&quot;2231-9892-781283049685&quot;</span>,
   <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;123456******1234&quot;</span>,
   <span class="hljs-attr">&quot;expiration&quot;</span>: <span class="hljs-string">&quot;11/22&quot;</span>,
+  <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;JUAN PEREZ P.&quot;</span>,
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
