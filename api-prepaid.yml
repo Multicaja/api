@@ -666,6 +666,10 @@ definitions:
         type: string
         description: Fecha de expiración de la tarjeta
         example: "11/22"
+      name_on_card:
+        type: string
+        description: Nombre impreso en la tarjeta
+        example: JUAN PEREZ P.
       status:
         type: string
         enum:
