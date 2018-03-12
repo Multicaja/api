@@ -20,7 +20,7 @@ tags:
   - name: prepago
     description: Operaciones relacionadas con Prepago Multicaja
 paths:
-  /prepaid/{user_id}/prepaid:
+  /prepaid/{user_id}:
     get:
       summary: Consultar
       tags: 
@@ -53,7 +53,7 @@ paths:
                 $ref: '#/definitions/PrepaidCard'
         '404':
           description: Cliente no existe o no tiene un Prepago Multicaja
-  /prepaid/{user_id}/prepaid/issue:
+  /prepaid/{user_id}:
     post:
       summary: Emitir
       tags: 
@@ -91,7 +91,7 @@ paths:
           description: Hubo un error de validación
           schema:
             $ref: '#/definitions/ErrorObj'
-  /prepaid/{user_id}/prepaid/balance:
+  /prepaid/{user_id}/balance:
     get:
       summary: Ver saldo
       tags: 
@@ -111,7 +111,7 @@ paths:
             $ref: '#/definitions/PrepaidCardBalance'
         '404':
           description: Cliente no existe o no tiene un Prepago Multicaja
-  /prepaid/{user_id}/prepaid/balance/topup:
+  /prepaid/{user_id}/balance/topup:
     post:
       summary: Aumentar saldo
       tags: 
@@ -161,7 +161,7 @@ paths:
           description: La recarga contiene datos inválidos
           schema:
             $ref: '#/definitions/ErrorObj'
-  /prepaid/{user_id}/prepaid/balance/withdraw:
+  /prepaid/{user_id}/balance/withdraw:
     post:
       summary: Retirar
       tags: 
@@ -211,7 +211,7 @@ paths:
           description: El retiro contiene datos inválidos
           schema:
             $ref: '#/definitions/ErrorObj'
-  /prepaid/{user_id}/prepaid/reissue:
+  /prepaid/{user_id}/reissue:
     post:
       summary: Reemitir
       tags:
@@ -238,7 +238,7 @@ paths:
           description: Cliente no existe
         '422':
           description: Cliente no cuenta con un Prepago Multicaja
-  /prepaid/{user_id}/prepaid/status/lock:
+  /prepaid/{user_id}/status/lock:
     post:
       summary: Bloquear
       tags:
@@ -264,7 +264,7 @@ paths:
           description: Cliente no existe
         '405':
           description: Cliente no cuenta con un Prepago Multicaja
-  /prepaid/{user_id}/prepaid/status/unlock:
+  /prepaid/{user_id}/status/unlock:
     post:
       summary: Desbloquear
       tags:
@@ -290,7 +290,7 @@ paths:
           description: Cliente no existe
         '405':
           description: Cliente no cuenta con un Prepago Multicaja
-  /prepaid/{user_id}/prepaid/transactions:
+  /prepaid/{user_id}/transactions:
     get:
       summary: Buscar transacciones
       tags: 
