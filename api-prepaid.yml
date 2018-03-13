@@ -1,17 +1,17 @@
 swagger: '2.0'
 info:
   description: |
-    Bienvenido a la API de [Multicaja](https://www.multicaja.cl) (Alpha)
+    API de Prepago Multicaja (Alpha)
 
     ** Este es un proyecto alpha y por lo tanto sufrirá muchos cambios **
 
     Todos los requests son autenticados usando un `api-key`.
 
-    Existen dos ambientes: `qa` y `producción`. El `host` de `qa` es `apiqa.multicaja.cl`.
-  version: '0.5'
+    Existen dos ambientes: `qa` y `producción`. El `host` de `qa` es `apiqa.multicaja.cl/prepaid`.
+  version: '0.6'
   title: API Multicaja (Alpha)
 host: 'api.multicaja.cl'
-basePath: /v0.1-alpha/
+basePath: /v0.6-alpha/
 consumes:
   - application/json
 produces:
@@ -20,13 +20,13 @@ tags:
   - name: prepago
     description: Operaciones relacionadas con Prepago Multicaja
 paths:
-  /prepaid/{user_id}/prepaid:
+  /prepaid/{user_id}:
     get:
       summary: Consultar
       tags: 
         - prepago
       description: |
-        Indica si el cliente tiene un Prepago Multicaja. En caso afirmativo, retorna la tarjeta truncada.
+        Indica si el cliente tiene un Prepago Multicaja. En caso afirmativo, retorna la tarjeta truncada y sus límites.
         
         * Si el cliente tiene Prepago Multicaja, `has_prepaid_account` será `true`.
         * `card.timestamps.created_at` indicará la fecha en la que este cliente obtuvo su primera tarjeta de prepago
@@ -51,20 +51,25 @@ paths:
                 example: true
               card:
                 $ref: '#/definitions/PrepaidCard'
+              limits:
+                type: array
+                items:
+                  $ref: '#/definitions/PrepaidCardLimit'
+
         '404':
           description: Cliente no existe o no tiene un Prepago Multicaja
-  /prepaid/{user_id}/prepaid/issue:
     post:
-      summary: Emitir
+      summary: Emitir (o reemitir) una tarjeta a este usuario
       tags: 
         - prepago
       description: |
-        Asigna una tarjeta Prepago Multicaja a este cliente.
-        
-        **Como requisito para invocar este servicio, el cliente debe tener `name` y `lastname_1` no vacíos, y además cumplir que `(rut.status == "validado_srcei" || rut.status == "validado_tef") && email.status == "validado" && cellphone.stauts == "validado"`**
-        
-        * `initial_balance`: Saldo inicial de la tarjeta
-        * Si el cliente ya tiene un Prepago Multicaja, este servicio retornará `405`
+        Asigna una nueva tarjeta Prepago Multicaja a este cliente.
+
+        ### Notas
+        - Como requisito para invocar este servicio, el cliente debe tener `name` y `lastname_1` no vacíos, y además cumplir que `(rut.status == "validado_srcei" || rut.status == "validado_tef") && email.status == "validado" && cellphone.stauts == "validado"`
+        - Si el usuario ya tenía una tarjeta, este método eliminará la anterior.
+        - `first_load_amount` **debe** incluirse la primera vez que si invoca este método en un usuario.
+        - `first_load_amount` **no debe** incluirse cuando se reemite una tarjeta, ya que la reemisión no incluye una carga.
       parameters:
         - in: path
           name: user_id
@@ -72,26 +77,25 @@ paths:
           required: true
           type: "integer"
         - in: body
-          name: initial_balance
-          description: Saldo inicial de la tarjeta en pesos
-          required: true
+          name: first_load_amount
+          description: |
+            Monto de la primera carga en pesos
+
+            `first_load_amount.amount.currency_code` **debe** ser 152
           schema:
-            type: integer
-            example: 5000
+            $ref: '#/definitions/NewPrepaidTransaction'
       responses:
-        '200':
+        '201':
           description: OK
           schema:
             $ref: '#/definitions/PrepaidCard'
         '404':
           description: Cliente no existe
-        '405':
-          description: Cliente ya cuenta con un Prepago Multicaja. Si quiere reemitir la tarjeta, use el método reissue.
         '422':
           description: Hubo un error de validación
           schema:
             $ref: '#/definitions/ErrorObj'
-  /prepaid/{user_id}/prepaid/balance:
+  /prepaid/{user_id}/balance:
     get:
       summary: Ver saldo
       tags: 
@@ -108,23 +112,20 @@ paths:
         '200':
           description: OK
           schema:
-            type: integer
-            description: Saldo de la tarjeta
-            example: 3250
+            $ref: '#/definitions/PrepaidCardBalance'
         '404':
           description: Cliente no existe o no tiene un Prepago Multicaja
-  /prepaid/{user_id}/prepaid/balance/topup:
+  /prepaid/{user_id}/balance/topup:
     post:
-      summary: Aumentar saldo
+      summary: Cargar
       tags: 
         - prepago
       description: |
-        Aumenta el saldo
+        Aumenta el saldo de la tarjeta
         
-        Retorna el nuevo saldo de la tarjeta y un movimiento con un código de autorización
-        
-        * `topup_amount` corresponde al monto en pesos que se desea recargar
-        * `merchant_transaction_id` corresponde a un identificador de la recarga en el canal. El servicio es idempotente para recargas con el mismo identificador y con idéntico `topup_amount`.
+        ### Notas
+        - Retorna el nuevo saldo de la tarjeta y un movimiento con un código de autorización
+        - `recarga.amount.currency_code` **debe** ser `152`.
       parameters:
         - in: path
           name: user_id
@@ -135,16 +136,7 @@ paths:
           name: recarga
           required: true
           schema:
-            type: object
-            properties:
-              merchant_transaction_id:
-                type: string
-                description: Identificador único de la recarga en el canal
-                example: "20180315-77685-12"
-              topup_amount:
-                description: Monto de la recarga
-                type: integer
-                example: 5000
+            $ref: '#/definitions/NewPrepaidTransaction'
       responses:
         '201':
           description: OK
@@ -152,18 +144,18 @@ paths:
             type: object
             properties:
               balance:
-                type: integer
-                description: Saldo de la tarjeta
-                example: 3250
-              transaction:
-                $ref: '#/definitions/PrepaidTransaction'
+                $ref: '#/definitions/PrepaidCardBalance'
+              processor_transaction_id:
+                type: string
+                description: Identificador del movimiento en el procesador
+                example: "112100908"
         '404':
           description: Cliente no existe o no tiene un Prepago Multicaja
         '422':
           description: La recarga contiene datos inválidos
           schema:
             $ref: '#/definitions/ErrorObj'
-  /prepaid/{user_id}/prepaid/balance/withdraw:
+  /prepaid/{user_id}/balance/withdraw:
     post:
       summary: Retirar
       tags: 
@@ -171,10 +163,9 @@ paths:
       description: |
         Disminuye el saldo de la tarjeta
         
-        Retorna el nuevo saldo de la tarjeta y un movimiento con un código de autorización
-        
-        * `withdrawal_amount` corresponde al monto en pesos que se desea retirar
-        * `merchant_transaction_id` corresponde a un identificador del retiro en el canal. El servicio es idempotente para retiros con el mismo identificador y con idéntico `withdrawal_amount`.
+        ### Notas
+        - Retorna el nuevo saldo de la tarjeta y un movimiento con un código de autorización
+        - `recarga.amount.currency_code` **debe** ser `152`.
       parameters:
         - in: path
           name: user_id
@@ -185,16 +176,7 @@ paths:
           name: retiro
           required: true
           schema:
-            type: object
-            properties:
-              merchant_transaction_id:
-                type: string
-                description: Identificador único del retiro en el canal
-                example: "20180315-77685-12"
-              withdrawal_amount:
-                description: Monto del retiro
-                type: integer
-                example: 5000
+            $ref: '#/definitions/NewPrepaidTransaction' 
       responses:
         '201':
           description: OK
@@ -202,45 +184,18 @@ paths:
             type: object
             properties:
               balance:
-                type: integer
-                description: Saldo de la tarjeta
-                example: 3250
-              transaction:
-                $ref: '#/definitions/PrepaidTransaction'
+                $ref: '#/definitions/PrepaidCardBalance'
+              processor_transaction_id:
+                type: string
+                description: Identificador del movimiento en el procesador
+                example: "112100908"
         '404':
           description: Cliente no existe o no tiene un Prepago Multicaja
         '422':
           description: El retiro contiene datos inválidos
           schema:
             $ref: '#/definitions/ErrorObj'
-  /prepaid/{user_id}/prepaid/reissue:
-    post:
-      summary: Reemitir
-      tags:
-        - prepago
-      description: |
-        Bloquea la tarjeta activa y emite una tarjeta Prepago Multicaja a este cliente.
-        
-        **Para invocar este servicio, el cliente ya debe tener un Prepago Multicaja**
-        
-        La nueva tarjeta es retornada por el servicio.
-        Si el cliente no tiene Prepago Multicaja, el servicio retornará `422`
-      parameters:
-        - in: path
-          name: user_id
-          description: ID del usuario
-          required: true
-          type: "integer"
-      responses:
-        '201':
-          description: OK
-          schema:
-            $ref: '#/definitions/PrepaidCard'
-        '404':
-          description: Cliente no existe
-        '422':
-          description: Cliente no cuenta con un Prepago Multicaja
-  /prepaid/{user_id}/prepaid/status/lock:
+  /prepaid/{user_id}/status/lock:
     post:
       summary: Bloquear
       tags:
@@ -266,7 +221,7 @@ paths:
           description: Cliente no existe
         '405':
           description: Cliente no cuenta con un Prepago Multicaja
-  /prepaid/{user_id}/prepaid/status/unlock:
+  /prepaid/{user_id}/status/unlock:
     post:
       summary: Desbloquear
       tags:
@@ -292,7 +247,7 @@ paths:
           description: Cliente no existe
         '405':
           description: Cliente no cuenta con un Prepago Multicaja
-  /prepaid/{user_id}/prepaid/transactions:
+  /prepaid/{user_id}/transactions:
     get:
       summary: Buscar transacciones
       tags: 
@@ -498,26 +453,196 @@ definitions:
         type: string
         description: Mensaje de respuesta ISO 8583 codificado en base64
         example: vdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c=
+  NewAmountAndCurrency:
+    type: object
+    description: Monto en una moneda específica **(Request)**
+    required:
+      - currency_code
+      - amount
+    properties:
+      currency_code:
+        type: integer
+        description: Código ISO 4217 (numeric) de la moneda
+        example: 152
+      amount:
+        type: string
+        description: |
+          Saldo de la tarjeta
+
+          ### Formato
+          - Este campo es un número con parte decimal en el formato [parte entera].[parte decimal]
+          - El separador de decimales es un punto (".")
+          - Siempre vendrán dos decimales a la derecha del punto
+          - El string no incluye separador de miles ni código de moneda
+        example: "1000.00"
+  AmountAndCurrency:
+    type: object
+    description: |
+       Monto en una moneda específica **(Response)**
+    allOf:
+      - $ref: "#/definitions/NewAmountAndCurrency"
+      - type: object
+        required:
+          - currency_description
+        properties:
+          currency_description:
+            type: integer
+            description: Nombre de la moneda en español
+            example: "Peso Chileno"
+  Place:
+    type: object
+    description: Lugar donde ocurrió la transacción **(Response)**
+    required:
+      - country_iso_3266_code
+    properties:
+      country_iso_3266_code:
+        type: integer
+        description: Código ISO 3266-1 (numeric) del país
+        example: 152
+      country_description:
+        type: string
+        description: Nombre del país en español
+        example: "República de Chile"
+      place_name:
+        type: string
+        description: Nombre del lugar donde ocurrió el movimiento
+        example: "Santiago"
+  Merchant:
+    type: object
+    description: Comercio de origen **(Response)**
+    required:
+      - code
+      - name
+    properties:
+      code:
+        type: string
+        description: Código único que identifica al comercio
+        example: "0008902131"
+      name:
+        type: string
+        description: Nombre del comercio
+        example: "AMAZON UK"
+  TransactionType:
+    type: object
+    description: Tipo de transacción **(Response)**
+    required:
+      - type_code
+      - type_description
+      - is_ammendment
+      - is_positive
+    properties:
+      type_code:
+        type: string
+        description: Tipo de factura
+        example: "0012"
+      type_description:
+        type: string
+        description: Descripción tipo de factura
+        example: "COMPRA EN CUOTAS"
+      is_ammendment:
+        type: string
+        description: |
+          `true`: es una corrección
+          `false`: no es una corrección
+        example: "false"
+      is_positive:
+        type: string
+        description: |
+          `true`: es positivo
+          `false`: es negativo
+        example: "true"
+  PrepaidCardBalance:
+    type: object
+    description: |
+      Saldo de la tarjeta de prepago
+
+      ### Notas
+      - Este objeto contiene el saldo el pesos y el saldo en dólares
+      - El saldo en pesos viene en `primary_balance`
+      - El saldo en dólares viene en `secondary_balance`
+    properties:
+      primary_balance:
+        $ref: '#/definitions/AmountAndCurrency'
+      secondary_balance:
+        $ref: '#/definitions/AmountAndCurrency'
+  PrepaidCardLimit:
+    type: object
+    description: |
+      Límite de uso para este usuario
+    properties:
+      id:
+        type: string
+        description: Identificador del límite
+        example: "001"
+      name:
+        type: string
+        description: Nombre del límite
+        example: "Saldo máximo"
+      amount:
+        $ref: '#/definitions/AmountAndCurrency'
+  NewPrepaidTransaction:
+    type: object
+    required:
+      - amount
+      - new_transaction_id
+    description: |
+      Solicitud de abono o retiro **(Request)**
+    properties:
+      amount:
+        $ref: '#/definitions/NewAmountAndCurrency'
+      new_transaction_id:
+        type: integer
+        description: |
+          Identificador único para evitar repeticiones
+
+          **Importante:** La tupla `({user_id}, {fecha_actual}, {new_transaction_id})` debe ser única
+        example: 2
   PrepaidTransaction:
     type: object
     required:
-      - auth_code
-      - amount
-      - desc
-    description: Transacción realizada con la tarjeta de prepago **(Response)**
+      - transaction_type
+      - processor_transaction_id
+    description: |
+      Transacción realizada con la tarjeta de prepago **(Response)**
+
+      ### Notas
+      - `amount_primary` es el monto de la transacción en pesos. Éste es el monto que afectó al saldo.
+      - `amount_foreign` es el monto de la transacción en la moneda de origen. 
     properties:
+      transaction_type:
+        $ref: '#/definitions/TransactionType'
       auth_code:
         type: string
-        description: Identificador del movimiento en el procesador
-        example: "88457"
-      amount:
-        type: integer
-        description: Monto del movimiento
-        example: 45737
-      desc:
+        description: Identificador del movimiento enviado a la marca
+        example: "884157"
+      processor_transaction_id:
         type: string
-        description: Glosa
-        example: "Abono sucursal Web"
+        description: Identificador del movimiento en el procesador
+        example: "112100908"
+      pan:
+        type: string
+        description: Número de tarjeta truncado
+        example: "556677******1234"
+      real_date:
+        type: string
+        description: Fecha en la que ocurrió el movimiento, en formato yyyy-MM-dd
+        example: "2018-03-17"
+      accounting_date:
+        type: string
+        description: Fecha en la que quedó contabilizado el movimiento, en formato yyyy-MM-dd
+        example: "2018-03-19"
+      processing_date:
+        type: string
+        description: Fecha en la que se presentó el movimiento, en formato yyyy-MM-dd
+        example: "2018-03-18"
+      amount_primary:
+        $ref: '#/definitions/AmountAndCurrency'
+      amount_foreign:
+        $ref: '#/definitions/AmountAndCurrency'
+      place:
+        $ref: '#/definitions/Place'
+      merchant:
+        $ref: '#/definitions/Merchant'
   PrepaidCard:
     type: object
     required:
@@ -541,6 +666,10 @@ definitions:
         type: string
         description: Fecha de expiración de la tarjeta
         example: "11/22"
+      name_on_card:
+        type: string
+        description: Nombre impreso en la tarjeta
+        example: JUAN PEREZ P.
       status:
         type: string
         enum:

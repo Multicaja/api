@@ -94,7 +94,7 @@ paths:
         ### Notas
         * Pese a que el rut es requerido, no es modificable. Si se proporciona un RUT distinto al del cliente `{user_id}`, el servicio retornará `422`
         * Si es una empresa, debe incluir `company_data`.
-        * `clave` debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de `rut.value`
+        * `password` debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de `rut.value`
         * Si se incluye el campo `clave` y `global_status` era `"pre-registro"`, `global_status` cambiará a `"activo"`
         * No se podrá modificar `email.value` si cliente no tiene clave. Si se intenta modificar un email de un cliente que no tiene clave, el servicio retornará `422`.
         * No se podrá modificar `email.value` si `email.status == "validado"`. Si se intenta modificar un email validado a través de este método, el servicio retornará `422`. Para modificar un correo validado, se debe usar los métodos de la URL `/user/{user_id}/mail`. La excepción a esta regla son los clientes con `global_status == "pre-registro"`. Si se intenta modificar un email validado de un cliente "pre-registro", la modificación tendrá éxito y `email.status` pasará a ser `"no validado"`.
@@ -104,7 +104,7 @@ paths:
         
         ### Recomendaciones
         * Sólo envíe los campos mínimos y los que se desee modificar. Por ejemplo, para cambiar el nombre, sólo incluya `rut.value`, `email.value` y `name`. Para validar la cédula contra el SRCeI, sólo incluya `rut.value`, `email.value` y `rut.status`.
-        * Si se desea cambiar la clave del cliente, valide la clave anterior en primer lugar
+        * Si se desea cambiar la password del cliente, valide la password anterior en primer lugar
         
       parameters:
         - in: path
@@ -158,11 +158,11 @@ paths:
           description: Cliente no existe
   /users/login:
     get:
-      summary: Buscar por ID y clave
+      summary: Buscar por ID y password
       tags: 
         - clientes
       description: |
-        Busca a un cliente por (rut y clave) o por (email y clave)
+        Busca a un cliente por (rut y password) o por (email y password)
       consumes:
         - application/x-www-form-urlencoded
       parameters:
@@ -175,8 +175,8 @@ paths:
           description: "Email"
           type: string
         - in: formData
-          name: clave
-          description: "Clave de 4 dígitos"
+          name: password
+          description: "password de 4 dígitos"
           type: string
       responses:
         '200':
@@ -184,7 +184,7 @@ paths:
           schema:
             $ref: '#/definitions/User'
         '404':
-          description: Cliente no existe (puede representar clave inválida)
+          description: Cliente no existe (puede representar password inválida)
   /users/{user_id}/mail:
     post:
       summary: Enviar correo
@@ -507,7 +507,7 @@ definitions:
             $ref: "#/definitions/NewCompanyData"
           password:
             type: string
-            description: Clave de autenticación de 4 dígitos. Campo write-only.
+            description: password de autenticación de 4 dígitos. Campo write-only.
             example: 8922
   User:
     type: object
@@ -548,14 +548,14 @@ definitions:
               - borrado
             description: |
               Estado del cliente. Campo read-only.
-              * "pre-registro": cliente no posee clave
-              * "activo": cliente con clave que puede transar
+              * "pre-registro": cliente no posee password
+              * "activo": cliente con password que puede transar
               * "bloqueado": cuenta temporalmente congelada
               * "borrado": eliminación lógica del cliente, no admite ningún cambio
-          has_clave:
+          has_password:
             type: string
             description: |
-              `"true"` si el usuario tiene `clave`; `"false"` en otro caso
+              `"true"` si el usuario tiene `password`; `"false"` en otro caso
             example: "true"
           timestamps:
             $ref: '#/definitions/Timestamps'
@@ -751,7 +751,7 @@ definitions:
               - no_validado
               - validado_sii
             description: |
-              Estado de validación de la razón social
+              Estado de validación de la razón social (business_name)
               * no_validado: la razón social no ha sido validada
               * validado_sii: la razón social fue validada mediante el SII
           timestamps:
