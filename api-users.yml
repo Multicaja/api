@@ -36,14 +36,14 @@ paths:
         ### Notas
         * Requiere al menos los campos mínimos de User: rut y correo.
         * Si es una empresa, debe incluir `company_data`.
-        * El servicio también funcionará con el `rut` de un cliente existente con `globalStatus` `"pre-registro"`.
-        * Si se intenta crear un usuario con un `rut` o un `email` que ya ha sido usado y con `globalStatus` distinto de `"pre-registro"`, el servicio retornará `405`.
-        * `password` debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de `rut.value`
-        * Si se incluye el campo `password`, `globalStatus` cambiará a `"activo"`
+        * El servicio también funcionará con el `rut` de un cliente existente con `global_status` `"pre-registro"`.
+        * Si se intenta crear un usuario con un `rut` o un `email` que ya ha sido usado y con `global_status` distinto de `"pre-registro"`, el servicio retornará `405`.
+        * `clave` debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de `rut.value`
+        * Si se incluye el campo `clave`, `global_status` cambiará a `"activo"`
         * Si se incluye `rut.serial_number`, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, `rut.status` pasará a "validado". Si la validación no fuera exitosa, `rut.status` cambiará a (o seguirá siendo) "no validado". Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.
         
         ### Recomendaciones
-        * Dado que el servicio no funciona si el `rut` o el `email` ya han sido usados (a menos que pertenezcan a un cliente con `globalStatus` `"pre-registro"`), debería buscarlo primero por `rut` y luego por `email` usando el método `/users/`
+        * Dado que el servicio no funciona si el `rut` o el `email` ya han sido usados (a menos que pertenezcan a un cliente con `global_status` `"pre-registro"`), debería buscarlo primero por `rut` y luego por `email` usando el método `/users/`
       parameters:
         - in: body
           name: user
@@ -95,10 +95,10 @@ paths:
         * Pese a que el rut es requerido, no es modificable. Si se proporciona un RUT distinto al del cliente `{user_id}`, el servicio retornará `422`
         * Si es una empresa, debe incluir `company_data`.
         * `password` debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de `rut.value`
-        * Si se incluye el campo `password` y `globalStatus` era `"pre-registro"`, `globalStatus` cambiará a `"activo"`
-        * No se podrá modificar `email.value` si cliente no tiene password. Si se intenta modificar un email de un cliente que no tiene password, el servicio retornará `422`.
-        * No se podrá modificar `email.value` si `email.status == "validado"`. Si se intenta modificar un email validado a través de este método, el servicio retornará `422`. Para modificar un correo validado, se debe usar los métodos de la URL `/user/{user_id}/mail`. La excepción a esta regla son los clientes con `globalStatus == "pre-registro"`. Si se intenta modificar un email validado de un cliente "pre-registro", la modificación tendrá éxito y `email.status` pasará a ser `"no validado"`.
-        * No se podrá modificar `cellphone.value` si `celular.status == "validado"`. Si se intenta modificar un celular validado a través de este método, el servicio retornará `422`. Para modificar un celular validado, se debe usar los métodos de la URL `/user/{user_id}/sms`. La excepción a esta regla son los clientes con `globalStatus == "pre-registro"`. Si se intenta modificar un celular validado de un cliente "pre-registro", la modificación tendrá éxito y `celular.status` pasará a ser `"no validado"`.
+        * Si se incluye el campo `clave` y `global_status` era `"pre-registro"`, `global_status` cambiará a `"activo"`
+        * No se podrá modificar `email.value` si cliente no tiene clave. Si se intenta modificar un email de un cliente que no tiene clave, el servicio retornará `422`.
+        * No se podrá modificar `email.value` si `email.status == "validado"`. Si se intenta modificar un email validado a través de este método, el servicio retornará `422`. Para modificar un correo validado, se debe usar los métodos de la URL `/user/{user_id}/mail`. La excepción a esta regla son los clientes con `global_status == "pre-registro"`. Si se intenta modificar un email validado de un cliente "pre-registro", la modificación tendrá éxito y `email.status` pasará a ser `"no validado"`.
+        * No se podrá modificar `cellphone.value` si `celular.status == "validado"`. Si se intenta modificar un celular validado a través de este método, el servicio retornará `422`. Para modificar un celular validado, se debe usar los métodos de la URL `/user/{user_id}/sms`. La excepción a esta regla son los clientes con `global_status == "pre-registro"`. Si se intenta modificar un celular validado de un cliente "pre-registro", la modificación tendrá éxito y `celular.status` pasará a ser `"no validado"`.
         * Si se incluye `rut.serial_number`, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, `rut.status` pasará a "validado". Si la validación no fuera exitosa, `rut.status` cambiará a (o seguirá siendo) "no validado". Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.
         * Los campos `gender`, `birthday`, `name`, `lastname_1` y `lastname_2` no tienen restricciones de modificación
         
@@ -525,7 +525,7 @@ definitions:
           - rut
           - email
           - timestamps
-          - globalStatus
+          - global_status
         properties:
           id:
             type: integer
@@ -539,7 +539,7 @@ definitions:
             $ref: '#/definitions/Email'
           company_data:
             $ref: "#/definitions/CompanyData"
-          globalStatus:
+          global_status:
             type: string
             enum:
               - pre-registro
