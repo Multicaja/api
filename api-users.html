@@ -175,15 +175,15 @@
                   <ul>
                     <li>Requiere al menos los campos mínimos de User: rut y correo.</li>
                     <li>Si es una empresa, debe incluir <code>company_data</code>.</li>
-                    <li>El servicio también funcionará con el <code>rut</code> de un cliente existente con <code>globalStatus</code> <code>&quot;pre-registro&quot;</code>.</li>
-                    <li>Si se intenta crear un usuario con un <code>rut</code> o un <code>email</code> que ya ha sido usado y con <code>globalStatus</code> distinto de <code>&quot;pre-registro&quot;</code>, el servicio retornará <code>405</code>.</li>
-                    <li><code>password</code> debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de <code>rut.value</code></li>
-                    <li>Si se incluye el campo <code>password</code>, <code>globalStatus</code> cambiará a <code>&quot;activo&quot;</code></li>
+                    <li>El servicio también funcionará con el <code>rut</code> de un cliente existente con <code>global_status</code> <code>&quot;pre-registro&quot;</code>.</li>
+                    <li>Si se intenta crear un usuario con un <code>rut</code> o un <code>email</code> que ya ha sido usado y con <code>global_status</code> distinto de <code>&quot;pre-registro&quot;</code>, el servicio retornará <code>405</code>.</li>
+                    <li><code>clave</code> debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de <code>rut.value</code></li>
+                    <li>Si se incluye el campo <code>clave</code>, <code>global_status</code> cambiará a <code>&quot;activo&quot;</code></li>
                     <li>Si se incluye <code>rut.serial_number</code>, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, <code>rut.status</code> pasará a &quot;validado&quot;. Si la validación no fuera exitosa, <code>rut.status</code> cambiará a (o seguirá siendo) &quot;no validado&quot;. Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.</li>
                   </ul>
                   <h3 id="recomendaciones">Recomendaciones</h3>
                   <ul>
-                    <li>Dado que el servicio no funciona si el <code>rut</code> o el <code>email</code> ya han sido usados (a menos que pertenezcan a un cliente con <code>globalStatus</code> <code>&quot;pre-registro&quot;</code>), debería buscarlo primero por <code>rut</code> y luego por <code>email</code> usando el método <code>/users/</code></li>
+                    <li>Dado que el servicio no funciona si el <code>rut</code> o el <code>email</code> ya han sido usados (a menos que pertenezcan a un cliente con <code>global_status</code> <code>&quot;pre-registro&quot;</code>), debería buscarlo primero por <code>rut</code> y luego por <code>email</code> usando el método <code>/users/</code></li>
                   </ul>
                 </section>
               </div>
@@ -321,7 +321,7 @@
     <span class="hljs-attr">&quot;business_name&quot;</span>: <span class="hljs-string">&quot;Reparaciones Joselito Ltda.&quot;</span>,
     <span class="hljs-attr">&quot;commercial_activity&quot;</span>: <span class="hljs-number">772</span>
   },
-  <span class="hljs-attr">&quot;globalStatus&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;global_status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;has_password&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -483,7 +483,7 @@
     <span class="hljs-attr">&quot;business_name&quot;</span>: <span class="hljs-string">&quot;Reparaciones Joselito Ltda.&quot;</span>,
     <span class="hljs-attr">&quot;commercial_activity&quot;</span>: <span class="hljs-number">772</span>
   },
-  <span class="hljs-attr">&quot;globalStatus&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;global_status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;has_password&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -530,10 +530,10 @@
                     <li>Pese a que el rut es requerido, no es modificable. Si se proporciona un RUT distinto al del cliente <code>{user_id}</code>, el servicio retornará <code>422</code></li>
                     <li>Si es una empresa, debe incluir <code>company_data</code>.</li>
                     <li><code>password</code> debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de <code>rut.value</code></li>
-                    <li>Si se incluye el campo <code>password</code> y <code>globalStatus</code> era <code>&quot;pre-registro&quot;</code>, <code>globalStatus</code> cambiará a <code>&quot;activo&quot;</code></li>
-                    <li>No se podrá modificar <code>email.value</code> si cliente no tiene password. Si se intenta modificar un email de un cliente que no tiene password, el servicio retornará <code>422</code>.</li>
-                    <li>No se podrá modificar <code>email.value</code> si <code>email.status == &quot;validado&quot;</code>. Si se intenta modificar un email validado a través de este método, el servicio retornará <code>422</code>. Para modificar un correo validado, se debe usar los métodos de la URL <code>/user/{user_id}/mail</code>. La excepción a esta regla son los clientes con <code>globalStatus == &quot;pre-registro&quot;</code>. Si se intenta modificar un email validado de un cliente &quot;pre-registro&quot;, la modificación tendrá éxito y <code>email.status</code> pasará a ser <code>&quot;no validado&quot;</code>.</li>
-                    <li>No se podrá modificar <code>cellphone.value</code> si <code>celular.status == &quot;validado&quot;</code>. Si se intenta modificar un celular validado a través de este método, el servicio retornará <code>422</code>. Para modificar un celular validado, se debe usar los métodos de la URL <code>/user/{user_id}/sms</code>. La excepción a esta regla son los clientes con <code>globalStatus == &quot;pre-registro&quot;</code>. Si se intenta modificar un celular validado de un cliente &quot;pre-registro&quot;, la modificación tendrá éxito y <code>celular.status</code> pasará a ser <code>&quot;no validado&quot;</code>.</li>
+                    <li>Si se incluye el campo <code>clave</code> y <code>global_status</code> era <code>&quot;pre-registro&quot;</code>, <code>global_status</code> cambiará a <code>&quot;activo&quot;</code></li>
+                    <li>No se podrá modificar <code>email.value</code> si cliente no tiene clave. Si se intenta modificar un email de un cliente que no tiene clave, el servicio retornará <code>422</code>.</li>
+                    <li>No se podrá modificar <code>email.value</code> si <code>email.status == &quot;validado&quot;</code>. Si se intenta modificar un email validado a través de este método, el servicio retornará <code>422</code>. Para modificar un correo validado, se debe usar los métodos de la URL <code>/user/{user_id}/mail</code>. La excepción a esta regla son los clientes con <code>global_status == &quot;pre-registro&quot;</code>. Si se intenta modificar un email validado de un cliente &quot;pre-registro&quot;, la modificación tendrá éxito y <code>email.status</code> pasará a ser <code>&quot;no validado&quot;</code>.</li>
+                    <li>No se podrá modificar <code>cellphone.value</code> si <code>celular.status == &quot;validado&quot;</code>. Si se intenta modificar un celular validado a través de este método, el servicio retornará <code>422</code>. Para modificar un celular validado, se debe usar los métodos de la URL <code>/user/{user_id}/sms</code>. La excepción a esta regla son los clientes con <code>global_status == &quot;pre-registro&quot;</code>. Si se intenta modificar un celular validado de un cliente &quot;pre-registro&quot;, la modificación tendrá éxito y <code>celular.status</code> pasará a ser <code>&quot;no validado&quot;</code>.</li>
                     <li>Si se incluye <code>rut.serial_number</code>, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, <code>rut.status</code> pasará a &quot;validado&quot;. Si la validación no fuera exitosa, <code>rut.status</code> cambiará a (o seguirá siendo) &quot;no validado&quot;. Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.</li>
                     <li>Los campos <code>gender</code>, <code>birthday</code>, <code>name</code>, <code>lastname_1</code> y <code>lastname_2</code> no tienen restricciones de modificación</li>
                   </ul>
@@ -700,7 +700,7 @@
     <span class="hljs-attr">&quot;business_name&quot;</span>: <span class="hljs-string">&quot;Reparaciones Joselito Ltda.&quot;</span>,
     <span class="hljs-attr">&quot;commercial_activity&quot;</span>: <span class="hljs-number">772</span>
   },
-  <span class="hljs-attr">&quot;globalStatus&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;global_status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;has_password&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -895,7 +895,7 @@
     <span class="hljs-attr">&quot;business_name&quot;</span>: <span class="hljs-string">&quot;Reparaciones Joselito Ltda.&quot;</span>,
     <span class="hljs-attr">&quot;commercial_activity&quot;</span>: <span class="hljs-number">772</span>
   },
-  <span class="hljs-attr">&quot;globalStatus&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;global_status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;has_password&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -1073,7 +1073,7 @@
     <span class="hljs-attr">&quot;business_name&quot;</span>: <span class="hljs-string">&quot;Reparaciones Joselito Ltda.&quot;</span>,
     <span class="hljs-attr">&quot;commercial_activity&quot;</span>: <span class="hljs-number">772</span>
   },
-  <span class="hljs-attr">&quot;globalStatus&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;global_status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;has_password&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -2530,8 +2530,8 @@
                           </span>
                           <span class="json-property-range" title="Value limits"></span>
                         </dt>
-                        <dt data-property-name="globalStatus" class="has-description">
-                          <span class="json-property-name">globalStatus:</span>
+                        <dt data-property-name="global_status" class="has-description">
+                          <span class="json-property-name">global_status:</span>
                           <span class="json-property-type">string</span>
                           <span class="json-property-enum" title="Possible values">
                             <span class="json-property-enum-item">pre-registro</span>,
@@ -2614,7 +2614,7 @@
     <span class="hljs-attr">&quot;business_name&quot;</span>: <span class="hljs-string">&quot;Reparaciones Joselito Ltda.&quot;</span>,
     <span class="hljs-attr">&quot;commercial_activity&quot;</span>: <span class="hljs-number">772</span>
   },
-  <span class="hljs-attr">&quot;globalStatus&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;global_status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;has_password&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
