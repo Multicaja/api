@@ -8,10 +8,10 @@ info:
     Todos los requests son autenticados usando un `api-key`.
 
     Existen dos ambientes: `qa` y `producción`. El `host` de `qa` es `apiqa.multicaja.cl`.
-  version: '0.5'
+  version: '0.6'
   title: API Multicaja (Alpha)
 host: 'api.multicaja.cl'
-basePath: /v0.5-alpha/
+basePath: /v0.6-alpha/
 consumes:
   - application/json
 produces:
@@ -185,6 +185,31 @@ paths:
             $ref: '#/definitions/User'
         '404':
           description: Cliente no existe (puede representar password inválida)
+  /users/checkrut:
+    get:
+      summary: Valida el rut
+      tags: 
+        - clientes
+      description: |
+        Valida con registro civil si el numero de documento de carnet es valido
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: rut
+          in: formData
+          description: "Rut sin puntos ni dígito verificador"
+          type: integer
+        - name: serie
+          in: formData
+          description: "Numero de documento o numero de serie de carnet"
+          type: string
+      responses:
+        '201':
+          description: OK
+          schema:
+            type: boolean
+        '404':
+          description: El numero de serie indicado no es valido
   /users/{user_id}/mail:
     post:
       summary: Enviar correo
