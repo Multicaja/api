@@ -38,6 +38,9 @@
               <li>
                 <a href="#operation--users-login-get"> Buscar por ID y password </a>
               </li>
+              <li>
+                <a href="#operation--users-checkrut-get"> Valida el rut </a>
+              </li>
             </ul>
           </section>
           <section>
@@ -126,7 +129,7 @@
               <div class="doc-examples">
                 <section>
                   <h5>API Endpoint</h5>
-                  <!-- <div class="hljs"> --><pre><code>http://api.multicaja.cl/v0.5-alpha/</code></pre>
+                  <!-- <div class="hljs"> --><pre><code>http://api.multicaja.cl/v0.6-alpha/</code></pre>
                   <!-- </div> -->
                   <h5>Request Content-Types:
                     <span>application/json</span>
@@ -135,7 +138,7 @@
                     <span>application/json</span>
                   </h5>
                   <h5>Version:
-                    <span>0.5</span>
+                    <span>0.6</span>
                   </h5>
                 </section>
               </div>
@@ -1085,6 +1088,113 @@
   <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>
 }
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--users-checkrut-get" class="operation panel" data-traverse-target="operation--users-checkrut-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-clientes">clientes</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Valida el rut</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/users/checkrut</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Valida con registro civil si el numero de documento de carnet es valido</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">rut</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Rut sin puntos ni dígito verificador</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">formData</div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">serie</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Numero de documento o numero de serie de carnet</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">formData</div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">201 Created</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>El numero de serie indicado no es valido</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(201 Created)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;boolean&quot;</span>
 </code></pre>
                   <!-- </div> -->
                 </section>
