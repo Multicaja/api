@@ -259,19 +259,19 @@ paths:
         
         **Mensaje invocado por el procesador emisor**
         
-        * Si el mensaje de entrada no corresponde an un `RawTransaction`, el servicio responderá `422`
+        * Si el mensaje de entrada no corresponde an un `NewRawTransaction`, el servicio responderá `422`
       parameters:
         - in: body
           name: transaction
           description: Transacción
           required: true
           schema:
-            $ref: '#/definitions/RawTransaction'
+            $ref: '#/definitions/NewRawTransaction'
       responses:
         '200':
           description: OK
         '422':
-          description: El mensaje `RawTransaction` tiene errores
+          description: El mensaje `NewRawTransaction` tiene errores
           schema:
             $ref: '#/definitions/ErrorObj'
 definitions:
@@ -291,9 +291,10 @@ definitions:
         type: string
         format: date-time
         example: "2018-03-02T10:03:12.123Z"
-  RawTransaction:
+  NewRawTransaction:
     type: object
-    description: Request y response en formato ISO 8583
+    description: |
+      Transacción notificada en vivo por el procesador **(Request)**
     properties:
       entidad_codigo:
         type: string
