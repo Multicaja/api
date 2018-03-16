@@ -259,19 +259,19 @@ paths:
         
         **Mensaje invocado por el procesador emisor**
         
-        * Si el mensaje de entrada no corresponde an un `ISO8583Transaction`, el servicio responderá `422`
+        * Si el mensaje de entrada no corresponde an un `NewRawTransaction`, el servicio responderá `422`
       parameters:
         - in: body
           name: transaction
           description: Transacción
           required: true
           schema:
-            $ref: '#/definitions/ISO8583Transaction'
+            $ref: '#/definitions/NewRawTransaction'
       responses:
         '200':
           description: OK
         '422':
-          description: El mensaje `ISO8583Transaction` tiene errores
+          description: El mensaje `NewRawTransaction` tiene errores
           schema:
             $ref: '#/definitions/ErrorObj'
 definitions:
@@ -291,150 +291,63 @@ definitions:
         type: string
         format: date-time
         example: "2018-03-02T10:03:12.123Z"
-  ISO8583Transaction:
+  NewRawTransactionHeader:
     type: object
-    description: Request y response en formato ISO 8583
+    description: |
+      Encabezado de transacción notificada en vivo por el procesador **(Request)**
     properties:
-      entidad_codigo:
+      entidad:
         type: string
         description: Código de entidad en el procesador
         example: "9603"
-      cliente:
-        type: object
-        description: cliente afectado por la transacción
-        properties:
-          centro_alta:
-            type: string
-            description: Sucursal donde se dio de alta al cliente. 4 dígitos.
-            example: "0001"
-          cuenta:
-            type: string
-            description: Identificador del cliente. 12 dígitos.
-            example: "000000012345"
-          tipo_documento:
-            type: string
-            description: Tipo de documento que identifica al cliente. 3 caracteres.
-            example: "RUT"
-          numero_documento:
-            type: string
-            description: Número de documento. Si es RUT, no incluye dígito verificador
-            example: "14569484"
-      tarjeta:
-        type: object
-        description: tarjeta afectada por la transacción
-        properties:
-          pan:
-            type: string
-            description: PAN de la tarjeta. 16 dígitos.
-            example: "4111111111111111"
-          expiracion:
-            type: string
-            description: Fecha de caducidad de la tarjeta. Formato "MM/yy"
-            example: "03/22"
-          bloqueo_codigo:
-            type: string
-            description: Código de bloqueo de la tarjeta
-            example: "010"
-          bloqueo_descripcion:
-            type: string
-            description: Descripción del bloqueo de la tarjeta
-            example: "MORA GRAVE"
-          saldo:
-            type: object
-            description: saldo del cliente antes y después de la transacción
-            properties:
-              codigo_moneda:
-                type: string
-                description: Código ISO de la moneda del saldo. 3 caracteres.
-                example: "CLP"
-              saldo_dispuesto_antes:
-                type: string
-                description: Saldo dispuesto **antes** de realizar la transacción. 2 decimales a la derecha.
-                example: "1983000"
-              saldo_autorizado_antes:
-                type: string
-                description: Saldo autorizado **antes** de realizar la transacción. 2 decimales a la derecha.
-                example: "100000"
-              saldo_dispuesto_despues:
-                type: string
-                description: Saldo dispuesto **después** de realizar la transacción. 2 decimales a la derecha.
-                example: "1882900"
-              saldo_autorizado_despues:
-                type: string
-                description: Saldo autorizado **después** de realizar la transacción. 2 decimales a la derecha.
-                example: "200100"
-      mensaje_entrada:
-        type: object
-        description: Mensaje que llegó al procesador
-        properties:
-          codigo_moneda_local:
-            type: string
-            description: Código ISO de la moneda de cardholder billing. 3 caracteres. DE51.
-            example: "CLP"
-          monto_local:
-            type: string
-            description: Monto de cardholder billing. 2 decimales a la derecha. DE6.
-            example: "100100"
-          codigo_moneda_origen:
-            type: string
-            description: Código ISO de la moneda de la transacción. 3 caracteres. DE49.
-            example: "EUR"
-          monto_origen:
-            type: string
-            description: Monto de la transacción. 2 decimales a la derecha. DE4.
-            example: "154"
-          comercio_nombre:
-            type: string
-            description: Nombre del comercio.
-            example: "AMAZON UK"
-          comercio_pais:
-            type: string
-            description: Codigo ISO del país del comercio
-            example: "GBR"
-          timestamp:
-            type: string
-            description: Fecha y hora de la transacción
-            example: "2018-01-14T15:27:42.669Z"
-      mensaje_respuesta:
-        type: object
-        description: Mensaje que respondió el procesador
-        properties:
-          factura_codigo:
-            type: string
-            description: Tipo factura
-            example: "TF491"
-          factura_descripcion:
-            type: string
-            description: Descripción del tipo de factura
-            example: "COMPRA EN CUOTAS"
-          codigo_autorizacion:
-            type: string
-            description: Monto de cardholder billing. 2 decimales a la derecha. DE6.
-            example: "100100"
-          respuesta_tipo_codigo:
-            type: string
-            description: Código del tipo de respuesta (aprobado, rechazado, etc.)
-            example: "110"
-          respuesta_tipo_descripcion:
-            type: string
-            description: Descripción del tipo de respuesta
-            example: "APROBADO"
-          respuesta_codigo_autorizacion:
-            type: string
-            description: Identificador del código de aprobación devuelto a la red
-            example: "123456"
-          timestamp:
-            type: string
-            description: Fecha y hora de la respuesta
-            example: "2018-01-14T15:27:42.669Z"
-      raw_iso_8583_request:
+      centro_alta:
         type: string
-        description: Mensaje de entrada ISO 8583 codificado en base64
-        example: TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvS4=
-      raw_iso_8583_response:
+        description: Sucursal donde se dio de alta al cliente. 4 dígitos.
+        example: "0001"
+      cuenta:
         type: string
-        description: Mensaje de respuesta ISO 8583 codificado en base64
-        example: vdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c=
+        description: Identificador del cliente. 12 dígitos.
+        example: "000000012345"
+      pan:
+        type: string
+        description: PAN truncado.
+        example: "411111******1111"
+  NewRawTransactionBody:
+    type: object
+    description: |
+      Campos interpretados de transacción notificada en vivo por el procesador **(Request)**
+    properties:
+      saldo_disponible: # Sólo para los casos donde existe
+        $ref: "#/definitions/NewAmountAndCurrency"
+      importe_local: # OPE-SIA-IM + COD-MONEDA
+        $ref: "#/definitions/NewAmountAndCurrency"
+      importe_divisa: # OPE-DIV-IM + COD-MONEDA-DIV
+        $ref: "#/definitions/NewAmountAndCurrency"
+      tipo_tx: # OPE-SIA-CD
+        type: integer
+        description: Código que identifica el tipo de transacción
+        example: 100
+      comercio: # CODFUC + LIT-NOMBRE
+        $ref: "#/definitions/Merchant"
+      lugar: # LIT-CIUDAD + LIT-CD-PAIS
+        $ref: "#/definitions/Place"
+      resolucion_tx: # RSL-SIA-CD
+        type: integer
+        description: Código que identifica el resultado de la transacción
+        example: 100
+  NewRawTransaction:
+    type: object
+    description: |
+      Transacción notificada en vivo por el procesador **(Request)**
+    properties:
+      header:
+        $ref: "#/definitions/NewRawTransactionHeader"
+      body:
+        $ref: "#/definitions/NewRawTransactionBody"
+      base64_data:
+        type: string
+        description: String concatenado con todos los campos disponibles, codificado en base 64
+        example: "TWFuIGlzIGRpc3Rpbmd1a  ...  XNoZWQsIG5vdCBvS4="
   NewAmountAndCurrency:
     type: object
     description: Monto en una moneda específica **(Request)**
