@@ -39,21 +39,7 @@ paths:
         '200':
           description: OK
           schema:
-            type: object
-            required:
-              - has_prepaid_card
-            properties:
-              has_prepaid_card:
-                type: string
-                description: "`true` si el cliente tiene un Prepago Multicaja; `false` en caso contrario"
-                example: true
-              card:
-                $ref: '#/definitions/PrepaidCard'
-              limits:
-                type: array
-                items:
-                  $ref: '#/definitions/PrepaidCardLimit'
-
+            $ref: '#/definitions/PrepaidUserData'
         '404':
           description: Cliente no existe o no tiene un Prepago Multicaja
     post:
@@ -681,6 +667,20 @@ definitions:
           * expirada: la tarjeta expiró
       timestamps:
         $ref: '#/definitions/Timestamps'
+  PrepaidUserData:
+    type: object
+    description: |
+       Tarjeta, límites y estado de un cliente de prepago **(Response)**
+    required:
+      - card
+      - limits
+    properties:
+      card:
+        $ref: '#/definitions/PrepaidCard'
+      limits:
+        type: array
+        items:
+          $ref: '#/definitions/PrepaidCardLimit'
   ErrorObj:
     type: object
     description: Error que devuelve la api ante un `HTTP 422` **(Response)**
