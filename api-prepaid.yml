@@ -3,15 +3,13 @@ info:
   description: |
     API de Prepago Multicaja (Alpha)
 
-    ** Este es un proyecto alpha y por lo tanto sufrirá muchos cambios **
+    ** Este es una API en alpha y por lo tanto sufrirá muchos cambios **
 
-    Todos los requests son autenticados usando un `api-key`.
-
-    Existen dos ambientes: `qa` y `producción`. El `host` de `qa` es `apiqa.multicaja.cl/prepaid`.
-  version: '0.6'
+    Mientras está en modo alpha, no mantendremos versiones anteriores
+  version: '0.7'
   title: API Multicaja (Alpha)
 host: 'api.multicaja.cl'
-basePath: /v0.6-alpha/
+basePath: /v0.7-alpha/
 consumes:
   - application/json
 produces:
