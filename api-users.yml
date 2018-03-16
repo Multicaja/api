@@ -431,6 +431,84 @@ paths:
           description: OK
         '404':
           description: Cliente o Cuenta no existen
+  /users/{user_id}/tags:
+    get:
+      summary: Listar
+      tags: 
+        - tags
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+      responses:
+        '201':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Tag'
+        '404':
+          description: Cliente no existe
+    post:
+      summary: Crear
+      tags: 
+        - tags
+      description: |
+        Crea una nueva etiqueta para este cliente. Si el `tag_code` ya existe arroja `405`.
+        
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: body
+          name: tag
+          description: Etiqueta
+          required: true
+          schema:
+            $ref: '#/definitions/NewTag'
+      responses:
+        '201':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Tag'
+        '404':
+          description: Cliente no existe
+        '405':
+          description: La etiqueta ya existe
+        '422':
+          description: |
+            La etiqueta contiene datos inválidos
+
+            Nota: `attribute_code` debe pertenecer a `/params/users/tags`
+          schema:
+            $ref: '#/definitions/ErrorObj'
+  /users/{user_id}/tags/{tag_id}:
+    delete:
+      summary: Eliminar
+      tags: 
+        - cuentas
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: path
+          name: tag_id
+          description: ID de la etiqueta
+          required: true
+          type: "integer"
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Cliente o etiqueta no existen
   /users/{user_id}/addresses:
     get:
       summary: Listar
@@ -803,8 +881,13 @@ definitions:
       - $ref: "#/definitions/NewTag"
       - type: object
         required:
+          - id
           - timestamps
         properties:
+          id:
+            type: integer
+            description: Identificador interno. Campo read-only.
+            example: 983
           timestamps:
             $ref: '#/definitions/Timestamps'
   Timestamps:
