@@ -18,13 +18,13 @@ produces:
   - application/json
 tags:
   - name: clientes
-    description: Operaciones directamente con relacionadas un cliente
+    description: Administración de clientes
   - name: contacto
-    description: Para contactar a un cliente y validar datos de contacto
+    description: Contacto con cliente y validación de sus datos de contacto
   - name: cuentas
-    description: Operaciones relacionadas con las cuentas bancarias de un cliente
+    description: Cuentas bancarias de un cliente
   - name: direcciones
-    description: Operaciones relacionadas con la dirección física de un cliente
+    description: Dirección física de un cliente
 paths:
   /users:
     post:
