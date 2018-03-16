@@ -100,6 +100,7 @@
           <a href="#definition-NewPrepaidTransaction"> NewPrepaidTransaction </a>
           <a href="#definition-PrepaidTransaction"> PrepaidTransaction </a>
           <a href="#definition-PrepaidCard"> PrepaidCard </a>
+          <a href="#definition-PrepaidUserData"> PrepaidUserData </a>
           <a href="#definition-ErrorObj"> ErrorObj </a>
           <a href="#definition-ErrorObjDetail"> ErrorObjDetail </a>
         </nav>
@@ -118,15 +119,14 @@
               <div class="doc-copy">
                 <p>API de Prepago Multicaja (Alpha)</p>
                 <p>
-                  <strong> Este es un proyecto alpha y por lo tanto sufrirá muchos cambios </strong>
+                  <strong> Este es una API en alpha y por lo tanto sufrirá muchos cambios </strong>
                 </p>
-                <p>Todos los requests son autenticados usando un <code>api-key</code>.</p>
-                <p>Existen dos ambientes: <code>qa</code> y <code>producción</code>. El <code>host</code> de <code>qa</code> es <code>apiqa.multicaja.cl/prepaid</code>.</p>
+                <p>Mientras está en modo alpha, no mantendremos versiones anteriores</p>
               </div>
               <div class="doc-examples">
                 <section>
                   <h5>API Endpoint</h5>
-                  <!-- <div class="hljs"> --><pre><code>http://api.multicaja.cl/v0.6-alpha/</code></pre>
+                  <!-- <div class="hljs"> --><pre><code>http://api.multicaja.cl/v0.7-alpha/</code></pre>
                   <!-- </div> -->
                   <h5>Request Content-Types:
                     <span>application/json</span>
@@ -135,7 +135,7 @@
                     <span>application/json</span>
                   </h5>
                   <h5>Version:
-                    <span>0.6</span>
+                    <span>0.7</span>
                   </h5>
                 </section>
               </div>
@@ -168,12 +168,7 @@
                 <section class="swagger-operation-description">
                   <p>Indica si el cliente tiene un Prepago Multicaja. En caso afirmativo, retorna la tarjeta truncada y sus límites.</p>
                   <ul>
-                    <li>Si el cliente tiene Prepago Multicaja, <code>has_prepaid_account</code> será <code>true</code>.</li>
-                    <li><code>card.timestamps.created_at</code> indicará la fecha en la que este cliente obtuvo su primera tarjeta de prepago</li>
-                    <li><code>card.timestamps.updated_at</code> indicará la fecha de la última acción de
-                      <em>bloqueo</em>,
-                      <em>desbloqueo</em> y
-                      <em>reemisión</em>.</li>
+                    <li>Si el cliente tiene Prepago Multicaja, responderá <code>200</code>. En caso contrario, responderá <code>404</code>.</li>
                   </ul>
                 </section>
               </div>
@@ -211,7 +206,11 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">200 OK</div>
-                      <div class="prop-ref"></div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/PrepaidUserData">PrepaidUserData</a>
+                        </span>
+                      </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
@@ -234,7 +233,6 @@
                     <span>(200 OK)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;has_prepaid_card&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;card&quot;</span>: {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
     <span class="hljs-attr">&quot;processor_user_id&quot;</span>: <span class="hljs-string">&quot;2231-9892-781283049685&quot;</span>,
@@ -2223,6 +2221,14 @@
                   <p>Tarjeta de prepago Visa o Mastercard
                     <strong>(Response)</strong>
                   </p>
+                  <h3 id="notas">Notas</h3>
+                  <ul>
+                    <li><code>timestamps.created_at</code> indicará la fecha en la que este cliente obtuvo su primera tarjeta de prepago</li>
+                    <li><code>timestamps.updated_at</code> indicará la fecha de la última acción de
+                      <em>bloqueo</em>,
+                      <em>desbloqueo</em> y
+                      <em>reemisión</em>.</li>
+                  </ul>
                 </section>
                 <section class="json-schema-properties">
                   <dl>
@@ -2312,6 +2318,81 @@
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
   }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-PrepaidUserData" class="definition panel" data-traverse-target="definition-PrepaidUserData">
+            <h2 class="panel-title">
+              <a name="/definitions/PrepaidUserData"></a>PrepaidUserData: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Tarjeta, límites y estado de un cliente de prepago
+                    <strong>(Response)</strong>
+                  </p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="card">
+                      <span class="json-property-name">card:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/PrepaidCard">PrepaidCard</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="limits">
+                      <span class="json-property-name">limits:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/PrepaidCardLimit">PrepaidCardLimit</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;card&quot;</span>: {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
+    <span class="hljs-attr">&quot;processor_user_id&quot;</span>: <span class="hljs-string">&quot;2231-9892-781283049685&quot;</span>,
+    <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;123456******1234&quot;</span>,
+    <span class="hljs-attr">&quot;expiration&quot;</span>: <span class="hljs-string">&quot;11/22&quot;</span>,
+    <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;JUAN PEREZ P.&quot;</span>,
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+    }
+  },
+  <span class="hljs-attr">&quot;limits&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;001&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Saldo m&#xE1;ximo&quot;</span>,
+      <span class="hljs-attr">&quot;amount&quot;</span>: {
+        <span class="hljs-attr">&quot;currency_description&quot;</span>: <span class="hljs-string">&quot;Peso Chileno&quot;</span>,
+        <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+        <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+      }
+    }
+  ]
 }
 </code></pre>
                   <!-- </div> -->
