@@ -58,6 +58,20 @@
             </ul>
           </section>
           <section>
+            <a href="#tag-etiquetas">etiquetas</a>
+            <ul>
+              <li>
+                <a href="#operation--users--user_id--tags-get"> Listar </a>
+              </li>
+              <li>
+                <a href="#operation--users--user_id--tags-post"> Crear </a>
+              </li>
+              <li>
+                <a href="#operation--users--user_id--tags--tag_id--delete"> Eliminar </a>
+              </li>
+            </ul>
+          </section>
+          <section>
             <a href="#tag-cuentas">cuentas</a>
             <ul>
               <li>
@@ -97,6 +111,8 @@
           <a href="#definition-CellPhone"> CellPhone </a>
           <a href="#definition-NewCompanyData"> NewCompanyData </a>
           <a href="#definition-CompanyData"> CompanyData </a>
+          <a href="#definition-NewTag"> NewTag </a>
+          <a href="#definition-Tag"> Tag </a>
           <a href="#definition-Timestamps"> Timestamps </a>
           <a href="#definition-NewAddress"> NewAddress </a>
           <a href="#definition-Address"> Address </a>
@@ -147,7 +163,7 @@
           <h1 id="tag-clientes" class="swagger-summary-tag" data-traverse-target="tag-clientes">clientes</h1>
           <div class="tag-description doc-row">
             <div class="doc-copy">
-              <p>Operaciones directamente con relacionadas un cliente</p>
+              <p>Administración de clientes</p>
             </div>
           </div>
           <div id="operation--users-post" class="operation panel" data-traverse-target="operation--users-post">
@@ -1204,7 +1220,7 @@
           <h1 id="tag-contacto" class="swagger-summary-tag" data-traverse-target="tag-contacto">contacto</h1>
           <div class="tag-description doc-row">
             <div class="doc-copy">
-              <p>Para contactar a un cliente y validar datos de contacto</p>
+              <p>Contacto con cliente y validación de sus datos de contacto</p>
             </div>
           </div>
           <div id="operation--users--user_id--mail-post" class="operation panel" data-traverse-target="operation--users--user_id--mail-post">
@@ -1701,10 +1717,371 @@
               </div>
             </div>
           </div>
+          <h1 id="tag-etiquetas" class="swagger-summary-tag" data-traverse-target="tag-etiquetas">etiquetas</h1>
+          <div class="tag-description doc-row">
+            <div class="doc-copy">
+              <p>Etiquetas del cliente</p>
+            </div>
+          </div>
+          <div id="operation--users--user_id--tags-get" class="operation panel" data-traverse-target="operation--users--user_id--tags-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-etiquetas">etiquetas</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Listar</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/users/{user_id}/tags</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">user_id</div>
+                      <span class="json-property-required"></span>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID del usuario</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">path</div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">201 Created</div>
+                      <div class="prop-ref">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Tag">Tag</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Cliente no existe</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(201 Created)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">983</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;cliente.regulador.es_pep&quot;</span>,
+    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+    },
+    <span class="hljs-attr">&quot;attribute_code&quot;</span>: <span class="hljs-number">56</span>
+  }
+]
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--users--user_id--tags-post" class="operation panel" data-traverse-target="operation--users--user_id--tags-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-etiquetas">etiquetas</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Crear</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/users/{user_id}/tags</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Crea una nueva etiqueta para este cliente. Si el <code>tag_code</code> ya existe arroja <code>405</code>.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/NewTag">NewTag</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Etiqueta</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">user_id</div>
+                      <span class="json-property-required"></span>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID del usuario</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">path</div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;attribute_code&quot;</span>: <span class="hljs-number">56</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">201 Created</div>
+                      <div class="prop-ref">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Tag">Tag</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Cliente no existe</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">405 Method Not Allowed</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>La etiqueta ya existe</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">422 Unprocessable Entity</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>La etiqueta contiene datos inválidos</p>
+                      <p>Nota: <code>attribute_code</code> debe pertenecer a <code>/params/users/tags</code></p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(201 Created)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">983</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;cliente.regulador.es_pep&quot;</span>,
+    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+    },
+    <span class="hljs-attr">&quot;attribute_code&quot;</span>: <span class="hljs-number">56</span>
+  }
+]
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(422 Unprocessable Entity)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
+  <span class="hljs-attr">&quot;details&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
+      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--users--user_id--tags--tag_id--delete" class="operation panel" data-traverse-target="operation--users--user_id--tags--tag_id--delete">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-etiquetas">etiquetas</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Eliminar</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">DELETE</span>
+                  <span class="operation-path">/users/{user_id}/tags/{tag_id}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">user_id</div>
+                      <span class="json-property-required"></span>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID del usuario</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">path</div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">tag_id</div>
+                      <span class="json-property-required"></span>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID de la etiqueta</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name param-label">in</div>
+                    <div class="prop-value">path</div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Cliente o etiqueta no existen</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </div>
           <h1 id="tag-cuentas" class="swagger-summary-tag" data-traverse-target="tag-cuentas">cuentas</h1>
           <div class="tag-description doc-row">
             <div class="doc-copy">
-              <p>Operaciones relacionadas con las cuentas bancarias de un cliente</p>
+              <p>Cuentas bancarias de un cliente</p>
             </div>
           </div>
           <div id="operation--users--user_id--bank_accounts-get" class="operation panel" data-traverse-target="operation--users--user_id--bank_accounts-get">
@@ -2073,7 +2450,7 @@
           <h1 id="tag-direcciones" class="swagger-summary-tag" data-traverse-target="tag-direcciones">direcciones</h1>
           <div class="tag-description doc-row">
             <div class="doc-copy">
-              <p>Operaciones relacionadas con la dirección física de un cliente</p>
+              <p>Dirección física de un cliente</p>
             </div>
           </div>
           <div id="operation--users--user_id--addresses-get" class="operation panel" data-traverse-target="operation--users--user_id--addresses-get">
@@ -3352,6 +3729,127 @@
   },
   <span class="hljs-attr">&quot;business_name&quot;</span>: <span class="hljs-string">&quot;Reparaciones Joselito Ltda.&quot;</span>,
   <span class="hljs-attr">&quot;commercial_activity&quot;</span>: <span class="hljs-number">772</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-NewTag" class="definition panel" data-traverse-target="definition-NewTag">
+            <h2 class="panel-title">
+              <a name="/definitions/NewTag"></a>NewTag: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Asocia una etiqueta al Cliente
+                    <strong>(Request)</strong>
+                  </p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="attribute_code" class="has-description">
+                      <span class="json-property-name">attribute_code:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Identificador de la etiqueta</p>
+                      <p>Ver <code>/params/user/tags</code></p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;attribute_code&quot;</span>: <span class="hljs-number">56</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-Tag" class="definition panel" data-traverse-target="definition-Tag">
+            <h2 class="panel-title">
+              <a name="/definitions/Tag"></a>Tag: object
+              <!-- <span class="json-property-type"><span class="json-property-type"></span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Indica si el Cliente posee una etiqueta
+                    <strong>(Response)</strong>
+                  </p>
+                </section>
+                <section class="json-schema-allOf">
+                  <section class="json-schema-allOf-inherited">
+                    <ul>
+                      <span class="">
+                        <a class="json-schema-ref" href="#/definitions/NewTag">NewTag</a>
+                      </span>
+                    </ul>
+                  </section>
+                  <section class="json-schema-allOf-additional">
+                    <section class="json-schema-properties">
+                      <dl>
+                        <dt data-property-name="id" class="has-description">
+                          <span class="json-property-name">id:</span>
+                          <span class="json-property-type">integer</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                          <span class="json-property-required"></span>
+                        </dt>
+                        <dd>
+                          <p>Identificador interno. Campo read-only.</p>
+                        </dd>
+                        <dt data-property-name="name" class="has-description">
+                          <span class="json-property-name">name:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                          <span class="json-property-required"></span>
+                        </dt>
+                        <dd>
+                          <p>Nombre de la etiqueta</p>
+                        </dd>
+                        <dt data-property-name="timestamps">
+                          <span class="json-property-name">timestamps:</span>
+                          <span class="json-property-type">
+                            <span class="">
+                              <a class="json-schema-ref" href="#/definitions/Timestamps">Timestamps</a>
+                            </span>
+                          </span>
+                          <span class="json-property-range" title="Value limits"></span>
+                          <span class="json-property-required"></span>
+                        </dt>
+                      </dl>
+                    </section>
+                  </section>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">983</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;cliente.regulador.es_pep&quot;</span>,
+  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+  },
+  <span class="hljs-attr">&quot;attribute_code&quot;</span>: <span class="hljs-number">56</span>
 }
 </code></pre>
                   <!-- </div> -->
