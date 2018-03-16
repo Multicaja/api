@@ -74,6 +74,18 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Helper'
+  /helpers/user/tags:
+    get:
+      summary: Lista de etiquetas que pueden aplicar a un cliente
+      tags: 
+        - parámetros
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Helper'
 definitions:
   Helper:
     type: object

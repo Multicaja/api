@@ -18,13 +18,15 @@ produces:
   - application/json
 tags:
   - name: clientes
-    description: Operaciones directamente con relacionadas un cliente
+    description: Administración de clientes
   - name: contacto
-    description: Para contactar a un cliente y validar datos de contacto
+    description: Contacto con cliente y validación de sus datos de contacto
+  - name: etiquetas
+    description: Etiquetas del cliente
   - name: cuentas
-    description: Operaciones relacionadas con las cuentas bancarias de un cliente
+    description: Cuentas bancarias de un cliente
   - name: direcciones
-    description: Operaciones relacionadas con la dirección física de un cliente
+    description: Dirección física de un cliente
 paths:
   /users:
     post:
@@ -431,6 +433,84 @@ paths:
           description: OK
         '404':
           description: Cliente o Cuenta no existen
+  /users/{user_id}/tags:
+    get:
+      summary: Listar
+      tags: 
+        - etiquetas
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+      responses:
+        '201':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Tag'
+        '404':
+          description: Cliente no existe
+    post:
+      summary: Crear
+      tags: 
+        - etiquetas
+      description: |
+        Crea una nueva etiqueta para este cliente. Si el `tag_code` ya existe arroja `405`.
+        
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: body
+          name: tag
+          description: Etiqueta
+          required: true
+          schema:
+            $ref: '#/definitions/NewTag'
+      responses:
+        '201':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Tag'
+        '404':
+          description: Cliente no existe
+        '405':
+          description: La etiqueta ya existe
+        '422':
+          description: |
+            La etiqueta contiene datos inválidos
+
+            Nota: `attribute_code` debe pertenecer a `/params/users/tags`
+          schema:
+            $ref: '#/definitions/ErrorObj'
+  /users/{user_id}/tags/{tag_id}:
+    delete:
+      summary: Eliminar
+      tags: 
+        - etiquetas
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: path
+          name: tag_id
+          description: ID de la etiqueta
+          required: true
+          type: "integer"
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Cliente o etiqueta no existen
   /users/{user_id}/addresses:
     get:
       summary: Listar
@@ -779,6 +859,42 @@ definitions:
               Estado de validación de la razón social (business_name)
               * no_validado: la razón social no ha sido validada
               * validado_sii: la razón social fue validada mediante el SII
+          timestamps:
+            $ref: '#/definitions/Timestamps'
+  NewTag:
+    type: object
+    description: |
+      Asocia una etiqueta al Cliente **(Request)**
+    required: 
+      - attribute_code
+    properties:
+      attribute_code:
+        type: integer
+        description: |
+          Identificador de la etiqueta
+
+          Ver `/params/user/tags`
+        example: 56
+  Tag:
+    type: object
+    description: |
+      Indica si el Cliente posee una etiqueta **(Response)**
+    allOf:
+      - $ref: "#/definitions/NewTag"
+      - type: object
+        required:
+          - id
+          - name
+          - timestamps
+        properties:
+          id:
+            type: integer
+            description: Identificador interno. Campo read-only.
+            example: 983
+          name:
+            type: string
+            description: Nombre de la etiqueta
+            example: "cliente.regulador.es_pep"
           timestamps:
             $ref: '#/definitions/Timestamps'
   Timestamps:
