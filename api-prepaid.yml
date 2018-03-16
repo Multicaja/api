@@ -291,31 +291,32 @@ definitions:
         type: string
         format: date-time
         example: "2018-03-02T10:03:12.123Z"
-  NewRawTransaction:
+  NewRawTransactionHeader:
     type: object
     description: |
-      Transacción notificada en vivo por el procesador **(Request)**
+      Encabezado de transacción notificada en vivo por el procesador **(Request)**
     properties:
-      header:
-        type: object
-        description: Identificador del cliente y tarjeta afectados
-        properties:
-          entidad:
-            type: string
-            description: Código de entidad en el procesador
-            example: "9603"
-          centro_alta:
-            type: string
-            description: Sucursal donde se dio de alta al cliente. 4 dígitos.
-            example: "0001"
-          cuenta:
-            type: string
-            description: Identificador del cliente. 12 dígitos.
-            example: "000000012345"
-          pan:
-            type: string
-            description: PAN de la tarjeta. 16 dígitos.
-            example: "4111111111111111"
+      entidad:
+        type: string
+        description: Código de entidad en el procesador
+        example: "9603"
+      centro_alta:
+        type: string
+        description: Sucursal donde se dio de alta al cliente. 4 dígitos.
+        example: "0001"
+      cuenta:
+        type: string
+        description: Identificador del cliente. 12 dígitos.
+        example: "000000012345"
+      pan:
+        type: string
+        description: PAN truncado.
+        example: "411111******1111"
+  NewRawTransactionBody:
+    type: object
+    description: |
+      Campos interpretados de transacción notificada en vivo por el procesador **(Request)**
+    properties:
       saldo_disponible: # Sólo para los casos donde existe
         $ref: "#/definitions/NewAmountAndCurrency"
       importe_local: # OPE-SIA-IM + COD-MONEDA
@@ -334,6 +335,15 @@ definitions:
         type: integer
         description: Código que identifica el resultado de la transacción
         example: 100
+  NewRawTransaction:
+    type: object
+    description: |
+      Transacción notificada en vivo por el procesador **(Request)**
+    properties:
+      header:
+        $ref: "#/definitions/NewRawTransactionHeader"
+      body:
+        $ref: "#/definitions/NewRawTransactionBody"
       base64_data:
         type: string
         description: String concatenado con todos los campos disponibles, codificado en base 64
