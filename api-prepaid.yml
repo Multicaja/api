@@ -26,9 +26,7 @@ paths:
       description: |
         Indica si el cliente tiene un Prepago Multicaja. En caso afirmativo, retorna la tarjeta truncada y sus límites.
         
-        * Si el cliente tiene Prepago Multicaja, `has_prepaid_account` será `true`.
-        * `card.timestamps.created_at` indicará la fecha en la que este cliente obtuvo su primera tarjeta de prepago
-        * `card.timestamps.updated_at` indicará la fecha de la última acción de *bloqueo*, *desbloqueo* y *reemisión*.
+        * Si el cliente tiene Prepago Multicaja, responderá `200`. En caso contrario, responderá `404`.
       parameters:
         - in: path
           name: user_id
@@ -632,7 +630,12 @@ definitions:
     required:
       - id
       - pan
-    description: Tarjeta de prepago Visa o Mastercard **(Response)**
+    description: |
+      Tarjeta de prepago Visa o Mastercard **(Response)**
+
+      ### Notas
+      * `card.timestamps.created_at` indicará la fecha en la que este cliente obtuvo su primera tarjeta de prepago
+      * `card.timestamps.updated_at` indicará la fecha de la última acción de *bloqueo*, *desbloqueo* y *reemisión*.
     properties:
       id:
         type: integer
