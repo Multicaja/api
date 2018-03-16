@@ -21,7 +21,7 @@ tags:
     description: Administración de clientes
   - name: contacto
     description: Contacto con cliente y validación de sus datos de contacto
-  - name: etiquetas
+  - name: tags
     description: Etiquetas del cliente
   - name: cuentas
     description: Cuentas bancarias de un cliente
@@ -494,7 +494,7 @@ paths:
     delete:
       summary: Eliminar
       tags: 
-        - cuentas
+        - tags
       parameters:
         - in: path
           name: user_id
