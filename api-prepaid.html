@@ -89,7 +89,9 @@
               </section> -->
           <h5>Schema Definitions</h5>
           <a href="#definition-Timestamps"> Timestamps </a>
-          <a href="#definition-ISO8583Transaction"> ISO8583Transaction </a>
+          <a href="#definition-NewRawTransactionHeader"> NewRawTransactionHeader </a>
+          <a href="#definition-NewRawTransactionBody"> NewRawTransactionBody </a>
+          <a href="#definition-NewRawTransaction"> NewRawTransaction </a>
           <a href="#definition-NewAmountAndCurrency"> NewAmountAndCurrency </a>
           <a href="#definition-AmountAndCurrency"> AmountAndCurrency </a>
           <a href="#definition-Place"> Place </a>
@@ -1265,7 +1267,7 @@
                     <strong>Mensaje invocado por el procesador emisor</strong>
                   </p>
                   <ul>
-                    <li>Si el mensaje de entrada no corresponde an un <code>ISO8583Transaction</code>, el servicio responderá <code>422</code></li>
+                    <li>Si el mensaje de entrada no corresponde an un <code>NewRawTransaction</code>, el servicio responderá <code>422</code></li>
                   </ul>
                 </section>
               </div>
@@ -1277,7 +1279,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ISO8583Transaction">ISO8583Transaction</a>
+                          <a class="json-schema-ref" href="#/definitions/NewRawTransaction">NewRawTransaction</a>
                         </span>
                       </div>
                     </div>
@@ -1293,46 +1295,38 @@
                 <section>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;entidad_codigo&quot;</span>: <span class="hljs-string">&quot;9603&quot;</span>,
-  <span class="hljs-attr">&quot;cliente&quot;</span>: {
+  <span class="hljs-attr">&quot;header&quot;</span>: {
+    <span class="hljs-attr">&quot;entidad&quot;</span>: <span class="hljs-string">&quot;9603&quot;</span>,
     <span class="hljs-attr">&quot;centro_alta&quot;</span>: <span class="hljs-string">&quot;0001&quot;</span>,
     <span class="hljs-attr">&quot;cuenta&quot;</span>: <span class="hljs-string">&quot;000000012345&quot;</span>,
-    <span class="hljs-attr">&quot;tipo_documento&quot;</span>: <span class="hljs-string">&quot;RUT&quot;</span>,
-    <span class="hljs-attr">&quot;numero_documento&quot;</span>: <span class="hljs-string">&quot;14569484&quot;</span>
+    <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;411111******1111&quot;</span>
   },
-  <span class="hljs-attr">&quot;tarjeta&quot;</span>: {
-    <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;4111111111111111&quot;</span>,
-    <span class="hljs-attr">&quot;expiracion&quot;</span>: <span class="hljs-string">&quot;03/22&quot;</span>,
-    <span class="hljs-attr">&quot;bloqueo_codigo&quot;</span>: <span class="hljs-string">&quot;010&quot;</span>,
-    <span class="hljs-attr">&quot;bloqueo_descripcion&quot;</span>: <span class="hljs-string">&quot;MORA GRAVE&quot;</span>,
-    <span class="hljs-attr">&quot;saldo&quot;</span>: {
-      <span class="hljs-attr">&quot;codigo_moneda&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
-      <span class="hljs-attr">&quot;saldo_dispuesto_antes&quot;</span>: <span class="hljs-string">&quot;1983000&quot;</span>,
-      <span class="hljs-attr">&quot;saldo_autorizado_antes&quot;</span>: <span class="hljs-string">&quot;100000&quot;</span>,
-      <span class="hljs-attr">&quot;saldo_dispuesto_despues&quot;</span>: <span class="hljs-string">&quot;1882900&quot;</span>,
-      <span class="hljs-attr">&quot;saldo_autorizado_despues&quot;</span>: <span class="hljs-string">&quot;200100&quot;</span>
-    }
+  <span class="hljs-attr">&quot;body&quot;</span>: {
+    <span class="hljs-attr">&quot;saldo_disponible&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;importe_local&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;importe_divisa&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;tipo_tx&quot;</span>: <span class="hljs-number">100</span>,
+    <span class="hljs-attr">&quot;comercio&quot;</span>: {
+      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;0008902131&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;AMAZON UK&quot;</span>
+    },
+    <span class="hljs-attr">&quot;lugar&quot;</span>: {
+      <span class="hljs-attr">&quot;country_iso_3266_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;country_description&quot;</span>: <span class="hljs-string">&quot;Rep&#xFA;blica de Chile&quot;</span>,
+      <span class="hljs-attr">&quot;place_name&quot;</span>: <span class="hljs-string">&quot;Santiago&quot;</span>
+    },
+    <span class="hljs-attr">&quot;resolucion_tx&quot;</span>: <span class="hljs-number">100</span>
   },
-  <span class="hljs-attr">&quot;mensaje_entrada&quot;</span>: {
-    <span class="hljs-attr">&quot;codigo_moneda_local&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
-    <span class="hljs-attr">&quot;monto_local&quot;</span>: <span class="hljs-string">&quot;100100&quot;</span>,
-    <span class="hljs-attr">&quot;codigo_moneda_origen&quot;</span>: <span class="hljs-string">&quot;EUR&quot;</span>,
-    <span class="hljs-attr">&quot;monto_origen&quot;</span>: <span class="hljs-string">&quot;154&quot;</span>,
-    <span class="hljs-attr">&quot;comercio_nombre&quot;</span>: <span class="hljs-string">&quot;AMAZON UK&quot;</span>,
-    <span class="hljs-attr">&quot;comercio_pais&quot;</span>: <span class="hljs-string">&quot;GBR&quot;</span>,
-    <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>
-  },
-  <span class="hljs-attr">&quot;mensaje_respuesta&quot;</span>: {
-    <span class="hljs-attr">&quot;factura_codigo&quot;</span>: <span class="hljs-string">&quot;TF491&quot;</span>,
-    <span class="hljs-attr">&quot;factura_descripcion&quot;</span>: <span class="hljs-string">&quot;COMPRA EN CUOTAS&quot;</span>,
-    <span class="hljs-attr">&quot;codigo_autorizacion&quot;</span>: <span class="hljs-string">&quot;100100&quot;</span>,
-    <span class="hljs-attr">&quot;respuesta_tipo_codigo&quot;</span>: <span class="hljs-string">&quot;110&quot;</span>,
-    <span class="hljs-attr">&quot;respuesta_tipo_descripcion&quot;</span>: <span class="hljs-string">&quot;APROBADO&quot;</span>,
-    <span class="hljs-attr">&quot;respuesta_codigo_autorizacion&quot;</span>: <span class="hljs-string">&quot;123456&quot;</span>,
-    <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>
-  },
-  <span class="hljs-attr">&quot;raw_iso_8583_request&quot;</span>: <span class="hljs-string">&quot;TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvS4=&quot;</span>,
-  <span class="hljs-attr">&quot;raw_iso_8583_response&quot;</span>: <span class="hljs-string">&quot;vdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c=&quot;</span>
+  <span class="hljs-attr">&quot;base64_data&quot;</span>: <span class="hljs-string">&quot;TWFuIGlzIGRpc3Rpbmd1a  ...  XNoZWQsIG5vdCBvS4=&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1361,7 +1355,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>El mensaje <code>ISO8583Transaction</code> tiene errores</p>
+                      <p>El mensaje <code>NewRawTransaction</code> tiene errores</p>
                     </div>
                   </div>
                 </section>
@@ -1435,9 +1429,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-ISO8583Transaction" class="definition panel" data-traverse-target="definition-ISO8583Transaction">
+          <div id="definition-NewRawTransactionHeader" class="definition panel" data-traverse-target="definition-NewRawTransactionHeader">
             <h2 class="panel-title">
-              <a name="/definitions/ISO8583Transaction"></a>ISO8583Transaction: object
+              <a name="/definitions/NewRawTransactionHeader"></a>NewRawTransactionHeader: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -1447,65 +1441,43 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Request y response en formato ISO 8583</p>
+                  <p>Encabezado de transacción notificada en vivo por el procesador
+                    <strong>(Request)</strong>
+                  </p>
                 </section>
                 <section class="json-schema-properties">
                   <dl>
-                    <dt data-property-name="entidad_codigo" class="has-description">
-                      <span class="json-property-name">entidad_codigo:</span>
+                    <dt data-property-name="entidad" class="has-description">
+                      <span class="json-property-name">entidad:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
                       <p>Código de entidad en el procesador</p>
                     </dd>
-                    <dt data-property-name="cliente" class="has-description">
-                      <span class="json-property-name">cliente:</span>
-                      <span class="json-property-type">object</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>cliente afectado por la transacción</p>
-                    </dd>
-                    <dt data-property-name="tarjeta" class="has-description">
-                      <span class="json-property-name">tarjeta:</span>
-                      <span class="json-property-type">object</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>tarjeta afectada por la transacción</p>
-                    </dd>
-                    <dt data-property-name="mensaje_entrada" class="has-description">
-                      <span class="json-property-name">mensaje_entrada:</span>
-                      <span class="json-property-type">object</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Mensaje que llegó al procesador</p>
-                    </dd>
-                    <dt data-property-name="mensaje_respuesta" class="has-description">
-                      <span class="json-property-name">mensaje_respuesta:</span>
-                      <span class="json-property-type">object</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Mensaje que respondió el procesador</p>
-                    </dd>
-                    <dt data-property-name="raw_iso_8583_request" class="has-description">
-                      <span class="json-property-name">raw_iso_8583_request:</span>
+                    <dt data-property-name="centro_alta" class="has-description">
+                      <span class="json-property-name">centro_alta:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>Mensaje de entrada ISO 8583 codificado en base64</p>
+                      <p>Sucursal donde se dio de alta al cliente. 4 dígitos.</p>
                     </dd>
-                    <dt data-property-name="raw_iso_8583_response" class="has-description">
-                      <span class="json-property-name">raw_iso_8583_response:</span>
+                    <dt data-property-name="cuenta" class="has-description">
+                      <span class="json-property-name">cuenta:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>Mensaje de respuesta ISO 8583 codificado en base64</p>
+                      <p>Identificador del cliente. 12 dígitos.</p>
+                    </dd>
+                    <dt data-property-name="pan" class="has-description">
+                      <span class="json-property-name">pan:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>PAN truncado.</p>
                     </dd>
                   </dl>
                 </section>
@@ -1514,46 +1486,216 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;entidad_codigo&quot;</span>: <span class="hljs-string">&quot;9603&quot;</span>,
-  <span class="hljs-attr">&quot;cliente&quot;</span>: {
+  <span class="hljs-attr">&quot;entidad&quot;</span>: <span class="hljs-string">&quot;9603&quot;</span>,
+  <span class="hljs-attr">&quot;centro_alta&quot;</span>: <span class="hljs-string">&quot;0001&quot;</span>,
+  <span class="hljs-attr">&quot;cuenta&quot;</span>: <span class="hljs-string">&quot;000000012345&quot;</span>,
+  <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;411111******1111&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-NewRawTransactionBody" class="definition panel" data-traverse-target="definition-NewRawTransactionBody">
+            <h2 class="panel-title">
+              <a name="/definitions/NewRawTransactionBody"></a>NewRawTransactionBody: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Campos interpretados de transacción notificada en vivo por el procesador
+                    <strong>(Request)</strong>
+                  </p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="saldo_disponible">
+                      <span class="json-property-name">saldo_disponible:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/NewAmountAndCurrency">NewAmountAndCurrency</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="importe_local">
+                      <span class="json-property-name">importe_local:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/NewAmountAndCurrency">NewAmountAndCurrency</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="importe_divisa">
+                      <span class="json-property-name">importe_divisa:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/NewAmountAndCurrency">NewAmountAndCurrency</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="tipo_tx" class="has-description">
+                      <span class="json-property-name">tipo_tx:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Código que identifica el tipo de transacción</p>
+                    </dd>
+                    <dt data-property-name="comercio">
+                      <span class="json-property-name">comercio:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Merchant">Merchant</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="lugar">
+                      <span class="json-property-name">lugar:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Place">Place</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="resolucion_tx" class="has-description">
+                      <span class="json-property-name">resolucion_tx:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Código que identifica el resultado de la transacción</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;saldo_disponible&quot;</span>: {
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  },
+  <span class="hljs-attr">&quot;importe_local&quot;</span>: {
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  },
+  <span class="hljs-attr">&quot;importe_divisa&quot;</span>: {
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  },
+  <span class="hljs-attr">&quot;tipo_tx&quot;</span>: <span class="hljs-number">100</span>,
+  <span class="hljs-attr">&quot;comercio&quot;</span>: {
+    <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;0008902131&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;AMAZON UK&quot;</span>
+  },
+  <span class="hljs-attr">&quot;lugar&quot;</span>: {
+    <span class="hljs-attr">&quot;country_iso_3266_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;country_description&quot;</span>: <span class="hljs-string">&quot;Rep&#xFA;blica de Chile&quot;</span>,
+    <span class="hljs-attr">&quot;place_name&quot;</span>: <span class="hljs-string">&quot;Santiago&quot;</span>
+  },
+  <span class="hljs-attr">&quot;resolucion_tx&quot;</span>: <span class="hljs-number">100</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-NewRawTransaction" class="definition panel" data-traverse-target="definition-NewRawTransaction">
+            <h2 class="panel-title">
+              <a name="/definitions/NewRawTransaction"></a>NewRawTransaction: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Transacción notificada en vivo por el procesador
+                    <strong>(Request)</strong>
+                  </p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="header">
+                      <span class="json-property-name">header:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/NewRawTransactionHeader">NewRawTransactionHeader</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="body">
+                      <span class="json-property-name">body:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/NewRawTransactionBody">NewRawTransactionBody</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="base64_data" class="has-description">
+                      <span class="json-property-name">base64_data:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>String concatenado con todos los campos disponibles, codificado en base 64</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;header&quot;</span>: {
+    <span class="hljs-attr">&quot;entidad&quot;</span>: <span class="hljs-string">&quot;9603&quot;</span>,
     <span class="hljs-attr">&quot;centro_alta&quot;</span>: <span class="hljs-string">&quot;0001&quot;</span>,
     <span class="hljs-attr">&quot;cuenta&quot;</span>: <span class="hljs-string">&quot;000000012345&quot;</span>,
-    <span class="hljs-attr">&quot;tipo_documento&quot;</span>: <span class="hljs-string">&quot;RUT&quot;</span>,
-    <span class="hljs-attr">&quot;numero_documento&quot;</span>: <span class="hljs-string">&quot;14569484&quot;</span>
+    <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;411111******1111&quot;</span>
   },
-  <span class="hljs-attr">&quot;tarjeta&quot;</span>: {
-    <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;4111111111111111&quot;</span>,
-    <span class="hljs-attr">&quot;expiracion&quot;</span>: <span class="hljs-string">&quot;03/22&quot;</span>,
-    <span class="hljs-attr">&quot;bloqueo_codigo&quot;</span>: <span class="hljs-string">&quot;010&quot;</span>,
-    <span class="hljs-attr">&quot;bloqueo_descripcion&quot;</span>: <span class="hljs-string">&quot;MORA GRAVE&quot;</span>,
-    <span class="hljs-attr">&quot;saldo&quot;</span>: {
-      <span class="hljs-attr">&quot;codigo_moneda&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
-      <span class="hljs-attr">&quot;saldo_dispuesto_antes&quot;</span>: <span class="hljs-string">&quot;1983000&quot;</span>,
-      <span class="hljs-attr">&quot;saldo_autorizado_antes&quot;</span>: <span class="hljs-string">&quot;100000&quot;</span>,
-      <span class="hljs-attr">&quot;saldo_dispuesto_despues&quot;</span>: <span class="hljs-string">&quot;1882900&quot;</span>,
-      <span class="hljs-attr">&quot;saldo_autorizado_despues&quot;</span>: <span class="hljs-string">&quot;200100&quot;</span>
-    }
+  <span class="hljs-attr">&quot;body&quot;</span>: {
+    <span class="hljs-attr">&quot;saldo_disponible&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;importe_local&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;importe_divisa&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;tipo_tx&quot;</span>: <span class="hljs-number">100</span>,
+    <span class="hljs-attr">&quot;comercio&quot;</span>: {
+      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;0008902131&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;AMAZON UK&quot;</span>
+    },
+    <span class="hljs-attr">&quot;lugar&quot;</span>: {
+      <span class="hljs-attr">&quot;country_iso_3266_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;country_description&quot;</span>: <span class="hljs-string">&quot;Rep&#xFA;blica de Chile&quot;</span>,
+      <span class="hljs-attr">&quot;place_name&quot;</span>: <span class="hljs-string">&quot;Santiago&quot;</span>
+    },
+    <span class="hljs-attr">&quot;resolucion_tx&quot;</span>: <span class="hljs-number">100</span>
   },
-  <span class="hljs-attr">&quot;mensaje_entrada&quot;</span>: {
-    <span class="hljs-attr">&quot;codigo_moneda_local&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
-    <span class="hljs-attr">&quot;monto_local&quot;</span>: <span class="hljs-string">&quot;100100&quot;</span>,
-    <span class="hljs-attr">&quot;codigo_moneda_origen&quot;</span>: <span class="hljs-string">&quot;EUR&quot;</span>,
-    <span class="hljs-attr">&quot;monto_origen&quot;</span>: <span class="hljs-string">&quot;154&quot;</span>,
-    <span class="hljs-attr">&quot;comercio_nombre&quot;</span>: <span class="hljs-string">&quot;AMAZON UK&quot;</span>,
-    <span class="hljs-attr">&quot;comercio_pais&quot;</span>: <span class="hljs-string">&quot;GBR&quot;</span>,
-    <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>
-  },
-  <span class="hljs-attr">&quot;mensaje_respuesta&quot;</span>: {
-    <span class="hljs-attr">&quot;factura_codigo&quot;</span>: <span class="hljs-string">&quot;TF491&quot;</span>,
-    <span class="hljs-attr">&quot;factura_descripcion&quot;</span>: <span class="hljs-string">&quot;COMPRA EN CUOTAS&quot;</span>,
-    <span class="hljs-attr">&quot;codigo_autorizacion&quot;</span>: <span class="hljs-string">&quot;100100&quot;</span>,
-    <span class="hljs-attr">&quot;respuesta_tipo_codigo&quot;</span>: <span class="hljs-string">&quot;110&quot;</span>,
-    <span class="hljs-attr">&quot;respuesta_tipo_descripcion&quot;</span>: <span class="hljs-string">&quot;APROBADO&quot;</span>,
-    <span class="hljs-attr">&quot;respuesta_codigo_autorizacion&quot;</span>: <span class="hljs-string">&quot;123456&quot;</span>,
-    <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>
-  },
-  <span class="hljs-attr">&quot;raw_iso_8583_request&quot;</span>: <span class="hljs-string">&quot;TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvS4=&quot;</span>,
-  <span class="hljs-attr">&quot;raw_iso_8583_response&quot;</span>: <span class="hljs-string">&quot;vdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c=&quot;</span>
+  <span class="hljs-attr">&quot;base64_data&quot;</span>: <span class="hljs-string">&quot;TWFuIGlzIGRpc3Rpbmd1a  ...  XNoZWQsIG5vdCBvS4=&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
