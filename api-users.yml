@@ -884,12 +884,17 @@ definitions:
       - type: object
         required:
           - id
+          - name
           - timestamps
         properties:
           id:
             type: integer
             description: Identificador interno. Campo read-only.
             example: 983
+          name:
+            type: string
+            description: Nombre de la etiqueta
+            example: "cliente.regulador.es_pep"
           timestamps:
             $ref: '#/definitions/Timestamps'
   Timestamps:
