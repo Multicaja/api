@@ -21,6 +21,8 @@ tags:
     description: Administración de clientes
   - name: contacto
     description: Contacto con cliente y validación de sus datos de contacto
+  - name: etiquetas
+    description: Etiquetas del cliente
   - name: cuentas
     description: Cuentas bancarias de un cliente
   - name: direcciones
