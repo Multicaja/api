@@ -634,8 +634,8 @@ definitions:
       Tarjeta de prepago Visa o Mastercard **(Response)**
 
       ### Notas
-      * `card.timestamps.created_at` indicará la fecha en la que este cliente obtuvo su primera tarjeta de prepago
-      * `card.timestamps.updated_at` indicará la fecha de la última acción de *bloqueo*, *desbloqueo* y *reemisión*.
+      * `timestamps.created_at` indicará la fecha en la que este cliente obtuvo su primera tarjeta de prepago
+      * `timestamps.updated_at` indicará la fecha de la última acción de *bloqueo*, *desbloqueo* y *reemisión*.
     properties:
       id:
         type: integer
