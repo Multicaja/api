@@ -21,7 +21,7 @@ tags:
     description: Administración de clientes
   - name: contacto
     description: Contacto con cliente y validación de sus datos de contacto
-  - name: tags
+  - name: etiquetas
     description: Etiquetas del cliente
   - name: cuentas
     description: Cuentas bancarias de un cliente
@@ -437,7 +437,7 @@ paths:
     get:
       summary: Listar
       tags: 
-        - tags
+        - etiquetas
       parameters:
         - in: path
           name: user_id
@@ -456,7 +456,7 @@ paths:
     post:
       summary: Crear
       tags: 
-        - tags
+        - etiquetas
       description: |
         Crea una nueva etiqueta para este cliente. Si el `tag_code` ya existe arroja `405`.
         
@@ -494,7 +494,7 @@ paths:
     delete:
       summary: Eliminar
       tags: 
-        - tags
+        - etiquetas
       parameters:
         - in: path
           name: user_id
