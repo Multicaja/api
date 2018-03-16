@@ -667,7 +667,7 @@ definitions:
   UserBasicFields:
     type: object
     description: |
-      Nombre, Sexo, y Fecha de nacimiento de una persona
+      Nombre, Sexo, y Fecha de nacimiento de una persona **(Resquest)** / **(Response)**
       Padre de `User` y `NewUser`
       **No se usa de manera independiente en la API**
     properties:
@@ -900,8 +900,8 @@ definitions:
   Timestamps:
     type: object
     description: |
-      Fecha de creación y de última modificación.  Campo read-only.
-      Componente de `Address`, `User`, `Rut`, `CellPhone`, `Email`, `BankAccount` y `CompanyData`
+      Fecha de creación y de última modificación **(Response)**
+      Componente de `Address`, `User`, `Rut` y otros objetos
 
       **No se usa de manera independiente en la API**
     properties:
@@ -1044,7 +1044,7 @@ definitions:
     type: object
     description: |
       Cuando un error está compuesto por una lista de sub-errores, vendrán en este objeto
-      Componente de `ErrorObj`
+      Componente de `ErrorObj` **(Response)**
       
       **No se usa de manera independiente en la API**
     properties:
