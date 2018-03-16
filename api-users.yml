@@ -789,52 +789,18 @@ definitions:
       - attribute_code
     properties:
       attribute_code:
-        type: string
-        description: Identificador de la etiqueta
-        example: "TAG090"
-      attribute_name:
-        type: string
-        description: Nombre de la lista negra
-        example: "Persona Expuesta Políticamente"
-      bureau_name:
-        type: string
-        description: Nombre de la agencia o proveedor a través del cual se hizo la consulta
-        example: "Gesdintel"
+        type: integer
+        description: |
+          Identificador de la etiqueta
+
+          Ver `/params/user/tags`
+        example: 56
   Tag:
     type: object
     description: |
       Indica si el Cliente posee una etiqueta **(Response)**
     allOf:
       - $ref: "#/definitions/NewTag"
-      - type: object
-        required:
-          - timestamps
-        properties:
-          timestamps:
-            $ref: '#/definitions/Timestamps'
-  NewBlacklistData:
-    type: object
-    description: |
-      Lista negra a la que pertenece el cliente **(Request)**
-    properties:
-      blacklist_code:
-        type: string
-        description: Identificador de la lista negra
-        example: "LN012"
-      blacklist_name:
-        type: string
-        description: Nombre de la lista negra
-        example: "Lavado de dinero"
-      bureau_name:
-        type: string
-        description: Nombre de la agencia o proveedor a través del cual se hizo la consulta
-        example: "Gesdintel"
-  BlacklistData:
-    type: object
-    description: |
-      Lista negra a la que pertenece el cliente **(Response)**
-    allOf:
-      - $ref: "#/definitions/NewBlacklistData"
       - type: object
         required:
           - timestamps
