@@ -369,7 +369,7 @@ paths:
           required: true
           type: "integer"
       responses:
-        '201':
+        '200':
           description: OK
           schema:
             type: array
