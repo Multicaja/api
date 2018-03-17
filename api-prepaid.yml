@@ -449,7 +449,7 @@ definitions:
   PrepaidCardBalance:
     type: object
     description: |
-      Saldo de la tarjeta de prepago
+      Saldo de la tarjeta de prepago **(Response)**
 
       ### Notas
       - Este objeto contiene el saldo el pesos y el saldo en dólares
@@ -463,7 +463,7 @@ definitions:
   PrepaidCardLimit:
     type: object
     description: |
-      Límite de uso para este usuario
+      Límite de uso para este usuario **(Response)**
     properties:
       id:
         type: string
