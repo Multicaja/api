@@ -330,6 +330,7 @@ definitions:
       id_mensaje: # IDTM
         type: integer
         description: Identificador del mensaje (4 dìgitos)
+        example: 1200
       comercio: # CODFUC + LIT-NOMBRE
         $ref: "#/definitions/Merchant"
       lugar: # LIT-CIUDAD + LIT-CD-PAIS
