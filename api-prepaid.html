@@ -19,74 +19,47 @@
         <nav id="nav" role="navigation">
           <h5>Topics</h5>
           <a href="#introduction">Introduction</a>
-          <h5>Paths</h5>
-          <!-- <section>
-                <a href="#path--prepaid--user_id-">/prepaid/{user_id}</a>
-                <ul> -->
-          <!-- <li> -->
-          <a href="#operation--prepaid--user_id--get"> Consultar </a>
-          <!-- </li> -->
-          <!-- <li> -->
-          <a href="#operation--prepaid--user_id--post"> Emitir (o reemitir) una tarjeta a este usuario </a>
-          <!-- </li> -->
-          <!-- </ul>
-              </section> -->
-          <!-- <section>
-                <a href="#path--prepaid--user_id--balance">/prepaid/{user_id}/balance</a>
-                <ul> -->
-          <!-- <li> -->
-          <a href="#operation--prepaid--user_id--balance-get"> Ver saldo </a>
-          <!-- </li> -->
-          <!-- </ul>
-              </section> -->
-          <!-- <section>
-                <a href="#path--prepaid--user_id--balance-topup">/prepaid/{user_id}/balance/topup</a>
-                <ul> -->
-          <!-- <li> -->
-          <a href="#operation--prepaid--user_id--balance-topup-post"> Cargar </a>
-          <!-- </li> -->
-          <!-- </ul>
-              </section> -->
-          <!-- <section>
-                <a href="#path--prepaid--user_id--balance-withdraw">/prepaid/{user_id}/balance/withdraw</a>
-                <ul> -->
-          <!-- <li> -->
-          <a href="#operation--prepaid--user_id--balance-withdraw-post"> Retirar </a>
-          <!-- </li> -->
-          <!-- </ul>
-              </section> -->
-          <!-- <section>
-                <a href="#path--prepaid--user_id--status-lock">/prepaid/{user_id}/status/lock</a>
-                <ul> -->
-          <!-- <li> -->
-          <a href="#operation--prepaid--user_id--status-lock-post"> Bloquear </a>
-          <!-- </li> -->
-          <!-- </ul>
-              </section> -->
-          <!-- <section>
-                <a href="#path--prepaid--user_id--status-unlock">/prepaid/{user_id}/status/unlock</a>
-                <ul> -->
-          <!-- <li> -->
-          <a href="#operation--prepaid--user_id--status-unlock-post"> Desbloquear </a>
-          <!-- </li> -->
-          <!-- </ul>
-              </section> -->
-          <!-- <section>
-                <a href="#path--prepaid--user_id--transactions">/prepaid/{user_id}/transactions</a>
-                <ul> -->
-          <!-- <li> -->
-          <a href="#operation--prepaid--user_id--transactions-get"> Buscar transacciones </a>
-          <!-- </li> -->
-          <!-- </ul>
-              </section> -->
-          <!-- <section>
-                <a href="#path--prepaid-processor-notification">/prepaid/processor/notification</a>
-                <ul> -->
-          <!-- <li> -->
-          <a href="#operation--prepaid-processor-notification-post"> Notificación (Callback) </a>
-          <!-- </li> -->
-          <!-- </ul>
-              </section> -->
+          <h5>Operations</h5>
+          <section>
+            <a href="#tag-prepago">prepago</a>
+            <ul>
+              <li>
+                <a href="#operation--prepaid--user_id--get"> Consultar </a>
+              </li>
+              <li>
+                <a href="#operation--prepaid--user_id--post"> Emitir (o reemitir) una tarjeta a este usuario </a>
+              </li>
+              <li>
+                <a href="#operation--prepaid--user_id--balance-get"> Ver saldo </a>
+              </li>
+              <li>
+                <a href="#operation--prepaid--user_id--balance-topup-post"> Cargar </a>
+              </li>
+              <li>
+                <a href="#operation--prepaid--user_id--balance-withdraw-post"> Retirar </a>
+              </li>
+              <li>
+                <a href="#operation--prepaid--user_id--status-lock-post"> Bloquear </a>
+              </li>
+              <li>
+                <a href="#operation--prepaid--user_id--status-unlock-post"> Desbloquear </a>
+              </li>
+              <li>
+                <a href="#operation--prepaid--user_id--transactions-get"> Buscar transacciones </a>
+              </li>
+              <li>
+                <a href="#operation--prepaid-processor-notification-post"> Notificación (Callback) </a>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <a href="#tag-contacto">contacto</a>
+            <ul>
+              <li>
+                <a href="#operation--prepaid--user_id--mail-post"> Enviar correo con la tarjeta </a>
+              </li>
+            </ul>
+          </section>
           <h5>Schema Definitions</h5>
           <a href="#definition-Timestamps"> Timestamps </a>
           <a href="#definition-NewRawTransactionHeader"> NewRawTransactionHeader </a>
@@ -128,7 +101,7 @@
               <div class="doc-examples">
                 <section>
                   <h5>API Endpoint</h5>
-                  <!-- <div class="hljs"> --><pre><code>http://api.multicaja.cl/v0.8-alpha/</code></pre>
+                  <!-- <div class="hljs"> --><pre><code>http://api.multicaja.cl/v0.9-alpha/</code></pre>
                   <!-- </div> -->
                   <h5>Request Content-Types:
                     <span>application/json</span>
@@ -137,14 +110,18 @@
                     <span>application/json</span>
                   </h5>
                   <h5>Version:
-                    <span>0.8</span>
+                    <span>0.9</span>
                   </h5>
                 </section>
               </div>
             </div>
           </div>
-          <h1>Paths</h1>
-          <span id="path--prepaid--user_id-"></span>
+          <h1 id="tag-prepago" class="swagger-summary-tag" data-traverse-target="tag-prepago">prepago</h1>
+          <div class="tag-description doc-row">
+            <div class="doc-copy">
+              <p>Operaciones relacionadas con Prepago Multicaja</p>
+            </div>
+          </div>
           <div id="operation--prepaid--user_id--get" class="operation panel" data-traverse-target="operation--prepaid--user_id--get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -428,7 +405,6 @@
               </div>
             </div>
           </div>
-          <span id="path--prepaid--user_id--balance"></span>
           <div id="operation--prepaid--user_id--balance-get" class="operation panel" data-traverse-target="operation--prepaid--user_id--balance-get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -527,7 +503,6 @@
               </div>
             </div>
           </div>
-          <span id="path--prepaid--user_id--balance-topup"></span>
           <div id="operation--prepaid--user_id--balance-topup-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--balance-topup-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -698,7 +673,6 @@
               </div>
             </div>
           </div>
-          <span id="path--prepaid--user_id--balance-withdraw"></span>
           <div id="operation--prepaid--user_id--balance-withdraw-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--balance-withdraw-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -869,7 +843,6 @@
               </div>
             </div>
           </div>
-          <span id="path--prepaid--user_id--status-lock"></span>
           <div id="operation--prepaid--user_id--status-lock-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--status-lock-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -980,7 +953,6 @@
               </div>
             </div>
           </div>
-          <span id="path--prepaid--user_id--status-unlock"></span>
           <div id="operation--prepaid--user_id--status-unlock-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--status-unlock-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -1091,7 +1063,6 @@
               </div>
             </div>
           </div>
-          <span id="path--prepaid--user_id--transactions"></span>
           <div id="operation--prepaid--user_id--transactions-get" class="operation panel" data-traverse-target="operation--prepaid--user_id--transactions-get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -1217,7 +1188,6 @@
               </div>
             </div>
           </div>
-          <span id="path--prepaid-processor-notification"></span>
           <div id="operation--prepaid-processor-notification-post" class="operation panel" data-traverse-target="operation--prepaid-processor-notification-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -1355,6 +1325,97 @@
     }
   ]
 }
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1 id="tag-contacto" class="swagger-summary-tag" data-traverse-target="tag-contacto">contacto</h1>
+          <div id="operation--prepaid--user_id--mail-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--mail-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-contacto">contacto</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Enviar correo con la tarjeta</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/prepaid/{user_id}/mail</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Envía la tarjeta en PDF mediante correo electrónico</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">user_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">integer</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID del usuario</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">201 Created</div>
+                      <div class="prop-ref"></div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Cliente no existe o no tiene Prepago Multicaja</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(201 Created)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;boolean&quot;</span>
 </code></pre>
                   <!-- </div> -->
                 </section>
