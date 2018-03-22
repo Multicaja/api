@@ -1,15 +1,15 @@
 swagger: '2.0'
 info:
   description: |
-    API de Prepago Multicaja (Alpha)
+    Prepago Multicaja - API Alpha
 
     ** Este es una API en alpha y por lo tanto sufrirá muchos cambios **
 
     Mientras está en modo alpha, no mantendremos versiones anteriores
-  version: '0.7'
+  version: '0.8'
   title: API Multicaja (Alpha)
 host: 'api.multicaja.cl'
-basePath: /v0.7-alpha/
+basePath: /v0.8-alpha/
 consumes:
   - application/json
 produces:
@@ -327,6 +327,9 @@ definitions:
         type: integer
         description: Código que identifica el tipo de transacción
         example: 100
+      id_mensaje: # IDTM
+        type: integer
+        description: Identificador del mensaje (4 dìgitos)
       comercio: # CODFUC + LIT-NOMBRE
         $ref: "#/definitions/Merchant"
       lugar: # LIT-CIUDAD + LIT-CD-PAIS
