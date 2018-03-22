@@ -6,10 +6,10 @@ info:
     ** Este es una API en alpha y por lo tanto sufrirá muchos cambios **
 
     Mientras está en modo alpha, no mantendremos versiones anteriores
-  version: '0.8'
+  version: '0.9'
   title: API Multicaja (Alpha)
 host: 'api.multicaja.cl'
-basePath: /v0.8-alpha/
+basePath: /v0.9-alpha/
 consumes:
   - application/json
 produces:
@@ -274,6 +274,26 @@ paths:
           description: El mensaje `NewRawTransaction` tiene errores
           schema:
             $ref: '#/definitions/ErrorObj'
+  /prepaid/{user_id}/mail:
+    post:
+      summary: Enviar correo con la tarjeta
+      tags: 
+        - contacto
+      description: |
+        Envía la tarjeta en PDF mediante correo electrónico
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+      responses:
+        '201':
+          description: OK
+          schema:
+            type: boolean
+        '404':
+          description: Cliente no existe o no tiene Prepago Multicaja
 definitions:
   Timestamps:
     type: object
