@@ -268,6 +268,41 @@ paths:
           description: El mail contiene datos inválidos
           schema:
             $ref: '#/definitions/ErrorObj'
+  
+    put:
+      summary: Validar código mail
+      tags: 
+        - contacto
+      description: |
+        Valida un código enviado mediante POST a `/users/{user_id}/mail`
+        ### Notas
+        * Sólo invocar este método para validar celular si se ha enviado previamente un código por Mail haciendo POST a `/users/{user_id}/mail`
+        * Dependiendo del template usado en el POST a `/users/{user_id}/mail`, esta llamada podría cambiar `mail.status` a `"validado"`. Esto ocurrirá sólo si el código proporcionado corresponde al que fue enviado al celular`.
+        * Si el código ingresado no corresponde al que fue enviado al cliente, el servicio retornará `422`.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: body
+          name: mail_code
+          description: Código ingresado por el cliente
+          required: true
+          schema:
+            type: string
+            example: "AM5&5g"
+      responses:
+        '201':
+          description: OK
+          schema:
+            type: boolean
+        '404':
+          description: Cliente no existe
+        '422':
+          description: El código ingresado no es válido
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/{user_id}/sms:
     post:
       summary: Enviar sms
