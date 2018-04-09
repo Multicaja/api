@@ -1,0 +1,303 @@
+swagger: '2.0'
+info:
+  description:  |
+    Bienvenido a la API de [Multicaja](https://www.multicaja.cl) (Alpha)
+    ** Este es un proyecto alpha y por lo tanto sufrirá muchos cambios **
+    Todos los requests son autenticados usando un `api-key`.
+    Existen dos ambientes: `qa` y `producción`. El `host` de `qa` es `apiqa.multicaja.cl`.
+  version: "1.0.0"
+  title: API Multicaja BDP-REST
+  # put the contact info for your development or API team
+  contact:
+    email: mario.gonzales@multicaja.cl
+    
+# Added by API Auto Mocking Plugin
+# host: 'api.multicaja.cl'
+# basePath: /v0.1-alpha/
+consumes:
+  - application/json
+produces:
+  - application/json
+  
+# tags are used for organizing operations
+tags:
+- name: transaccional
+  description: Comunicación ecommerce
+- name: efectivo
+  description: Información efecitvo
+- name: transferencia
+  description: Información transferencia
+
+paths:
+  /createOrder:
+    post:
+      tags:
+      - transaccional
+      summary: Crear pedido para el comercio
+      description: |
+        Servicio para poder crear un pedido y el cual retornara un una url para poder inicializar la transacción
+      parameters:
+      - in: body
+        name: paramItems
+        description: Parametros de entrada para el comercio
+        schema:
+          $ref: '#/definitions/paramItems'
+      consumes:
+      - application/json    
+      produces:
+      - application/json
+      responses:
+        201:
+          description: Pedido creado
+          schema:
+            $ref: '#/definitions/createOrderResult'
+        400:
+          description: Parametros de entrada incorrectos
+  /getOrderStatus:
+    get:
+      tags:
+      - transaccional
+      summary: Obtener el estado del pedido
+      operationId: addInventory
+      description: Servicio para obtener el estado pedido 
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: commerce_id
+          description: ID del comercio
+          required: true
+          type: "integer"
+        - in: path
+          name: branch_id
+          description: ni idea
+          required: true
+          type: integer
+        - in: path
+          name: mc_order_id
+          description: ni idea
+          required: true
+          type: "integer"
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/orderStatus'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+  /notifyPayment:
+    post:
+      tags:
+      - transaccional
+      summary: Notificar el pedido al comercio
+      operationId: notificarPago
+      description: Notificar al comercio sobre el estado del pago
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: body
+          name: notifyPaymentInit
+          description: parametros para notificar al comercio 
+          schema:
+            $ref: '#/definitions/notifyPaymentInit'
+          
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/notifyPayment'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+          
+  /cancelOrder:
+    put:
+      tags:
+      - transaccional
+      summary: Cancelar pedido
+      operationId: cancelarOrder
+      description: Cancelar pedido creado por el comercio
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: body
+          name: cancelOrderInit
+          description: parametros para cancelar un pedido
+          schema:
+            $ref: '#/definitions/cancelOrderInit'
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/cancelOrderResponse'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+
+definitions:
+  paramItems:
+    type: object
+    required:
+    - ec_order_id
+    - commerce_id
+    - branch_id
+    - total_amount
+    - general_description
+    - request_duration
+    - go_back_url
+    - notification_url
+    - cod_payment_method
+    - product
+    properties:
+      ec_order_id:
+        type: string
+        example: 123asdasd
+      commerce_id:
+        type: integer
+        example: 16086857
+      branch_id:
+        type: integer
+        example: 118890
+      total_amount:
+        type: number
+        example: 412546
+      general_description:
+        type: string
+        example: Test Test
+      request_duration:
+        type: integer
+        example: 3600
+      go_back_url:
+        type: string
+        example: www.ecommerce.cl/goBack
+      notification_url:
+        type: string
+        example: www.ecommerce.cl/notify
+      cod_payment_method:
+        type: integer
+        example: 10
+      product:
+        $ref: '#/definitions/paramItemsProduct'
+  
+  paramItemsProduct:
+    type: object
+    required:
+    - name
+    - description
+    - unit_price
+    - quantity
+    - total_price
+    properties:
+      name:
+        type: string
+        example: zapatilla
+      description:
+        type: string
+        example:  zapatilla roja
+      unit_price:
+        type: number
+        example: 1000
+      quantity:
+        type: integer
+        example:  1
+      total_price:
+        type: number
+        example: 1000
+          
+  createOrderResult:
+    required:
+    - mc_order_id
+    - redirect_url
+    properties:
+      mc_order_id:
+        type: integer
+        example: 82
+      redirect_url:
+        type: string
+        format: url
+        example:  https://10.170.1.30:8181/bdp/order.xhtml?id=82
+  
+  orderStatus:
+    required:
+    - order_status
+    - description
+    - ec_order_id
+    properties:
+      order_status:
+        type: integer
+        example: 82
+      description:
+        type: string
+        example:  EXPIRED
+      ec_order_id:
+        type: integer
+        example: 961779978
+        
+  notifyPayment:
+   required:
+    - notify_url
+   properties:
+    notify_url:
+      type: string
+      format: url
+      example: https://www.comercio.cl/sucess/notify_url?id=111111111
+      
+  notifyPaymentInit:
+   required:
+    - mc_order_id
+   properties:
+    mc_order_id:
+      type: integer
+      example: 111111111
+  
+  cancelOrderInit:
+    required: 
+      - mc_order_id
+      - commerce_id
+      - branch_id
+      - cause_description
+    properties:
+      mc_order_id:
+        type: integer
+        example: 111111111
+      commerce_id:
+        type: integer
+        example: 111111111
+      branch_id:
+        type: integer
+        example: 111111111
+      cause_description:
+        type: string
+        example: NO QUIERO PAGAR
+  
+  cancelOrderResponse:
+    required: 
+      - ec_order_id
+      - code
+      - message
+    properties:
+      ec_order_id:
+        type: integer
+        example: 111111111
+      code:
+        type: integer
+        example: 111111111
+      message:
+        type: string
+        example: éxito
+        
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /mariogoz/bdp-rest/1.0.0
+schemes:
+ - https
