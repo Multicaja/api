@@ -29,7 +29,7 @@ tags:
   description: Información transferencia
 
 paths:
-  /createOrder:
+  /orders:
     post:
       tags:
       - transaccional
@@ -53,7 +53,7 @@ paths:
             $ref: '#/definitions/createOrderResult'
         400:
           description: Parametros de entrada incorrectos
-  /getOrderStatus:
+  /orders/{mc_order_id}:
     get:
       tags:
       - transaccional
@@ -89,7 +89,7 @@ paths:
           description: parametros invalidos
         404:
           description: error obtención de datos
-  /notifyPayment:
+  /orders/{mc_order_id}/notify/:
     post:
       tags:
       - transaccional
@@ -101,12 +101,11 @@ paths:
       produces:
       - application/json
       parameters:
-        - in: body
-          name: notifyPaymentInit
-          description: parametros para notificar al comercio 
-          schema:
-            $ref: '#/definitions/notifyPaymentInit'
-          
+        - in: path
+          name: mc_order_id
+          description: id del pedido
+          required: true
+          type: "integer"
       responses:
         201:
           description: ok
@@ -117,8 +116,8 @@ paths:
         404:
           description: error obtención de datos
           
-  /cancelOrder:
-    put:
+  /orders/{mc_order_id}/cancel/:
+    post:
       tags:
       - transaccional
       summary: Cancelar pedido
@@ -134,6 +133,12 @@ paths:
           description: parametros para cancelar un pedido
           schema:
             $ref: '#/definitions/cancelOrderInit'
+        - in: path
+          name: mc_order_id
+          description: id del pedido
+          required: true
+          type: "integer"
+          
       responses:
         201:
           description: ok
@@ -252,24 +257,12 @@ definitions:
       format: url
       example: https://www.comercio.cl/sucess/notify_url?id=111111111
       
-  notifyPaymentInit:
-   required:
-    - mc_order_id
-   properties:
-    mc_order_id:
-      type: integer
-      example: 111111111
-  
   cancelOrderInit:
     required: 
-      - mc_order_id
       - commerce_id
       - branch_id
       - cause_description
     properties:
-      mc_order_id:
-        type: integer
-        example: 111111111
       commerce_id:
         type: integer
         example: 111111111
