@@ -27,6 +27,8 @@ tags:
   description: Información efecitvo
 - name: transferencia
   description: Información transferencia
+- name: transversal
+  description: Información transversal de todos los medios de pago
 
 paths:
   /orders:
@@ -148,7 +150,282 @@ paths:
           description: parametros invalidos
         404:
           description: error obtención de datos
+  
+  /cross/{id_pedido}/detailproducts/:
+    get:
+      tags:
+      - transversal
+      summary: detalle de los productos del pedido
+      description: Obtener detalle de los productos del pedido 
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: id_pedido
+          description: ID del pedido
+          required: true
+          type: "integer"
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/detailProductResponse'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos}
+        
+  /cross/{id_pedido}/detailorder/:
+    get:
+      tags:
+      - transversal
+      summary: detalle del pedido
+      description: Obtener detalle del pedido 
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: id_pedido
+          description: ID del pedido
+          required: true
+          type: "integer"
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/detailOrderResponse'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+  
+  /cross/canceldetails/:
+    post:
+      tags:
+      - transversal
+      summary: Cancelar detalles del pedido
+      description: Cancelar detalles del pedido
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: body
+          name: cancelDetailsInit
+          description: parametros para cancelar detalle de un pedido
+          schema:
+            $ref: '#/definitions/cancelDetailsInit'
+      responses:
+        201:
+          description: ok
+          schema:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: estado.
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+  
+  /cross/survey/:
+    post:
+      tags:
+      - transversal
+      summary: Encuensta de anulación
+      description: Encuensta de anulación
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: body
+          name: surveyInit
+          description: parametros para realizar la encuesta
+          schema:
+            $ref: '#/definitions/surveyInit'
+      responses:
+        201:
+          description: ok
+          schema:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: estado
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+  
+  /cross/{id_represented}/represented/:
+    get:
+      tags:
+      - transversal
+      summary: Obtener el representado
+      description: Obtener el representado
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: id_represented
+          description: ID del representado
+          required: true
+          type: "integer"
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/representedInit'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
 
+  /cross/{id_represented}/paymentmethods/:
+    get:
+      tags:
+      - transversal
+      summary: Obtener los medios de pago
+      description: Obtener los medios de pago configurados para el representado
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: id_represented
+          description: ID del representado
+          required: true
+          type: "integer"
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/paymentmethodsInit'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+  
+  /cross/{token}/infotoken/:
+    get:
+      tags:
+      - transversal
+      summary: obtener información del pedido
+      description: Obtener información del pedido por medio de un token
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: token
+          description: token relacionado al pedido
+          required: true
+          type: string
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/cancelorderTokenResponse'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+  
+  /cross/{token}/cancelorder/:
+    post:
+      tags:
+      - transversal
+      summary: Anular pedido, por correo
+      description: Anular pedido por medio de un token (Email)
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: token
+          description: token relacionado al pedido
+          required: true
+          type: string
+      responses:
+        201:
+          description: ok
+          schema:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: estado
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+  
+  /transfers:
+    post:
+      tags:
+      - transferencia
+      summary: Generar Transferencia
+      description: Generar Transferencia
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: body
+          name: transfersInit
+          description: parametros para generar una transferencia
+          schema:
+            $ref: '#/definitions/transfersInit'
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/transfersResponse'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+  
+  /cash:
+    post:
+      tags:
+      - efectivo
+      summary: Generar pago en efectivo
+      description: Generar pago en efectivo
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: body
+          name: cashInit
+          description: parametros para generar un pago efectivo
+          schema:
+            $ref: '#/definitions/cashInit'
+      responses:
+        201:
+          description: ok
+          schema:
+            type: object
+            properties:
+              sequence_code:
+                type: string
+                example: 4684545456
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
 definitions:
   paramItems:
     type: object
@@ -288,7 +565,348 @@ definitions:
       message:
         type: string
         example: éxito
+  
+  detailProductResponse:
+    required: 
+      - products
+    properties:
+      products:
+        $ref: '#/definitions/detailProductResponseArray'
+          
+  detailProductResponseArray:
+    type: array
+    required:
+      - id
+      - quantity
+      - name
+      - total_price
+      - description
+      - unit_price
+    items:
+      type: object
+    properties:
+          id:
+            type: integer
+          quantity:
+            type: integer
+          name:
+            type: string
+          total_price:
+            type: number
+          description:
+            type: string
+          unit_price:
+            type: number        
+    example:
+      - id: 10
+        quantity: 3
+        name: recarga 1
+        totalPrice: 1500
+        description: carga
+        unitPrice: 500
+      - id: 11
+        quantity: 2
+        name: recarga 1
+        total_price: 1000
+        description: carga
+        unit_price: 500
+  
+  detailOrderResponse:
+    required: 
+      - id
+      - id_publico
+      - sec_ecommerce
+      - id_representado
+      - monto_trx
+      - fecha_expiracion
+      - url_retorno
+      - descripcion_compra
+    properties:
+      id:
+        type: integer
+        example: 111111111
+      id_publico:
+        type: integer
+        example: 111111111
+      sec_ecommerce:
+        type: string
+        example: éxito
+      id_representado:
+        type: string
+        example: éxito
+      monto_trx:
+        type: string
+        example: éxito
+      fecha_expiracion:
+        type: string
+        example: éxito 
+      url_retorno:
+        type: string
+        example: éxito
+      descripcion_compra:
+        type: string
+        example: éxito
+  
+  cancelDetailsInit:
+    type: object
+    required:
+    - order_id
+    - cancel_order
+    properties:
+      order_id:
+        type: integer
+        example: 1111111111
+      cancel_order:
+        type: integer
+        example: 0
+  
+  surveyInit:
+    type: object
+    required:
+    - id_order
+    - id_option
+    - id_user
+    - reason
+    - track
+    properties:
+      id_order:
+        type: integer
+        example: 1111111111
+      id_option:
+        type: integer
+        example: 5
+      id_user:
+        type: integer
+        example: 1
+      reason:
+        type: string
+        example: no encontre un lugar para pagar
+      track:
+        type: string
+        example: canal web
+  
+  representedInit:
+    type: object
+    required:
+    - repre_id
+    - repre_url_return
+    - repre_url_logo
+    - repre_description
+    - repre_name_represented
+    properties:
+      repre_id:
+        type: integer
+        example: 1111111111
+      repre_url_return:
+        type: string
+        example: https://www.comerciox.cl/return
+      repre_url_logo:
+        type: string
+        example: https://www.multicaja.cl/logo/comerciox
+      repre_description:
+        type: string
+        example: comercio x
+      repre_name_represented:
+        type: string
+        example: comercio x
         
+  paymentmethodsInit:
+    required: 
+      - means
+    properties:
+      means:
+        $ref: '#/definitions/paymentmethodsInitArray'
+          
+  paymentmethodsInitArray:
+    type: array
+    required:
+      - id
+      - code
+      - name
+      - description
+      - id_status_means
+      - accept_anonymous_payment
+      - maximum_anonymous_amount
+    items:
+      type: object
+    properties:
+          id:
+            type: integer
+          code:
+            type: integer
+          name:
+            type: string
+          description:
+            type: string
+          id_status_means:
+            type: integer
+          accept_anonymous_payment:
+            type: boolean 
+          maximum_anonymous_amount:
+            type: number  
+    example:
+      - id: 1
+        code: 1
+        name: CUPON
+        description: PAGO EFECTIVO
+        id_status_means: 1
+        accept_anonymous_payment: false
+        maximum_anonymous_amount: 0
+      - id: 2
+        code: 2
+        name: TEF
+        description: PAGO CON TEF
+        id_status_means: 1
+        accept_anonymous_payment: false
+        maximum_anonymous_amount: 0
+  
+  cancelorderTokenResponse:
+    type: object
+    required:
+    - id
+    - id_public
+    - sec_ecommerce
+    - id_represented
+    - amount_trx
+    - expiration_date
+    - return_url
+    - description_purchase
+    properties:
+      id:
+        type: integer
+        example: 1111111111
+      id_public:
+        type: integer
+        example: 5
+      sec_ecommerce:
+        type: integer
+        example: 1
+      id_represented:
+        type: integer
+        example: 2
+      amount_trx:
+        type: number
+        example: 5000
+      expiration_date:
+        type: string
+        format: date-time
+        example: "2018-01-14T15:27:42.669Z"
+      return_url:
+        type: string
+        example: https://www.comerciox.cl/return
+      description_purchase:
+        type: string
+        example: recarga
+        
+  transfersInit:
+    type: object
+    required:
+    - id
+    - user_id
+    - id_person_app
+    - slp
+    properties:
+      id:
+        type: integer
+        example: 1
+      user_id:
+        type: integer
+        example: 1
+      id_person_app:
+        type: integer
+        example: 1
+      slp:
+        type: boolean
+        example: false
+  
+  transfersResponse:
+    type: object
+    required:
+    - id_trx
+    - user_new_slp
+    - tef_status
+    - tef_id
+    - tef_amount
+    - tef_expires
+    - tef_now
+    - tef_uses_slp
+    - tef_amount_slp
+    - account_name
+    - account_rut
+    - account_email
+    - account_bank
+    - account_type
+    - account_number
+    - account_new
+    properties:
+      id_trx:
+        type: string
+        example: 1
+      user_new_slp:
+        type: number
+        example: 1
+      tef_status:
+        type: string
+        example: 1
+      tef_id:
+        type: integer
+        example: 1
+      tef_amount:
+        type: integer
+        example: 1
+      tef_expires:
+        type: string
+        format: date-time
+        example: "2018-01-14T15:27:42.669Z"
+      tef_now:
+        type: string
+        format: date-time
+        example: "2018-01-14T15:27:42.669Z"
+      tef_uses_slp:
+        type: boolean
+        example: true
+      tef_amount_slp:
+        type: number
+        example: 1000
+      account_name:
+        type: string
+        example: mario
+      account_rut:
+        type: string
+        example: 1-9
+      account_email:
+        type: string
+        example: email@email.cl
+      account_bank:
+        type: string
+        example: El de los pobres
+      account_type:
+        type: string
+        example: de papel confort
+      account_number:
+        type: string
+        example: 0000000655712
+      account_new:
+        type: integer
+        example: 1
+        
+  cashInit:
+    type: object
+    required:
+    - order_id
+    - user_id
+    - user_email
+    properties:
+      order_id:
+        type: integer
+        example: 1111111111
+      user_id:
+        type: integer
+        example: 152
+      user_email:
+        type: string
+        example: mail@mail.cl
+
 # Added by API Auto Mocking Plugin
 host: virtserver.swaggerhub.com
 basePath: /mariogoz/bdp-rest/1.0.0
