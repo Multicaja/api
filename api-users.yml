@@ -79,8 +79,35 @@ paths:
           description: Proceso de registro no existe.
         '410':
           description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /prepaid/UserSignup`.
-  /users/{user_id}/PasswordSetup:
-    put:
+  /users/{user_id}:
+    get:
+      tags: 
+        - clientes
+      description: |
+        Lee los datos de un cliente.
+        ### Notas
+        * Incluye los objetos `rut`, `email` y `cellphone`
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        '401':
+          description: Usuario tiene clave y debe autenticarse para realizar esta operación
+        '403':
+          description: Cliente borrado o bloqueado
+          schema:
+            $ref: '#/definitions/ErrorObj'
+        '404':
+          description: Cliente no existe
+  /users/{user_id}/UpdatePassword:
+    post:
       tags:
         - clientes
       description: |
@@ -100,7 +127,7 @@ paths:
       responses:
         '201':
           description: |
-            OK - Proceso de registro completado
+            OK - cambio aplicado
           schema:
             $ref: '#/definitions/User'
         '403':
@@ -113,7 +140,7 @@ paths:
           description: Error de validación (password no cumple con políticas o no se ha completado los pasos anteriores del proceso)
           schema:
             $ref: '#/definitions/ErrorObj'
-  /users/{user_id}/PersonalData:
+  /users/{user_id}/UpdatePersonalData:
     post:
       tags:
         - clientes
@@ -133,9 +160,10 @@ paths:
             $ref: '#/definitions/PrepaidUserPersonalDataNew'
       responses:
         '201':
-          description: OK - Datos personales guardados, puede continuar
+          description: |
+            OK - cambio aplicado
           schema:
-            $ref: '#/definitions/PrepaidUserSignup'
+            $ref: '#/definitions/User'
         '401':
           description: Usuario tiene clave y debe autenticarse para realizar esta operación
         '403':
@@ -169,9 +197,14 @@ paths:
       responses:
         '201':
           description: |
-            OK - Consulte objeto de respuesta para saber qué pasos faltan
+            OK - cambio aplicado
           schema:
-            $ref: '#/definitions/PrepaidUserSignup'
+            $ref: '#/definitions/User'
+        '400':
+          description: |
+            SRCeI retornó error - ver respuesta
+          schema:
+            $ref: '#/definitions/ErrorObj'
         '401':
           description: Usuario tiene clave y debe autenticarse para realizar esta operación
         '403':
@@ -184,7 +217,7 @@ paths:
           description: Error de validación en número de serie de la cédula
           schema:
             $ref: '#/definitions/ErrorObj'
-  /users/{user_id}/TermsAndConditionsAcceptance:
+  /users/{user_id}/SignContract:
     post:
       tags:
         - clientes
@@ -205,9 +238,9 @@ paths:
       responses:
         '201':
           description: |
-            OK - Consulte objeto de respuesta para saber qué pasos faltan
+            OK - cambio aplicado
           schema:
-            $ref: '#/definitions/PrepaidUserSignup'
+            $ref: '#/definitions/User'
         '401':
           description: Usuario tiene clave y debe autenticarse para realizar esta operación
         '403':
@@ -406,10 +439,13 @@ definitions:
     description: |
       Aceptación de últimos términos y condiciones **(Request)**
     properties:
-      acceptance:
-        type: string
-        description: Booleano. `true` si el cliente aceptó.
-        example: "true"
+      # lista de contratos firmados por el cliente
+      terms_and_conditions_list:
+        type: array
+        items:
+          type: string
+          description: Link a los términos y condiciones que se deben desplegar para este usuario
+          example: 'https://multicaja.cl/tac/contract-v1.3.1.html'
   RutValidationNew:
     type: object
     description: |
@@ -471,10 +507,12 @@ definitions:
             type: string
             description: Apellido paterno Si vienen, mostrarlos en la pantalla de datos personales.
             example: "López"
-          terms_and_conditions_uri:
-            type: string
-            description: Link a los términos y condiciones que se deben desplegar para este usuario
-            example: 'https://multicaja.cl/tac/contract-v1.3.1.html'
+          terms_and_conditions_list:
+            type: array
+            items:
+              type: string
+              description: Link a los términos y condiciones que se deben desplegar para este usuario
+              example: 'https://multicaja.cl/tac/contract-v1.3.1.html'
           must_validate_email:
             type: string
             description: Booleano. Si es `true`, el cliente requiere pasar por una validación de correo.
