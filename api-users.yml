@@ -17,215 +17,222 @@ consumes:
 produces:
   - application/json
 tags:
-  - name: clientes
-    description: Administración de clientes
   - name: contacto
     description: Contacto con cliente y validación de sus datos de contacto
-  - name: etiquetas
-    description: Etiquetas del cliente
-  - name: cuentas
-    description: Cuentas bancarias de un cliente
-  - name: direcciones
-    description: Dirección física de un cliente
+  - name: prepaid
+    description: Registro de prepago
 paths:
-  /users:
+  /prepaid/UserSignup:
     post:
-      summary: Crear
-      tags: 
-        - clientes
+      tags:
+        - prepaid
       description: |
-        Registra a un nuevo cliente, el que puede ser persona natural (`rut.value < 50000000`) o empresa (`rut.value >= 50000000`).
-        ### Notas
-        * Requiere al menos los campos mínimos de User: rut y correo.
-        * Si es una empresa, debe incluir `company_data`.
-        * El servicio también funcionará con el `rut` de un cliente existente con `global_status` `"pre-registro"`.
-        * Si se intenta crear un usuario con un `rut` o un `email` que ya ha sido usado y con `global_status` distinto de `"pre-registro"`, el servicio retornará `405`.
-        * `clave` debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de `rut.value`
-        * Si se incluye el campo `clave`, `global_status` cambiará a `"activo"`
-        * Si se incluye `rut.serial_number`, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, `rut.status` pasará a "validado". Si la validación no fuera exitosa, `rut.status` cambiará a (o seguirá siendo) "no validado". Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.
-        
-        ### Recomendaciones
-        * Dado que el servicio no funciona si el `rut` o el `email` ya han sido usados (a menos que pertenezcan a un cliente con `global_status` `"pre-registro"`), debería buscarlo primero por `rut` y luego por `email` usando el método `/users/`
+        Inicia un proceso de registro para obtener la tarjeta de prepago. Retorna `PrepaidUserSignup`, el que indica qué pasos se deben realizar.
       parameters:
         - in: body
-          name: user
+          name: user_data
+          description: RUT y Correo del usuario que quiere obtener una tarjeta
+          required: true
+          schema:
+            $ref: '#/definitions/PrepaidUserSignupNew'
+      responses:
+        '201':
+          description: |
+            OK - Consulte objeto de respuesta para saber qué pasos faltan y qué información puede mostrar pre llenada.
+          schema:
+            $ref: '#/definitions/PrepaidUserSignup'
+        '401':
+          description: RUT o email corresponden a Cliente que ya tiene clave y que debe autenticarse para realizar esta operación
+        '403':
+          description: Usuario borrado, bloqueado, o ya tiene prepago.
+          schema:
+            $ref: '#/definitions/ErrorObj'
+        '404':
+          description: Cliente no existe
+        '410':
+          description: Cliente ya tiene prepago
+        '422':
+          description: No viene RUT o no viene email
+  /prepaid/SignUp/{signup_id}:
+    get:
+      tags:
+        - prepaid
+      description: |
+        Obtiene el estado de un proceso de registro para obtener la tarjeta de prepago. Retorna `PrepaidUserSignup`, el que indica qué pasos falta realizar.
+      parameters:
+        - in: path
+          name: signup_id
+          description: ID del proceso de registro pendiente
+          required: true
+          type: "integer"
+      responses:
+        '201':
+          description: |
+            OK - Consulte objeto de respuesta para saber qué pasos faltan y qué información puede mostrar pre llenada.
+          schema:
+            $ref: '#/definitions/PrepaidUserSignup'
+        '401':
+          description: Usuario tiene clave y debe autenticarse para realizar esta operación
+        '404':
+          description: Proceso de registro no existe.
+        '410':
+          description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /prepaid/UserSignup`.
+  /prepaid/SignUp/{signup_id}/PasswordSetup:
+    put:
+      tags:
+        - prepaid
+      description: |
+        Usuario indica su password
+      parameters:
+        - in: path
+          name: signup_id
+          description: ID del proceso de registro pendiente
+          required: true
+          type: "integer"
+        - in: body
+          name: password
+          description: Password escogido por el usuario
+          required: true
+          schema:
+            $ref: '#/definitions/UserPasswordNew'
+      responses:
+        '201':
+          description: |
+            OK - Proceso de registro completado
+          schema:
+            $ref: '#/definitions/PrepaidUserSignup'
+        '403':
+          description: Usuario borrado, bloqueado, ya tiene prepago o tiene password y no puede cambiarlo durante el proceso de registgro.
+          schema:
+            $ref: '#/definitions/ErrorObj'
+        '404':
+          description: Proceso de registro no existe.
+        '410':
+          description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /prepaid/UserSignup`.
+        '422':
+          description: Error de validación (password no cumple con políticas o no se ha completado los pasos anteriores del proceso)
+          schema:
+            $ref: '#/definitions/ErrorObj'
+  /prepaid/SignUp/{signup_id}/PersonalData:
+    post:
+      tags:
+        - prepaid
+      description: |
+        Escribe datos personales de quien se está registrado
+      parameters:
+        - in: path
+          name: signup_id
+          description: ID del proceso de registro pendiente
+          required: true
+          type: "integer"
+        - in: body
+          name: personal_data
           description: Parámetros del usuario a crear
           required: true
           schema:
-            $ref: '#/definitions/NewUser'
+            $ref: '#/definitions/PrepaidUserPersonalDataNew'
       responses:
         '201':
-          description: OK
+          description: OK - Datos personales guardados, puede continuar
           schema:
-            $ref: '#/definitions/User'
-        '405':
-          description: El usuario ya existe
-        '422':
-          description: El Cliente contiene datos inválidos
+            $ref: '#/definitions/PrepaidUserSignup'
+        '401':
+          description: Usuario tiene clave y debe autenticarse para realizar esta operación
+        '403':
+          description: Usuario borrado, bloqueado, o ya tiene prepago.
           schema:
             $ref: '#/definitions/ErrorObj'
-  /users/{user_id}:
-    get:
-      summary: Leer
-      tags: 
-        - clientes
-      description: |
-        Lee los datos de un cliente.
-        ### Notas
-        * Incluye los objetos `rut`, `email` y `cellphone`
-      parameters:
-        - in: path
-          name: user_id
-          description: ID del usuario
-          required: true
-          type: "integer"
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/User'
         '404':
-          description: Cliente no existe
-    put:
-      summary: Actualizar
-      tags: 
-        - clientes
+          description: Proceso de registro no existe.
+        '410':
+          description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /prepaid/UserSignup`.
+        '422':
+          description: Error de validación en datos personales
+          schema:
+            $ref: '#/definitions/ErrorObj'
+  /prepaid/SignUp/{signup_id}/ValidateRut:
+    post:
+      tags:
+        - prepaid
       description: |
-        Modifica los datos de un cliente, el que puede ser persona natural (`rut.value < 50000000`) o empresa (`rut.value >= 50000000`).
-        
-        ### Notas
-        * Pese a que el rut es requerido, no es modificable. Si se proporciona un RUT distinto al del cliente `{user_id}`, el servicio retornará `422`
-        * Si es una empresa, debe incluir `company_data`.
-        * `password` debe ser númérica, de 4 dígitos, no consecutivos, no iguales, y que no correspondan a ninguna parte de `rut.value`
-        * Si se incluye el campo `clave` y `global_status` era `"pre-registro"`, `global_status` cambiará a `"activo"`
-        * No se podrá modificar `email.value` si cliente no tiene clave. Si se intenta modificar un email de un cliente que no tiene clave, el servicio retornará `422`.
-        * No se podrá modificar `email.value` si `email.status == "validado"`. Si se intenta modificar un email validado a través de este método, el servicio retornará `422`. Para modificar un correo validado, se debe usar los métodos de la URL `/user/{user_id}/mail`. La excepción a esta regla son los clientes con `global_status == "pre-registro"`. Si se intenta modificar un email validado de un cliente "pre-registro", la modificación tendrá éxito y `email.status` pasará a ser `"no validado"`.
-        * No se podrá modificar `cellphone.value` si `celular.status == "validado"`. Si se intenta modificar un celular validado a través de este método, el servicio retornará `422`. Para modificar un celular validado, se debe usar los métodos de la URL `/user/{user_id}/sms`. La excepción a esta regla son los clientes con `global_status == "pre-registro"`. Si se intenta modificar un celular validado de un cliente "pre-registro", la modificación tendrá éxito y `celular.status` pasará a ser `"no validado"`.
-        * Si se incluye `rut.serial_number`, se invocará al SRCeI para validar la cédula. Si esa validación fuera exitosa, `rut.status` pasará a "validado". Si la validación no fuera exitosa, `rut.status` cambiará a (o seguirá siendo) "no validado". Esta llamada se hará de manera síncrona, por lo que el servicio no retornará hasta que el SRCeI responda.
-        * Los campos `gender`, `birthday`, `name`, `lastname_1` y `lastname_2` no tienen restricciones de modificación
-        
-        ### Recomendaciones
-        * Sólo envíe los campos mínimos y los que se desee modificar. Por ejemplo, para cambiar el nombre, sólo incluya `rut.value`, `email.value` y `name`. Para validar la cédula contra el SRCeI, sólo incluya `rut.value`, `email.value` y `rut.status`.
-        * Si se desea cambiar la password del cliente, valide la password anterior en primer lugar
-        
+        Valida el número de serie de la cédula
       parameters:
         - in: path
-          name: user_id
-          description: ID del usuario
+          name: signup_id
+          description: ID del proceso de registro pendiente
           required: true
           type: "integer"
         - in: body
-          name: user
-          description: Parámetros a modificar
+          name: rut_validation
+          description: Datos de validación de la cédula
           required: true
           schema:
-            $ref: '#/definitions/NewUser'
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/User'
-        '404':
-          description: Cliente no existe
-        '422':
-          description: El Cliente contiene datos inválidos
-          schema:
-            $ref: '#/definitions/ErrorObj'
-  /users/:
-    get:
-      summary: Buscar
-      tags: 
-        - clientes
-      description: |
-        Busca a un cliente por rut, por email o por celular
-      parameters:
-        - name: "rut"
-          in: "query"
-          description: "Rut sin puntos ni dígito verificador"
-          type: integer
-        - name: "email"
-          in: "query"
-          description: "Email"
-          type: string
-        - in: "query"
-          name: "cellphone"
-          description: "Celular (9 dígitos)"
-          type: string
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/User'
-        '404':
-          description: Cliente no existe
-  /users/login:
-    get:
-      summary: Buscar por ID y password
-      tags: 
-        - clientes
-      description: |
-        Busca a un cliente por (rut y password) o por (email y password)
-      consumes:
-        - application/x-www-form-urlencoded
-      parameters:
-        - name: rut
-          in: formData
-          description: "Rut sin puntos ni dígito verificador"
-          type: integer
-        - name: email
-          in: formData
-          description: "Email"
-          type: string
-        - in: formData
-          name: password
-          description: "password de 4 dígitos"
-          type: string
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/User'
-        '404':
-          description: Cliente no existe (puede representar password inválida)
-  /users/checkrut:
-    get:
-      summary: Valida el rut
-      tags: 
-        - clientes
-      description: |
-        Valida con registro civil si el numero de documento de carnet es valido
-      consumes:
-        - application/x-www-form-urlencoded
-      parameters:
-        - name: rut
-          in: formData
-          description: "Rut sin puntos ni dígito verificador"
-          type: integer
-        - name: serie
-          in: formData
-          description: "Numero de documento o numero de serie de carnet"
-          type: string
+            $ref: '#/definitions/RutValidationNew'
       responses:
         '201':
-          description: OK
+          description: |
+            OK - Consulte objeto de respuesta para saber qué pasos faltan
           schema:
-            type: boolean
+            $ref: '#/definitions/PrepaidUserSignup'
+        '401':
+          description: Usuario tiene clave y debe autenticarse para realizar esta operación
+        '403':
+          description: Usuario borrado o bloqueado.
+          schema:
+            $ref: '#/definitions/ErrorObj'
         '404':
-          description: El numero de serie indicado no es valido
+          description: Proceso de registro no existe.
+        '410':
+          description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /prepaid/UserSignup`.
+        '422':
+          description: Error de validación en número de serie de la cédula
+          schema:
+            $ref: '#/definitions/ErrorObj'
+  /prepaid/SignUp/{signup_id}/TermsAndConditionsAcceptance:
+    post:
+      tags:
+        - prepaid
+      description: |
+        Acepta términos y condiciones
+      parameters:
+        - in: path
+          name: signup_id
+          description: ID del proceso de registro pendiente
+          required: true
+          type: "integer"
+        - in: body
+          name: tac_acceptance
+          description: Firma de contrato
+          required: true
+          schema:
+            $ref: '#/definitions/ContractSignupNew'
+      responses:
+        '201':
+          description: |
+            OK - Consulte objeto de respuesta para saber qué pasos faltan
+          schema:
+            $ref: '#/definitions/PrepaidUserSignup'
+        '401':
+          description: Usuario tiene clave y debe autenticarse para realizar esta operación
+        '403':
+          description: Usuario borrado, bloqueado, o ya tiene prepago.
+          schema:
+            $ref: '#/definitions/ErrorObj'
+        '422':
+          description: Error de validación en tac_acceptance
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/{user_id}/mail:
     post:
       summary: Enviar correo
       tags: 
         - contacto
       description: |
-        Envía una comunicación o correo de validación al cliente
+        Envía una comunicación o código de validación al email del cliente
 
         ### Notas
-        * `template_data` debe incluirse si el `template` requiere datos mínimos. Los datos deben ir en formato JSON. En caso contrario, el servicio retornará `422`.
-        * `user_callback_uri` debe incluirse si el `template` incluye un link para que el usuario haga click. En caso contrario, el servicio retornará `422`.
-        * Si se incluye `user_callback_uri`, no se incluye `address`, y el usuario hace clic en el link que indica el correo, el sistema actualizará automáticamente a `validado` el campo `email.status` del Cliente. Esto se logra incluyendo en el correo un link a una URI temporal que realiza el cambio y luego redirige a `user_callback_uri`.
-        * `address` permite cambiar el correo electrónico cuando el cliente tiene un correo validado. Si se incluye tanto `user_callback_uri`  como `address`, y el usuario hace clic en el link que indica el correo, el sistema cambiará automáticamente el correo del cliente a la dirección que indica `address` y lo dejará como `validado`. 
-        * La validación de correos se logra incluyendo en el correo un link a una URI temporal que realiza el cambio de estatus y luego redirige a `user_callback_uri`.
+        * Si el `template` requiere datos mínimos, debe incluirse estos datos en formato JSON mediante el campo `template_data`
+        * La validación del email se logra enviando un código de validación mendiante el uso de un template destinado para ello.
       parameters:
         - in: path
           name: user_id
@@ -249,10 +256,6 @@ paths:
                 type: string
                 description: JSON con tantos pares llave-valor como requiera el template del correo a enviar
                 example: "{'saludo': 'Estimado Pepito', 'despedida': 'Chao!'}"
-              user_callback_uri:
-                type: string
-                description: Link que incluirá el correo si el `template` lo soporta
-                example: "https://www.multicaja.cl/prepago/registro?u=3242343"
               address:
                 type: string
                 description: Correo electrónico al que se enviará este mensaje. Si no se incluye este campo, se usará el campo `email.value`  del Cliente.
@@ -268,16 +271,15 @@ paths:
           description: El mail contiene datos inválidos
           schema:
             $ref: '#/definitions/ErrorObj'
-  
     put:
-      summary: Validar código mail
+      summary: Validar código enviado por correo
       tags: 
         - contacto
       description: |
-        Valida un código enviado mediante POST a `/users/{user_id}/mail`
+        Valida un código enviado mediante POST a `/users/{user_id}/email`
         ### Notas
-        * Sólo invocar este método para validar celular si se ha enviado previamente un código por Mail haciendo POST a `/users/{user_id}/mail`
-        * Dependiendo del template usado en el POST a `/users/{user_id}/mail`, esta llamada podría cambiar `mail.status` a `"validado"`. Esto ocurrirá sólo si el código proporcionado corresponde al que fue enviado al celular`.
+        * Sólo invocar este método para validar email si se ha enviado previamente un código por email haciendo POST a `/users/{user_id}/email`
+        * Dependiendo del template usado en el POST a `/users/{user_id}/email`, esta llamada podría cambiar `email.status` a `"validado"`. Esto ocurrirá sólo si el código proporcionado corresponde al que fue enviado al email`.
         * Si el código ingresado no corresponde al que fue enviado al cliente, el servicio retornará `422`.
       parameters:
         - in: path
@@ -286,12 +288,12 @@ paths:
           required: true
           type: "integer"
         - in: body
-          name: mail_code
+          name: email_code
           description: Código ingresado por el cliente
           required: true
           schema:
-            type: string
-            example: "AM5&5g"
+            type: integer
+            example: "123456"
       responses:
         '201':
           description: OK
@@ -392,544 +394,103 @@ paths:
           description: El código ingresado no es válido
           schema:
             $ref: '#/definitions/ErrorObj'
-  /users/{user_id}/bank_accounts:
-    get:
-      summary: Listar
-      tags: 
-        - cuentas
-      parameters:
-        - in: path
-          name: user_id
-          description: ID del usuario
-          required: true
-          type: "integer"
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/BankAccount'
-        '404':
-          description: Cliente no existe
-    post:
-      summary: Crear
-      tags: 
-        - cuentas
-      description: |
-        Crea una nueva cuenta bancaria para este cliente
-        
-        * La terna (`account.bank_id`, `account.acc_type`, `account.acc_number`) debe ser única para este usuario. De lo contrario, el servicio retornará `405`
-      parameters:
-        - in: path
-          name: user_id
-          description: ID del usuario
-          required: true
-          type: "integer"
-        - in: body
-          name: account
-          description: Cuenta bancaria
-          required: true
-          schema:
-            $ref: '#/definitions/NewBankAccount'
-      responses:
-        '201':
-          description: OK
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/BankAccount'
-        '404':
-          description: Cliente no existe
-        '405':
-          description: La cuenta ya existe
-        '422':
-          description: La cuenta contiene datos inválidos
-          schema:
-            $ref: '#/definitions/ErrorObj'
-  /users/{user_id}/bank_accounts/{acc_id}:
-    delete:
-      summary: Eliminar
-      tags: 
-        - cuentas
-      parameters:
-        - in: path
-          name: user_id
-          description: ID del usuario
-          required: true
-          type: "integer"
-        - in: path
-          name: acc_id
-          description: ID de la cuenta
-          required: true
-          type: "integer"
-      responses:
-        '200':
-          description: OK
-        '404':
-          description: Cliente o Cuenta no existen
-  /users/{user_id}/tags:
-    get:
-      summary: Listar
-      tags: 
-        - etiquetas
-      parameters:
-        - in: path
-          name: user_id
-          description: ID del usuario
-          required: true
-          type: "integer"
-      responses:
-        '201':
-          description: OK
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Tag'
-        '404':
-          description: Cliente no existe
-    post:
-      summary: Crear
-      tags: 
-        - etiquetas
-      description: |
-        Crea una nueva etiqueta para este cliente. Si el `tag_code` ya existe arroja `405`.
-        
-      parameters:
-        - in: path
-          name: user_id
-          description: ID del usuario
-          required: true
-          type: "integer"
-        - in: body
-          name: tag
-          description: Etiqueta
-          required: true
-          schema:
-            $ref: '#/definitions/NewTag'
-      responses:
-        '201':
-          description: OK
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Tag'
-        '404':
-          description: Cliente no existe
-        '405':
-          description: La etiqueta ya existe
-        '422':
-          description: |
-            La etiqueta contiene datos inválidos
-
-            Nota: `attribute_code` debe pertenecer a `/params/users/tags`
-          schema:
-            $ref: '#/definitions/ErrorObj'
-  /users/{user_id}/tags/{tag_id}:
-    delete:
-      summary: Eliminar
-      tags: 
-        - etiquetas
-      parameters:
-        - in: path
-          name: user_id
-          description: ID del usuario
-          required: true
-          type: "integer"
-        - in: path
-          name: tag_id
-          description: ID de la etiqueta
-          required: true
-          type: "integer"
-      responses:
-        '200':
-          description: OK
-        '404':
-          description: Cliente o etiqueta no existen
-  /users/{user_id}/addresses:
-    get:
-      summary: Listar
-      tags: 
-        - direcciones
-      parameters:
-        - in: path
-          name: user_id
-          description: ID del usuario
-          required: true
-          type: "integer"
-      responses:
-        '201':
-          description: OK
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Address'
-        '404':
-          description: Cliente no existe
-    post:
-      summary: Crear
-      tags: 
-        - direcciones
-      description: |
-        Crea una nueva dirección para este cliente
-        
-        * La terna (`address.line_1`, `address.commune`, `address.region`) debe ser única para este usuario. De lo contrario, el servicio retornará `405`
-      parameters:
-        - in: path
-          name: user_id
-          description: ID del usuario
-          required: true
-          type: "integer"
-        - in: body
-          name: address
-          description: Dirección
-          required: true
-          schema:
-            $ref: '#/definitions/NewAddress'
-      responses:
-        '201':
-          description: OK
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Address'
-        '404':
-          description: Cliente no existe
-        '405':
-          description: La dirección ya existe
-        '422':
-          description: La dirección contiene datos inválidos
-          schema:
-            $ref: '#/definitions/ErrorObj'
-  /users/{user_id}/addresses/{addr_id}:
-    delete:
-      summary: Eliminar
-      tags: 
-        - direcciones
-      parameters:
-        - in: path
-          name: user_id
-          description: ID del usuario
-          required: true
-          type: "integer"
-        - in: path
-          name: addr_id
-          description: ID de la dirección
-          required: true
-          type: "integer"
-      responses:
-        '200':
-          description: OK
-        '404':
-          description: Cliente o Dirección no existen          
 definitions:
-  NewUser:
+  UserPasswordNew:
     type: object
     description: |
-      Cliente **(Request)**
-
-      * Si el RUT es inferior a 50.000.000, corresponde a Persona Natural y `company_data` deberá ser `null`.
-      * Si el RUT es igual o superior a 50.000.000, corresponde a Empresa y `company_data` debe existir.
-    allOf:
-      - $ref: "#/definitions/UserBasicFields"
-      - type: object
-        required:
-          - rut
-          - email
-        properties:
-          rut:
-            $ref: '#/definitions/NewRut'
-          cellphone:
-            $ref: '#/definitions/NewCellPhone'
-          email:
-            $ref: '#/definitions/NewEmail'
-          company_data:
-            $ref: "#/definitions/NewCompanyData"
-          password:
-            type: string
-            description: password de autenticación de 4 dígitos. Campo write-only.
-            example: 8922
-  User:
+      Clave Multicaja Personas **(Request)**
+    properties:
+      value:
+        type: string
+        description: 4 dígitos no consecutivos ni iguales, y que no correspondan a ninguna parte del RUT
+  ContractSignupNew:
     type: object
     description: |
-      Cliente **(Response)**
-
-      * Este objeto representa tanto a una persona natural como a una empresa
-      * Si el RUT es inferior a 50.000.000, corresponde a Persona Natural y `company_data` deberá ser `null`.
-      * Si el RUT es igual o superior a 50.000.000, corresponde a Empresa y `company_data` es obligatorio
+      Aceptación de últimos términos y condiciones **(Request)**
+    properties:
+      acceptance:
+        type: string
+        description: Booleano. `true` si el cliente aceptó.
+        example: "true"
+  RutValidationNew:
+    type: object
+    description: |
+      Validación de cédula **(Request)**
+    properties:
+      serial_number:
+        type: string
+        description: Número de serie o número de documento
+        example: "A026588780"
+  PrepaidUserPersonalDataNew:
+    type: object
+    description: |
+      Ciente en proceso de registro para un prepago **(Request)**
+    properties:
+      name:
+        type: string
+        description: Nombre o nombres de pila. Si vienen, mostrarlos en la pantalla de datos personales.
+        example: "Juan Carlos"
+      lastname_1:
+        type: string
+        description: Apellido paterno Si vienen, mostrarlos en la pantalla de datos personales.
+        example: "López"
+  PrepaidUserSignupNew:
+    type: object
+    description: |
+      Ciente en proceso de registro para un prepago **(Request)**
+    properties:
+      email:
+        type: string
+        description: email del prospecto de cliente
+        example: "pepito@gmail.com"
+      rut:
+        type: integer
+        description: rut del prospecto de cliente, sin puntos, guión ni DV
+        example: 15776844
+  PrepaidUserSignup:
+    type: object
+    description: |
+      Ciente en proceso de registro para un prepago **(Response)**
     allOf:
-      - $ref: "#/definitions/UserBasicFields"
+      - $ref: "#/definitions/PrepaidUserSignupNew"
       - type: object
-        required:
-          - id 
-          - rut
-          - email
-          - timestamps
-          - global_status
         properties:
           id:
             type: integer
             description: Identificador interno. Campo read-only.
             example: 7783834
-          rut:
-            $ref: '#/definitions/Rut'
-          cellphone:
-            $ref: '#/definitions/CellPhone'
-          email:
-            $ref: '#/definitions/Email'
-          company_data:
-            $ref: "#/definitions/CompanyData"
-          global_status:
-            type: string
-            enum:
-              - pre-registro
-              - activo
-              - bloqueado
-              - borrado
-            description: |
-              Estado del cliente. Campo read-only.
-              * "pre-registro": cliente no posee password
-              * "activo": cliente con password que puede transar
-              * "bloqueado": cuenta temporalmente congelada
-              * "borrado": eliminación lógica del cliente, no admite ningún cambio
-          has_password:
-            type: string
-            description: |
-              `"true"` si el usuario tiene `password`; `"false"` en otro caso
-            example: "true"
-          timestamps:
-            $ref: '#/definitions/Timestamps'
-  UserBasicFields:
-    type: object
-    description: |
-      Nombre, Sexo, y Fecha de nacimiento de una persona **(Resquest)** / **(Response)**
-      Padre de `User` y `NewUser`
-      **No se usa de manera independiente en la API**
-    properties:
-      name:
-        type: string
-        description: Nombre o nombres de pila
-        example: "Juan Carlos"
-      lastname_1:
-        type: string
-        description: Apellido paterno
-        example: "López"
-      lastname_2:
-        type: string
-        description: Apellido materno
-        example: "Carrasco"
-      gender:
-        type: string
-        enum: ["M", "F", "N"]
-        description: |
-          Sexo de la persona
-          * M: Masculino
-          * F: Femenino
-          * N: Otro / prefiere no responder
-      birthday:
-        type: string
-        format: date
-        description: Fecha de nacimiento
-        example: "1977-1-14"
-  NewRut:
-    type: object
-    description: |
-      Identificador Chileno **(Request)**
-      
-      **No se usa de manera independiente en la API**
-    required:
-      - value
-    properties:
-      value:
-        type: integer
-        description: El rut sin puntos, guión, ni dígito verificador
-        example: 14569484
-      serial_number:
-        type: string
-        description: Número de serie o número de documento. Éste es un campo write-only, por lo que *nunca* vendrá como respuesta de la API
-        example: "A026582309"
-      dv:
-        type: string
-        description: digito verificador
-        example: "K"
-  Rut:
-    type: object
-    description: |
-      Identificador Chileno **(Response)**
-      
-      **No se usa de manera independiente en la API**
-    allOf:
-      - $ref: "#/definitions/NewRut"
-      - type: object
-        required:
-          - status
-          - timestamps
-        properties:
-          status:
-            type: string
-            enum:
-              - no_validado
-              - validado_srcei
-              - validado_tef
-            description: |
-              Estado de validación del rut
-              * no_validado: el rut no ha sido validado o las validaciones no han sido exitosas
-              * validado_srcei: el rut fue validado exitosamente contra el registro civil
-              * validado_tef: la validación más fuerte, ya que el usuario ha realizado un aviso de depósito seguido de una transferencia desde una cuenta correspondiente a su rut
-          timestamps:
-            $ref: '#/definitions/Timestamps'
-  NewEmail:
-    type: object
-    description: |
-      Correo Electrónico **(Request)**
-      
-      **No se usa de manera independiente en la API**
-    required:
-      - value
-    properties:
-      value:
-        type: string
-        format: email
-        example: "pepito@gmail.com"
-  Email:
-    type: object
-    description: |
-      Correo Electrónico **(Response)**
-      
-      **No se usa de manera independiente en la API**
-    allOf:
-      - $ref: "#/definitions/NewEmail"
-      - type: object
-        required:
-          - status
-          - timestamps
-        properties:
-          status:
-            type: string
-            enum:
-              - no_validado
-              - en_proceso_de_validacion
-              - validado
-            description: |
-              Estado de validación del email
-              * no_validado: el email no ha sido validado
-              * en_proceso_de_validacion: se ha enviado al menos un correo de validación, pero el usuario no ha hecho clic en el link
-              * validado: el usuario demostró tener acceso a la casilla haciendo clic en un link enviado a ésta
-          timestamps:
-            $ref: '#/definitions/Timestamps'
-  NewCellPhone:
-    type: object
-    description: |
-      Teléfono Celular **(Request)**
-      
-      **No se usa de manera independiente en la API**
-    required:
-      - value
-    properties:
-      value:
-        type: string
-        description: Los 9 números que siguen a '+56'
-        example: "912345678"
-  CellPhone:
-    type: object
-    description: |
-      Teléfono Celular **(Response)**
-      
-      **No se usa de manera independiente en la API**
-    allOf:
-      - $ref: "#/definitions/NewCellPhone"
-      - type: object
-        required:
-          - status
-          - timestamps
-        properties:
-          status:
-            type: string
-            enum:
-              - no_validado
-              - en_proceso_de_validacion
-              - validado
-            description: |
-              Estado de validación del celular
-              * no_validado: el celular no ha sido validado
-              * en_proceso_de_validacion: se ha enviado al menos un sms de validación, pero el usuario no ha usado el código
-              * validado: el usuario demostró tener acceso al celular usando el código enviado a éste
-          timestamps:
-            $ref: '#/definitions/Timestamps'
-  NewCompanyData:
-    type: object
-    description: |
-      Datos de la empresa a la que corresponde este Cliente **(Request)**
-      **No se usa de manera independiente en la API**
-    required:
-      - business_name
-    properties:
-      business_name:
-        type: string
-        description: Nombre legal de la empresa
-        example: "Reparaciones Joselito Ltda."
-      commercial_activity:
-        type: integer
-        example: 772
-        description: ID del giro (ver /params/giros)
-  CompanyData:
-    type: object
-    description: |
-      Datos de la empresa a la que corresponde este Cliente **(Response)**
-      
-      **No se usa de manera independiente en la API**
-    allOf:
-      - $ref: "#/definitions/NewCompanyData"
-      - type: object
-        required:
-          - status
-          - timestamps
-        properties:
-          status:
-            type: string
-            enum:
-              - no_validado
-              - validado_sii
-            description: |
-              Estado de validación de la razón social (business_name)
-              * no_validado: la razón social no ha sido validada
-              * validado_sii: la razón social fue validada mediante el SII
-          timestamps:
-            $ref: '#/definitions/Timestamps'
-  NewTag:
-    type: object
-    description: |
-      Asocia una etiqueta al Cliente **(Request)**
-    required: 
-      - attribute_code
-    properties:
-      attribute_code:
-        type: integer
-        description: |
-          Identificador de la etiqueta
-
-          Ver `/params/user/tags`
-        example: 56
-  Tag:
-    type: object
-    description: |
-      Indica si el Cliente posee una etiqueta **(Response)**
-    allOf:
-      - $ref: "#/definitions/NewTag"
-      - type: object
-        required:
-          - id
-          - name
-          - timestamps
-        properties:
-          id:
-            type: integer
-            description: Identificador interno. Campo read-only.
-            example: 983
           name:
             type: string
-            description: Nombre de la etiqueta
-            example: "cliente.regulador.es_pep"
+            description: Nombre o nombres de pila. Si vienen, mostrarlos en la pantalla de datos personales.
+            example: "Juan Carlos"
+          lastname_1:
+            type: string
+            description: Apellido paterno Si vienen, mostrarlos en la pantalla de datos personales.
+            example: "López"
+          cellphone:
+            type: integer
+            description: Número de celular de 9 dígitos.
+            example: 912345678
+          must_validate_rut:
+            type: string
+            description: Booleano
+            example: true
+          must_validate_email:
+            type: string
+            description: Booleano. Si es `true`, el cliente requiere pasar por una validación de correo.
+            example: true
+          must_validate_cellphone:
+            type: string
+            description: Booleano. Si es `true`, el cliente requiere pasar por una validación de celular.
+            example: true
+          must_accept_terms_and_conditions:
+            type: string
+            description: Booleano. Si es `true`, el cliente requiere pasar por una aceptación de los últimos términos y condiciones.
+            example: true
+          must_choose_password:
+            type: string
+            description: Booleano. Si es `true`, el cliente requiere escoger un password.
+            example: true
           timestamps:
             $ref: '#/definitions/Timestamps'
   Timestamps:
@@ -948,114 +509,6 @@ definitions:
         type: string
         format: date-time
         example: "2018-03-02T10:03:12.123Z"
-  NewAddress:
-    type: object
-    description: Dirección física **(Request)**
-    required:
-      - line_1
-    properties:
-      alias:
-        type: string
-        description: Nombre que el usuario le da a esta dirección
-        example: "Casa"
-      line_1:
-        type: string
-        description: Lo que se une a región y comuna para determinar el código postal
-        example: Suecia 1414
-      line_2:
-        type: string
-        description: Información adicional como número de departamento. No afecta el código postal.
-        example: Depto 502
-      region_id:
-        type: integer
-        example: 13
-        description: ID de la comuna (ver /params/regions)
-      commune_id:
-        type: integer
-        example: 230
-        description: ID de la comuna (ver /params/communes)
-      postal_code:
-        type: string
-        description: Identificador de (`address.line_1`, `address.commune`, `address.region`)
-        example: 7710787
-  Address:
-    type: object
-    description: Dirección física **(Response)**
-    allOf:
-      - $ref: "#/definitions/NewAddress"
-      - type: object
-        required:
-          - id
-          - timestamps
-        properties:
-          id:
-            type: integer
-            description: Identificador interno. Campo read-only.
-            example: 7783834
-          timestamps:
-            $ref: '#/definitions/Timestamps'
-  NewBankAccount:
-    type: object
-    description: Cuenta bancaria personal **(Request)**
-    required:
-      - bank_id
-      - acc_type
-      - acc_number
-    properties:
-      bank_id:
-        type: integer
-        description: ID del banco (revisar /params/banks)
-        example: 4
-      acc_type:
-        type: string
-        description: Tipo de cuenta
-        enum:
-          - vista
-          - corriente
-          - ahorro
-      acc_number:
-        type: string
-        description: Número de cuenta sin puntos, guiones, ni ceros a la izquierda
-  BankAccount:
-    type: object
-    description: Cuenta bancaria personal **(Response)**
-    allOf:
-      - $ref: "#/definitions/NewBankAccount"
-      - type: object
-        required:
-          - id
-          - status
-          - timestamps
-        properties:
-          id:
-            type: integer
-            description: Identificador interno. Campo read-only.
-            example: 7783834
-          bank_id:
-            type: integer
-            description: ID del banco (revisar /params/banks)
-            example: 4
-          acc_type:
-            type: string
-            description: Tipo de cuenta
-            enum:
-              - vista
-              - corriente
-              - ahorro
-          acc_number:
-            type: string
-            description: Número de cuenta sin puntos, guiones, ni ceros a la izquierda
-          status:
-            type: string
-            enum:
-              - no_validada
-              - validada
-            description: |
-              Estado de validación de la cuenta
-              * no_validada: estado por defecto
-              * validada: el usuario hizo una aviso de depósito seguido de una transferencia desde esta cuenta
-          timestamps:
-            $ref: '#/definitions/Timestamps'
   ErrorObj:
     type: object
     description: Error que devuelve la api ante un `HTTP 422` **(Response)**
