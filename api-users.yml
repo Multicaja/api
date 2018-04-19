@@ -24,7 +24,7 @@ tags:
   - name: prepaid
     description: Registro de prepago
 paths:
-  /prepaid/UserSignup:
+  /prepaid/Signup:
     post:
       tags:
         - prepaid
@@ -55,7 +55,7 @@ paths:
           description: Cliente ya tiene prepago
         '422':
           description: No viene RUT o no viene email
-  /prepaid/SignUp/{signup_id}:
+  /prepaid/Signup/{signup_id}:
     get:
       tags:
         - prepaid
@@ -112,6 +112,8 @@ paths:
         - clientes
       description: |
         Usuario indica su password
+        * Esta llamada fuerza a que futuras acciones del Cliente vengan autenticadas. 
+        * Si el cliente se encuentra en un proceso de registro, deje esta llamada para el final.
       parameters:
         - in: path
           name: user_id
@@ -145,7 +147,7 @@ paths:
       tags:
         - clientes
       description: |
-        Escribe datos personales de quien se está registrado
+        Actualiza datos personales
       parameters:
         - in: path
           name: user_id
@@ -253,6 +255,84 @@ paths:
           description: Error de validación en tac_acceptance
           schema:
             $ref: '#/definitions/ErrorObj'
+  /users/{user_id}/UpdateEmail:
+    post:
+      tags:
+        - clientes
+      description: |
+        Cambia el correo electrónico. Si el antiguo correo está validado, debe incluirse el parámetro `update_email.validation_channel`.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: "integer"
+        - in: body
+          name: update_email
+          description: Nuevo correo
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateEmailNew'
+      responses:
+        '201':
+          description: |
+            OK - cambio aplicado. (Sólo responderá `201` si el Cliente no tenía correo o si no estaba validado)
+          schema:
+            $ref: '#/definitions/User'
+        '202':
+          description: |
+            Cambio pendiente - llame a `PUT /users/sms` o a `PUT /users/email` para completar el cambio (dependiendo del canal que haya escogido en `update_cellphone.validation_channel`)
+        '401':
+          description: Usuario tiene clave y debe autenticarse para realizar esta operación
+        '403':
+          description: Usuario borrado o bloqueado
+          schema:
+            $ref: '#/definitions/ErrorObj'
+        '404':
+          description: Cliente no existe.
+        '422':
+          description: Error de validación en update_email
+          schema:
+            $ref: '#/definitions/ErrorObj'
+  /users/{user_id}/UpdateCellphone:
+    post:
+      tags:
+        - clientes
+      description: |
+        Registra el celular o, en caso de existir, los cambia por otro. En este caso, si el Cliente tiene el celular validado, debe incluirse el parámetro `update_cellphone.validation_channel`.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: "integer"
+        - in: body
+          name: update_cellphone
+          description: Nuevo celular
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateCellphoneNew'
+      responses:
+        '201':
+          description: |
+            OK - cambio aplicado. (Sólo responderá `201` si el Cliente no tenía celular o si no estaba validado)
+          schema:
+            $ref: '#/definitions/User'
+        '202':
+          description: |
+            Cambio pendiente - llame a `PUT /users/sms` o a `PUT /users/email` para completar el cambio (dependiendo del canal que haya escogido en `update_cellphone.validation_channel`)
+        '401':
+          description: Usuario tiene clave y debe autenticarse para realizar esta operación
+        '403':
+          description: Usuario borrado o bloqueado
+          schema:
+            $ref: '#/definitions/ErrorObj'
+        '404':
+          description: Cliente no existe.
+        '422':
+          description: Error de validación en update_email
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/{user_id}/mail:
     post:
       summary: Enviar correo
@@ -309,8 +389,8 @@ paths:
       description: |
         Valida un código enviado mediante POST a `/users/{user_id}/email`
         ### Notas
-        * Sólo invocar este método para validar email si se ha enviado previamente un código por email haciendo POST a `/users/{user_id}/email`
-        * Dependiendo del template usado en el POST a `/users/{user_id}/email`, esta llamada podría cambiar `email.status` a `"validado"`. Esto ocurrirá sólo si el código proporcionado corresponde al que fue enviado al email`.
+        * Sólo invocar este método para validar un código enviado previamente mediante `POST /users/{user_id}/email`, `POST /users/{user_id}/UpdateCellphone` o `POST /users/{user_id}/UpdateEmail`
+        * Si esta el código fue generado por `POST /users/{user_id}/UpdateCellphone` o `POST /users/{user_id}/UpdateEmail` y se ingresa correctamente, este método cambiará el estado de `email.status` o `cellphone.status` a `validado`.
         * Si el código ingresado no corresponde al que fue enviado al cliente, el servicio retornará `422`.
       parameters:
         - in: path
@@ -398,8 +478,8 @@ paths:
       description: |
         Valida un código enviado mediante POST a `/users/{user_id}/sms`
         ### Notas
-        * Sólo invocar este método para validar celular si se ha enviado previamente un código por SMS haciendo POST a `/users/{user_id}/sms`
-        * Dependiendo del template usado en el POST a `/users/{user_id}/sms`, esta llamada podría cambiar `cellphone.status` a `"validado"`. Esto ocurrirá sólo si el código proporcionado corresponde al que fue enviado al celular`.
+        * Sólo invocar este método para validar un código enviado previamente mediante `POST /users/{user_id}/sms`, `POST /users/{user_id}/UpdateCellphone` o `POST /users/{user_id}/UpdateEmail`
+        * Si esta el código fue generado por `POST /users/{user_id}/UpdateCellphone` o `POST /users/{user_id}/UpdateEmail` y se ingresa correctamente, este método cambiará el estado de `email.status` o `cellphone.status` a `validado`.
         * Si el código ingresado no corresponde al que fue enviado al cliente, el servicio retornará `422`.
       parameters:
         - in: path
@@ -434,6 +514,38 @@ definitions:
       value:
         type: string
         description: 4 dígitos no consecutivos ni iguales, y que no correspondan a ninguna parte del RUT
+  UpdateEmailNew:
+    type: object
+    description: |
+      Modificación de correo electrónico **(Request)**
+    properties:
+      email:
+        type: string
+        description: email del prospecto de cliente
+        example: "pepito@gmail.com"
+      validation_channel:
+        type: string
+        enum: ["C", "E"]
+        description: |
+          Indica por qué canal se hará la validación con doble factor. Este parámetro es requerido si el cliente tiene su correo validado.
+          * C: Celular
+          * E: Email
+  UpdateCellphoneNew:
+    type: object
+    description: |
+      Modificación de celular **(Request)**
+    properties:
+      email:
+        type: integer
+        description: celular del prospecto de cliente
+        example: 912345678
+      validation_channel:
+        type: string
+        enum: ["C", "E"]
+        description: |
+          Indica por qué canal se hará la validación con doble factor. Este parámetro es requerido si el cliente tiene su celular validado.
+          * C: Celular
+          * E: Email
   ContractSignupNew:
     type: object
     description: |
@@ -499,6 +611,10 @@ definitions:
             type: integer
             description: Identificador interno. Campo read-only.
             example: 7783834
+          user_id:
+            type: integer
+            description: Identificador del Cliente involucrado en este proceso de registro
+            example: 9012331
           name:
             type: string
             description: Nombre o nombres de pila. Si vienen, mostrarlos en la pantalla de datos personales.
