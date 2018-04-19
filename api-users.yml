@@ -17,6 +17,8 @@ consumes:
 produces:
   - application/json
 tags:
+  - name: clientes
+    description: Administración de clientes
   - name: contacto
     description: Contacto con cliente y validación de sus datos de contacto
   - name: prepaid
@@ -77,16 +79,16 @@ paths:
           description: Proceso de registro no existe.
         '410':
           description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /prepaid/UserSignup`.
-  /prepaid/SignUp/{signup_id}/PasswordSetup:
+  /users/{user_id}/PasswordSetup:
     put:
       tags:
-        - prepaid
+        - clientes
       description: |
         Usuario indica su password
       parameters:
         - in: path
-          name: signup_id
-          description: ID del proceso de registro pendiente
+          name: user_id
+          description: ID del Cliente
           required: true
           type: "integer"
         - in: body
@@ -100,29 +102,27 @@ paths:
           description: |
             OK - Proceso de registro completado
           schema:
-            $ref: '#/definitions/PrepaidUserSignup'
+            $ref: '#/definitions/User'
         '403':
-          description: Usuario borrado, bloqueado, ya tiene prepago o tiene password y no puede cambiarlo durante el proceso de registgro.
+          description: Cliente borrado o bloqueado
           schema:
             $ref: '#/definitions/ErrorObj'
         '404':
-          description: Proceso de registro no existe.
-        '410':
-          description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /prepaid/UserSignup`.
+          description: Cliente no existe.
         '422':
           description: Error de validación (password no cumple con políticas o no se ha completado los pasos anteriores del proceso)
           schema:
             $ref: '#/definitions/ErrorObj'
-  /prepaid/SignUp/{signup_id}/PersonalData:
+  /users/{user_id}/PersonalData:
     post:
       tags:
-        - prepaid
+        - clientes
       description: |
         Escribe datos personales de quien se está registrado
       parameters:
         - in: path
-          name: signup_id
-          description: ID del proceso de registro pendiente
+          name: user_id
+          description: ID del Cliente
           required: true
           type: "integer"
         - in: body
@@ -139,27 +139,25 @@ paths:
         '401':
           description: Usuario tiene clave y debe autenticarse para realizar esta operación
         '403':
-          description: Usuario borrado, bloqueado, o ya tiene prepago.
+          description: Usuario borrado o bloqueado
           schema:
             $ref: '#/definitions/ErrorObj'
         '404':
-          description: Proceso de registro no existe.
-        '410':
-          description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /prepaid/UserSignup`.
+          description: Cliente no existe.
         '422':
           description: Error de validación en datos personales
           schema:
             $ref: '#/definitions/ErrorObj'
-  /prepaid/SignUp/{signup_id}/ValidateRut:
+  /users/{user_id}/ValidateRut:
     post:
       tags:
-        - prepaid
+        - clientes
       description: |
         Valida el número de serie de la cédula
       parameters:
         - in: path
-          name: signup_id
-          description: ID del proceso de registro pendiente
+          name: user_id
+          description: ID del Cliente
           required: true
           type: "integer"
         - in: body
@@ -177,27 +175,25 @@ paths:
         '401':
           description: Usuario tiene clave y debe autenticarse para realizar esta operación
         '403':
-          description: Usuario borrado o bloqueado.
+          description: Usuario borrado o bloqueado
           schema:
             $ref: '#/definitions/ErrorObj'
         '404':
-          description: Proceso de registro no existe.
-        '410':
-          description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /prepaid/UserSignup`.
+          description: Cliente no existe.
         '422':
           description: Error de validación en número de serie de la cédula
           schema:
             $ref: '#/definitions/ErrorObj'
-  /prepaid/SignUp/{signup_id}/TermsAndConditionsAcceptance:
+  /users/{user_id}/TermsAndConditionsAcceptance:
     post:
       tags:
-        - prepaid
+        - clientes
       description: |
         Acepta términos y condiciones
       parameters:
         - in: path
-          name: signup_id
-          description: ID del proceso de registro pendiente
+          name: user_id
+          description: ID del Cliente
           required: true
           type: "integer"
         - in: body
@@ -215,9 +211,11 @@ paths:
         '401':
           description: Usuario tiene clave y debe autenticarse para realizar esta operación
         '403':
-          description: Usuario borrado, bloqueado, o ya tiene prepago.
+          description: Usuario borrado o bloqueado
           schema:
             $ref: '#/definitions/ErrorObj'
+        '404':
+          description: Cliente no existe.
         '422':
           description: Error de validación en tac_acceptance
           schema:
@@ -434,10 +432,10 @@ definitions:
         type: string
         description: Apellido paterno Si vienen, mostrarlos en la pantalla de datos personales.
         example: "López"
-  PrepaidUserSignupNew:
+  UserSignupNew:
     type: object
     description: |
-      Ciente en proceso de registro para un prepago **(Request)**
+      Solicitud de registro de un Cliente Multicaja.cl **(Request)**
     properties:
       email:
         type: string
@@ -447,12 +445,18 @@ definitions:
         type: integer
         description: rut del prospecto de cliente, sin puntos, guión ni DV
         example: 15776844
-  PrepaidUserSignup:
+  PrepaidUserSignupNew:
     type: object
     description: |
-      Ciente en proceso de registro para un prepago **(Response)**
+      Solicitud de registro de un Cliente Prepago **(Request)**
     allOf:
-      - $ref: "#/definitions/PrepaidUserSignupNew"
+      - $ref: "#/definitions/UserSignupNew"
+  UserSignup:
+    type: object
+    description: |
+      Solicitud de registro de un Cliente Multicaja.cl **(Response)**
+    allOf:
+      - $ref: "#/definitions/UserSignupNew"
       - type: object
         properties:
           id:
@@ -467,21 +471,13 @@ definitions:
             type: string
             description: Apellido paterno Si vienen, mostrarlos en la pantalla de datos personales.
             example: "López"
-          cellphone:
-            type: integer
-            description: Número de celular de 9 dígitos.
-            example: 912345678
-          must_validate_rut:
+          terms_and_conditions_uri:
             type: string
-            description: Booleano
-            example: true
+            description: Link a los términos y condiciones que se deben desplegar para este usuario
+            example: 'https://multicaja.cl/tac/contract-v1.3.1.html'
           must_validate_email:
             type: string
             description: Booleano. Si es `true`, el cliente requiere pasar por una validación de correo.
-            example: true
-          must_validate_cellphone:
-            type: string
-            description: Booleano. Si es `true`, el cliente requiere pasar por una validación de celular.
             example: true
           must_accept_terms_and_conditions:
             type: string
@@ -492,6 +488,220 @@ definitions:
             description: Booleano. Si es `true`, el cliente requiere escoger un password.
             example: true
           timestamps:
+            $ref: '#/definitions/Timestamps'
+  PrepaidUserSignup:
+    type: object
+    description: |
+      Ciente en proceso de registro para un prepago **(Response)**
+    allOf:
+      - $ref: "#/definitions/UserSignup"
+      - type: object
+        properties:
+          cellphone:
+            type: integer
+            description: Número de celular de 9 dígitos.
+            example: 912345678
+          must_validate_rut:
+            type: string
+            description: Booleano
+            example: true
+          must_validate_cellphone:
+            type: string
+            description: Booleano. Si es `true`, el cliente requiere pasar por una validación de celular.
+            example: true
+  UserBasicFields:
+    type: object
+    description: |
+      Nombre, Sexo, y Fecha de nacimiento de una persona **(Resquest)** / **(Response)**
+      Padre de `User` y `NewUser`
+      **No se usa de manera independiente en la API**
+    properties:
+      name:
+        type: string
+        description: Nombre o nombres de pila
+        example: "Juan Carlos"
+      lastname_1:
+        type: string
+        description: Apellido paterno
+        example: "López"
+      lastname_2:
+        type: string
+        description: Apellido materno
+        example: "Carrasco"
+      gender:
+        type: string
+        enum: ["M", "F", "N"]
+        description: |
+          Sexo de la persona
+          * M: Masculino
+          * F: Femenino
+          * N: Otro / prefiere no responder
+      birthday:
+        type: string
+        format: date
+        description: Fecha de nacimiento
+        example: "1977-1-14"
+  User:
+    type: object
+    description: |
+      Cliente **(Response)**
+
+      * Este objeto representa tanto a una persona natural como a una empresa
+      * Si el RUT es inferior a 50.000.000, corresponde a Persona Natural y `company_data` deberá ser `null`.
+      * Si el RUT es igual o superior a 50.000.000, corresponde a Empresa y `company_data` es obligatorio
+    allOf:
+      - $ref: "#/definitions/UserBasicFields"
+      - type: object
+        required:
+          - id 
+          - rut
+          - email
+          - timestamps
+          - global_status
+        properties:
+          id:
+            type: integer
+            description: Identificador interno. Campo read-only.
+            example: 7783834
+          rut:
+            $ref: '#/definitions/Rut'
+          cellphone:
+            $ref: '#/definitions/CellPhone'
+          email:
+            $ref: '#/definitions/Email'
+          company_data:
+            $ref: "#/definitions/CompanyData"
+          global_status:
+            type: string
+            enum:
+              - pre-registro
+              - activo
+              - bloqueado
+              - borrado
+            description: |
+              Estado del cliente. Campo read-only.
+              * "pre-registro": cliente no posee password
+              * "activo": cliente con password que puede transar
+              * "bloqueado": cuenta temporalmente congelada
+              * "borrado": eliminación lógica del cliente, no admite ningún cambio
+          has_password:
+            type: string
+            description: |
+              `"true"` si el usuario tiene `password`; `"false"` en otro caso
+            example: "true"
+          timestamps:
+            $ref: '#/definitions/Timestamps'
+  Rut:
+    type: object
+    description: |
+      Identificador Chileno **(Response)**
+    required:
+      - status
+      - timestamps
+    properties:
+      value:
+        type: integer
+        description: El rut sin puntos, guión, ni dígito verificador
+        example: 14569484
+      dv:
+        type: string
+        description: digito verificador
+        example: "K"
+      status:
+        type: string
+        enum:
+          - no_validado
+          - validado_srcei
+          - validado_tef
+        description: |
+          Estado de validación del rut
+          * no_validado: el rut no ha sido validado o las validaciones no han sido exitosas
+          * validado_srcei: el rut fue validado exitosamente contra el registro civil
+          * validado_tef: la validación más fuerte, ya que el usuario ha realizado un aviso de depósito seguido de una transferencia desde una cuenta correspondiente a su rut
+      timestamps:
+            $ref: '#/definitions/Timestamps'
+  Email:
+    type: object
+    description: |
+      Correo Electrónico **(Response)**
+      
+      **No se usa de manera independiente en la API**
+    required:
+      - status
+      - timestamps
+    properties:
+      value:
+        type: string
+        format: email
+        example: "pepito@gmail.com"
+      status:
+        type: string
+        enum:
+          - no_validado
+          - en_proceso_de_validacion
+          - validado
+        description: |
+          Estado de validación del email
+          * no_validado: el email no ha sido validado
+          * en_proceso_de_validacion: se ha enviado al menos un correo de validación, pero el usuario no ha hecho clic en el link
+          * validado: el usuario demostró tener acceso a la casilla haciendo clic en un link enviado a ésta
+      timestamps:
+            $ref: '#/definitions/Timestamps'
+  CellPhone:
+    type: object
+    description: |
+      Teléfono Celular **(Response)**
+      
+      **No se usa de manera independiente en la API**
+    required:
+      - status
+      - timestamps
+    properties:
+      value:
+        type: string
+        description: Los 9 números que siguen a '+56'
+        example: "912345678"
+      status:
+        type: string
+        enum:
+          - no_validado
+          - en_proceso_de_validacion
+          - validado
+        description: |
+          Estado de validación del celular
+          * no_validado: el celular no ha sido validado
+          * en_proceso_de_validacion: se ha enviado al menos un sms de validación, pero el usuario no ha usado el código
+          * validado: el usuario demostró tener acceso al celular usando el código enviado a éste
+      timestamps:
+        $ref: '#/definitions/Timestamps'
+  CompanyData:
+    type: object
+    description: |
+      Datos de la empresa a la que corresponde este Cliente **(Response)**
+      
+      **No se usa de manera independiente en la API**
+    required:
+      - status
+      - timestamps
+    properties:
+      business_name:
+        type: string
+        description: Nombre legal de la empresa
+        example: "Reparaciones Joselito Ltda."
+      commercial_activity:
+        type: integer
+        example: 772
+        description: ID del giro (ver /params/giros)
+      status:
+        type: string
+        enum:
+          - no_validado
+          - validado_sii
+        description: |
+          Estado de validación de la razón social (business_name)
+          * no_validado: la razón social no ha sido validada
+          * validado_sii: la razón social fue validada mediante el SII
+      timestamps:
             $ref: '#/definitions/Timestamps'
   Timestamps:
     type: object
