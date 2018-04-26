@@ -8,10 +8,10 @@ info:
     Todos los requests son autenticados usando un `api-key`.
 
     Existen dos ambientes: `qa` y `producción`. El `host` de `qa` es `apiqa.multicaja.cl`.
-  version: '0.6'
-  title: API Multicaja (Alpha)
+  version: '1.0'
+  title: API Multicaja (Beta)
 host: 'api.multicaja.cl'
-basePath: /v0.6-alpha/
+basePath: /v1.0-beta/
 consumes:
   - application/json
 produces:
@@ -22,12 +22,15 @@ tags:
   - name: contacto
     description: Contacto con cliente y validación de sus datos de contacto
   - name: prepaid
-    description: Registro de prepago
+    description: Métodos públicos de la API de prepago
+  - name: prepaid-protected
+    description: Métodos internos de la API de prepago
 paths:
-  /prepaid/Signup:
+  /prepaid/signup:
     post:
       tags:
         - prepaid
+      summary: Inicia un proceso de registro
       description: |
         Inicia un proceso de registro para obtener la tarjeta de prepago. Retorna `PrepaidUserSignup`, el que indica qué pasos se deben realizar.
       parameters:
@@ -55,10 +58,11 @@ paths:
           description: Cliente ya tiene prepago
         '422':
           description: No viene RUT o no viene email
-  /prepaid/Signup/{signup_id}:
+  /prepaid/signup/{signup_id}:
     get:
       tags:
         - prepaid
+      summary: Obtiene el estado de un proceso de registro
       description: |
         Obtiene el estado de un proceso de registro para obtener la tarjeta de prepago. Retorna `PrepaidUserSignup`, el que indica qué pasos falta realizar.
       parameters:
@@ -79,6 +83,151 @@ paths:
           description: Proceso de registro no existe.
         '410':
           description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /prepaid/UserSignup`.
+  /prepaid/topup:
+    post:
+      tags:
+        - prepaid
+      summary: Carga una tarjeta
+      description: |
+        Carga una tarjeta
+        
+        ### Notas
+        * Valida que el usuario esté habilitado para cargar. Esto significa que el usuario debe estar validado hasta nivel 1 o nivel 2.
+        * Valida que la carga no exceda los límites
+        * Abona a la Cuenta de Traspaso Personal (CTP) y gatilla un proceso asíncrono que debita la CTP para abonar a la Tarjeta de Prepago.
+      parameters:
+        - in: body
+          name: new_prepaid_tx
+          description: Detalle de la carga a realizar
+          required: true
+          schema:
+            $ref: '#/definitions/PrepaidTopupNew'
+      responses:
+        '201':
+          description: |
+            OK - Carga se realizará en los próximos segundos
+          schema:
+            $ref: '#/definitions/PrepaidTopup'
+        '422':
+          description: Carga no exitosa, revise error
+          schema:
+            $ref: '#/definitions/ErrorObj'
+    delete:
+      tags:
+        - prepaid
+      summary: Reversa una carga
+      description: |
+        Reversa una carga que a) coincida en todos los campos de PrepaidTopupNew y b) se haya recibido en las últimas 24 horas.
+        
+        Responderá exito en todos los siguientes casos:
+        
+        ### Casos
+        * Si la carga nunca se recibió, no hace nada.
+        * Si la carga se recibió y todavía no es procesada, elimina el saldo cargado en la CDT
+        * Si la carga se recibió, fue procesada, y el saldo todavía no se gasta, reversa el aumento de saldo
+        * Si la carga se recibió, fue procesada, y el saldo ya se gastó, genera una deuda por el monto en la CDT y envía una notificación al Cliente para que pague.
+      parameters:
+        - in: body
+          name: new_prepaid_tx
+          description: Detalle de la carga a realizar
+          required: true
+          schema:
+            $ref: '#/definitions/PrepaidTopupNew'
+      responses:
+        '201':
+          description: OK - Reversa exitosa
+  /prepaid/{user_id}/topup:
+    get:
+      tags:
+        - prepaid
+      summary: Lista las cargas de un cliente
+      description: |
+        Lista las cargas de un cliente
+        
+        ### Notas
+        * Valida que el usuario esté habilitado para cargar. Esto significa que el usuario debe estar validado hasta nivel 1 o nivel 2.
+        * Si el usuario no tiene una tarjeta de prepago, la emite.
+        * Valida que la carga no exceda los límites
+        * Abona a la Cuenta de Traspaso Personal (CTP) y gatilla un proceso asíncrono que debita la CTP para abonar a la Tarjeta de Prepago.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: integer
+        - in: query
+          name: page
+          description: Página
+          type: integer
+      responses:
+        '201':
+          description: |
+            OK - Carga se realizará en los próximos segundos
+          schema:
+            $ref: '#/definitions/PrepaidTopup'
+        '422':
+          description: Carga no exitosa, revise error
+          schema:
+            $ref: '#/definitions/ErrorObj'
+  /prepaid/{user_id}/card:
+    post:
+      tags:
+        - prepaid-protected
+      summary: Emite una tarjeta
+      description: |
+        Emite una tarjeta de prepago y retorna el CVC
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: "integer"
+      responses:
+        '201':
+          description: |
+            OK - Revise resultado
+          schema:
+            $ref: '#/definitions/PrepaidCard'
+        '403':
+          description: Usuario borrado, bloqueado, o ya tiene prepago.
+          schema:
+            $ref: '#/definitions/ErrorObj'
+        '404':
+          description: Cliente no existe
+          schema:
+            $ref: '#/definitions/ErrorObj'
+        '422':
+          description: Error de validación
+          schema:
+            $ref: '#/definitions/ErrorObj'
+    get:
+      tags:
+        - prepaid-protected
+      summary: Consulta la tarjeta
+      description: |
+        Consulta una tarjeta de prepago, pero *no* retorna el CVC
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: "integer"
+      responses:
+        '200':
+          description: |
+            OK - Revise resultado
+          schema:
+            $ref: '#/definitions/PrepaidCard'
+        '401':
+          description: Usuario tiene clave y debe autenticarse para realizar esta operación
+        '403':
+          description: Usuario borrado, bloqueado, o ya tiene prepago.
+          schema:
+            $ref: '#/definitions/ErrorObj'
+        '404':
+          description: Cliente o tarjeta no existe
+          schema:
+            $ref: '#/definitions/ErrorObj'
   /users/{user_id}:
     get:
       tags: 
@@ -505,7 +654,108 @@ paths:
           description: El código ingresado no es válido
           schema:
             $ref: '#/definitions/ErrorObj'
-definitions:
+definitions:  
+  AmountAndCurrencyNew:
+    type: object
+    description: Monto en una moneda específica **(Request)**
+    required:
+      - currency_code
+      - amount
+    properties:
+      currency_code:
+        type: integer
+        description: Código ISO 4217 (numeric) de la moneda
+        example: 152
+      value:
+        type: string
+        description: Monto en formato decimal
+        example: "1000.00"
+  PrepaidCard:
+    type: object
+    required:
+      - id
+      - pan
+    description: |
+      Tarjeta de prepago Visa o Mastercard **(Response)**
+
+      ### Notas
+      * `timestamps.created_at` indicará la fecha en la que este cliente obtuvo su primera tarjeta de prepago
+      * `timestamps.updated_at` indicará la fecha de la última acción de *bloqueo*, *desbloqueo* y *reemisión*.
+    properties:
+      id:
+        type: integer
+        description: Identificador interno. Campo read-only.
+        example: 7783834
+      processor_user_id:
+        type: string
+        description: Identificador del cliente en el procesador
+        example: "2231-9892-781283049685"
+      pan:
+        type: string
+        description: PAN de la tarjeta
+        example: "123456******1234"
+      expiration:
+        type: string
+        description: Fecha de expiración de la tarjeta
+        example: "11/22"
+      name_on_card:
+        type: string
+        description: Nombre impreso en la tarjeta
+        example: JUAN PEREZ P.
+      status:
+        type: string
+        enum:
+          - activa
+          - bloqueada
+          - expirada
+        description: |
+          Estado de la tarjeta
+          * activa: permite comprar
+          * bloqueada: la tarjeta fue bloqueada por el cliente
+          * expirada: la tarjeta expiró
+      timestamps:
+        $ref: '#/definitions/Timestamps'
+  PrepaidTopupNew:
+    type: object
+    description: |
+      Solicitud de carga **(Request)**
+    properties:
+      amount:
+        $ref: '#/definitions/AmountAndCurrencyNew'
+      transaction_id:
+        type: string
+        description: Identificador único que genera quien invoca a esta API
+        example: "asdkjasdl"
+      rut:
+        type: integer
+        description: El rut sin puntos, guión, ni dígito verificador
+        example: 14569484
+      merchant_code:
+        type: string
+        description: Código de comercio MC
+        example: "0023434"
+  PrepaidTopup:
+    type: object
+    description: |
+      Respuesta a solicitud de carga **(Response)**
+    allOf:
+      - $ref: "#/definitions/PrepaidTopupNew"
+      - type: object
+        properties:
+          id:
+            type: integer
+            description: Identificador de la solicitud.
+            example: 7783834
+          status:
+            type: string
+            description: Siempre 'exitoso'
+            example: 'exitoso'
+          user_id:
+            type: integer
+            description: Identificador del Cliente Multicaja afectado
+            example: 1291020
+          timestamps:
+            $ref: '#/definitions/Timestamps'
   UserPasswordNew:
     type: object
     description: |
