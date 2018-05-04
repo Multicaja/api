@@ -9,62 +9,69 @@ info:
 
     Existen dos ambientes: `qa` y `producción`. El `host` de `qa` es `apiqa.multicaja.cl`.
   version: '1.0'
-  title: API Multicaja (Beta)
+  title: API Multicaja (Alpha)
 host: 'api.multicaja.cl'
-basePath: /v1.0-beta/
+basePath: /v1.0-alpha/
 consumes:
   - application/json
 produces:
   - application/json
 tags:
+  - name: registro
+    description: Registro de nuevos clientes
   - name: clientes
     description: Administración de clientes
   - name: contacto
     description: Contacto con cliente y validación de sus datos de contacto
-  - name: prepaid
-    description: Métodos públicos de la API de prepago
-  - name: prepaid-protected
-    description: Métodos internos de la API de prepago
+  - name: etiquetas
+    description: Etiquetas del cliente
+  - name: cuentas
+    description: Cuentas bancarias de un cliente
+  - name: direcciones
+    description: Dirección física de un cliente
 paths:
-  /prepaid/signup:
+  /users/soft-signup:
     post:
       tags:
-        - prepaid
-      summary: Inicia un proceso de registro
+        - registro
+      summary: Inicia un proceso de pre-registro
       description: |
-        Inicia un proceso de registro para obtener la tarjeta de prepago. Retorna `PrepaidUserSignup`, el que indica qué pasos se deben realizar.
+        Permite registrar a un nuevo cliente que no ha pasado por un proceso de registro formal, dejándolo en estado de `pre-registro`. También se puede usar este método para actualizar los datos de un cliente ya existente en estado de `pre-registro`.
+        
+        Llamadas permitidas cuando el cliente está en `pre-registro`:
+          * POST /users/soft-signup
+          * GET  /users/soft-signup/{signup_id}
+          * GET  /users/{user_id}
+          * POST /users/{user_id}/UpdatePersonalData
+          * POST /users/{user_id}/UpdateEmail # sin validation_channel
       parameters:
         - in: body
           name: user_data
           description: RUT y Correo del usuario que quiere obtener una tarjeta
           required: true
           schema:
-            $ref: '#/definitions/PrepaidUserSignupNew'
+            $ref: '#/definitions/UserSignupSoftNew'
       responses:
         '201':
           description: |
             OK - Consulte objeto de respuesta para saber qué pasos faltan y qué información puede mostrar pre llenada.
           schema:
-            $ref: '#/definitions/PrepaidUserSignup'
+            $ref: '#/definitions/UserSignupSoft'
         '401':
           description: RUT o email corresponden a Cliente que ya tiene clave y que debe autenticarse para realizar esta operación
         '403':
-          description: Usuario borrado, bloqueado, o ya tiene prepago.
+          description: Usuario borrado o bloqueado
           schema:
             $ref: '#/definitions/ErrorObj'
-        '404':
-          description: Cliente no existe
-        '410':
-          description: Cliente ya tiene prepago
         '422':
           description: No viene RUT o no viene email
-  /prepaid/signup/{signup_id}:
+  /users/soft-signup/{signup_id}:
     get:
       tags:
-        - prepaid
-      summary: Obtiene el estado de un proceso de registro
+        - registro
+      summary: Obtiene el estado de un proceso de pre-registro
       description: |
-        Obtiene el estado de un proceso de registro para obtener la tarjeta de prepago. Retorna `PrepaidUserSignup`, el que indica qué pasos falta realizar.
+        Obtiene el estado de un proceso de registro. Retorna `UserSignup`, el que indica qué pasos falta realizar.
       parameters:
         - in: path
           name: signup_id
@@ -76,158 +83,106 @@ paths:
           description: |
             OK - Consulte objeto de respuesta para saber qué pasos faltan y qué información puede mostrar pre llenada.
           schema:
-            $ref: '#/definitions/PrepaidUserSignup'
+            $ref: '#/definitions/UserSignup'
         '401':
           description: Usuario tiene clave y debe autenticarse para realizar esta operación
         '404':
           description: Proceso de registro no existe.
         '410':
-          description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /prepaid/UserSignup`.
-  /prepaid/topup:
+          description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /users/UserSignup`.
+  /users/full-signup:
     post:
       tags:
-        - prepaid
-      summary: Carga una tarjeta
+        - registro
+      summary: Inicia un proceso de registro
       description: |
-        Carga una tarjeta
+        Inicia un proceso de registro. Retorna `UserSignup`, el que indica qué pasos se deben realizar.
         
-        ### Notas
-        * Valida que el usuario esté habilitado para cargar. Esto significa que el usuario debe estar validado hasta nivel 1 o nivel 2.
-        * Valida que la carga no exceda los límites
-        * Abona a la Cuenta de Traspaso Personal (CTP) y gatilla un proceso asíncrono que debita la CTP para abonar a la Tarjeta de Prepago.
+        Llamadas permitidas cuando el cliente está registrándose:
+          * POST /users/full-signup
+          * GET  /users/full-signup/{signup_id}
+          * GET  /users/{user_id}
+          * POST /users/{user_id}/UpdatePersonalData
+          * POST /users/{user_id}/ValidateRut
+          * POST /users/{user_id}/UpdateEmail
+          * PUT /users/{user_id}/mail
+          * POST /users/{user_id}/UpdateCellphone
+          * PUT /users/{user_id}/sms
+          * POST /users/{user_id}/SignContract
+          * POST /users/{user_id}/UpdatePassword # debe ser la última
       parameters:
         - in: body
-          name: new_prepaid_tx
-          description: Detalle de la carga a realizar
+          name: user_data
+          description: RUT y Correo del usuario que quiere obtener una tarjeta
           required: true
           schema:
-            $ref: '#/definitions/PrepaidTopupNew'
+            $ref: '#/definitions/UserSignupNew'
       responses:
         '201':
           description: |
-            OK - Carga se realizará en los próximos segundos
+            OK - Consulte objeto de respuesta para saber qué pasos faltan y qué información puede mostrar pre llenada.
           schema:
-            $ref: '#/definitions/PrepaidTopup'
-        '422':
-          description: Carga no exitosa, revise error
-          schema:
-            $ref: '#/definitions/ErrorObj'
-    delete:
-      tags:
-        - prepaid
-      summary: Reversa una carga
-      description: |
-        Reversa una carga que a) coincida en todos los campos de PrepaidTopupNew y b) se haya recibido en las últimas 24 horas.
-        
-        Responderá exito en todos los siguientes casos:
-        
-        ### Casos
-        * Si la carga nunca se recibió, no hace nada.
-        * Si la carga se recibió y todavía no es procesada, elimina el saldo cargado en la CDT
-        * Si la carga se recibió, fue procesada, y el saldo todavía no se gasta, reversa el aumento de saldo
-        * Si la carga se recibió, fue procesada, y el saldo ya se gastó, genera una deuda por el monto en la CDT y envía una notificación al Cliente para que pague.
-      parameters:
-        - in: body
-          name: new_prepaid_tx
-          description: Detalle de la carga a realizar
-          required: true
-          schema:
-            $ref: '#/definitions/PrepaidTopupNew'
-      responses:
-        '201':
-          description: OK - Reversa exitosa
-  /prepaid/{user_id}/topup:
-    get:
-      tags:
-        - prepaid
-      summary: Lista las cargas de un cliente
-      description: |
-        Lista las cargas de un cliente
-        
-        ### Notas
-        * Valida que el usuario esté habilitado para cargar. Esto significa que el usuario debe estar validado hasta nivel 1 o nivel 2.
-        * Si el usuario no tiene una tarjeta de prepago, la emite.
-        * Valida que la carga no exceda los límites
-        * Abona a la Cuenta de Traspaso Personal (CTP) y gatilla un proceso asíncrono que debita la CTP para abonar a la Tarjeta de Prepago.
-      parameters:
-        - in: path
-          name: user_id
-          description: ID del Cliente
-          required: true
-          type: integer
-        - in: query
-          name: page
-          description: Página
-          type: integer
-      responses:
-        '201':
-          description: |
-            OK - Carga se realizará en los próximos segundos
-          schema:
-            $ref: '#/definitions/PrepaidTopup'
-        '422':
-          description: Carga no exitosa, revise error
-          schema:
-            $ref: '#/definitions/ErrorObj'
-  /prepaid/{user_id}/card:
-    post:
-      tags:
-        - prepaid-protected
-      summary: Emite una tarjeta
-      description: |
-        Emite una tarjeta de prepago y retorna el CVC
-      parameters:
-        - in: path
-          name: user_id
-          description: ID del Cliente
-          required: true
-          type: "integer"
-      responses:
-        '201':
-          description: |
-            OK - Revise resultado
-          schema:
-            $ref: '#/definitions/PrepaidCard'
+            $ref: '#/definitions/UserSignup'
+        '401':
+          description: RUT o email corresponden a Cliente que ya tiene clave y que debe autenticarse para realizar esta operación
         '403':
-          description: Usuario borrado, bloqueado, o ya tiene prepago.
-          schema:
-            $ref: '#/definitions/ErrorObj'
-        '404':
-          description: Cliente no existe
+          description: Usuario borrado o bloqueado
           schema:
             $ref: '#/definitions/ErrorObj'
         '422':
-          description: Error de validación
-          schema:
-            $ref: '#/definitions/ErrorObj'
+          description: No viene RUT o no viene email
+  /users/full-signup/{signup_id}:
     get:
       tags:
-        - prepaid-protected
-      summary: Consulta la tarjeta
+        - registro
+      summary: Obtiene el estado de un proceso de registro
       description: |
-        Consulta una tarjeta de prepago, pero *no* retorna el CVC
+        Obtiene el estado de un proceso de registro. Retorna `UserSignup`, el que indica qué pasos falta realizar.
       parameters:
         - in: path
-          name: user_id
-          description: ID del Cliente
+          name: signup_id
+          description: ID del proceso de registro pendiente
           required: true
           type: "integer"
       responses:
-        '200':
+        '201':
           description: |
-            OK - Revise resultado
+            OK - Consulte objeto de respuesta para saber qué pasos faltan y qué información puede mostrar pre llenada.
           schema:
-            $ref: '#/definitions/PrepaidCard'
+            $ref: '#/definitions/UserSignup'
         '401':
           description: Usuario tiene clave y debe autenticarse para realizar esta operación
-        '403':
-          description: Usuario borrado, bloqueado, o ya tiene prepago.
-          schema:
-            $ref: '#/definitions/ErrorObj'
         '404':
-          description: Cliente o tarjeta no existe
+          description: Proceso de registro no existe.
+        '410':
+          description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /users/UserSignup`.
+  /users/:
+    get:
+      summary: Buscar
+      tags: 
+        - clientes
+      description: |
+        Busca a un cliente por rut, por email o por celular
+      parameters:
+        - name: "rut"
+          in: "query"
+          description: "Rut sin puntos ni dígito verificador"
+          type: integer
+        - name: "email"
+          in: "query"
+          description: "Email"
+          type: string
+        - in: "query"
+          name: "cellphone"
+          description: "Celular (9 dígitos)"
+          type: string
+      responses:
+        '200':
+          description: OK
           schema:
-            $ref: '#/definitions/ErrorObj'
+            $ref: '#/definitions/User'
+        '404':
+          description: Cliente no existe
   /users/{user_id}:
     get:
       tags: 
@@ -308,7 +263,7 @@ paths:
           description: Parámetros del usuario a crear
           required: true
           schema:
-            $ref: '#/definitions/PrepaidUserPersonalDataNew'
+            $ref: '#/definitions/UserPersonalDataNew'
       responses:
         '201':
           description: |
@@ -654,108 +609,351 @@ paths:
           description: El código ingresado no es válido
           schema:
             $ref: '#/definitions/ErrorObj'
-definitions:  
-  AmountAndCurrencyNew:
-    type: object
-    description: Monto en una moneda específica **(Request)**
-    required:
-      - currency_code
-      - amount
-    properties:
-      currency_code:
-        type: integer
-        description: Código ISO 4217 (numeric) de la moneda
-        example: 152
-      value:
-        type: string
-        description: Monto en formato decimal
-        example: "1000.00"
-  PrepaidCard:
-    type: object
-    required:
-      - id
-      - pan
-    description: |
-      Tarjeta de prepago Visa o Mastercard **(Response)**
+  /users/{user_id}/bank_accounts:
+    get:
+      summary: Listar
+      tags: 
+        - cuentas
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/BankAccount'
+        '404':
+          description: Cliente no existe
+    post:
+      summary: Crear
+      tags: 
+        - cuentas
+      description: |
+        Crea una nueva cuenta bancaria para este cliente
+        
+        * La terna (`account.bank_id`, `account.acc_type`, `account.acc_number`) debe ser única para este usuario. De lo contrario, el servicio retornará `405`
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: body
+          name: account
+          description: Cuenta bancaria
+          required: true
+          schema:
+            $ref: '#/definitions/NewBankAccount'
+      responses:
+        '201':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/BankAccount'
+        '404':
+          description: Cliente no existe
+        '405':
+          description: La cuenta ya existe
+        '422':
+          description: La cuenta contiene datos inválidos
+          schema:
+            $ref: '#/definitions/ErrorObj'
+  /users/{user_id}/bank_accounts/{acc_id}:
+    delete:
+      summary: Eliminar
+      tags: 
+        - cuentas
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: path
+          name: acc_id
+          description: ID de la cuenta
+          required: true
+          type: "integer"
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Cliente o Cuenta no existen
+  /users/{user_id}/tags:
+    get:
+      summary: Listar
+      tags: 
+        - etiquetas
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+      responses:
+        '201':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Tag'
+        '404':
+          description: Cliente no existe
+    post:
+      summary: Crear
+      tags: 
+        - etiquetas
+      description: |
+        Crea una nueva etiqueta para este cliente. Si el `tag_code` ya existe arroja `405`.
+        
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: body
+          name: tag
+          description: Etiqueta
+          required: true
+          schema:
+            $ref: '#/definitions/NewTag'
+      responses:
+        '201':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Tag'
+        '404':
+          description: Cliente no existe
+        '405':
+          description: La etiqueta ya existe
+        '422':
+          description: |
+            La etiqueta contiene datos inválidos
 
-      ### Notas
-      * `timestamps.created_at` indicará la fecha en la que este cliente obtuvo su primera tarjeta de prepago
-      * `timestamps.updated_at` indicará la fecha de la última acción de *bloqueo*, *desbloqueo* y *reemisión*.
-    properties:
-      id:
-        type: integer
-        description: Identificador interno. Campo read-only.
-        example: 7783834
-      processor_user_id:
-        type: string
-        description: Identificador del cliente en el procesador
-        example: "2231-9892-781283049685"
-      pan:
-        type: string
-        description: PAN de la tarjeta
-        example: "123456******1234"
-      expiration:
-        type: string
-        description: Fecha de expiración de la tarjeta
-        example: "11/22"
-      name_on_card:
-        type: string
-        description: Nombre impreso en la tarjeta
-        example: JUAN PEREZ P.
-      status:
-        type: string
-        enum:
-          - activa
-          - bloqueada
-          - expirada
-        description: |
-          Estado de la tarjeta
-          * activa: permite comprar
-          * bloqueada: la tarjeta fue bloqueada por el cliente
-          * expirada: la tarjeta expiró
-      timestamps:
-        $ref: '#/definitions/Timestamps'
-  PrepaidTopupNew:
+            Nota: `attribute_code` debe pertenecer a `/params/users/tags`
+          schema:
+            $ref: '#/definitions/ErrorObj'
+  /users/{user_id}/tags/{tag_id}:
+    delete:
+      summary: Eliminar
+      tags: 
+        - etiquetas
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: path
+          name: tag_id
+          description: ID de la etiqueta
+          required: true
+          type: "integer"
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Cliente o etiqueta no existen
+  /users/{user_id}/addresses:
+    get:
+      summary: Listar
+      tags: 
+        - direcciones
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+      responses:
+        '201':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Address'
+        '404':
+          description: Cliente no existe
+    post:
+      summary: Crear
+      tags: 
+        - direcciones
+      description: |
+        Crea una nueva dirección para este cliente
+        
+        * La terna (`address.line_1`, `address.commune`, `address.region`) debe ser única para este usuario. De lo contrario, el servicio retornará `405`
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: body
+          name: address
+          description: Dirección
+          required: true
+          schema:
+            $ref: '#/definitions/NewAddress'
+      responses:
+        '201':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Address'
+        '404':
+          description: Cliente no existe
+        '405':
+          description: La dirección ya existe
+        '422':
+          description: La dirección contiene datos inválidos
+          schema:
+            $ref: '#/definitions/ErrorObj'
+  /users/{user_id}/addresses/{addr_id}:
+    delete:
+      summary: Eliminar
+      tags: 
+        - direcciones
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: path
+          name: addr_id
+          description: ID de la dirección
+          required: true
+          type: "integer"
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Cliente o Dirección no existen          
+definitions:
+  UserSignupNew:
     type: object
     description: |
-      Solicitud de carga **(Request)**
+      Solicitud de registro de un Cliente Multicaja.cl **(Request)**
     properties:
-      amount:
-        $ref: '#/definitions/AmountAndCurrencyNew'
-      transaction_id:
+      email:
         type: string
-        description: Identificador único que genera quien invoca a esta API
-        example: "asdkjasdl"
+        description: email del prospecto de cliente
+        example: "pepito@gmail.com"
       rut:
         type: integer
-        description: El rut sin puntos, guión, ni dígito verificador
-        example: 14569484
-      merchant_code:
-        type: string
-        description: Código de comercio MC
-        example: "0023434"
-  PrepaidTopup:
+        description: rut del prospecto de cliente, sin puntos, guión ni DV
+        example: 15776844
+  UserSignupSoftNew:
     type: object
     description: |
-      Respuesta a solicitud de carga **(Response)**
+      Solicitud de registro de un Cliente Multicaja.cl **(Request)**
     allOf:
-      - $ref: "#/definitions/PrepaidTopupNew"
+      - $ref: "#/definitions/UserSignupNew"
+  UserSignupSoft:
+    type: object
+    description: |
+      Solicitud de registro de un Cliente Multicaja.cl **(Response)**
+    allOf:
+      - $ref: "#/definitions/UserSignupSoftNew"
       - type: object
         properties:
           id:
             type: integer
-            description: Identificador de la solicitud.
+            description: Identificador interno. Campo read-only.
             example: 7783834
-          status:
-            type: string
-            description: Siempre 'exitoso'
-            example: 'exitoso'
           user_id:
             type: integer
-            description: Identificador del Cliente Multicaja afectado
-            example: 1291020
+            description: Identificador del Cliente involucrado en este proceso de registro
+            example: 9012331
+          name:
+            type: string
+            description: Nombre o nombres de pila. Si vienen, mostrarlos en la pantalla de datos personales.
+            example: "Juan Carlos"
+          lastname_1:
+            type: string
+            description: Apellido paterno Si vienen, mostrarlos en la pantalla de datos personales.
+            example: "López"
+          must_validate_email:
+            type: string
+            description: Siempre `false`
+            example: false
+          must_accept_terms_and_conditions:
+            type: string
+            description: Siempre `false`
+            example: false
+          must_choose_password:
+            type: string
+            description: Siempre `false`
+            example: false
           timestamps:
             $ref: '#/definitions/Timestamps'
+  UserSignup:
+    type: object
+    description: |
+      Solicitud de registro de un Cliente Multicaja.cl **(Response)**
+    allOf:
+      - $ref: "#/definitions/UserSignupNew"
+      - type: object
+        properties:
+          id:
+            type: integer
+            description: Identificador interno. Campo read-only.
+            example: 7783834
+          user_id:
+            type: integer
+            description: Identificador del Cliente involucrado en este proceso de registro
+            example: 9012331
+          name:
+            type: string
+            description: Nombre o nombres de pila. Si vienen, mostrarlos en la pantalla de datos personales.
+            example: "Juan Carlos"
+          lastname_1:
+            type: string
+            description: Apellido paterno Si vienen, mostrarlos en la pantalla de datos personales.
+            example: "López"
+          terms_and_conditions_list:
+            type: array
+            items:
+              type: string
+              description: Link a los términos y condiciones que se deben desplegar para este usuario
+              example: 'https://multicaja.cl/tac/contract-v1.3.1.html'
+          must_validate_email:
+            type: string
+            description: Booleano. Si es `true`, el cliente requiere pasar por una validación de correo.
+            example: true
+          must_accept_terms_and_conditions:
+            type: string
+            description: Booleano. Si es `true`, el cliente requiere pasar por una aceptación de los últimos términos y condiciones.
+            example: true
+          must_choose_password:
+            type: string
+            description: Booleano. Si es `true`, el cliente requiere escoger un password.
+            example: true
+          timestamps:
+            $ref: '#/definitions/Timestamps'
+  UserPersonalDataNew:
+    type: object
+    description: |
+      Datos personales **(Request)**
+    properties:
+      name:
+        type: string
+        description: Nombre o nombres de pila. Si vienen, mostrarlos en la pantalla de datos personales.
+        example: "Juan Carlos"
+      lastname_1:
+        type: string
+        description: Apellido paterno Si vienen, mostrarlos en la pantalla de datos personales.
+        example: "López"
   UserPasswordNew:
     type: object
     description: |
@@ -817,102 +1015,6 @@ definitions:
         type: string
         description: Número de serie o número de documento
         example: "A026588780"
-  PrepaidUserPersonalDataNew:
-    type: object
-    description: |
-      Ciente en proceso de registro para un prepago **(Request)**
-    properties:
-      name:
-        type: string
-        description: Nombre o nombres de pila. Si vienen, mostrarlos en la pantalla de datos personales.
-        example: "Juan Carlos"
-      lastname_1:
-        type: string
-        description: Apellido paterno Si vienen, mostrarlos en la pantalla de datos personales.
-        example: "López"
-  UserSignupNew:
-    type: object
-    description: |
-      Solicitud de registro de un Cliente Multicaja.cl **(Request)**
-    properties:
-      email:
-        type: string
-        description: email del prospecto de cliente
-        example: "pepito@gmail.com"
-      rut:
-        type: integer
-        description: rut del prospecto de cliente, sin puntos, guión ni DV
-        example: 15776844
-  PrepaidUserSignupNew:
-    type: object
-    description: |
-      Solicitud de registro de un Cliente Prepago **(Request)**
-    allOf:
-      - $ref: "#/definitions/UserSignupNew"
-  UserSignup:
-    type: object
-    description: |
-      Solicitud de registro de un Cliente Multicaja.cl **(Response)**
-    allOf:
-      - $ref: "#/definitions/UserSignupNew"
-      - type: object
-        properties:
-          id:
-            type: integer
-            description: Identificador interno. Campo read-only.
-            example: 7783834
-          user_id:
-            type: integer
-            description: Identificador del Cliente involucrado en este proceso de registro
-            example: 9012331
-          name:
-            type: string
-            description: Nombre o nombres de pila. Si vienen, mostrarlos en la pantalla de datos personales.
-            example: "Juan Carlos"
-          lastname_1:
-            type: string
-            description: Apellido paterno Si vienen, mostrarlos en la pantalla de datos personales.
-            example: "López"
-          terms_and_conditions_list:
-            type: array
-            items:
-              type: string
-              description: Link a los términos y condiciones que se deben desplegar para este usuario
-              example: 'https://multicaja.cl/tac/contract-v1.3.1.html'
-          must_validate_email:
-            type: string
-            description: Booleano. Si es `true`, el cliente requiere pasar por una validación de correo.
-            example: true
-          must_accept_terms_and_conditions:
-            type: string
-            description: Booleano. Si es `true`, el cliente requiere pasar por una aceptación de los últimos términos y condiciones.
-            example: true
-          must_choose_password:
-            type: string
-            description: Booleano. Si es `true`, el cliente requiere escoger un password.
-            example: true
-          timestamps:
-            $ref: '#/definitions/Timestamps'
-  PrepaidUserSignup:
-    type: object
-    description: |
-      Ciente en proceso de registro para un prepago **(Response)**
-    allOf:
-      - $ref: "#/definitions/UserSignup"
-      - type: object
-        properties:
-          cellphone:
-            type: integer
-            description: Número de celular de 9 dígitos.
-            example: 912345678
-          must_validate_rut:
-            type: string
-            description: Booleano
-            example: true
-          must_validate_cellphone:
-            type: string
-            description: Booleano. Si es `true`, el cliente requiere pasar por una validación de celular.
-            example: true
   UserBasicFields:
     type: object
     description: |
@@ -1107,6 +1209,42 @@ definitions:
           * validado_sii: la razón social fue validada mediante el SII
       timestamps:
             $ref: '#/definitions/Timestamps'
+  NewTag:
+    type: object
+    description: |
+      Asocia una etiqueta al Cliente **(Request)**
+    required: 
+      - attribute_code
+    properties:
+      attribute_code:
+        type: integer
+        description: |
+          Identificador de la etiqueta
+
+          Ver `/params/user/tags`
+        example: 56
+  Tag:
+    type: object
+    description: |
+      Indica si el Cliente posee una etiqueta **(Response)**
+    allOf:
+      - $ref: "#/definitions/NewTag"
+      - type: object
+        required:
+          - id
+          - name
+          - timestamps
+        properties:
+          id:
+            type: integer
+            description: Identificador interno. Campo read-only.
+            example: 983
+          name:
+            type: string
+            description: Nombre de la etiqueta
+            example: "cliente.regulador.es_pep"
+          timestamps:
+            $ref: '#/definitions/Timestamps'
   Timestamps:
     type: object
     description: |
@@ -1123,6 +1261,114 @@ definitions:
         type: string
         format: date-time
         example: "2018-03-02T10:03:12.123Z"
+  NewAddress:
+    type: object
+    description: Dirección física **(Request)**
+    required:
+      - line_1
+    properties:
+      alias:
+        type: string
+        description: Nombre que el usuario le da a esta dirección
+        example: "Casa"
+      line_1:
+        type: string
+        description: Lo que se une a región y comuna para determinar el código postal
+        example: Suecia 1414
+      line_2:
+        type: string
+        description: Información adicional como número de departamento. No afecta el código postal.
+        example: Depto 502
+      region_id:
+        type: integer
+        example: 13
+        description: ID de la comuna (ver /params/regions)
+      commune_id:
+        type: integer
+        example: 230
+        description: ID de la comuna (ver /params/communes)
+      postal_code:
+        type: string
+        description: Identificador de (`address.line_1`, `address.commune`, `address.region`)
+        example: 7710787
+  Address:
+    type: object
+    description: Dirección física **(Response)**
+    allOf:
+      - $ref: "#/definitions/NewAddress"
+      - type: object
+        required:
+          - id
+          - timestamps
+        properties:
+          id:
+            type: integer
+            description: Identificador interno. Campo read-only.
+            example: 7783834
+          timestamps:
+            $ref: '#/definitions/Timestamps'
+  NewBankAccount:
+    type: object
+    description: Cuenta bancaria personal **(Request)**
+    required:
+      - bank_id
+      - acc_type
+      - acc_number
+    properties:
+      bank_id:
+        type: integer
+        description: ID del banco (revisar /params/banks)
+        example: 4
+      acc_type:
+        type: string
+        description: Tipo de cuenta
+        enum:
+          - vista
+          - corriente
+          - ahorro
+      acc_number:
+        type: string
+        description: Número de cuenta sin puntos, guiones, ni ceros a la izquierda
+  BankAccount:
+    type: object
+    description: Cuenta bancaria personal **(Response)**
+    allOf:
+      - $ref: "#/definitions/NewBankAccount"
+      - type: object
+        required:
+          - id
+          - status
+          - timestamps
+        properties:
+          id:
+            type: integer
+            description: Identificador interno. Campo read-only.
+            example: 7783834
+          bank_id:
+            type: integer
+            description: ID del banco (revisar /params/banks)
+            example: 4
+          acc_type:
+            type: string
+            description: Tipo de cuenta
+            enum:
+              - vista
+              - corriente
+              - ahorro
+          acc_number:
+            type: string
+            description: Número de cuenta sin puntos, guiones, ni ceros a la izquierda
+          status:
+            type: string
+            enum:
+              - no_validada
+              - validada
+            description: |
+              Estado de validación de la cuenta
+              * no_validada: estado por defecto
+              * validada: el usuario hizo una aviso de depósito seguido de una transferencia desde esta cuenta
+          timestamps:
+            $ref: '#/definitions/Timestamps'
   ErrorObj:
     type: object
     description: Error que devuelve la api ante un `HTTP 422` **(Response)**
