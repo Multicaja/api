@@ -8,10 +8,10 @@ info:
     Todos los requests son autenticados usando un `api-key`.
 
     Existen dos ambientes: `qa` y `producción`. El `host` de `qa` es `apiqa.multicaja.cl`.
-  version: '1.1'
+  version: '1.0'
   title: API Multicaja (Alpha)
 host: 'api.multicaja.cl'
-basePath: /v1.1-alpha/
+basePath: /v1.0-alpha/
 consumes:
   - application/json
 produces:
@@ -378,7 +378,7 @@ paths:
           description: Nuevo correo
           required: true
           schema:
-            $ref: '#/definitions/validate_email_new'
+            $ref: '#/definitions/update_email_new'
       responses:
         '201':
           description: |
@@ -417,7 +417,7 @@ paths:
           description: Nuevo celular
           required: true
           schema:
-            $ref: '#/definitions/validate_cellphone_new'
+            $ref: '#/definitions/update_cellphone_new'
       responses:
         '201':
           description: |
