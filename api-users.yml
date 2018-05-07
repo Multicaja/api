@@ -180,7 +180,9 @@ paths:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/User'
+            type: array
+            items:
+              $ref: '#/definitions/User'
         '404':
           description: Cliente no existe
   /users/{user_id}:
