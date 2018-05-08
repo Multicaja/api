@@ -42,27 +42,27 @@ paths:
           * POST /users/soft-signup
           * GET  /users/soft-signup/{signup_id}
           * GET  /users/{user_id}
-          * POST /users/{user_id}/UpdatePersonalData
-          * POST /users/{user_id}/UpdateEmail # sin validation_channel
+          * POST /users/{user_id}/update_personal_data
+          * POST /users/{user_id}/validate_email # sin validation_channel
       parameters:
         - in: body
           name: user_data
           description: RUT y Correo del usuario que quiere obtener una tarjeta
           required: true
           schema:
-            $ref: '#/definitions/UserSignupSoftNew'
+            $ref: '#/definitions/user_signup_soft_new'
       responses:
         '201':
           description: |
             OK - Consulte objeto de respuesta para saber qué pasos faltan y qué información puede mostrar pre llenada.
           schema:
-            $ref: '#/definitions/UserSignupSoft'
+            $ref: '#/definitions/user_signup_soft'
         '401':
           description: RUT o email corresponden a Cliente que ya tiene clave y que debe autenticarse para realizar esta operación
         '403':
           description: Usuario borrado o bloqueado
           schema:
-            $ref: '#/definitions/ErrorObj'
+            $ref: '#/definitions/error_obj'
         '422':
           description: No viene RUT o no viene email
   /users/soft-signup/{signup_id}:
@@ -71,7 +71,7 @@ paths:
         - registro
       summary: Obtiene el estado de un proceso de pre-registro
       description: |
-        Obtiene el estado de un proceso de registro. Retorna `UserSignup`, el que indica qué pasos falta realizar.
+        Obtiene el estado de un proceso de registro. Retorna `user_signup`, el que indica qué pasos falta realizar.
       parameters:
         - in: path
           name: signup_id
@@ -83,61 +83,61 @@ paths:
           description: |
             OK - Consulte objeto de respuesta para saber qué pasos faltan y qué información puede mostrar pre llenada.
           schema:
-            $ref: '#/definitions/UserSignup'
+            $ref: '#/definitions/user_signup'
         '401':
           description: Usuario tiene clave y debe autenticarse para realizar esta operación
         '404':
           description: Proceso de registro no existe.
         '410':
-          description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /users/UserSignup`.
-  /users/full-signup:
+          description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /users/user_signup`.
+  /users/full_signup:
     post:
       tags:
         - registro
       summary: Inicia un proceso de registro
       description: |
-        Inicia un proceso de registro. Retorna `UserSignup`, el que indica qué pasos se deben realizar.
+        Inicia un proceso de registro. Retorna `user_signup`, el que indica qué pasos se deben realizar.
         
         Llamadas permitidas cuando el cliente está registrándose:
-          * POST /users/full-signup
-          * GET  /users/full-signup/{signup_id}
+          * POST /users/full_signup
+          * GET  /users/full_signup/{signup_id}
           * GET  /users/{user_id}
-          * POST /users/{user_id}/UpdatePersonalData
-          * POST /users/{user_id}/ValidateRut
-          * POST /users/{user_id}/UpdateEmail
+          * POST /users/{user_id}/update_personal_data
+          * POST /users/{user_id}/validate_rut
+          * POST /users/{user_id}/validate_email
           * PUT /users/{user_id}/mail
-          * POST /users/{user_id}/UpdateCellphone
+          * POST /users/{user_id}/validate_cellphone
           * PUT /users/{user_id}/sms
-          * POST /users/{user_id}/SignContract
-          * POST /users/{user_id}/UpdatePassword # debe ser la última
+          * POST /users/{user_id}/sign_contract
+          * POST /users/{user_id}/update_password # debe ser la última
       parameters:
         - in: body
           name: user_data
           description: RUT y Correo del usuario que quiere obtener una tarjeta
           required: true
           schema:
-            $ref: '#/definitions/UserSignupNew'
+            $ref: '#/definitions/user_signup_new'
       responses:
         '201':
           description: |
             OK - Consulte objeto de respuesta para saber qué pasos faltan y qué información puede mostrar pre llenada.
           schema:
-            $ref: '#/definitions/UserSignup'
+            $ref: '#/definitions/user_signup'
         '401':
           description: RUT o email corresponden a Cliente que ya tiene clave y que debe autenticarse para realizar esta operación
         '403':
           description: Usuario borrado o bloqueado
           schema:
-            $ref: '#/definitions/ErrorObj'
+            $ref: '#/definitions/error_obj'
         '422':
           description: No viene RUT o no viene email
-  /users/full-signup/{signup_id}:
+  /users/full_signup/{signup_id}:
     get:
       tags:
         - registro
       summary: Obtiene el estado de un proceso de registro
       description: |
-        Obtiene el estado de un proceso de registro. Retorna `UserSignup`, el que indica qué pasos falta realizar.
+        Obtiene el estado de un proceso de registro. Retorna `user_signup`, el que indica qué pasos falta realizar.
       parameters:
         - in: path
           name: signup_id
@@ -149,13 +149,13 @@ paths:
           description: |
             OK - Consulte objeto de respuesta para saber qué pasos faltan y qué información puede mostrar pre llenada.
           schema:
-            $ref: '#/definitions/UserSignup'
+            $ref: '#/definitions/user_signup'
         '401':
           description: Usuario tiene clave y debe autenticarse para realizar esta operación
         '404':
           description: Proceso de registro no existe.
         '410':
-          description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /users/UserSignup`.
+          description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /users/user_signup`.
   /users/:
     get:
       summary: Buscar
@@ -166,11 +166,11 @@ paths:
       parameters:
         - name: "rut"
           in: "query"
-          description: "Rut sin puntos ni dígito verificador"
+          description: "rut sin puntos ni dígito verificador"
           type: integer
         - name: "email"
           in: "query"
-          description: "Email"
+          description: "email"
           type: string
         - in: "query"
           name: "cellphone"
@@ -180,7 +180,9 @@ paths:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/User'
+            type: array
+            items:
+              $ref: '#/definitions/user'
         '404':
           description: Cliente no existe
   /users/{user_id}:
@@ -201,16 +203,16 @@ paths:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/user'
         '401':
           description: Usuario tiene clave y debe autenticarse para realizar esta operación
         '403':
           description: Cliente borrado o bloqueado
           schema:
-            $ref: '#/definitions/ErrorObj'
+            $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe
-  /users/{user_id}/UpdatePassword:
+  /users/{user_id}/update_password:
     post:
       tags:
         - clientes
@@ -229,24 +231,24 @@ paths:
           description: Password escogido por el usuario
           required: true
           schema:
-            $ref: '#/definitions/UserPasswordNew'
+            $ref: '#/definitions/user_password_new'
       responses:
         '201':
           description: |
             OK - cambio aplicado
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/user'
         '403':
           description: Cliente borrado o bloqueado
           schema:
-            $ref: '#/definitions/ErrorObj'
+            $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe.
         '422':
           description: Error de validación (password no cumple con políticas o no se ha completado los pasos anteriores del proceso)
           schema:
-            $ref: '#/definitions/ErrorObj'
-  /users/{user_id}/UpdatePersonalData:
+            $ref: '#/definitions/error_obj'
+  /users/{user_id}/update_personal_data:
     post:
       tags:
         - clientes
@@ -263,26 +265,26 @@ paths:
           description: Parámetros del usuario a crear
           required: true
           schema:
-            $ref: '#/definitions/UserPersonalDataNew'
+            $ref: '#/definitions/user_personal_data_new'
       responses:
         '201':
           description: |
             OK - cambio aplicado
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/user'
         '401':
           description: Usuario tiene clave y debe autenticarse para realizar esta operación
         '403':
           description: Usuario borrado o bloqueado
           schema:
-            $ref: '#/definitions/ErrorObj'
+            $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe.
         '422':
           description: Error de validación en datos personales
           schema:
-            $ref: '#/definitions/ErrorObj'
-  /users/{user_id}/ValidateRut:
+            $ref: '#/definitions/error_obj'
+  /users/{user_id}/validate_rut:
     post:
       tags:
         - clientes
@@ -299,31 +301,31 @@ paths:
           description: Datos de validación de la cédula
           required: true
           schema:
-            $ref: '#/definitions/RutValidationNew'
+            $ref: '#/definitions/rut_validation_new'
       responses:
         '201':
           description: |
             OK - cambio aplicado
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/user'
         '400':
           description: |
             SRCeI retornó error - ver respuesta
           schema:
-            $ref: '#/definitions/ErrorObj'
+            $ref: '#/definitions/error_obj'
         '401':
           description: Usuario tiene clave y debe autenticarse para realizar esta operación
         '403':
           description: Usuario borrado o bloqueado
           schema:
-            $ref: '#/definitions/ErrorObj'
+            $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe.
         '422':
           description: Error de validación en número de serie de la cédula
           schema:
-            $ref: '#/definitions/ErrorObj'
-  /users/{user_id}/SignContract:
+            $ref: '#/definitions/error_obj'
+  /users/{user_id}/sign_contract:
     post:
       tags:
         - clientes
@@ -340,26 +342,26 @@ paths:
           description: Firma de contrato
           required: true
           schema:
-            $ref: '#/definitions/ContractSignupNew'
+            $ref: '#/definitions/contract_signup_new'
       responses:
         '201':
           description: |
             OK - cambio aplicado
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/user'
         '401':
           description: Usuario tiene clave y debe autenticarse para realizar esta operación
         '403':
           description: Usuario borrado o bloqueado
           schema:
-            $ref: '#/definitions/ErrorObj'
+            $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe.
         '422':
           description: Error de validación en tac_acceptance
           schema:
-            $ref: '#/definitions/ErrorObj'
-  /users/{user_id}/UpdateEmail:
+            $ref: '#/definitions/error_obj'
+  /users/{user_id}/validate_email:
     post:
       tags:
         - clientes
@@ -376,13 +378,13 @@ paths:
           description: Nuevo correo
           required: true
           schema:
-            $ref: '#/definitions/UpdateEmailNew'
+            $ref: '#/definitions/update_email_new'
       responses:
         '201':
           description: |
             OK - cambio aplicado. (Sólo responderá `201` si el Cliente no tenía correo o si no estaba validado)
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/user'
         '202':
           description: |
             Cambio pendiente - llame a `PUT /users/sms` o a `PUT /users/email` para completar el cambio (dependiendo del canal que haya escogido en `update_cellphone.validation_channel`)
@@ -391,14 +393,14 @@ paths:
         '403':
           description: Usuario borrado o bloqueado
           schema:
-            $ref: '#/definitions/ErrorObj'
+            $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe.
         '422':
           description: Error de validación en update_email
           schema:
-            $ref: '#/definitions/ErrorObj'
-  /users/{user_id}/UpdateCellphone:
+            $ref: '#/definitions/error_obj'
+  /users/{user_id}/validate_cellphone:
     post:
       tags:
         - clientes
@@ -415,13 +417,13 @@ paths:
           description: Nuevo celular
           required: true
           schema:
-            $ref: '#/definitions/UpdateCellphoneNew'
+            $ref: '#/definitions/update_cellphone_new'
       responses:
         '201':
           description: |
             OK - cambio aplicado. (Sólo responderá `201` si el Cliente no tenía celular o si no estaba validado)
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/user'
         '202':
           description: |
             Cambio pendiente - llame a `PUT /users/sms` o a `PUT /users/email` para completar el cambio (dependiendo del canal que haya escogido en `update_cellphone.validation_channel`)
@@ -430,13 +432,13 @@ paths:
         '403':
           description: Usuario borrado o bloqueado
           schema:
-            $ref: '#/definitions/ErrorObj'
+            $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe.
         '422':
           description: Error de validación en update_email
           schema:
-            $ref: '#/definitions/ErrorObj'
+            $ref: '#/definitions/error_obj'
   /users/{user_id}/mail:
     post:
       summary: Enviar correo
@@ -485,7 +487,7 @@ paths:
         '422':
           description: El mail contiene datos inválidos
           schema:
-            $ref: '#/definitions/ErrorObj'
+            $ref: '#/definitions/error_obj'
     put:
       summary: Validar código enviado por correo
       tags: 
@@ -493,8 +495,8 @@ paths:
       description: |
         Valida un código enviado mediante POST a `/users/{user_id}/email`
         ### Notas
-        * Sólo invocar este método para validar un código enviado previamente mediante `POST /users/{user_id}/email`, `POST /users/{user_id}/UpdateCellphone` o `POST /users/{user_id}/UpdateEmail`
-        * Si esta el código fue generado por `POST /users/{user_id}/UpdateCellphone` o `POST /users/{user_id}/UpdateEmail` y se ingresa correctamente, este método cambiará el estado de `email.status` o `cellphone.status` a `validado`.
+        * Sólo invocar este método para validar un código enviado previamente mediante `POST /users/{user_id}/email`, `POST /users/{user_id}/validate_cellphone` o `POST /users/{user_id}/validate_email`
+        * Si esta el código fue generado por `POST /users/{user_id}/validate_cellphone` o `POST /users/{user_id}/validate_email` y se ingresa correctamente, este método cambiará el estado de `email.status` o `cellphone.status` a `validado`.
         * Si el código ingresado no corresponde al que fue enviado al cliente, el servicio retornará `422`.
       parameters:
         - in: path
@@ -519,7 +521,7 @@ paths:
         '422':
           description: El código ingresado no es válido
           schema:
-            $ref: '#/definitions/ErrorObj'
+            $ref: '#/definitions/error_obj'
   /users/{user_id}/sms:
     post:
       summary: Enviar sms
@@ -574,7 +576,7 @@ paths:
         '422':
           description: El sms contiene datos inválidos
           schema:
-            $ref: '#/definitions/ErrorObj'
+            $ref: '#/definitions/error_obj'
     put:
       summary: Validar código sms
       tags: 
@@ -582,8 +584,8 @@ paths:
       description: |
         Valida un código enviado mediante POST a `/users/{user_id}/sms`
         ### Notas
-        * Sólo invocar este método para validar un código enviado previamente mediante `POST /users/{user_id}/sms`, `POST /users/{user_id}/UpdateCellphone` o `POST /users/{user_id}/UpdateEmail`
-        * Si esta el código fue generado por `POST /users/{user_id}/UpdateCellphone` o `POST /users/{user_id}/UpdateEmail` y se ingresa correctamente, este método cambiará el estado de `email.status` o `cellphone.status` a `validado`.
+        * Sólo invocar este método para validar un código enviado previamente mediante `POST /users/{user_id}/sms`, `POST /users/{user_id}/validate_cellphone` o `POST /users/{user_id}/validate_email`
+        * Si esta el código fue generado por `POST /users/{user_id}/validate_cellphone` o `POST /users/{user_id}/validate_email` y se ingresa correctamente, este método cambiará el estado de `email.status` o `cellphone.status` a `validado`.
         * Si el código ingresado no corresponde al que fue enviado al cliente, el servicio retornará `422`.
       parameters:
         - in: path
@@ -608,7 +610,7 @@ paths:
         '422':
           description: El código ingresado no es válido
           schema:
-            $ref: '#/definitions/ErrorObj'
+            $ref: '#/definitions/error_obj'
   /users/{user_id}/bank_accounts:
     get:
       summary: Listar
@@ -626,7 +628,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/BankAccount'
+              $ref: '#/definitions/bank_account'
         '404':
           description: Cliente no existe
     post:
@@ -648,14 +650,14 @@ paths:
           description: Cuenta bancaria
           required: true
           schema:
-            $ref: '#/definitions/NewBankAccount'
+            $ref: '#/definitions/bank_account_new'
       responses:
         '201':
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/BankAccount'
+              $ref: '#/definitions/bank_account'
         '404':
           description: Cliente no existe
         '405':
@@ -663,7 +665,7 @@ paths:
         '422':
           description: La cuenta contiene datos inválidos
           schema:
-            $ref: '#/definitions/ErrorObj'
+            $ref: '#/definitions/error_obj'
   /users/{user_id}/bank_accounts/{acc_id}:
     delete:
       summary: Eliminar
@@ -702,7 +704,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Tag'
+              $ref: '#/definitions/tag'
         '404':
           description: Cliente no existe
     post:
@@ -723,14 +725,14 @@ paths:
           description: Etiqueta
           required: true
           schema:
-            $ref: '#/definitions/NewTag'
+            $ref: '#/definitions/tag_new'
       responses:
         '201':
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/Tag'
+              $ref: '#/definitions/tag'
         '404':
           description: Cliente no existe
         '405':
@@ -741,7 +743,7 @@ paths:
 
             Nota: `attribute_code` debe pertenecer a `/params/users/tags`
           schema:
-            $ref: '#/definitions/ErrorObj'
+            $ref: '#/definitions/error_obj'
   /users/{user_id}/tags/{tag_id}:
     delete:
       summary: Eliminar
@@ -780,7 +782,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Address'
+              $ref: '#/definitions/address'
         '404':
           description: Cliente no existe
     post:
@@ -802,14 +804,14 @@ paths:
           description: Dirección
           required: true
           schema:
-            $ref: '#/definitions/NewAddress'
+            $ref: '#/definitions/address_new'
       responses:
         '201':
           description: OK
           schema:
             type: array
             items:
-              $ref: '#/definitions/Address'
+              $ref: '#/definitions/address'
         '404':
           description: Cliente no existe
         '405':
@@ -817,7 +819,7 @@ paths:
         '422':
           description: La dirección contiene datos inválidos
           schema:
-            $ref: '#/definitions/ErrorObj'
+            $ref: '#/definitions/error_obj'
   /users/{user_id}/addresses/{addr_id}:
     delete:
       summary: Eliminar
@@ -840,7 +842,7 @@ paths:
         '404':
           description: Cliente o Dirección no existen          
 definitions:
-  UserSignupNew:
+  user_signup_new:
     type: object
     description: |
       Solicitud de registro de un Cliente Multicaja.cl **(Request)**
@@ -853,18 +855,18 @@ definitions:
         type: integer
         description: rut del prospecto de cliente, sin puntos, guión ni DV
         example: 15776844
-  UserSignupSoftNew:
+  user_signup_soft_new:
     type: object
     description: |
       Solicitud de registro de un Cliente Multicaja.cl **(Request)**
     allOf:
-      - $ref: "#/definitions/UserSignupNew"
-  UserSignupSoft:
+      - $ref: "#/definitions/user_signup_new"
+  user_signup_soft:
     type: object
     description: |
       Solicitud de registro de un Cliente Multicaja.cl **(Response)**
     allOf:
-      - $ref: "#/definitions/UserSignupSoftNew"
+      - $ref: "#/definitions/user_signup_soft_new"
       - type: object
         properties:
           id:
@@ -896,13 +898,13 @@ definitions:
             description: Siempre `false`
             example: false
           timestamps:
-            $ref: '#/definitions/Timestamps'
-  UserSignup:
+            $ref: '#/definitions/timestamps'
+  user_signup:
     type: object
     description: |
       Solicitud de registro de un Cliente Multicaja.cl **(Response)**
     allOf:
-      - $ref: "#/definitions/UserSignupNew"
+      - $ref: "#/definitions/user_signup_new"
       - type: object
         properties:
           id:
@@ -940,8 +942,8 @@ definitions:
             description: Booleano. Si es `true`, el cliente requiere escoger un password.
             example: true
           timestamps:
-            $ref: '#/definitions/Timestamps'
-  UserPersonalDataNew:
+            $ref: '#/definitions/timestamps'
+  user_personal_data_new:
     type: object
     description: |
       Datos personales **(Request)**
@@ -954,7 +956,7 @@ definitions:
         type: string
         description: Apellido paterno Si vienen, mostrarlos en la pantalla de datos personales.
         example: "López"
-  UserPasswordNew:
+  user_password_new:
     type: object
     description: |
       Clave Multicaja Personas **(Request)**
@@ -962,7 +964,7 @@ definitions:
       value:
         type: string
         description: 4 dígitos no consecutivos ni iguales, y que no correspondan a ninguna parte del RUT
-  UpdateEmailNew:
+  update_email_new:
     type: object
     description: |
       Modificación de correo electrónico **(Request)**
@@ -977,8 +979,8 @@ definitions:
         description: |
           Indica por qué canal se hará la validación con doble factor. Este parámetro es requerido si el cliente tiene su correo validado.
           * C: Celular
-          * E: Email
-  UpdateCellphoneNew:
+          * E: email
+  update_cellphone_new:
     type: object
     description: |
       Modificación de celular **(Request)**
@@ -993,8 +995,8 @@ definitions:
         description: |
           Indica por qué canal se hará la validación con doble factor. Este parámetro es requerido si el cliente tiene su celular validado.
           * C: Celular
-          * E: Email
-  ContractSignupNew:
+          * E: email
+  contract_signup_new:
     type: object
     description: |
       Aceptación de últimos términos y condiciones **(Request)**
@@ -1006,7 +1008,7 @@ definitions:
           type: string
           description: Link a los términos y condiciones que se deben desplegar para este usuario
           example: 'https://multicaja.cl/tac/contract-v1.3.1.html'
-  RutValidationNew:
+  rut_validation_new:
     type: object
     description: |
       Validación de cédula **(Request)**
@@ -1015,11 +1017,11 @@ definitions:
         type: string
         description: Número de serie o número de documento
         example: "A026588780"
-  UserBasicFields:
+  user_basic_fields:
     type: object
     description: |
       Nombre, Sexo, y Fecha de nacimiento de una persona **(Resquest)** / **(Response)**
-      Padre de `User` y `NewUser`
+      Padre de `user` y `Newuser`
       **No se usa de manera independiente en la API**
     properties:
       name:
@@ -1047,7 +1049,7 @@ definitions:
         format: date
         description: Fecha de nacimiento
         example: "1977-1-14"
-  User:
+  user:
     type: object
     description: |
       Cliente **(Response)**
@@ -1056,7 +1058,7 @@ definitions:
       * Si el RUT es inferior a 50.000.000, corresponde a Persona Natural y `company_data` deberá ser `null`.
       * Si el RUT es igual o superior a 50.000.000, corresponde a Empresa y `company_data` es obligatorio
     allOf:
-      - $ref: "#/definitions/UserBasicFields"
+      - $ref: "#/definitions/user_basic_fields"
       - type: object
         required:
           - id 
@@ -1070,13 +1072,13 @@ definitions:
             description: Identificador interno. Campo read-only.
             example: 7783834
           rut:
-            $ref: '#/definitions/Rut'
+            $ref: '#/definitions/rut'
           cellphone:
-            $ref: '#/definitions/CellPhone'
+            $ref: '#/definitions/cellphone'
           email:
-            $ref: '#/definitions/Email'
+            $ref: '#/definitions/email'
           company_data:
-            $ref: "#/definitions/CompanyData"
+            $ref: "#/definitions/company_data"
           global_status:
             type: string
             enum:
@@ -1096,8 +1098,8 @@ definitions:
               `"true"` si el usuario tiene `password`; `"false"` en otro caso
             example: "true"
           timestamps:
-            $ref: '#/definitions/Timestamps'
-  Rut:
+            $ref: '#/definitions/timestamps'
+  rut:
     type: object
     description: |
       Identificador Chileno **(Response)**
@@ -1125,8 +1127,8 @@ definitions:
           * validado_srcei: el rut fue validado exitosamente contra el registro civil
           * validado_tef: la validación más fuerte, ya que el usuario ha realizado un aviso de depósito seguido de una transferencia desde una cuenta correspondiente a su rut
       timestamps:
-            $ref: '#/definitions/Timestamps'
-  Email:
+            $ref: '#/definitions/timestamps'
+  email:
     type: object
     description: |
       Correo Electrónico **(Response)**
@@ -1152,8 +1154,8 @@ definitions:
           * en_proceso_de_validacion: se ha enviado al menos un correo de validación, pero el usuario no ha hecho clic en el link
           * validado: el usuario demostró tener acceso a la casilla haciendo clic en un link enviado a ésta
       timestamps:
-            $ref: '#/definitions/Timestamps'
-  CellPhone:
+            $ref: '#/definitions/timestamps'
+  cellphone:
     type: object
     description: |
       Teléfono Celular **(Response)**
@@ -1179,8 +1181,8 @@ definitions:
           * en_proceso_de_validacion: se ha enviado al menos un sms de validación, pero el usuario no ha usado el código
           * validado: el usuario demostró tener acceso al celular usando el código enviado a éste
       timestamps:
-        $ref: '#/definitions/Timestamps'
-  CompanyData:
+        $ref: '#/definitions/timestamps'
+  company_data:
     type: object
     description: |
       Datos de la empresa a la que corresponde este Cliente **(Response)**
@@ -1208,8 +1210,8 @@ definitions:
           * no_validado: la razón social no ha sido validada
           * validado_sii: la razón social fue validada mediante el SII
       timestamps:
-            $ref: '#/definitions/Timestamps'
-  NewTag:
+            $ref: '#/definitions/timestamps'
+  tag_new:
     type: object
     description: |
       Asocia una etiqueta al Cliente **(Request)**
@@ -1223,12 +1225,12 @@ definitions:
 
           Ver `/params/user/tags`
         example: 56
-  Tag:
+  tag:
     type: object
     description: |
       Indica si el Cliente posee una etiqueta **(Response)**
     allOf:
-      - $ref: "#/definitions/NewTag"
+      - $ref: "#/definitions/tag_new"
       - type: object
         required:
           - id
@@ -1244,12 +1246,12 @@ definitions:
             description: Nombre de la etiqueta
             example: "cliente.regulador.es_pep"
           timestamps:
-            $ref: '#/definitions/Timestamps'
-  Timestamps:
+            $ref: '#/definitions/timestamps'
+  timestamps:
     type: object
     description: |
       Fecha de creación y de última modificación **(Response)**
-      Componente de `Address`, `User`, `Rut` y otros objetos
+      Componente de `address`, `user`, `rut` y otros objetos
 
       **No se usa de manera independiente en la API**
     properties:
@@ -1261,7 +1263,7 @@ definitions:
         type: string
         format: date-time
         example: "2018-03-02T10:03:12.123Z"
-  NewAddress:
+  address_new:
     type: object
     description: Dirección física **(Request)**
     required:
@@ -1291,11 +1293,11 @@ definitions:
         type: string
         description: Identificador de (`address.line_1`, `address.commune`, `address.region`)
         example: 7710787
-  Address:
+  address:
     type: object
     description: Dirección física **(Response)**
     allOf:
-      - $ref: "#/definitions/NewAddress"
+      - $ref: "#/definitions/address_new"
       - type: object
         required:
           - id
@@ -1306,8 +1308,8 @@ definitions:
             description: Identificador interno. Campo read-only.
             example: 7783834
           timestamps:
-            $ref: '#/definitions/Timestamps'
-  NewBankAccount:
+            $ref: '#/definitions/timestamps'
+  bank_account_new:
     type: object
     description: Cuenta bancaria personal **(Request)**
     required:
@@ -1329,11 +1331,11 @@ definitions:
       acc_number:
         type: string
         description: Número de cuenta sin puntos, guiones, ni ceros a la izquierda
-  BankAccount:
+  bank_account:
     type: object
     description: Cuenta bancaria personal **(Response)**
     allOf:
-      - $ref: "#/definitions/NewBankAccount"
+      - $ref: "#/definitions/bank_account_new"
       - type: object
         required:
           - id
@@ -1368,8 +1370,8 @@ definitions:
               * no_validada: estado por defecto
               * validada: el usuario hizo una aviso de depósito seguido de una transferencia desde esta cuenta
           timestamps:
-            $ref: '#/definitions/Timestamps'
-  ErrorObj:
+            $ref: '#/definitions/timestamps'
+  error_obj:
     type: object
     description: Error que devuelve la api ante un `HTTP 422` **(Response)**
     required:
@@ -1384,24 +1386,3 @@ definitions:
         type: string
         description: Descripción corta del error
         example: "El cliente no pasó la validación"
-      details:
-        type: array
-        items:
-          $ref: '#/definitions/ErrorObjDetail'
-  ErrorObjDetail:
-    type: object
-    description: |
-      Cuando un error está compuesto por una lista de sub-errores, vendrán en este objeto
-      Componente de `ErrorObj` **(Response)**
-      
-      **No se usa de manera independiente en la API**
-    properties:
-      code:
-        type: integer
-        format: int32
-        description: Código que representa el sub-error
-        example: 227
-      message:
-        type: string
-        description: Descripción del sub-error
-        example: "El nombre no puede estar vacío"
