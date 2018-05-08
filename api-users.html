@@ -30,10 +30,10 @@
                 <a href="#operation--users-soft-signup--signup_id--get"> Obtiene el estado de un proceso de pre-registro </a>
               </li>
               <li>
-                <a href="#operation--users-full-signup-post"> Inicia un proceso de registro </a>
+                <a href="#operation--users-full_signup-post"> Inicia un proceso de registro </a>
               </li>
               <li>
-                <a href="#operation--users-full-signup--signup_id--get"> Obtiene el estado de un proceso de registro </a>
+                <a href="#operation--users-full_signup--signup_id--get"> Obtiene el estado de un proceso de registro </a>
               </li>
             </ul>
           </section>
@@ -47,22 +47,22 @@
                 <a href="#operation--users--user_id--get"> GET /users/{user_id} </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--UpdatePassword-post"> POST /users/{user_id}/UpdatePassword </a>
+                <a href="#operation--users--user_id--update_password-post"> POST /users/{user_id}/update_password </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--UpdatePersonalData-post"> POST /users/{user_id}/UpdatePersonalData </a>
+                <a href="#operation--users--user_id--update_personal_data-post"> POST /users/{user_id}/update_personal_data </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--ValidateRut-post"> POST /users/{user_id}/ValidateRut </a>
+                <a href="#operation--users--user_id--validate_rut-post"> POST /users/{user_id}/validate_rut </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--SignContract-post"> POST /users/{user_id}/SignContract </a>
+                <a href="#operation--users--user_id--sign_contract-post"> POST /users/{user_id}/sign_contract </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--UpdateEmail-post"> POST /users/{user_id}/UpdateEmail </a>
+                <a href="#operation--users--user_id--validate_email-post"> POST /users/{user_id}/validate_email </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--UpdateCellphone-post"> POST /users/{user_id}/UpdateCellphone </a>
+                <a href="#operation--users--user_id--validate_cellphone-post"> POST /users/{user_id}/validate_cellphone </a>
               </li>
             </ul>
           </section>
@@ -126,31 +126,30 @@
             </ul>
           </section>
           <h5>Schema Definitions</h5>
-          <a href="#definition-UserSignupNew"> UserSignupNew </a>
-          <a href="#definition-UserSignupSoftNew"> UserSignupSoftNew </a>
-          <a href="#definition-UserSignupSoft"> UserSignupSoft </a>
-          <a href="#definition-UserSignup"> UserSignup </a>
-          <a href="#definition-UserPersonalDataNew"> UserPersonalDataNew </a>
-          <a href="#definition-UserPasswordNew"> UserPasswordNew </a>
-          <a href="#definition-UpdateEmailNew"> UpdateEmailNew </a>
-          <a href="#definition-UpdateCellphoneNew"> UpdateCellphoneNew </a>
-          <a href="#definition-ContractSignupNew"> ContractSignupNew </a>
-          <a href="#definition-RutValidationNew"> RutValidationNew </a>
-          <a href="#definition-UserBasicFields"> UserBasicFields </a>
-          <a href="#definition-User"> User </a>
-          <a href="#definition-Rut"> Rut </a>
-          <a href="#definition-Email"> Email </a>
-          <a href="#definition-CellPhone"> CellPhone </a>
-          <a href="#definition-CompanyData"> CompanyData </a>
-          <a href="#definition-NewTag"> NewTag </a>
-          <a href="#definition-Tag"> Tag </a>
-          <a href="#definition-Timestamps"> Timestamps </a>
-          <a href="#definition-NewAddress"> NewAddress </a>
-          <a href="#definition-Address"> Address </a>
-          <a href="#definition-NewBankAccount"> NewBankAccount </a>
-          <a href="#definition-BankAccount"> BankAccount </a>
-          <a href="#definition-ErrorObj"> ErrorObj </a>
-          <a href="#definition-ErrorObjDetail"> ErrorObjDetail </a>
+          <a href="#definition-user_signup_new"> user_signup_new </a>
+          <a href="#definition-user_signup_soft_new"> user_signup_soft_new </a>
+          <a href="#definition-user_signup_soft"> user_signup_soft </a>
+          <a href="#definition-user_signup"> user_signup </a>
+          <a href="#definition-user_personal_data_new"> user_personal_data_new </a>
+          <a href="#definition-user_password_new"> user_password_new </a>
+          <a href="#definition-update_email_new"> update_email_new </a>
+          <a href="#definition-update_cellphone_new"> update_cellphone_new </a>
+          <a href="#definition-contract_signup_new"> contract_signup_new </a>
+          <a href="#definition-rut_validation_new"> rut_validation_new </a>
+          <a href="#definition-user_basic_fields"> user_basic_fields </a>
+          <a href="#definition-user"> user </a>
+          <a href="#definition-rut"> rut </a>
+          <a href="#definition-email"> email </a>
+          <a href="#definition-cellphone"> cellphone </a>
+          <a href="#definition-company_data"> company_data </a>
+          <a href="#definition-tag_new"> tag_new </a>
+          <a href="#definition-tag"> tag </a>
+          <a href="#definition-timestamps"> timestamps </a>
+          <a href="#definition-address_new"> address_new </a>
+          <a href="#definition-address"> address </a>
+          <a href="#definition-bank_account_new"> bank_account_new </a>
+          <a href="#definition-bank_account"> bank_account </a>
+          <a href="#definition-error_obj"> error_obj </a>
         </nav>
       </div>
       <div id="docs" class="row collapse expanded drawer" data-drawer>
@@ -226,8 +225,8 @@
                     <li>POST /users/soft-signup</li>
                     <li>GET /users/soft-signup/{signup_id}</li>
                     <li>GET /users/{user_id}</li>
-                    <li>POST /users/{user_id}/UpdatePersonalData</li>
-                    <li>POST /users/{user_id}/UpdateEmail # sin validation_channel</li>
+                    <li>POST /users/{user_id}/update_personal_data</li>
+                    <li>POST /users/{user_id}/validate_email # sin validation_channel</li>
                   </ul>
                 </section>
               </div>
@@ -239,7 +238,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/UserSignupSoftNew">UserSignupSoftNew</a>
+                          <a class="json-schema-ref" href="#/definitions/user_signup_soft_new">user_signup_soft_new</a>
                         </span>
                       </div>
                     </div>
@@ -271,7 +270,7 @@
                       <div class="prop-title">201 Created</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/UserSignupSoft">UserSignupSoft</a>
+                          <a class="json-schema-ref" href="#/definitions/user_signup_soft">user_signup_soft</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -293,7 +292,7 @@
                       <div class="prop-title">403 Forbidden</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -341,13 +340,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -378,7 +371,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Obtiene el estado de un proceso de registro. Retorna <code>UserSignup</code>, el que indica qué pasos falta realizar.</p>
+                  <p>Obtiene el estado de un proceso de registro. Retorna <code>user_signup</code>, el que indica qué pasos falta realizar.</p>
                 </section>
               </div>
             </div>
@@ -411,7 +404,7 @@
                       <div class="prop-title">201 Created</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/UserSignup">UserSignup</a>
+                          <a class="json-schema-ref" href="#/definitions/user_signup">user_signup</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -441,7 +434,7 @@
                       <div class="prop-title">410 Gone</div>
                     </div>
                     <div class="prop-value">
-                      <p>Proceso de registro existe, pero expiró. Inicie uno nuevo con <code>POST /users/UserSignup</code>.</p>
+                      <p>Proceso de registro existe, pero expiró. Inicie uno nuevo con <code>POST /users/user_signup</code>.</p>
                     </div>
                   </div>
                 </section>
@@ -475,7 +468,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--users-full-signup-post" class="operation panel" data-traverse-target="operation--users-full-signup-post">
+          <div id="operation--users-full_signup-post" class="operation panel" data-traverse-target="operation--users-full_signup-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -491,27 +484,27 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/users/full-signup</span>
+                  <span class="operation-path">/users/full_signup</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Inicia un proceso de registro. Retorna <code>UserSignup</code>, el que indica qué pasos se deben realizar.</p>
+                  <p>Inicia un proceso de registro. Retorna <code>user_signup</code>, el que indica qué pasos se deben realizar.</p>
                   <p>Llamadas permitidas cuando el cliente está registrándose:</p>
                   <ul>
-                    <li>POST /users/full-signup</li>
-                    <li>GET /users/full-signup/{signup_id}</li>
+                    <li>POST /users/full_signup</li>
+                    <li>GET /users/full_signup/{signup_id}</li>
                     <li>GET /users/{user_id}</li>
-                    <li>POST /users/{user_id}/UpdatePersonalData</li>
-                    <li>POST /users/{user_id}/ValidateRut</li>
-                    <li>POST /users/{user_id}/UpdateEmail</li>
+                    <li>POST /users/{user_id}/update_personal_data</li>
+                    <li>POST /users/{user_id}/validate_rut</li>
+                    <li>POST /users/{user_id}/validate_email</li>
                     <li>PUT /users/{user_id}/mail</li>
-                    <li>POST /users/{user_id}/UpdateCellphone</li>
+                    <li>POST /users/{user_id}/validate_cellphone</li>
                     <li>PUT /users/{user_id}/sms</li>
-                    <li>POST /users/{user_id}/SignContract</li>
-                    <li>POST /users/{user_id}/UpdatePassword # debe ser la última</li>
+                    <li>POST /users/{user_id}/sign_contract</li>
+                    <li>POST /users/{user_id}/update_password # debe ser la última</li>
                   </ul>
                 </section>
               </div>
@@ -523,7 +516,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/UserSignupNew">UserSignupNew</a>
+                          <a class="json-schema-ref" href="#/definitions/user_signup_new">user_signup_new</a>
                         </span>
                       </div>
                     </div>
@@ -555,7 +548,7 @@
                       <div class="prop-title">201 Created</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/UserSignup">UserSignup</a>
+                          <a class="json-schema-ref" href="#/definitions/user_signup">user_signup</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -577,7 +570,7 @@
                       <div class="prop-title">403 Forbidden</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -628,13 +621,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -642,7 +629,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--users-full-signup--signup_id--get" class="operation panel" data-traverse-target="operation--users-full-signup--signup_id--get">
+          <div id="operation--users-full_signup--signup_id--get" class="operation panel" data-traverse-target="operation--users-full_signup--signup_id--get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -658,14 +645,14 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">GET</span>
-                  <span class="operation-path">/users/full-signup/{signup_id}</span>
+                  <span class="operation-path">/users/full_signup/{signup_id}</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Obtiene el estado de un proceso de registro. Retorna <code>UserSignup</code>, el que indica qué pasos falta realizar.</p>
+                  <p>Obtiene el estado de un proceso de registro. Retorna <code>user_signup</code>, el que indica qué pasos falta realizar.</p>
                 </section>
               </div>
             </div>
@@ -698,7 +685,7 @@
                       <div class="prop-title">201 Created</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/UserSignup">UserSignup</a>
+                          <a class="json-schema-ref" href="#/definitions/user_signup">user_signup</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -728,7 +715,7 @@
                       <div class="prop-title">410 Gone</div>
                     </div>
                     <div class="prop-value">
-                      <p>Proceso de registro existe, pero expiró. Inicie uno nuevo con <code>POST /users/UserSignup</code>.</p>
+                      <p>Proceso de registro existe, pero expiró. Inicie uno nuevo con <code>POST /users/user_signup</code>.</p>
                     </div>
                   </div>
                 </section>
@@ -808,7 +795,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Rut sin puntos ni dígito verificador</p>
+                      <p>rut sin puntos ni dígito verificador</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -821,7 +808,7 @@
                       </div>
                     </div>
                     <div class="prop-value">
-                      <p>Email</p>
+                      <p>email</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -848,14 +835,25 @@
                     <div class="prop-name">
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/User">User</a>
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/user">user</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
                       <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/user">user</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -873,54 +871,56 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-  <span class="hljs-attr">&quot;rut&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
-    <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;K&quot;</span>,
-    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
+    <span class="hljs-attr">&quot;rut&quot;</span>: {
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
+      <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;K&quot;</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+        <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+        <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+      }
+    },
+    <span class="hljs-attr">&quot;cellphone&quot;</span>: {
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;912345678&quot;</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+        <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+        <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+      }
+    },
+    <span class="hljs-attr">&quot;email&quot;</span>: {
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+        <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+        <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+      }
+    },
+    <span class="hljs-attr">&quot;company_data&quot;</span>: {
+      <span class="hljs-attr">&quot;business_name&quot;</span>: <span class="hljs-string">&quot;Reparaciones Joselito Ltda.&quot;</span>,
+      <span class="hljs-attr">&quot;commercial_activity&quot;</span>: <span class="hljs-number">772</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+        <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+        <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+      }
+    },
+    <span class="hljs-attr">&quot;global_status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;has_password&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
     <span class="hljs-attr">&quot;timestamps&quot;</span>: {
       <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
       <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-    }
-  },
-  <span class="hljs-attr">&quot;cellphone&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;912345678&quot;</span>,
-    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-    }
-  },
-  <span class="hljs-attr">&quot;email&quot;</span>: {
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
-    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-    }
-  },
-  <span class="hljs-attr">&quot;company_data&quot;</span>: {
-    <span class="hljs-attr">&quot;business_name&quot;</span>: <span class="hljs-string">&quot;Reparaciones Joselito Ltda.&quot;</span>,
-    <span class="hljs-attr">&quot;commercial_activity&quot;</span>: <span class="hljs-number">772</span>,
-    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-    }
-  },
-  <span class="hljs-attr">&quot;global_status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;has_password&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
-  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-  },
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
-  <span class="hljs-attr">&quot;lastname_1&quot;</span>: <span class="hljs-string">&quot;L&#xF3;pez&quot;</span>,
-  <span class="hljs-attr">&quot;lastname_2&quot;</span>: <span class="hljs-string">&quot;Carrasco&quot;</span>,
-  <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>
-}
+    },
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
+    <span class="hljs-attr">&quot;lastname_1&quot;</span>: <span class="hljs-string">&quot;L&#xF3;pez&quot;</span>,
+    <span class="hljs-attr">&quot;lastname_2&quot;</span>: <span class="hljs-string">&quot;Carrasco&quot;</span>,
+    <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>
+  }
+]
 </code></pre>
                   <!-- </div> -->
                 </section>
@@ -982,7 +982,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/User">User</a>
+                          <a class="json-schema-ref" href="#/definitions/user">user</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1004,7 +1004,7 @@
                       <div class="prop-title">403 Forbidden</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1085,13 +1085,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1099,7 +1093,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--users--user_id--UpdatePassword-post" class="operation panel" data-traverse-target="operation--users--user_id--UpdatePassword-post">
+          <div id="operation--users--user_id--update_password-post" class="operation panel" data-traverse-target="operation--users--user_id--update_password-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -1111,7 +1105,7 @@
             <h2 class="operation-title">
               <span class="operation-name">
                 <span class="operation-name">POST</span>
-                <span class="operation-path">/users/{user_id}/UpdatePassword</span>
+                <span class="operation-path">/users/{user_id}/update_password</span>
               </span>
             </h2>
             <div class="doc-row">
@@ -1132,7 +1126,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/UserPasswordNew">UserPasswordNew</a>
+                          <a class="json-schema-ref" href="#/definitions/user_password_new">user_password_new</a>
                         </span>
                       </div>
                     </div>
@@ -1179,7 +1173,7 @@
                       <div class="prop-title">201 Created</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/User">User</a>
+                          <a class="json-schema-ref" href="#/definitions/user">user</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1193,7 +1187,7 @@
                       <div class="prop-title">403 Forbidden</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1215,7 +1209,7 @@
                       <div class="prop-title">422 Unprocessable Entity</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1288,13 +1282,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1305,13 +1293,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1319,7 +1301,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--users--user_id--UpdatePersonalData-post" class="operation panel" data-traverse-target="operation--users--user_id--UpdatePersonalData-post">
+          <div id="operation--users--user_id--update_personal_data-post" class="operation panel" data-traverse-target="operation--users--user_id--update_personal_data-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -1331,7 +1313,7 @@
             <h2 class="operation-title">
               <span class="operation-name">
                 <span class="operation-name">POST</span>
-                <span class="operation-path">/users/{user_id}/UpdatePersonalData</span>
+                <span class="operation-path">/users/{user_id}/update_personal_data</span>
               </span>
             </h2>
             <div class="doc-row">
@@ -1348,7 +1330,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/UserPersonalDataNew">UserPersonalDataNew</a>
+                          <a class="json-schema-ref" href="#/definitions/user_personal_data_new">user_personal_data_new</a>
                         </span>
                       </div>
                     </div>
@@ -1396,7 +1378,7 @@
                       <div class="prop-title">201 Created</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/User">User</a>
+                          <a class="json-schema-ref" href="#/definitions/user">user</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1418,7 +1400,7 @@
                       <div class="prop-title">403 Forbidden</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1440,7 +1422,7 @@
                       <div class="prop-title">422 Unprocessable Entity</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1513,13 +1495,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1530,13 +1506,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1544,7 +1514,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--users--user_id--ValidateRut-post" class="operation panel" data-traverse-target="operation--users--user_id--ValidateRut-post">
+          <div id="operation--users--user_id--validate_rut-post" class="operation panel" data-traverse-target="operation--users--user_id--validate_rut-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -1556,7 +1526,7 @@
             <h2 class="operation-title">
               <span class="operation-name">
                 <span class="operation-name">POST</span>
-                <span class="operation-path">/users/{user_id}/ValidateRut</span>
+                <span class="operation-path">/users/{user_id}/validate_rut</span>
               </span>
             </h2>
             <div class="doc-row">
@@ -1573,7 +1543,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/RutValidationNew">RutValidationNew</a>
+                          <a class="json-schema-ref" href="#/definitions/rut_validation_new">rut_validation_new</a>
                         </span>
                       </div>
                     </div>
@@ -1620,7 +1590,7 @@
                       <div class="prop-title">201 Created</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/User">User</a>
+                          <a class="json-schema-ref" href="#/definitions/user">user</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1634,7 +1604,7 @@
                       <div class="prop-title">400 Bad Request</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1656,7 +1626,7 @@
                       <div class="prop-title">403 Forbidden</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1678,7 +1648,7 @@
                       <div class="prop-title">422 Unprocessable Entity</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1751,13 +1721,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1768,13 +1732,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1785,13 +1743,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1799,7 +1751,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--users--user_id--SignContract-post" class="operation panel" data-traverse-target="operation--users--user_id--SignContract-post">
+          <div id="operation--users--user_id--sign_contract-post" class="operation panel" data-traverse-target="operation--users--user_id--sign_contract-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -1811,7 +1763,7 @@
             <h2 class="operation-title">
               <span class="operation-name">
                 <span class="operation-name">POST</span>
-                <span class="operation-path">/users/{user_id}/SignContract</span>
+                <span class="operation-path">/users/{user_id}/sign_contract</span>
               </span>
             </h2>
             <div class="doc-row">
@@ -1828,7 +1780,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ContractSignupNew">ContractSignupNew</a>
+                          <a class="json-schema-ref" href="#/definitions/contract_signup_new">contract_signup_new</a>
                         </span>
                       </div>
                     </div>
@@ -1877,7 +1829,7 @@
                       <div class="prop-title">201 Created</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/User">User</a>
+                          <a class="json-schema-ref" href="#/definitions/user">user</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1899,7 +1851,7 @@
                       <div class="prop-title">403 Forbidden</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1921,7 +1873,7 @@
                       <div class="prop-title">422 Unprocessable Entity</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1994,13 +1946,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -2011,13 +1957,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -2025,7 +1965,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--users--user_id--UpdateEmail-post" class="operation panel" data-traverse-target="operation--users--user_id--UpdateEmail-post">
+          <div id="operation--users--user_id--validate_email-post" class="operation panel" data-traverse-target="operation--users--user_id--validate_email-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -2037,7 +1977,7 @@
             <h2 class="operation-title">
               <span class="operation-name">
                 <span class="operation-name">POST</span>
-                <span class="operation-path">/users/{user_id}/UpdateEmail</span>
+                <span class="operation-path">/users/{user_id}/validate_email</span>
               </span>
             </h2>
             <div class="doc-row">
@@ -2054,7 +1994,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/UpdateEmailNew">UpdateEmailNew</a>
+                          <a class="json-schema-ref" href="#/definitions/update_email_new">update_email_new</a>
                         </span>
                       </div>
                     </div>
@@ -2102,7 +2042,7 @@
                       <div class="prop-title">201 Created</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/User">User</a>
+                          <a class="json-schema-ref" href="#/definitions/user">user</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -2132,7 +2072,7 @@
                       <div class="prop-title">403 Forbidden</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -2154,7 +2094,7 @@
                       <div class="prop-title">422 Unprocessable Entity</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -2227,13 +2167,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -2244,13 +2178,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -2258,7 +2186,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--users--user_id--UpdateCellphone-post" class="operation panel" data-traverse-target="operation--users--user_id--UpdateCellphone-post">
+          <div id="operation--users--user_id--validate_cellphone-post" class="operation panel" data-traverse-target="operation--users--user_id--validate_cellphone-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -2270,7 +2198,7 @@
             <h2 class="operation-title">
               <span class="operation-name">
                 <span class="operation-name">POST</span>
-                <span class="operation-path">/users/{user_id}/UpdateCellphone</span>
+                <span class="operation-path">/users/{user_id}/validate_cellphone</span>
               </span>
             </h2>
             <div class="doc-row">
@@ -2287,7 +2215,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/UpdateCellphoneNew">UpdateCellphoneNew</a>
+                          <a class="json-schema-ref" href="#/definitions/update_cellphone_new">update_cellphone_new</a>
                         </span>
                       </div>
                     </div>
@@ -2335,7 +2263,7 @@
                       <div class="prop-title">201 Created</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/User">User</a>
+                          <a class="json-schema-ref" href="#/definitions/user">user</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -2365,7 +2293,7 @@
                       <div class="prop-title">403 Forbidden</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -2387,7 +2315,7 @@
                       <div class="prop-title">422 Unprocessable Entity</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -2460,13 +2388,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -2477,13 +2399,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -2626,7 +2542,7 @@
                       <div class="prop-title">422 Unprocessable Entity</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -2652,13 +2568,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -2692,8 +2602,8 @@
                   <p>Valida un código enviado mediante POST a <code>/users/{user_id}/email</code></p>
                   <h3 id="notas">Notas</h3>
                   <ul>
-                    <li>Sólo invocar este método para validar un código enviado previamente mediante <code>POST /users/{user_id}/email</code>, <code>POST /users/{user_id}/UpdateCellphone</code> o <code>POST /users/{user_id}/UpdateEmail</code></li>
-                    <li>Si esta el código fue generado por <code>POST /users/{user_id}/UpdateCellphone</code> o <code>POST /users/{user_id}/UpdateEmail</code> y se ingresa correctamente, este método cambiará el estado de <code>email.status</code> o <code>cellphone.status</code> a <code>validado</code>.</li>
+                    <li>Sólo invocar este método para validar un código enviado previamente mediante <code>POST /users/{user_id}/email</code>, <code>POST /users/{user_id}/validate_cellphone</code> o <code>POST /users/{user_id}/validate_email</code></li>
+                    <li>Si esta el código fue generado por <code>POST /users/{user_id}/validate_cellphone</code> o <code>POST /users/{user_id}/validate_email</code> y se ingresa correctamente, este método cambiará el estado de <code>email.status</code> o <code>cellphone.status</code> a <code>validado</code>.</li>
                     <li>Si el código ingresado no corresponde al que fue enviado al cliente, el servicio retornará <code>422</code>.</li>
                   </ul>
                 </section>
@@ -2763,7 +2673,7 @@
                       <div class="prop-title">422 Unprocessable Entity</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -2789,13 +2699,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -2942,7 +2846,7 @@
                       <div class="prop-title">422 Unprocessable Entity</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -2968,13 +2872,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -3008,8 +2906,8 @@
                   <p>Valida un código enviado mediante POST a <code>/users/{user_id}/sms</code></p>
                   <h3 id="notas">Notas</h3>
                   <ul>
-                    <li>Sólo invocar este método para validar un código enviado previamente mediante <code>POST /users/{user_id}/sms</code>, <code>POST /users/{user_id}/UpdateCellphone</code> o <code>POST /users/{user_id}/UpdateEmail</code></li>
-                    <li>Si esta el código fue generado por <code>POST /users/{user_id}/UpdateCellphone</code> o <code>POST /users/{user_id}/UpdateEmail</code> y se ingresa correctamente, este método cambiará el estado de <code>email.status</code> o <code>cellphone.status</code> a <code>validado</code>.</li>
+                    <li>Sólo invocar este método para validar un código enviado previamente mediante <code>POST /users/{user_id}/sms</code>, <code>POST /users/{user_id}/validate_cellphone</code> o <code>POST /users/{user_id}/validate_email</code></li>
+                    <li>Si esta el código fue generado por <code>POST /users/{user_id}/validate_cellphone</code> o <code>POST /users/{user_id}/validate_email</code> y se ingresa correctamente, este método cambiará el estado de <code>email.status</code> o <code>cellphone.status</code> a <code>validado</code>.</li>
                     <li>Si el código ingresado no corresponde al que fue enviado al cliente, el servicio retornará <code>422</code>.</li>
                   </ul>
                 </section>
@@ -3079,7 +2977,7 @@
                       <div class="prop-title">422 Unprocessable Entity</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -3105,13 +3003,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -3174,7 +3066,7 @@
                       <div class="prop-title">201 Created</div>
                       <div class="prop-ref">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/Tag">Tag</a>
+                          <a class="json-schema-ref" href="#/definitions/tag">tag</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -3188,7 +3080,7 @@
                     <div class="prop-value">
                       <span class="json-property-type">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/Tag">Tag</a>
+                          <a class="json-schema-ref" href="#/definitions/tag">tag</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
@@ -3260,7 +3152,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/NewTag">NewTag</a>
+                          <a class="json-schema-ref" href="#/definitions/tag_new">tag_new</a>
                         </span>
                       </div>
                     </div>
@@ -3307,7 +3199,7 @@
                       <div class="prop-title">201 Created</div>
                       <div class="prop-ref">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/Tag">Tag</a>
+                          <a class="json-schema-ref" href="#/definitions/tag">tag</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -3321,7 +3213,7 @@
                     <div class="prop-value">
                       <span class="json-property-type">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/Tag">Tag</a>
+                          <a class="json-schema-ref" href="#/definitions/tag">tag</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
@@ -3348,7 +3240,7 @@
                       <div class="prop-title">422 Unprocessable Entity</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -3385,13 +3277,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -3533,7 +3419,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/BankAccount">BankAccount</a>
+                          <a class="json-schema-ref" href="#/definitions/bank_account">bank_account</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -3547,7 +3433,7 @@
                     <div class="prop-value">
                       <span class="json-property-type">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/BankAccount">BankAccount</a>
+                          <a class="json-schema-ref" href="#/definitions/bank_account">bank_account</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
@@ -3624,7 +3510,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/NewBankAccount">NewBankAccount</a>
+                          <a class="json-schema-ref" href="#/definitions/bank_account_new">bank_account_new</a>
                         </span>
                       </div>
                     </div>
@@ -3673,7 +3559,7 @@
                       <div class="prop-title">201 Created</div>
                       <div class="prop-ref">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/BankAccount">BankAccount</a>
+                          <a class="json-schema-ref" href="#/definitions/bank_account">bank_account</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -3687,7 +3573,7 @@
                     <div class="prop-value">
                       <span class="json-property-type">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/BankAccount">BankAccount</a>
+                          <a class="json-schema-ref" href="#/definitions/bank_account">bank_account</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
@@ -3714,7 +3600,7 @@
                       <div class="prop-title">422 Unprocessable Entity</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -3752,13 +3638,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -3900,7 +3780,7 @@
                       <div class="prop-title">201 Created</div>
                       <div class="prop-ref">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/Address">Address</a>
+                          <a class="json-schema-ref" href="#/definitions/address">address</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -3914,7 +3794,7 @@
                     <div class="prop-value">
                       <span class="json-property-type">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/Address">Address</a>
+                          <a class="json-schema-ref" href="#/definitions/address">address</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
@@ -3993,7 +3873,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/NewAddress">NewAddress</a>
+                          <a class="json-schema-ref" href="#/definitions/address_new">address_new</a>
                         </span>
                       </div>
                     </div>
@@ -4045,7 +3925,7 @@
                       <div class="prop-title">201 Created</div>
                       <div class="prop-ref">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/Address">Address</a>
+                          <a class="json-schema-ref" href="#/definitions/address">address</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -4059,7 +3939,7 @@
                     <div class="prop-value">
                       <span class="json-property-type">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/Address">Address</a>
+                          <a class="json-schema-ref" href="#/definitions/address">address</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
@@ -4086,7 +3966,7 @@
                       <div class="prop-title">422 Unprocessable Entity</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObj">ErrorObj</a>
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -4126,13 +4006,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -4220,9 +4094,9 @@
             </div>
           </div>
           <h1>Schema Definitions</h1>
-          <div id="definition-UserSignupNew" class="definition panel" data-traverse-target="definition-UserSignupNew">
+          <div id="definition-user_signup_new" class="definition panel" data-traverse-target="definition-user_signup_new">
             <h2 class="panel-title">
-              <a name="/definitions/UserSignupNew"></a>UserSignupNew: object
+              <a name="/definitions/user_signup_new"></a>user_signup_new: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -4270,9 +4144,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-UserSignupSoftNew" class="definition panel" data-traverse-target="definition-UserSignupSoftNew">
+          <div id="definition-user_signup_soft_new" class="definition panel" data-traverse-target="definition-user_signup_soft_new">
             <h2 class="panel-title">
-              <a name="/definitions/UserSignupSoftNew"></a>UserSignupSoftNew: object
+              <a name="/definitions/user_signup_soft_new"></a>user_signup_soft_new: object
               <!-- <span class="json-property-type"><span class="json-property-type"></span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -4290,7 +4164,7 @@
                   <section class="json-schema-allOf-inherited">
                     <ul>
                       <span class="">
-                        <a class="json-schema-ref" href="#/definitions/UserSignupNew">UserSignupNew</a>
+                        <a class="json-schema-ref" href="#/definitions/user_signup_new">user_signup_new</a>
                       </span>
                     </ul>
                   </section>
@@ -4310,9 +4184,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-UserSignupSoft" class="definition panel" data-traverse-target="definition-UserSignupSoft">
+          <div id="definition-user_signup_soft" class="definition panel" data-traverse-target="definition-user_signup_soft">
             <h2 class="panel-title">
-              <a name="/definitions/UserSignupSoft"></a>UserSignupSoft: object
+              <a name="/definitions/user_signup_soft"></a>user_signup_soft: object
               <!-- <span class="json-property-type"><span class="json-property-type"></span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -4330,7 +4204,7 @@
                   <section class="json-schema-allOf-inherited">
                     <ul>
                       <span class="">
-                        <a class="json-schema-ref" href="#/definitions/UserSignupSoftNew">UserSignupSoftNew</a>
+                        <a class="json-schema-ref" href="#/definitions/user_signup_soft_new">user_signup_soft_new</a>
                       </span>
                     </ul>
                   </section>
@@ -4397,7 +4271,7 @@
                           <span class="json-property-name">timestamps:</span>
                           <span class="json-property-type">
                             <span class="">
-                              <a class="json-schema-ref" href="#/definitions/Timestamps">Timestamps</a>
+                              <a class="json-schema-ref" href="#/definitions/timestamps">timestamps</a>
                             </span>
                           </span>
                           <span class="json-property-range" title="Value limits"></span>
@@ -4431,9 +4305,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-UserSignup" class="definition panel" data-traverse-target="definition-UserSignup">
+          <div id="definition-user_signup" class="definition panel" data-traverse-target="definition-user_signup">
             <h2 class="panel-title">
-              <a name="/definitions/UserSignup"></a>UserSignup: object
+              <a name="/definitions/user_signup"></a>user_signup: object
               <!-- <span class="json-property-type"><span class="json-property-type"></span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -4451,7 +4325,7 @@
                   <section class="json-schema-allOf-inherited">
                     <ul>
                       <span class="">
-                        <a class="json-schema-ref" href="#/definitions/UserSignupNew">UserSignupNew</a>
+                        <a class="json-schema-ref" href="#/definitions/user_signup_new">user_signup_new</a>
                       </span>
                     </ul>
                   </section>
@@ -4534,7 +4408,7 @@
                           <span class="json-property-name">timestamps:</span>
                           <span class="json-property-type">
                             <span class="">
-                              <a class="json-schema-ref" href="#/definitions/Timestamps">Timestamps</a>
+                              <a class="json-schema-ref" href="#/definitions/timestamps">timestamps</a>
                             </span>
                           </span>
                           <span class="json-property-range" title="Value limits"></span>
@@ -4571,9 +4445,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-UserPersonalDataNew" class="definition panel" data-traverse-target="definition-UserPersonalDataNew">
+          <div id="definition-user_personal_data_new" class="definition panel" data-traverse-target="definition-user_personal_data_new">
             <h2 class="panel-title">
-              <a name="/definitions/UserPersonalDataNew"></a>UserPersonalDataNew: object
+              <a name="/definitions/user_personal_data_new"></a>user_personal_data_new: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -4621,9 +4495,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-UserPasswordNew" class="definition panel" data-traverse-target="definition-UserPasswordNew">
+          <div id="definition-user_password_new" class="definition panel" data-traverse-target="definition-user_password_new">
             <h2 class="panel-title">
-              <a name="/definitions/UserPasswordNew"></a>UserPasswordNew: object
+              <a name="/definitions/user_password_new"></a>user_password_new: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -4662,9 +4536,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-UpdateEmailNew" class="definition panel" data-traverse-target="definition-UpdateEmailNew">
+          <div id="definition-update_email_new" class="definition panel" data-traverse-target="definition-update_email_new">
             <h2 class="panel-title">
-              <a name="/definitions/UpdateEmailNew"></a>UpdateEmailNew: object
+              <a name="/definitions/update_email_new"></a>update_email_new: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -4701,7 +4575,7 @@
                       <p>Indica por qué canal se hará la validación con doble factor. Este parámetro es requerido si el cliente tiene su correo validado.</p>
                       <ul>
                         <li>C: Celular</li>
-                        <li>E: Email</li>
+                        <li>E: email</li>
                       </ul>
                     </dd>
                   </dl>
@@ -4720,9 +4594,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-UpdateCellphoneNew" class="definition panel" data-traverse-target="definition-UpdateCellphoneNew">
+          <div id="definition-update_cellphone_new" class="definition panel" data-traverse-target="definition-update_cellphone_new">
             <h2 class="panel-title">
-              <a name="/definitions/UpdateCellphoneNew"></a>UpdateCellphoneNew: object
+              <a name="/definitions/update_cellphone_new"></a>update_cellphone_new: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -4759,7 +4633,7 @@
                       <p>Indica por qué canal se hará la validación con doble factor. Este parámetro es requerido si el cliente tiene su celular validado.</p>
                       <ul>
                         <li>C: Celular</li>
-                        <li>E: Email</li>
+                        <li>E: email</li>
                       </ul>
                     </dd>
                   </dl>
@@ -4778,9 +4652,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-ContractSignupNew" class="definition panel" data-traverse-target="definition-ContractSignupNew">
+          <div id="definition-contract_signup_new" class="definition panel" data-traverse-target="definition-contract_signup_new">
             <h2 class="panel-title">
-              <a name="/definitions/ContractSignupNew"></a>ContractSignupNew: object
+              <a name="/definitions/contract_signup_new"></a>contract_signup_new: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -4829,9 +4703,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-RutValidationNew" class="definition panel" data-traverse-target="definition-RutValidationNew">
+          <div id="definition-rut_validation_new" class="definition panel" data-traverse-target="definition-rut_validation_new">
             <h2 class="panel-title">
-              <a name="/definitions/RutValidationNew"></a>RutValidationNew: object
+              <a name="/definitions/rut_validation_new"></a>rut_validation_new: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -4870,9 +4744,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-UserBasicFields" class="definition panel" data-traverse-target="definition-UserBasicFields">
+          <div id="definition-user_basic_fields" class="definition panel" data-traverse-target="definition-user_basic_fields">
             <h2 class="panel-title">
-              <a name="/definitions/UserBasicFields"></a>UserBasicFields: object
+              <a name="/definitions/user_basic_fields"></a>user_basic_fields: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -4884,7 +4758,7 @@
                 <section class="json-schema-description">
                   <p>Nombre, Sexo, y Fecha de nacimiento de una persona
                     <strong>(Resquest)</strong> /
-                    <strong>(Response)</strong> Padre de <code>User</code> y <code>NewUser</code>
+                    <strong>(Response)</strong> Padre de <code>user</code> y <code>Newuser</code>
                     <strong>No se usa de manera independiente en la API</strong>
                   </p>
                 </section>
@@ -4960,9 +4834,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-User" class="definition panel" data-traverse-target="definition-User">
+          <div id="definition-user" class="definition panel" data-traverse-target="definition-user">
             <h2 class="panel-title">
-              <a name="/definitions/User"></a>User: object
+              <a name="/definitions/user"></a>user: object
               <!-- <span class="json-property-type"><span class="json-property-type"></span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -4985,7 +4859,7 @@
                   <section class="json-schema-allOf-inherited">
                     <ul>
                       <span class="">
-                        <a class="json-schema-ref" href="#/definitions/UserBasicFields">UserBasicFields</a>
+                        <a class="json-schema-ref" href="#/definitions/user_basic_fields">user_basic_fields</a>
                       </span>
                     </ul>
                   </section>
@@ -5005,7 +4879,7 @@
                           <span class="json-property-name">rut:</span>
                           <span class="json-property-type">
                             <span class="">
-                              <a class="json-schema-ref" href="#/definitions/Rut">Rut</a>
+                              <a class="json-schema-ref" href="#/definitions/rut">rut</a>
                             </span>
                           </span>
                           <span class="json-property-range" title="Value limits"></span>
@@ -5015,7 +4889,7 @@
                           <span class="json-property-name">cellphone:</span>
                           <span class="json-property-type">
                             <span class="">
-                              <a class="json-schema-ref" href="#/definitions/CellPhone">CellPhone</a>
+                              <a class="json-schema-ref" href="#/definitions/cellphone">cellphone</a>
                             </span>
                           </span>
                           <span class="json-property-range" title="Value limits"></span>
@@ -5024,7 +4898,7 @@
                           <span class="json-property-name">email:</span>
                           <span class="json-property-type">
                             <span class="">
-                              <a class="json-schema-ref" href="#/definitions/Email">Email</a>
+                              <a class="json-schema-ref" href="#/definitions/email">email</a>
                             </span>
                           </span>
                           <span class="json-property-range" title="Value limits"></span>
@@ -5034,7 +4908,7 @@
                           <span class="json-property-name">company_data:</span>
                           <span class="json-property-type">
                             <span class="">
-                              <a class="json-schema-ref" href="#/definitions/CompanyData">CompanyData</a>
+                              <a class="json-schema-ref" href="#/definitions/company_data">company_data</a>
                             </span>
                           </span>
                           <span class="json-property-range" title="Value limits"></span>
@@ -5072,7 +4946,7 @@
                           <span class="json-property-name">timestamps:</span>
                           <span class="json-property-type">
                             <span class="">
-                              <a class="json-schema-ref" href="#/definitions/Timestamps">Timestamps</a>
+                              <a class="json-schema-ref" href="#/definitions/timestamps">timestamps</a>
                             </span>
                           </span>
                           <span class="json-property-range" title="Value limits"></span>
@@ -5140,9 +5014,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-Rut" class="definition panel" data-traverse-target="definition-Rut">
+          <div id="definition-rut" class="definition panel" data-traverse-target="definition-rut">
             <h2 class="panel-title">
-              <a name="/definitions/Rut"></a>Rut: object
+              <a name="/definitions/rut"></a>rut: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -5197,7 +5071,7 @@
                       <span class="json-property-name">timestamps:</span>
                       <span class="json-property-type">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/Timestamps">Timestamps</a>
+                          <a class="json-schema-ref" href="#/definitions/timestamps">timestamps</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
@@ -5224,9 +5098,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-Email" class="definition panel" data-traverse-target="definition-Email">
+          <div id="definition-email" class="definition panel" data-traverse-target="definition-email">
             <h2 class="panel-title">
-              <a name="/definitions/Email"></a>Email: object
+              <a name="/definitions/email"></a>email: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -5274,7 +5148,7 @@
                       <span class="json-property-name">timestamps:</span>
                       <span class="json-property-type">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/Timestamps">Timestamps</a>
+                          <a class="json-schema-ref" href="#/definitions/timestamps">timestamps</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
@@ -5300,9 +5174,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-CellPhone" class="definition panel" data-traverse-target="definition-CellPhone">
+          <div id="definition-cellphone" class="definition panel" data-traverse-target="definition-cellphone">
             <h2 class="panel-title">
-              <a name="/definitions/CellPhone"></a>CellPhone: object
+              <a name="/definitions/cellphone"></a>cellphone: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -5352,7 +5226,7 @@
                       <span class="json-property-name">timestamps:</span>
                       <span class="json-property-type">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/Timestamps">Timestamps</a>
+                          <a class="json-schema-ref" href="#/definitions/timestamps">timestamps</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
@@ -5378,9 +5252,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-CompanyData" class="definition panel" data-traverse-target="definition-CompanyData">
+          <div id="definition-company_data" class="definition panel" data-traverse-target="definition-company_data">
             <h2 class="panel-title">
-              <a name="/definitions/CompanyData"></a>CompanyData: object
+              <a name="/definitions/company_data"></a>company_data: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -5436,7 +5310,7 @@
                       <span class="json-property-name">timestamps:</span>
                       <span class="json-property-type">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/Timestamps">Timestamps</a>
+                          <a class="json-schema-ref" href="#/definitions/timestamps">timestamps</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
@@ -5463,9 +5337,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-NewTag" class="definition panel" data-traverse-target="definition-NewTag">
+          <div id="definition-tag_new" class="definition panel" data-traverse-target="definition-tag_new">
             <h2 class="panel-title">
-              <a name="/definitions/NewTag"></a>NewTag: object
+              <a name="/definitions/tag_new"></a>tag_new: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -5506,9 +5380,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-Tag" class="definition panel" data-traverse-target="definition-Tag">
+          <div id="definition-tag" class="definition panel" data-traverse-target="definition-tag">
             <h2 class="panel-title">
-              <a name="/definitions/Tag"></a>Tag: object
+              <a name="/definitions/tag"></a>tag: object
               <!-- <span class="json-property-type"><span class="json-property-type"></span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -5526,7 +5400,7 @@
                   <section class="json-schema-allOf-inherited">
                     <ul>
                       <span class="">
-                        <a class="json-schema-ref" href="#/definitions/NewTag">NewTag</a>
+                        <a class="json-schema-ref" href="#/definitions/tag_new">tag_new</a>
                       </span>
                     </ul>
                   </section>
@@ -5555,7 +5429,7 @@
                           <span class="json-property-name">timestamps:</span>
                           <span class="json-property-type">
                             <span class="">
-                              <a class="json-schema-ref" href="#/definitions/Timestamps">Timestamps</a>
+                              <a class="json-schema-ref" href="#/definitions/timestamps">timestamps</a>
                             </span>
                           </span>
                           <span class="json-property-range" title="Value limits"></span>
@@ -5584,9 +5458,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-Timestamps" class="definition panel" data-traverse-target="definition-Timestamps">
+          <div id="definition-timestamps" class="definition panel" data-traverse-target="definition-timestamps">
             <h2 class="panel-title">
-              <a name="/definitions/Timestamps"></a>Timestamps: object
+              <a name="/definitions/timestamps"></a>timestamps: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -5597,7 +5471,7 @@
               <div class="doc-copy">
                 <section class="json-schema-description">
                   <p>Fecha de creación y de última modificación
-                    <strong>(Response)</strong> Componente de <code>Address</code>, <code>User</code>, <code>Rut</code> y otros objetos</p>
+                    <strong>(Response)</strong> Componente de <code>address</code>, <code>user</code>, <code>rut</code> y otros objetos</p>
                   <p>
                     <strong>No se usa de manera independiente en la API</strong>
                   </p>
@@ -5632,9 +5506,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-NewAddress" class="definition panel" data-traverse-target="definition-NewAddress">
+          <div id="definition-address_new" class="definition panel" data-traverse-target="definition-address_new">
             <h2 class="panel-title">
-              <a name="/definitions/NewAddress"></a>NewAddress: object
+              <a name="/definitions/address_new"></a>address_new: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -5719,9 +5593,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-Address" class="definition panel" data-traverse-target="definition-Address">
+          <div id="definition-address" class="definition panel" data-traverse-target="definition-address">
             <h2 class="panel-title">
-              <a name="/definitions/Address"></a>Address: object
+              <a name="/definitions/address"></a>address: object
               <!-- <span class="json-property-type"><span class="json-property-type"></span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -5739,7 +5613,7 @@
                   <section class="json-schema-allOf-inherited">
                     <ul>
                       <span class="">
-                        <a class="json-schema-ref" href="#/definitions/NewAddress">NewAddress</a>
+                        <a class="json-schema-ref" href="#/definitions/address_new">address_new</a>
                       </span>
                     </ul>
                   </section>
@@ -5759,7 +5633,7 @@
                           <span class="json-property-name">timestamps:</span>
                           <span class="json-property-type">
                             <span class="">
-                              <a class="json-schema-ref" href="#/definitions/Timestamps">Timestamps</a>
+                              <a class="json-schema-ref" href="#/definitions/timestamps">timestamps</a>
                             </span>
                           </span>
                           <span class="json-property-range" title="Value limits"></span>
@@ -5792,9 +5666,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-NewBankAccount" class="definition panel" data-traverse-target="definition-NewBankAccount">
+          <div id="definition-bank_account_new" class="definition panel" data-traverse-target="definition-bank_account_new">
             <h2 class="panel-title">
-              <a name="/definitions/NewBankAccount"></a>NewBankAccount: object
+              <a name="/definitions/bank_account_new"></a>bank_account_new: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -5859,9 +5733,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-BankAccount" class="definition panel" data-traverse-target="definition-BankAccount">
+          <div id="definition-bank_account" class="definition panel" data-traverse-target="definition-bank_account">
             <h2 class="panel-title">
-              <a name="/definitions/BankAccount"></a>BankAccount: object
+              <a name="/definitions/bank_account"></a>bank_account: object
               <!-- <span class="json-property-type"><span class="json-property-type"></span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -5879,7 +5753,7 @@
                   <section class="json-schema-allOf-inherited">
                     <ul>
                       <span class="">
-                        <a class="json-schema-ref" href="#/definitions/NewBankAccount">NewBankAccount</a>
+                        <a class="json-schema-ref" href="#/definitions/bank_account_new">bank_account_new</a>
                       </span>
                     </ul>
                   </section>
@@ -5945,7 +5819,7 @@
                           <span class="json-property-name">timestamps:</span>
                           <span class="json-property-type">
                             <span class="">
-                              <a class="json-schema-ref" href="#/definitions/Timestamps">Timestamps</a>
+                              <a class="json-schema-ref" href="#/definitions/timestamps">timestamps</a>
                             </span>
                           </span>
                           <span class="json-property-range" title="Value limits"></span>
@@ -5976,9 +5850,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-ErrorObj" class="definition panel" data-traverse-target="definition-ErrorObj">
+          <div id="definition-error_obj" class="definition panel" data-traverse-target="definition-error_obj">
             <h2 class="panel-title">
-              <a name="/definitions/ErrorObj"></a>ErrorObj: object
+              <a name="/definitions/error_obj"></a>error_obj: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -6012,26 +5886,6 @@
                     <dd>
                       <p>Descripción corta del error</p>
                     </dd>
-                    <dt data-property-name="details">
-                      <span class="json-property-name">details:</span>
-                      <span class="json-property-type">
-                        <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/ErrorObjDetail">ErrorObjDetail</a>
-                        </span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt class="json-inner-schema">
-                      <section class="json-schema-array-items">
-                        <span class="json-property-type">
-                          <span class="">
-                            <a class="json-schema-ref" href="#/definitions/ErrorObjDetail">ErrorObjDetail</a>
-                          </span>
-                        </span>
-                        <span class="json-property-range" title="Value limits"></span>
-                        <div class="json-inner-schema"> </div>
-                      </section>
-                    </dt>
                   </dl>
                 </section>
               </div>
@@ -6040,67 +5894,7 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>,
-  <span class="hljs-attr">&quot;details&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
-    }
-  ]
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="definition-ErrorObjDetail" class="definition panel" data-traverse-target="definition-ErrorObjDetail">
-            <h2 class="panel-title">
-              <a name="/definitions/ErrorObjDetail"></a>ErrorObjDetail: object
-              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-description">
-                  <p>Cuando un error está compuesto por una lista de sub-errores, vendrán en este objeto Componente de <code>ErrorObj</code>
-                    <strong>(Response)</strong>
-                  </p>
-                  <p>
-                    <strong>No se usa de manera independiente en la API</strong>
-                  </p>
-                </section>
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="code" class="has-description">
-                      <span class="json-property-name">code:</span>
-                      <span class="json-property-type">integer</span>
-                      <span class="json-property-format">(int32)</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Código que representa el sub-error</p>
-                    </dd>
-                    <dt data-property-name="message" class="has-description">
-                      <span class="json-property-name">message:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Descripción del sub-error</p>
-                    </dd>
-                  </dl>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">227</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El nombre no puede estar vac&#xED;o&quot;</span>
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
