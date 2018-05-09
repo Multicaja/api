@@ -183,13 +183,13 @@ paths:
     post:
       summary: Notificación (Callback)
       tags: 
-        - prepago
+        - prepaid
       description: |
         Notifica una transacción ocurrida en una tarjeta de prepago
         
         **Mensaje invocado por el procesador emisor**
         
-        * Si el mensaje de entrada no corresponde an un `NewRawTransaction`, el servicio responderá `422`
+        * Si el mensaje de entrada no corresponde an un `raw_transaction_new`, el servicio responderá `422`
       parameters:
         - in: body
           name: transaction
