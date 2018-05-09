@@ -450,10 +450,30 @@ definitions:
         type: integer
         description: Identificador del mensaje (4 dìgitos)
         example: 1200
-      comercio: # CODFUC + LIT-NOMBRE
-        $ref: "#/definitions/merchant"
-      lugar: # LIT-CIUDAD + LIT-CD-PAIS
-        $ref: "#/definitions/place"
+      # CODFUC
+      merchant_code:
+        type: string
+        description: Código único que identifica al comercio
+        example: "0008902131"
+      # LIT-NOMBRE
+      merchant_name:
+        type: string
+        description: Nombre del comercio
+        example: "AMAZON UK"
+      # LIT-CD-PAIS
+      country_iso_3266_code:
+        type: integer
+        description: Código ISO 3266-1 (numeric) del país
+        example: 152
+      country_description:
+        type: string
+        description: Nombre del país en español
+        example: "República de Chile"
+      # LIT-CIUDAD
+      place_name:
+        type: string
+        description: Nombre del lugar donde ocurrió el movimiento
+        example: "Santiago"
       resolucion_tx: # RSL-SIA-CD
         type: integer
         description: Código que identifica el resultado de la transacción
@@ -500,39 +520,6 @@ definitions:
             type: integer
             description: Nombre de la moneda en español
             example: "Peso Chileno"
-  place:
-    type: object
-    description: Lugar donde ocurrió la transacción **(Response)**
-    required:
-      - country_iso_3266_code
-    properties:
-      country_iso_3266_code:
-        type: integer
-        description: Código ISO 3266-1 (numeric) del país
-        example: 152
-      country_description:
-        type: string
-        description: Nombre del país en español
-        example: "República de Chile"
-      place_name:
-        type: string
-        description: Nombre del lugar donde ocurrió el movimiento
-        example: "Santiago"
-  merchant:
-    type: object
-    description: Comercio de origen **(Response)**
-    required:
-      - code
-      - name
-    properties:
-      code:
-        type: string
-        description: Código único que identifica al comercio
-        example: "0008902131"
-      name:
-        type: string
-        description: Nombre del comercio
-        example: "AMAZON UK"
   transaction_type:
     type: object
     description: Tipo de transacción **(Response)**
