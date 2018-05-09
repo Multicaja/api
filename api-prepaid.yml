@@ -179,6 +179,31 @@ paths:
           description: Carga no exitosa, revise error
           schema:
             $ref: '#/definitions/error_obj'
+  /prepaid/processor/notification:
+    post:
+      summary: Notificación (Callback)
+      tags: 
+        - prepago
+      description: |
+        Notifica una transacción ocurrida en una tarjeta de prepago
+        
+        **Mensaje invocado por el procesador emisor**
+        
+        * Si el mensaje de entrada no corresponde an un `NewRawTransaction`, el servicio responderá `422`
+      parameters:
+        - in: body
+          name: transaction
+          description: Transacción
+          required: true
+          schema:
+            $ref: '#/definitions/raw_transaction_new'
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: El mensaje `raw_transaction_new` tiene un error
+          schema:
+            $ref: '#/definitions/error_obj'
   /prepaid/{user_id}/card:
     post:
       tags:
@@ -239,21 +264,6 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 definitions:
-  amount_and_currency_new:
-    type: object
-    description: Monto en una moneda específica **(Request)**
-    required:
-      - currency_code
-      - amount
-    properties:
-      currency_code:
-        type: integer
-        description: Código ISO 4217 (numeric) de la moneda
-        example: 152
-      value:
-        type: string
-        description: Monto en formato decimal
-        example: "1000.00"
   prepaid_topup_new:
     type: object
     description: |
@@ -399,12 +409,39 @@ definitions:
     description: |
       Campos interpretados de transacción notificada en vivo por el procesador **(Request)**
     properties:
-      saldo_disponible: # Sólo para los casos donde existe
-        $ref: "#/definitions/amount_and_currency_new"
-      importe_local: # OPE-SIA-IM + COD-MONEDA
-        $ref: "#/definitions/amount_and_currency_new"
-      importe_divisa: # OPE-DIV-IM + COD-MONEDA-DIV
-        $ref: "#/definitions/amount_and_currency_new"
+      # sd_: Saldo disponible. Sólo para los casos donde existe
+      sd_currency_code:
+        type: integer
+        description: |
+          Saldo disponible: Código ISO 4217 (numeric) de la moneda
+        example: 152
+      sd_value:
+        type: string
+        description: |
+          Saldo disponible: Monto en formato decimal
+        example: "1000.00"
+      # il: Importe local. OPE-SIA-IM + COD-MONEDA
+      il_currency_code:
+        type: integer
+        description: |
+          Importe local: Código ISO 4217 (numeric) de la moneda
+        example: 152
+      il_value:
+        type: string
+        description: |
+          Importe local: Monto en formato decimal
+        example: "1000.00"
+      # id: Importe divisa. OPE-DIV-IM + COD-MONEDA-DIV
+      id_currency_code:
+        type: integer
+        description: |
+          Importe divisa: Código ISO 4217 (numeric) de la moneda
+        example: 152
+      id_value:
+        type: string
+        description: |
+          Importe divisa: Monto en formato decimal
+        example: "1000.00"
       tipo_tx: # OPE-SIA-CD
         type: integer
         description: Código que identifica el tipo de transacción
@@ -434,6 +471,21 @@ definitions:
         type: string
         description: String concatenado con todos los campos disponibles, codificado en base 64
         example: "TWFuIGlzIGRpc3Rpbmd1a  ...  XNoZWQsIG5vdCBvS4="
+  amount_and_currency_new:
+    type: object
+    description: Monto en una moneda específica **(Request)**
+    required:
+      - currency_code
+      - amount
+    properties:
+      currency_code:
+        type: integer
+        description: Código ISO 4217 (numeric) de la moneda
+        example: 152
+      value:
+        type: string
+        description: Monto en formato decimal
+        example: "1000.00"
   amount_and_currency:
     type: object
     description: |
