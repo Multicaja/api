@@ -126,7 +126,8 @@ paths:
           description: Carga no exitosa, revise error
           schema:
             $ref: '#/definitions/error_obj'
-    delete:
+  /prepaid/topup/reverse:
+    post:
       tags:
         - prepaid
       summary: Reversa una carga
