@@ -32,6 +32,9 @@
               <li>
                 <a href="#operation--prepaid--user_id--topup-get"> Lista las cargas de un cliente </a>
               </li>
+              <li>
+                <a href="#operation--prepaid-processor-notification-post"> Notificación (Callback) </a>
+              </li>
             </ul>
           </section>
           <section>
@@ -56,14 +59,6 @@
               </li>
             </ul>
           </section>
-          <section>
-            <a href="#tag-prepago">prepago</a>
-            <ul>
-              <li>
-                <a href="#operation--prepaid-processor-notification-post"> Notificación (Callback) </a>
-              </li>
-            </ul>
-          </section>
           <h5>Schema Definitions</h5>
           <a href="#definition-prepaid_topup_new"> prepaid_topup_new </a>
           <a href="#definition-prepaid_topup"> prepaid_topup </a>
@@ -75,8 +70,6 @@
           <a href="#definition-raw_transaction_new"> raw_transaction_new </a>
           <a href="#definition-amount_and_currency_new"> amount_and_currency_new </a>
           <a href="#definition-amount_and_currency"> amount_and_currency </a>
-          <a href="#definition-place"> place </a>
-          <a href="#definition-merchant"> merchant </a>
           <a href="#definition-transaction_type"> transaction_type </a>
           <a href="#definition-prepaid_card_balance"> prepaid_card_balance </a>
           <a href="#definition-prepaid_card_limit"> prepaid_card_limit </a>
@@ -487,6 +480,133 @@
 </code></pre>
                   <!-- </div> -->
                 </section>
+                <section>
+                  <h5>Response Example
+                    <span>(422 Unprocessable Entity)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--prepaid-processor-notification-post" class="operation panel" data-traverse-target="operation--prepaid-processor-notification-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-prepaid">prepaid</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Notificaci&#xF3;n (Callback)</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/prepaid/processor/notification</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Notifica una transacción ocurrida en una tarjeta de prepago</p>
+                  <p>
+                    <strong>Mensaje invocado por el procesador emisor</strong>
+                  </p>
+                  <ul>
+                    <li>Si el mensaje de entrada no corresponde an un <code>raw_transaction_new</code>, el servicio responderá <code>422</code></li>
+                  </ul>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/raw_transaction_new">raw_transaction_new</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Transacción</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;header&quot;</span>: {
+    <span class="hljs-attr">&quot;entidad&quot;</span>: <span class="hljs-string">&quot;9603&quot;</span>,
+    <span class="hljs-attr">&quot;centro_alta&quot;</span>: <span class="hljs-string">&quot;0001&quot;</span>,
+    <span class="hljs-attr">&quot;cuenta&quot;</span>: <span class="hljs-string">&quot;000000012345&quot;</span>,
+    <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;411111******1111&quot;</span>
+  },
+  <span class="hljs-attr">&quot;body&quot;</span>: {
+    <span class="hljs-attr">&quot;sd_currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;sd_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+    <span class="hljs-attr">&quot;il_currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;il_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+    <span class="hljs-attr">&quot;id_currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;id_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+    <span class="hljs-attr">&quot;tipo_tx&quot;</span>: <span class="hljs-number">100</span>,
+    <span class="hljs-attr">&quot;id_mensaje&quot;</span>: <span class="hljs-number">1200</span>,
+    <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0008902131&quot;</span>,
+    <span class="hljs-attr">&quot;merchant_name&quot;</span>: <span class="hljs-string">&quot;AMAZON UK&quot;</span>,
+    <span class="hljs-attr">&quot;country_iso_3266_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;country_description&quot;</span>: <span class="hljs-string">&quot;Rep&#xFA;blica de Chile&quot;</span>,
+    <span class="hljs-attr">&quot;place_name&quot;</span>: <span class="hljs-string">&quot;Santiago&quot;</span>,
+    <span class="hljs-attr">&quot;resolucion_tx&quot;</span>: <span class="hljs-number">100</span>
+  },
+  <span class="hljs-attr">&quot;base64_data&quot;</span>: <span class="hljs-string">&quot;TWFuIGlzIGRpc3Rpbmd1a  ...  XNoZWQsIG5vdCBvS4=&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">422 Unprocessable Entity</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>El mensaje <code>raw_transaction_new</code> tiene un error</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
@@ -1128,138 +1248,6 @@
               </div>
             </div>
           </div>
-          <h1 id="tag-prepago" class="swagger-summary-tag" data-traverse-target="tag-prepago">prepago</h1>
-          <div id="operation--prepaid-processor-notification-post" class="operation panel" data-traverse-target="operation--prepaid-processor-notification-post">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-prepago">prepago</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">Notificaci&#xF3;n (Callback)</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">POST</span>
-                  <span class="operation-path">/prepaid/processor/notification</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>Notifica una transacción ocurrida en una tarjeta de prepago</p>
-                  <p>
-                    <strong>Mensaje invocado por el procesador emisor</strong>
-                  </p>
-                  <ul>
-                    <li>Si el mensaje de entrada no corresponde an un <code>NewRawTransaction</code>, el servicio responderá <code>422</code></li>
-                  </ul>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-body">
-                  <div class="prop-row">
-                    <div class="prop-name">
-                      <div class="swagger-request-model">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/raw_transaction_new">raw_transaction_new</a>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="prop-value columns small-6">
-                      <!-- <div class="swagger-request-description"> -->
-                      <p>Transacción</p>
-                      <!-- </div> -->
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;header&quot;</span>: {
-    <span class="hljs-attr">&quot;entidad&quot;</span>: <span class="hljs-string">&quot;9603&quot;</span>,
-    <span class="hljs-attr">&quot;centro_alta&quot;</span>: <span class="hljs-string">&quot;0001&quot;</span>,
-    <span class="hljs-attr">&quot;cuenta&quot;</span>: <span class="hljs-string">&quot;000000012345&quot;</span>,
-    <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;411111******1111&quot;</span>
-  },
-  <span class="hljs-attr">&quot;body&quot;</span>: {
-    <span class="hljs-attr">&quot;sd_currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;sd_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
-    <span class="hljs-attr">&quot;il_currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;il_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
-    <span class="hljs-attr">&quot;id_currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;id_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
-    <span class="hljs-attr">&quot;tipo_tx&quot;</span>: <span class="hljs-number">100</span>,
-    <span class="hljs-attr">&quot;id_mensaje&quot;</span>: <span class="hljs-number">1200</span>,
-    <span class="hljs-attr">&quot;comercio&quot;</span>: {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;0008902131&quot;</span>,
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;AMAZON UK&quot;</span>
-    },
-    <span class="hljs-attr">&quot;lugar&quot;</span>: {
-      <span class="hljs-attr">&quot;country_iso_3266_code&quot;</span>: <span class="hljs-number">152</span>,
-      <span class="hljs-attr">&quot;country_description&quot;</span>: <span class="hljs-string">&quot;Rep&#xFA;blica de Chile&quot;</span>,
-      <span class="hljs-attr">&quot;place_name&quot;</span>: <span class="hljs-string">&quot;Santiago&quot;</span>
-    },
-    <span class="hljs-attr">&quot;resolucion_tx&quot;</span>: <span class="hljs-number">100</span>
-  },
-  <span class="hljs-attr">&quot;base64_data&quot;</span>: <span class="hljs-string">&quot;TWFuIGlzIGRpc3Rpbmd1a  ...  XNoZWQsIG5vdCBvS4=&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>OK</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">422 Unprocessable Entity</div>
-                      <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
-                        </span>
-                      </div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>El mensaje <code>raw_transaction_new</code> tiene un error</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Response Example
-                    <span>(422 Unprocessable Entity)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
           <h1>Schema Definitions</h1>
           <div id="definition-prepaid_topup_new" class="definition panel" data-traverse-target="definition-prepaid_topup_new">
             <h2 class="panel-title">
@@ -1827,24 +1815,46 @@
                     <dd>
                       <p>Identificador del mensaje (4 dìgitos)</p>
                     </dd>
-                    <dt data-property-name="comercio">
-                      <span class="json-property-name">comercio:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/merchant">merchant</a>
-                        </span>
-                      </span>
+                    <dt data-property-name="merchant_code" class="has-description">
+                      <span class="json-property-name">merchant_code:</span>
+                      <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dt data-property-name="lugar">
-                      <span class="json-property-name">lugar:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/place">place</a>
-                        </span>
-                      </span>
+                    <dd>
+                      <p>Código único que identifica al comercio</p>
+                    </dd>
+                    <dt data-property-name="merchant_name" class="has-description">
+                      <span class="json-property-name">merchant_name:</span>
+                      <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dd>
+                      <p>Nombre del comercio</p>
+                    </dd>
+                    <dt data-property-name="country_iso_3266_code" class="has-description">
+                      <span class="json-property-name">country_iso_3266_code:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Código ISO 3266-1 (numeric) del país</p>
+                    </dd>
+                    <dt data-property-name="country_description" class="has-description">
+                      <span class="json-property-name">country_description:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Nombre del país en español</p>
+                    </dd>
+                    <dt data-property-name="place_name" class="has-description">
+                      <span class="json-property-name">place_name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Nombre del lugar donde ocurrió el movimiento</p>
+                    </dd>
                     <dt data-property-name="resolucion_tx" class="has-description">
                       <span class="json-property-name">resolucion_tx:</span>
                       <span class="json-property-type">integer</span>
@@ -1868,15 +1878,11 @@
   <span class="hljs-attr">&quot;id_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
   <span class="hljs-attr">&quot;tipo_tx&quot;</span>: <span class="hljs-number">100</span>,
   <span class="hljs-attr">&quot;id_mensaje&quot;</span>: <span class="hljs-number">1200</span>,
-  <span class="hljs-attr">&quot;comercio&quot;</span>: {
-    <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;0008902131&quot;</span>,
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;AMAZON UK&quot;</span>
-  },
-  <span class="hljs-attr">&quot;lugar&quot;</span>: {
-    <span class="hljs-attr">&quot;country_iso_3266_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;country_description&quot;</span>: <span class="hljs-string">&quot;Rep&#xFA;blica de Chile&quot;</span>,
-    <span class="hljs-attr">&quot;place_name&quot;</span>: <span class="hljs-string">&quot;Santiago&quot;</span>
-  },
+  <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0008902131&quot;</span>,
+  <span class="hljs-attr">&quot;merchant_name&quot;</span>: <span class="hljs-string">&quot;AMAZON UK&quot;</span>,
+  <span class="hljs-attr">&quot;country_iso_3266_code&quot;</span>: <span class="hljs-number">152</span>,
+  <span class="hljs-attr">&quot;country_description&quot;</span>: <span class="hljs-string">&quot;Rep&#xFA;blica de Chile&quot;</span>,
+  <span class="hljs-attr">&quot;place_name&quot;</span>: <span class="hljs-string">&quot;Santiago&quot;</span>,
   <span class="hljs-attr">&quot;resolucion_tx&quot;</span>: <span class="hljs-number">100</span>
 }
 </code></pre>
@@ -1951,15 +1957,11 @@
     <span class="hljs-attr">&quot;id_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
     <span class="hljs-attr">&quot;tipo_tx&quot;</span>: <span class="hljs-number">100</span>,
     <span class="hljs-attr">&quot;id_mensaje&quot;</span>: <span class="hljs-number">1200</span>,
-    <span class="hljs-attr">&quot;comercio&quot;</span>: {
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;0008902131&quot;</span>,
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;AMAZON UK&quot;</span>
-    },
-    <span class="hljs-attr">&quot;lugar&quot;</span>: {
-      <span class="hljs-attr">&quot;country_iso_3266_code&quot;</span>: <span class="hljs-number">152</span>,
-      <span class="hljs-attr">&quot;country_description&quot;</span>: <span class="hljs-string">&quot;Rep&#xFA;blica de Chile&quot;</span>,
-      <span class="hljs-attr">&quot;place_name&quot;</span>: <span class="hljs-string">&quot;Santiago&quot;</span>
-    },
+    <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0008902131&quot;</span>,
+    <span class="hljs-attr">&quot;merchant_name&quot;</span>: <span class="hljs-string">&quot;AMAZON UK&quot;</span>,
+    <span class="hljs-attr">&quot;country_iso_3266_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;country_description&quot;</span>: <span class="hljs-string">&quot;Rep&#xFA;blica de Chile&quot;</span>,
+    <span class="hljs-attr">&quot;place_name&quot;</span>: <span class="hljs-string">&quot;Santiago&quot;</span>,
     <span class="hljs-attr">&quot;resolucion_tx&quot;</span>: <span class="hljs-number">100</span>
   },
   <span class="hljs-attr">&quot;base64_data&quot;</span>: <span class="hljs-string">&quot;TWFuIGlzIGRpc3Rpbmd1a  ...  XNoZWQsIG5vdCBvS4=&quot;</span>
@@ -2069,118 +2071,6 @@
   <span class="hljs-attr">&quot;currency_description&quot;</span>: <span class="hljs-string">&quot;Peso Chileno&quot;</span>,
   <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
   <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="definition-place" class="definition panel" data-traverse-target="definition-place">
-            <h2 class="panel-title">
-              <a name="/definitions/place"></a>place: object
-              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-description">
-                  <p>Lugar donde ocurrió la transacción
-                    <strong>(Response)</strong>
-                  </p>
-                </section>
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="country_iso_3266_code" class="has-description">
-                      <span class="json-property-name">country_iso_3266_code:</span>
-                      <span class="json-property-type">integer</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dd>
-                      <p>Código ISO 3266-1 (numeric) del país</p>
-                    </dd>
-                    <dt data-property-name="country_description" class="has-description">
-                      <span class="json-property-name">country_description:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Nombre del país en español</p>
-                    </dd>
-                    <dt data-property-name="place_name" class="has-description">
-                      <span class="json-property-name">place_name:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Nombre del lugar donde ocurrió el movimiento</p>
-                    </dd>
-                  </dl>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;country_iso_3266_code&quot;</span>: <span class="hljs-number">152</span>,
-  <span class="hljs-attr">&quot;country_description&quot;</span>: <span class="hljs-string">&quot;Rep&#xFA;blica de Chile&quot;</span>,
-  <span class="hljs-attr">&quot;place_name&quot;</span>: <span class="hljs-string">&quot;Santiago&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="definition-merchant" class="definition panel" data-traverse-target="definition-merchant">
-            <h2 class="panel-title">
-              <a name="/definitions/merchant"></a>merchant: object
-              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-description">
-                  <p>Comercio de origen
-                    <strong>(Response)</strong>
-                  </p>
-                </section>
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="code" class="has-description">
-                      <span class="json-property-name">code:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dd>
-                      <p>Código único que identifica al comercio</p>
-                    </dd>
-                    <dt data-property-name="name" class="has-description">
-                      <span class="json-property-name">name:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dd>
-                      <p>Nombre del comercio</p>
-                    </dd>
-                  </dl>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;0008902131&quot;</span>,
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;AMAZON UK&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -2594,15 +2484,6 @@
     <span class="hljs-attr">&quot;currency_description&quot;</span>: <span class="hljs-string">&quot;Peso Chileno&quot;</span>,
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-  },
-  <span class="hljs-attr">&quot;place&quot;</span>: {
-    <span class="hljs-attr">&quot;country_iso_3266_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;country_description&quot;</span>: <span class="hljs-string">&quot;Rep&#xFA;blica de Chile&quot;</span>,
-    <span class="hljs-attr">&quot;place_name&quot;</span>: <span class="hljs-string">&quot;Santiago&quot;</span>
-  },
-  <span class="hljs-attr">&quot;merchant&quot;</span>: {
-    <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;0008902131&quot;</span>,
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;AMAZON UK&quot;</span>
   }
 }
 </code></pre>
