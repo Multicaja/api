@@ -56,8 +56,15 @@
               </li>
             </ul>
           </section>
+          <section>
+            <a href="#tag-prepago">prepago</a>
+            <ul>
+              <li>
+                <a href="#operation--prepaid-processor-notification-post"> Notificación (Callback) </a>
+              </li>
+            </ul>
+          </section>
           <h5>Schema Definitions</h5>
-          <a href="#definition-amount_and_currency_new"> amount_and_currency_new </a>
           <a href="#definition-prepaid_topup_new"> prepaid_topup_new </a>
           <a href="#definition-prepaid_topup"> prepaid_topup </a>
           <a href="#definition-prepaid_user_signup_new"> prepaid_user_signup_new </a>
@@ -66,6 +73,7 @@
           <a href="#definition-raw_transaction_header_new"> raw_transaction_header_new </a>
           <a href="#definition-raw_transaction_body_new"> raw_transaction_body_new </a>
           <a href="#definition-raw_transaction_new"> raw_transaction_new </a>
+          <a href="#definition-amount_and_currency_new"> amount_and_currency_new </a>
           <a href="#definition-amount_and_currency"> amount_and_currency </a>
           <a href="#definition-place"> place </a>
           <a href="#definition-merchant"> merchant </a>
@@ -1120,51 +1128,131 @@
               </div>
             </div>
           </div>
-          <h1>Schema Definitions</h1>
-          <div id="definition-amount_and_currency_new" class="definition panel" data-traverse-target="definition-amount_and_currency_new">
-            <h2 class="panel-title">
-              <a name="/definitions/amount_and_currency_new"></a>amount_and_currency_new: object
-              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
+          <h1 id="tag-prepago" class="swagger-summary-tag" data-traverse-target="tag-prepago">prepago</h1>
+          <div id="operation--prepaid-processor-notification-post" class="operation panel" data-traverse-target="operation--prepaid-processor-notification-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-prepago">prepago</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Notificaci&#xF3;n (Callback)</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="json-schema-description">
-                  <p>Monto en una moneda específica
-                    <strong>(Request)</strong>
-                  </p>
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/prepaid/processor/notification</span>
                 </section>
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="currency_code" class="has-description">
-                      <span class="json-property-name">currency_code:</span>
-                      <span class="json-property-type">integer</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dd>
-                      <p>Código ISO 4217 (numeric) de la moneda</p>
-                    </dd>
-                    <dt data-property-name="value" class="has-description">
-                      <span class="json-property-name">value:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Monto en formato decimal</p>
-                    </dd>
-                  </dl>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Notifica una transacción ocurrida en una tarjeta de prepago</p>
+                  <p>
+                    <strong>Mensaje invocado por el procesador emisor</strong>
+                  </p>
+                  <ul>
+                    <li>Si el mensaje de entrada no corresponde an un <code>NewRawTransaction</code>, el servicio responderá <code>422</code></li>
+                  </ul>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/raw_transaction_new">raw_transaction_new</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Transacción</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
                 </section>
               </div>
               <div class="doc-examples">
                 <section>
-                  <h5>Example</h5>
+                  <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
-  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  <span class="hljs-attr">&quot;header&quot;</span>: {
+    <span class="hljs-attr">&quot;entidad&quot;</span>: <span class="hljs-string">&quot;9603&quot;</span>,
+    <span class="hljs-attr">&quot;centro_alta&quot;</span>: <span class="hljs-string">&quot;0001&quot;</span>,
+    <span class="hljs-attr">&quot;cuenta&quot;</span>: <span class="hljs-string">&quot;000000012345&quot;</span>,
+    <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;411111******1111&quot;</span>
+  },
+  <span class="hljs-attr">&quot;body&quot;</span>: {
+    <span class="hljs-attr">&quot;sd_currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;sd_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+    <span class="hljs-attr">&quot;il_currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;il_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+    <span class="hljs-attr">&quot;id_currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;id_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+    <span class="hljs-attr">&quot;tipo_tx&quot;</span>: <span class="hljs-number">100</span>,
+    <span class="hljs-attr">&quot;id_mensaje&quot;</span>: <span class="hljs-number">1200</span>,
+    <span class="hljs-attr">&quot;comercio&quot;</span>: {
+      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;0008902131&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;AMAZON UK&quot;</span>
+    },
+    <span class="hljs-attr">&quot;lugar&quot;</span>: {
+      <span class="hljs-attr">&quot;country_iso_3266_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;country_description&quot;</span>: <span class="hljs-string">&quot;Rep&#xFA;blica de Chile&quot;</span>,
+      <span class="hljs-attr">&quot;place_name&quot;</span>: <span class="hljs-string">&quot;Santiago&quot;</span>
+    },
+    <span class="hljs-attr">&quot;resolucion_tx&quot;</span>: <span class="hljs-number">100</span>
+  },
+  <span class="hljs-attr">&quot;base64_data&quot;</span>: <span class="hljs-string">&quot;TWFuIGlzIGRpc3Rpbmd1a  ...  XNoZWQsIG5vdCBvS4=&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">422 Unprocessable Entity</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>El mensaje <code>raw_transaction_new</code> tiene un error</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(422 Unprocessable Entity)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1172,6 +1260,7 @@
               </div>
             </div>
           </div>
+          <h1>Schema Definitions</h1>
           <div id="definition-prepaid_topup_new" class="definition panel" data-traverse-target="definition-prepaid_topup_new">
             <h2 class="panel-title">
               <a name="/definitions/prepaid_topup_new"></a>prepaid_topup_new: object
@@ -1674,33 +1763,54 @@
                 </section>
                 <section class="json-schema-properties">
                   <dl>
-                    <dt data-property-name="saldo_disponible">
-                      <span class="json-property-name">saldo_disponible:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/amount_and_currency_new">amount_and_currency_new</a>
-                        </span>
-                      </span>
+                    <dt data-property-name="sd_currency_code" class="has-description">
+                      <span class="json-property-name">sd_currency_code:</span>
+                      <span class="json-property-type">integer</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dt data-property-name="importe_local">
-                      <span class="json-property-name">importe_local:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/amount_and_currency_new">amount_and_currency_new</a>
-                        </span>
-                      </span>
+                    <dd>
+                      <p>Saldo disponible: Código ISO 4217 (numeric) de la moneda</p>
+                    </dd>
+                    <dt data-property-name="sd_value" class="has-description">
+                      <span class="json-property-name">sd_value:</span>
+                      <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dt data-property-name="importe_divisa">
-                      <span class="json-property-name">importe_divisa:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/amount_and_currency_new">amount_and_currency_new</a>
-                        </span>
-                      </span>
+                    <dd>
+                      <p>Saldo disponible: Monto en formato decimal</p>
+                    </dd>
+                    <dt data-property-name="il_currency_code" class="has-description">
+                      <span class="json-property-name">il_currency_code:</span>
+                      <span class="json-property-type">integer</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dd>
+                      <p>Importe local: Código ISO 4217 (numeric) de la moneda</p>
+                    </dd>
+                    <dt data-property-name="il_value" class="has-description">
+                      <span class="json-property-name">il_value:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Importe local: Monto en formato decimal</p>
+                    </dd>
+                    <dt data-property-name="id_currency_code" class="has-description">
+                      <span class="json-property-name">id_currency_code:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Importe divisa: Código ISO 4217 (numeric) de la moneda</p>
+                    </dd>
+                    <dt data-property-name="id_value" class="has-description">
+                      <span class="json-property-name">id_value:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Importe divisa: Monto en formato decimal</p>
+                    </dd>
                     <dt data-property-name="tipo_tx" class="has-description">
                       <span class="json-property-name">tipo_tx:</span>
                       <span class="json-property-type">integer</span>
@@ -1750,18 +1860,12 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;saldo_disponible&quot;</span>: {
-    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-  },
-  <span class="hljs-attr">&quot;importe_local&quot;</span>: {
-    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-  },
-  <span class="hljs-attr">&quot;importe_divisa&quot;</span>: {
-    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-  },
+  <span class="hljs-attr">&quot;sd_currency_code&quot;</span>: <span class="hljs-number">152</span>,
+  <span class="hljs-attr">&quot;sd_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+  <span class="hljs-attr">&quot;il_currency_code&quot;</span>: <span class="hljs-number">152</span>,
+  <span class="hljs-attr">&quot;il_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+  <span class="hljs-attr">&quot;id_currency_code&quot;</span>: <span class="hljs-number">152</span>,
+  <span class="hljs-attr">&quot;id_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
   <span class="hljs-attr">&quot;tipo_tx&quot;</span>: <span class="hljs-number">100</span>,
   <span class="hljs-attr">&quot;id_mensaje&quot;</span>: <span class="hljs-number">1200</span>,
   <span class="hljs-attr">&quot;comercio&quot;</span>: {
@@ -1839,18 +1943,12 @@
     <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;411111******1111&quot;</span>
   },
   <span class="hljs-attr">&quot;body&quot;</span>: {
-    <span class="hljs-attr">&quot;saldo_disponible&quot;</span>: {
-      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
-      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-    },
-    <span class="hljs-attr">&quot;importe_local&quot;</span>: {
-      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
-      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-    },
-    <span class="hljs-attr">&quot;importe_divisa&quot;</span>: {
-      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
-      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-    },
+    <span class="hljs-attr">&quot;sd_currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;sd_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+    <span class="hljs-attr">&quot;il_currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;il_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+    <span class="hljs-attr">&quot;id_currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;id_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
     <span class="hljs-attr">&quot;tipo_tx&quot;</span>: <span class="hljs-number">100</span>,
     <span class="hljs-attr">&quot;id_mensaje&quot;</span>: <span class="hljs-number">1200</span>,
     <span class="hljs-attr">&quot;comercio&quot;</span>: {
@@ -1865,6 +1963,57 @@
     <span class="hljs-attr">&quot;resolucion_tx&quot;</span>: <span class="hljs-number">100</span>
   },
   <span class="hljs-attr">&quot;base64_data&quot;</span>: <span class="hljs-string">&quot;TWFuIGlzIGRpc3Rpbmd1a  ...  XNoZWQsIG5vdCBvS4=&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-amount_and_currency_new" class="definition panel" data-traverse-target="definition-amount_and_currency_new">
+            <h2 class="panel-title">
+              <a name="/definitions/amount_and_currency_new"></a>amount_and_currency_new: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Monto en una moneda específica
+                    <strong>(Request)</strong>
+                  </p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="currency_code" class="has-description">
+                      <span class="json-property-name">currency_code:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Código ISO 4217 (numeric) de la moneda</p>
+                    </dd>
+                    <dt data-property-name="value" class="has-description">
+                      <span class="json-property-name">value:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Monto en formato decimal</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
