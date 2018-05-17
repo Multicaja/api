@@ -231,7 +231,10 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;exitoso&quot;</span>,
+  <span class="hljs-attr">&quot;mc_voucher&quot;</span>: <span class="hljs-string">&quot;hola ke ase&quot;</span>,
+  <span class="hljs-attr">&quot;amount_paid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;fees&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;amount_credited_on_card&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">1291020</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -286,13 +289,16 @@
               <div class="doc-copy">
                 <section class="swagger-operation-description">
                   <p>Reversa una carga que a) coincida en todos los campos de prepaid_topup_new y b) se haya recibido en las últimas 24 horas.</p>
-                  <p>Responderá exito en todos los siguientes casos:</p>
-                  <h3 id="casos">Casos</h3>
+                  <h3 id="responder-201-xito-en-todos-los-siguientes-casos-">Responderá <code>201</code> (éxito) en todos los siguientes casos:</h3>
                   <ul>
-                    <li>Si la carga nunca se recibió, no hace nada.</li>
-                    <li>Si la carga se recibió y todavía no es procesada, elimina el saldo cargado en la CDT</li>
-                    <li>Si la carga se recibió, fue procesada, y el saldo todavía no se gasta, reversa el aumento de saldo</li>
-                    <li>Si la carga se recibió, fue procesada, y el saldo ya se gastó, genera una deuda por el monto en la CDT y envía una notificación al Cliente para que pague.</li>
+                    <li>Si la carga ya fue reversada, en cuyo caso no hará nada</li>
+                    <li>Si la carga nunca se recibió, en cuyo caso no hará nada</li>
+                    <li>Si la carga se recibió, y el saldo todavía no se gasta, en cuyo caso reversará el aumento de saldo</li>
+                    <li>Si la carga se recibió, y el saldo ya se gastó, en cuyo caso generará un cargo forzado en la tarjeta y enviará una notificación al Cliente para que pague</li>
+                  </ul>
+                  <h3 id="responder-error-en-los-siguientes-casos-">Responderá error en los siguientes casos:</h3>
+                  <ul>
+                    <li>Si es que la carga fue recibida y no está reversada, pero el plazo para reversarla ya expiró. En este caso, no hará nada y responderá <code>410</code></li>
                   </ul>
                 </section>
               </div>
@@ -344,9 +350,35 @@
                       <p>OK - Reversa exitosa</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">410 Gone</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Plazo para reversar expirado</p>
+                    </div>
+                  </div>
                 </section>
               </div>
-              <div class="doc-examples"> </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(410 Gone)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
             </div>
           </div>
           <div id="operation--prepaid--user_id--topup-get" class="operation panel" data-traverse-target="operation--prepaid--user_id--topup-get">
@@ -462,7 +494,10 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
   {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;exitoso&quot;</span>,
+    <span class="hljs-attr">&quot;mc_voucher&quot;</span>: <span class="hljs-string">&quot;hola ke ase&quot;</span>,
+    <span class="hljs-attr">&quot;amount_paid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;fees&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;amount_credited_on_card&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">1291020</span>,
     <span class="hljs-attr">&quot;timestamps&quot;</span>: {
       <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -1356,13 +1391,40 @@
                         <dd>
                           <p>Identificador de la solicitud.</p>
                         </dd>
-                        <dt data-property-name="status" class="has-description">
-                          <span class="json-property-name">status:</span>
+                        <dt data-property-name="mc_voucher" class="has-description">
+                          <span class="json-property-name">mc_voucher:</span>
                           <span class="json-property-type">string</span>
                           <span class="json-property-range" title="Value limits"></span>
                         </dt>
                         <dd>
-                          <p>Siempre &#39;exitoso&#39;</p>
+                          <p>Cadena de texto que, si no viene en <code>null</code> o vacío, se incluirá en el voucher del Comercio Multicaja</p>
+                        </dd>
+                        <dt data-property-name="amount_paid" class="has-description">
+                          <span class="json-property-name">amount_paid:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dd>
+                          <p>Corresponde al dinero entregado por el Cliente al Comercio Multicaja. Es igual a <code>prepaid_topup_new.amount</code>.</p>
+                          <p>Número en formato decimal.</p>
+                        </dd>
+                        <dt data-property-name="fees" class="has-description">
+                          <span class="json-property-name">fees:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dd>
+                          <p>Corresponde al dinero cobrado al Cliente por esta transacción.</p>
+                          <p>Número en formato decimal.</p>
+                        </dd>
+                        <dt data-property-name="amount_credited_on_card" class="has-description">
+                          <span class="json-property-name">amount_credited_on_card:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dd>
+                          <p>Corresponde al monto que se le depositó a la tarjeta del Cliente. Es igual a <code>prepaid_topup.amount_paid</code> - <code>prepaid_topup.fees</code></p>
+                          <p>Número en formato decimal.</p>
                         </dd>
                         <dt data-property-name="user_id" class="has-description">
                           <span class="json-property-name">user_id:</span>
@@ -1391,7 +1453,10 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;exitoso&quot;</span>,
+  <span class="hljs-attr">&quot;mc_voucher&quot;</span>: <span class="hljs-string">&quot;hola ke ase&quot;</span>,
+  <span class="hljs-attr">&quot;amount_paid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;fees&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;amount_credited_on_card&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">1291020</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
