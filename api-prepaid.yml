@@ -111,7 +111,7 @@ paths:
         * Abona a la Cuenta de Traspaso Personal (CTP) y gatilla un proceso asíncrono que debita la CTP para abonar a la Tarjeta de Prepago.
       parameters:
         - in: body
-          name: new_prepaid_tx
+          name: new_topup
           description: Detalle de la carga a realizar
           required: true
           schema:
@@ -134,16 +134,17 @@ paths:
       description: |
         Reversa una carga que a) coincida en todos los campos de prepaid_topup_new y b) se haya recibido en las últimas 24 horas.
         
-        Responderá exito en todos los siguientes casos:
-        
-        ### Casos
-        * Si la carga nunca se recibió, no hace nada.
-        * Si la carga se recibió y todavía no es procesada, elimina el saldo cargado en la CDT
-        * Si la carga se recibió, fue procesada, y el saldo todavía no se gasta, reversa el aumento de saldo
-        * Si la carga se recibió, fue procesada, y el saldo ya se gastó, genera una deuda por el monto en la CDT y envía una notificación al Cliente para que pague.
+        ### Responderá `201` (éxito) en todos los siguientes casos:
+        * Si la carga ya fue reversada, en cuyo caso no hará nada
+        * Si la carga nunca se recibió, en cuyo caso no hará nada
+        * Si la carga se recibió, y el saldo todavía no se gasta, en cuyo caso reversará el aumento de saldo
+        * Si la carga se recibió, y el saldo ya se gastó, en cuyo caso generará un cargo forzado en la tarjeta y enviará una notificación al Cliente para que pague
+
+        ### Responderá error en los siguientes casos:
+        * Si es que la carga fue recibida y no está reversada, pero el plazo para reversarla ya expiró. En este caso, no hará nada y responderá `410`
       parameters:
         - in: body
-          name: new_prepaid_tx
+          name: new_topup
           description: Detalle de la carga a realizar
           required: true
           schema:
@@ -151,6 +152,10 @@ paths:
       responses:
         '201':
           description: OK - Reversa exitosa
+        '410':
+          description: Plazo para reversar expirado
+          schema:
+            $ref: '#/definitions/error_obj'
   /prepaid/{user_id}/topup:
     get:
       tags:
@@ -296,10 +301,28 @@ definitions:
             type: integer
             description: Identificador de la solicitud.
             example: 7783834
-          status:
+          mc_voucher:
             type: string
-            description: Siempre 'exitoso'
-            example: 'exitoso'
+            description: Cadena de texto que, si no viene en `null` o vacío, se incluirá en el voucher del Comercio Multicaja
+            example: 'hola ke ase'
+          amount_paid:
+            type: string
+            description: |
+              Corresponde al dinero entregado por el Cliente al Comercio Multicaja. Es igual a `prepaid_topup_new.amount`.
+
+              Número en formato decimal.
+          fees:
+            type: string
+            description: |
+              Corresponde al dinero cobrado al Cliente por esta transacción.
+
+              Número en formato decimal.
+          amount_credited_on_card:
+            type: string
+            description: |
+              Corresponde al monto que se le depositó a la tarjeta del Cliente. Es igual a `prepaid_topup.amount_paid` - `prepaid_topup.fees`
+
+              Número en formato decimal.
           user_id:
             type: integer
             description: Identificador del Cliente Multicaja afectado
