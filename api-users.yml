@@ -319,7 +319,7 @@ paths:
         '404':
           description: Cliente no existe.
         '422':
-          description: Error de validación en datos personales
+          description: Error de validación de mail
           schema:
             $ref: '#/definitions/error_obj'
   /users/{user_id}/validate_rut:
