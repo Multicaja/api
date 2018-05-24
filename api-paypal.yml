@@ -1,0 +1,147 @@
+swagger: '2.0'
+info:
+  description: |
+    Bienvenido a la API de [Multicaja PayPal](https://www.multicaja.cl) (Alpha)
+
+    ** Este es un proyecto alpha y por lo tanto sufrirá muchos cambios **
+
+    Todos los requests son autenticados usando un `api-key`.
+
+    Existen dos ambientes: `qa` y `producción`. El `host` de `qa` es `apiqa.multicaja.cl`.
+  version: '1.0'
+  title: API Multicaja PayPal (Alpha)
+host: 'api.multicaja.cl'
+basePath: /paypal/1.0/
+consumes:
+  - application/json
+produces:
+  - application/json
+tags:
+  - name: Users PayPal
+    description: Obtiene informacion del usuario
+paths:
+  /users/info:
+    get:
+      tags:
+        - Users PayPal
+      summary: Obtiene la informacion de un usario en paypal
+      description: |
+        Permite obtener a través del email, la información de la cuenta de un cliente en paypal como son: el país, nombre o estado.
+      parameters:
+        - in: path
+          name: email
+          description: Email del cliente de paypal que se quiere consultar
+          required: true
+          type: "string"
+      responses:
+        '200':
+          description: |
+            OK
+          schema:
+            $ref: '#/definitions/users_info'
+        '404':
+          description: Usuario no encontrado
+          schema:
+            $ref: '#/definitions/error_obj'
+  /users/balance:
+    get:
+      tags:
+        - Users PayPal
+      summary: El balance del cliente en paypal
+      description: |
+        Obtienen el balance del cliente en paypal
+      parameters:
+        - in: path
+          name: email
+          description: Email del cliente de paypal que se quiere consultar
+          required: true
+          type: "string"
+      responses:
+        '200':
+          description: |
+            OK
+          schema:
+            $ref: '#/definitions/users_balance'
+        '404':
+          description: Usuario no encontrado
+          schema:
+            $ref: '#/definitions/error_obj'
+definitions:
+  users_info:
+    type: object
+    description: |
+      Solicitud de registro de un Cliente Multicaja.cl **(Request)**
+    properties:
+      name:
+        type: string
+        description: Nombre del cliente registrado en paypal
+        example: "Pepito"
+      last_name:
+        type: string
+        description: Apellido del cliente registrado en paypal
+        example: "Tes"
+      type:
+        type: string
+        description: Tipo de cliente registrado en paypal
+        example: "PREMIER"
+      status:
+        type: string
+        description: Estado del cliente en paypal
+        example: "UNVERIFIED/VERIFIED"
+      country:
+        type: string
+        description: email del prospecto de cliente
+        example: "CL"
+      time_stamps:
+        type: string
+        description: Fecha de obtenida la consulta en paypal
+        example: "2018-05-14T14:34:07.824-07:00"
+      account_id:
+        type: string
+        description: Id del cliente en paypal
+        example: "6FR8UB95HSZZU"
+      correlation_id:
+        type: string
+        description: Numero de verificación del usuario
+        example: "2ef6d00c6b77c"
+  users_balance:
+    type: object
+    description: |
+      Solicitud de registro de un Cliente Multicaja.cl **(Request)**
+    properties:
+      value:
+        type: string
+        description: Valor de la moneda princiap
+        example: "630.00"
+      currency:
+        type: string
+        description: Moneda principal del usuario
+        example: "USD"
+      amounts:
+        type: array
+        items:
+          type: object
+          properties:
+            value:
+              type: string
+              description: Valor de la moneda princiap
+              example: "630.00"
+            currency:
+              type: string
+              description: Moneda principal del usuario
+              example: "USD"
+  error_obj:
+    type: object
+    description: Error que devuelve la api ante un `HTTP 400` **(Response)**
+    required:
+      - code
+    properties:
+      code:
+        type: integer
+        format: int32
+        description: Código que representa el error. No será igual al código HTTP.
+        example: 12
+      message:
+        type: string
+        description: Descripción corta del error
+        example: "Email not found"

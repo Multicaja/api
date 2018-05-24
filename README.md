@@ -7,6 +7,7 @@
 | [Users](https://multicaja.github.io/api/api-users.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-users.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-users.yml) | Usuarios, contacto, cuentas, direcciones |
 | [Prepaid](https://multicaja.github.io/api/api-prepaid.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-prepaid.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-prepaid.yml) | Tarjetas de prepago, saldo, emisión, transacciones |
 | [Helpers](https://multicaja.github.io/api/api-helpers.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-helpers.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-helpers.yml) | Comunas, bancos, regiones |
+| [PayPal](https://multicaja.github.io/api/api-paypal.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-paypal.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-paypal.yml) | PayPal retiro o/y abono |
 
 ### Buenas prácticas
 
