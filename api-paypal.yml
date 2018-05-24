@@ -43,7 +43,7 @@ paths:
           description: Usuario no encontrado
           schema:
             $ref: '#/definitions/error_obj'
-  /users/balace:
+  /users/balance:
     get:
       tags:
         - Users PayPal
@@ -61,7 +61,7 @@ paths:
           description: |
             OK
           schema:
-            $ref: '#/definitions/users_balace'
+            $ref: '#/definitions/users_balance'
         '404':
           description: Usuario no encontrado
           schema:
@@ -104,7 +104,7 @@ definitions:
         type: string
         description: Numero de verificación del usuario
         example: "2ef6d00c6b77c"
-  users_balace:
+  users_balance:
     type: object
     description: |
       Solicitud de registro de un Cliente Multicaja.cl **(Request)**
