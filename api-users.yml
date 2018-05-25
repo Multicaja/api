@@ -29,6 +29,8 @@ tags:
     description: Cuentas bancarias de un cliente
   - name: direcciones
     description: Dirección física de un cliente
+  - name: parámetros
+    description: Listas de parámetros inmutables
 paths:
   /users/soft-signup:
     post:
@@ -42,7 +44,6 @@ paths:
           * POST /users/soft-signup
           * GET  /users/soft-signup/{signup_id}
           * GET  /users/{user_id}
-          * POST /users/{user_id}/update_email
           * POST /users/{user_id}/update_personal_data
           * POST /users/{user_id}/validate_email # sin validation_channel
       parameters:
@@ -103,7 +104,6 @@ paths:
           * POST /users/full_signup
           * GET  /users/full_signup/{signup_id}
           * GET  /users/{user_id}
-          * POST /users/{user_id}/update_email
           * POST /users/{user_id}/update_personal_data
           * POST /users/{user_id}/validate_rut
           * POST /users/{user_id}/validate_email
@@ -286,42 +286,6 @@ paths:
           description: Error de validación en datos personales
           schema:
             $ref: '#/definitions/error_obj'
-  /users/{user_id}/update_email:
-    post:
-      tags:
-        - clientes
-      description: |
-        Actualiza el e-mail
-      parameters:
-        - in: path
-          name: user_id
-          description: ID del Cliente
-          required: true
-          type: "integer"
-        - in: body
-          name: personal_data
-          description: Parámetros del usuario a crear
-          required: true
-          schema:
-            $ref: '#/definitions/update_email_new'
-      responses:
-        '201':
-          description: |
-            OK - cambio aplicado
-          schema:
-            $ref: '#/definitions/user'
-        '401':
-          description: Sin permisos para realizar esta operación
-        '403':
-          description: Usuario borrado o bloqueado
-          schema:
-            $ref: '#/definitions/error_obj'
-        '404':
-          description: Cliente no existe.
-        '422':
-          description: Error de validación de mail
-          schema:
-            $ref: '#/definitions/error_obj'
   /users/{user_id}/validate_rut:
     post:
       tags:
@@ -474,7 +438,7 @@ paths:
         '404':
           description: Cliente no existe.
         '422':
-          description: Error de validación en update_email
+          description: Error de validación en update_cellphone
           schema:
             $ref: '#/definitions/error_obj'
   /users/{user_id}/mail:
@@ -878,7 +842,73 @@ paths:
         '200':
           description: OK
         '404':
-          description: Cliente o Dirección no existen          
+          description: Cliente o Dirección no existen 
+  /helpers/banks:
+    get:
+      summary: Lista bancos
+      tags: 
+        - parámetros
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/parameter'
+  /helpers/communes:
+    get:
+      summary: Lista comunas
+      tags: 
+        - parámetros
+      parameters:
+        - name: "region"
+          in: "query"
+          description: "id de region para busqueda"
+          required: false
+          type: "integer"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/parameter'
+  /helpers/regions:
+    get:
+      summary: Lista regiones
+      tags: 
+        - parámetros
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/parameter'
+  /helpers/commercial_activity:
+    get:
+      summary: Lista giros comerciales
+      tags: 
+        - parámetros
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/parameter'
+  /helpers/user/tags:
+    get:
+      summary: Lista de etiquetas que pueden aplicar a un cliente
+      tags: 
+        - parámetros
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/parameter'         
 definitions:
   user_signup_new:
     type: object
@@ -1409,6 +1439,22 @@ definitions:
               * validada: el usuario hizo una aviso de depósito seguido de una transferencia desde esta cuenta
           timestamps:
             $ref: '#/definitions/timestamps'
+  parameter:
+    type: object
+    required:
+      - id
+      - value
+    description: Parámetro básico **(Response)**
+    properties:
+      id:
+        type: integer
+        description: identificador del parámetro
+      value:
+        type: string
+        description: nombre del parámetro
+      desc:
+        type: string
+        description: descripción del parámetro
   error_obj:
     type: object
     description: Error que devuelve la api ante un `HTTP 422` **(Response)**

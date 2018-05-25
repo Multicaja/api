@@ -19,9 +19,7 @@ script:
   # Build docs pages
   - spectacle --target-dir docs --target-file api-users.html api-users.yml
   - spectacle --target-dir docs-prepaid --target-file api-prepaid.html api-prepaid.yml
-  - spectacle --target-dir docs-helpers --target-file api-helpers.html api-helpers.yml
   - mv docs-prepaid/api-prepaid.html docs/
-  - mv docs-helpers/api-helpers.html docs/
   - cp README.md docs/
  
 deploy:

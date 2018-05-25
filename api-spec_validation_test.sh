@@ -12,7 +12,6 @@ setUp()
   
   openApiSpecFileNames=(
      'api-users.yml'
-     'api-helpers.yml'
      'api-prepaid.yml'
    )
   

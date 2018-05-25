@@ -19,8 +19,6 @@ tags:
     description: Métodos públicos de la API de prepago
   - name: prepaid-signup
     description: Registro de usuarios de prepago
-  - name: prepaid-protected
-    description: Métodos internos de la API de prepago
 paths:
   /prepaid/signup:
     post:
@@ -210,65 +208,6 @@ paths:
           description: El mensaje `raw_transaction_new` tiene un error
           schema:
             $ref: '#/definitions/error_obj'
-  /prepaid/{user_id}/card:
-    post:
-      tags:
-        - prepaid-protected
-      summary: Emite una tarjeta
-      description: |
-        Emite una tarjeta de prepago y retorna el CVC
-      parameters:
-        - in: path
-          name: user_id
-          description: ID del Cliente
-          required: true
-          type: "integer"
-      responses:
-        '201':
-          description: |
-            OK - Revise resultado
-          schema:
-            $ref: '#/definitions/prepaid_card'
-        '403':
-          description: Usuario borrado, bloqueado, o ya tiene prepago.
-          schema:
-            $ref: '#/definitions/error_obj'
-        '404':
-          description: Cliente no existe
-          schema:
-            $ref: '#/definitions/error_obj'
-        '422':
-          description: Error de validación
-          schema:
-            $ref: '#/definitions/error_obj'
-    get:
-      tags:
-        - prepaid-protected
-      summary: Consulta la tarjeta
-      description: |
-        Consulta una tarjeta de prepago, pero *no* retorna el CVC
-      parameters:
-        - in: path
-          name: user_id
-          description: ID del Cliente
-          required: true
-          type: "integer"
-      responses:
-        '200':
-          description: |
-            OK - Revise resultado
-          schema:
-            $ref: '#/definitions/prepaid_card'
-        '401':
-          description: Usuario tiene clave y debe autenticarse para realizar esta operación
-        '403':
-          description: Usuario borrado, bloqueado, o ya tiene prepago.
-          schema:
-            $ref: '#/definitions/error_obj'
-        '404':
-          description: Cliente o tarjeta no existe
-          schema:
-            $ref: '#/definitions/error_obj'
 definitions:
   prepaid_topup_new:
     type: object
@@ -279,8 +218,14 @@ definitions:
         $ref: '#/definitions/amount_and_currency_new'
       transaction_id:
         type: string
-        description: Identificador único que genera quien invoca a esta API
-        example: "asdkjasdl"
+        description: |
+          Identificador único que genera quien invoca a esta API
+
+          ## Consideraciones
+          * Debe ser único dentro del día
+          * Cargas con este dato repetido dentro del día serán rechazadas
+          * Cuando quiera reversar la carga, se le pedirá este dato
+        example: "MC_12312309123"
       rut:
         type: integer
         description: El rut sin puntos, guión, ni dígito verificador
@@ -289,6 +234,28 @@ definitions:
         type: string
         description: Código de comercio MC
         example: "0023434"
+      merchant_category:
+        type: integer
+        description: Código de actividad del comercio
+        example: 112
+      merchant_name:
+        type: string
+        description: Nombre del comercio
+        example: "Carnicería el tajo"
+  variable_data:
+    type: object
+    description: Dato de tipo llave=valor **(Response)**
+    required:
+      - code
+    properties:
+      name:
+        type: string
+        description: Nombre del dato
+        example: 'amount_paid'
+      value:
+        type: string
+        description: Valor del dato
+        example: "10.500"
   prepaid_topup:
     type: object
     description: |
@@ -299,30 +266,22 @@ definitions:
         properties:
           id:
             type: integer
-            description: Identificador de la solicitud.
+            description: Identificador de la carga
             example: 7783834
-          mc_voucher:
+          mc_voucher_type:
             type: string
-            description: Cadena de texto que, si no viene en `null` o vacío, se incluirá en el voucher del Comercio Multicaja
-            example: 'hola ke ase'
-          amount_paid:
-            type: string
+            enum: ["A", "B"]
             description: |
-              Corresponde al dinero entregado por el Cliente al Comercio Multicaja. Es igual a `prepaid_topup_new.amount`.
+              Identificador del tipo de voucher que se debe imprimir
 
-              Número en formato decimal.
-          fees:
-            type: string
-            description: |
-              Corresponde al dinero cobrado al Cliente por esta transacción.
-
-              Número en formato decimal.
-          amount_credited_on_card:
-            type: string
-            description: |
-              Corresponde al monto que se le depositó a la tarjeta del Cliente. Es igual a `prepaid_topup.amount_paid` - `prepaid_topup.fees`
-
-              Número en formato decimal.
+              * 'A': Imprimir un voucher de tipo A
+              * 'B': Imprimir un voucher de tipo B
+            example: 'A'
+          mc_voucher_data:
+            type: array
+            description: Lista de variables para usar en el voucher
+            items:
+              $ref: '#/definitions/variable_data'
           user_id:
             type: integer
             description: Identificador del Cliente Multicaja afectado
@@ -530,200 +489,6 @@ definitions:
         type: string
         description: Monto en formato decimal
         example: "1000.00"
-  amount_and_currency:
-    type: object
-    description: |
-       Monto en una moneda específica **(Response)**
-    allOf:
-      - $ref: "#/definitions/amount_and_currency_new"
-      - type: object
-        required:
-          - currency_description
-        properties:
-          currency_description:
-            type: integer
-            description: Nombre de la moneda en español
-            example: "Peso Chileno"
-  transaction_type:
-    type: object
-    description: Tipo de transacción **(Response)**
-    required:
-      - type_code
-      - type_description
-      - is_ammendment
-      - is_positive
-    properties:
-      type_code:
-        type: string
-        description: Tipo de factura
-        example: "0012"
-      type_description:
-        type: string
-        description: Descripción tipo de factura
-        example: "COMPRA EN CUOTAS"
-      is_ammendment:
-        type: string
-        description: |
-          `true`: es una corrección
-          `false`: no es una corrección
-        example: "false"
-      is_positive:
-        type: string
-        description: |
-          `true`: es positivo
-          `false`: es negativo
-        example: "true"
-  prepaid_card_balance:
-    type: object
-    description: |
-      Saldo de la tarjeta de prepago **(Response)**
-
-      ### Notas
-      - Este objeto contiene el saldo el pesos y el saldo en dólares
-      - El saldo en pesos viene en `primary_balance`
-      - El saldo en dólares viene en `secondary_balance`
-    properties:
-      primary_balance:
-        $ref: '#/definitions/amount_and_currency'
-      secondary_balance:
-        $ref: '#/definitions/amount_and_currency'
-  prepaid_card_limit:
-    type: object
-    description: |
-      Límite de uso para este usuario **(Response)**
-    properties:
-      id:
-        type: string
-        description: Identificador del límite
-        example: "001"
-      name:
-        type: string
-        description: Nombre del límite
-        example: "Saldo máximo"
-      amount:
-        $ref: '#/definitions/amount_and_currency'
-  prepaid_transaction_new:
-    type: object
-    required:
-      - amount
-      - new_transaction_id
-    description: |
-      Solicitud de abono o retiro **(Request)**
-    properties:
-      amount:
-        $ref: '#/definitions/amount_and_currency_new'
-      new_transaction_id:
-        type: integer
-        description: |
-          Identificador único para evitar repeticiones
-
-          **Importante:** La tupla `({user_id}, {fecha_actual}, {new_transaction_id})` debe ser única
-        example: 2
-  prepaid_transaction:
-    type: object
-    required:
-      - transaction_type
-      - processor_transaction_id
-    description: |
-      Transacción realizada con la tarjeta de prepago **(Response)**
-
-      ### Notas
-      - `amount_primary` es el monto de la transacción en pesos. Éste es el monto que afectó al saldo.
-      - `amount_foreign` es el monto de la transacción en la moneda de origen. 
-    properties:
-      transaction_type:
-        $ref: '#/definitions/transaction_type'
-      auth_code:
-        type: string
-        description: Identificador del movimiento enviado a la marca
-        example: "884157"
-      processor_transaction_id:
-        type: string
-        description: Identificador del movimiento en el procesador
-        example: "112100908"
-      pan:
-        type: string
-        description: Número de tarjeta truncado
-        example: "556677******1234"
-      real_date:
-        type: string
-        description: Fecha en la que ocurrió el movimiento, en formato yyyy-MM-dd
-        example: "2018-03-17"
-      accounting_date:
-        type: string
-        description: Fecha en la que quedó contabilizado el movimiento, en formato yyyy-MM-dd
-        example: "2018-03-19"
-      processing_date:
-        type: string
-        description: Fecha en la que se presentó el movimiento, en formato yyyy-MM-dd
-        example: "2018-03-18"
-      amount_primary:
-        $ref: '#/definitions/amount_and_currency'
-      amount_foreign:
-        $ref: '#/definitions/amount_and_currency'
-      place:
-        $ref: '#/definitions/place'
-      merchant:
-        $ref: '#/definitions/merchant'
-  prepaid_card:
-    type: object
-    required:
-      - id
-      - pan
-    description: |
-      Tarjeta de prepago Visa o Mastercard **(Response)**
-
-      ### Notas
-      * `timestamps.created_at` indicará la fecha en la que este cliente obtuvo su primera tarjeta de prepago
-      * `timestamps.updated_at` indicará la fecha de la última acción de *bloqueo*, *desbloqueo* y *reemisión*.
-    properties:
-      id:
-        type: integer
-        description: Identificador interno. Campo read-only.
-        example: 7783834
-      processor_user_id:
-        type: string
-        description: Identificador del cliente en el procesador
-        example: "2231-9892-781283049685"
-      pan:
-        type: string
-        description: PAN de la tarjeta
-        example: "123456******1234"
-      expiration:
-        type: string
-        description: Fecha de expiración de la tarjeta
-        example: "11/22"
-      name_on_card:
-        type: string
-        description: Nombre impreso en la tarjeta
-        example: JUAN PEREZ P.
-      status:
-        type: string
-        enum:
-          - activa
-          - bloqueada
-          - expirada
-        description: |
-          Estado de la tarjeta
-          * activa: permite comprar
-          * bloqueada: la tarjeta fue bloqueada por el cliente
-          * expirada: la tarjeta expiró
-      timestamps:
-        $ref: '#/definitions/timestamps'
-  prepaid_user_data:
-    type: object
-    description: |
-       Tarjeta, límites y estado de un cliente de prepago **(Response)**
-    required:
-      - card
-      - limits
-    properties:
-      card:
-        $ref: '#/definitions/prepaid_card'
-      limits:
-        type: array
-        items:
-          $ref: '#/definitions/prepaid_card_limit'
   error_obj:
     type: object
     description: Error que devuelve la api ante un `HTTP 422` **(Response)**
