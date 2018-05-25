@@ -48,19 +48,9 @@
               </li>
             </ul>
           </section>
-          <section>
-            <a href="#tag-prepaid-protected">prepaid-protected</a>
-            <ul>
-              <li>
-                <a href="#operation--prepaid--user_id--card-post"> Emite una tarjeta </a>
-              </li>
-              <li>
-                <a href="#operation--prepaid--user_id--card-get"> Consulta la tarjeta </a>
-              </li>
-            </ul>
-          </section>
           <h5>Schema Definitions</h5>
           <a href="#definition-prepaid_topup_new"> prepaid_topup_new </a>
+          <a href="#definition-variable_data"> variable_data </a>
           <a href="#definition-prepaid_topup"> prepaid_topup </a>
           <a href="#definition-prepaid_user_signup_new"> prepaid_user_signup_new </a>
           <a href="#definition-prepaid_user_signup"> prepaid_user_signup </a>
@@ -69,14 +59,6 @@
           <a href="#definition-raw_transaction_body_new"> raw_transaction_body_new </a>
           <a href="#definition-raw_transaction_new"> raw_transaction_new </a>
           <a href="#definition-amount_and_currency_new"> amount_and_currency_new </a>
-          <a href="#definition-amount_and_currency"> amount_and_currency </a>
-          <a href="#definition-transaction_type"> transaction_type </a>
-          <a href="#definition-prepaid_card_balance"> prepaid_card_balance </a>
-          <a href="#definition-prepaid_card_limit"> prepaid_card_limit </a>
-          <a href="#definition-prepaid_transaction_new"> prepaid_transaction_new </a>
-          <a href="#definition-prepaid_transaction"> prepaid_transaction </a>
-          <a href="#definition-prepaid_card"> prepaid_card </a>
-          <a href="#definition-prepaid_user_data"> prepaid_user_data </a>
           <a href="#definition-error_obj"> error_obj </a>
         </nav>
       </div>
@@ -182,9 +164,11 @@
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   },
-  <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;asdkjasdl&quot;</span>,
+  <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;MC_12312309123&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">14569484</span>,
-  <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>
+  <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
+  <span class="hljs-attr">&quot;merchant_category&quot;</span>: <span class="hljs-number">112</span>,
+  <span class="hljs-attr">&quot;merchant_name&quot;</span>: <span class="hljs-string">&quot;Carnicer&#xED;a el tajo&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -231,10 +215,13 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-  <span class="hljs-attr">&quot;mc_voucher&quot;</span>: <span class="hljs-string">&quot;hola ke ase&quot;</span>,
-  <span class="hljs-attr">&quot;amount_paid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;fees&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;amount_credited_on_card&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;mc_voucher_type&quot;</span>: <span class="hljs-string">&quot;A&quot;</span>,
+  <span class="hljs-attr">&quot;mc_voucher_data&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;amount_paid&quot;</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;10.500&quot;</span>
+    }
+  ],
   <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">1291020</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -244,9 +231,11 @@
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   },
-  <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;asdkjasdl&quot;</span>,
+  <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;MC_12312309123&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">14569484</span>,
-  <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>
+  <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
+  <span class="hljs-attr">&quot;merchant_category&quot;</span>: <span class="hljs-number">112</span>,
+  <span class="hljs-attr">&quot;merchant_name&quot;</span>: <span class="hljs-string">&quot;Carnicer&#xED;a el tajo&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -330,9 +319,11 @@
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   },
-  <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;asdkjasdl&quot;</span>,
+  <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;MC_12312309123&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">14569484</span>,
-  <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>
+  <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
+  <span class="hljs-attr">&quot;merchant_category&quot;</span>: <span class="hljs-number">112</span>,
+  <span class="hljs-attr">&quot;merchant_name&quot;</span>: <span class="hljs-string">&quot;Carnicer&#xED;a el tajo&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -494,10 +485,13 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
   {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-    <span class="hljs-attr">&quot;mc_voucher&quot;</span>: <span class="hljs-string">&quot;hola ke ase&quot;</span>,
-    <span class="hljs-attr">&quot;amount_paid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;fees&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;amount_credited_on_card&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;mc_voucher_type&quot;</span>: <span class="hljs-string">&quot;A&quot;</span>,
+    <span class="hljs-attr">&quot;mc_voucher_data&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;amount_paid&quot;</span>,
+        <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;10.500&quot;</span>
+      }
+    ],
     <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">1291020</span>,
     <span class="hljs-attr">&quot;timestamps&quot;</span>: {
       <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -507,9 +501,11 @@
       <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
       <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
     },
-    <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;asdkjasdl&quot;</span>,
+    <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;MC_12312309123&quot;</span>,
     <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">14569484</span>,
-    <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>
+    <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
+    <span class="hljs-attr">&quot;merchant_category&quot;</span>: <span class="hljs-number">112</span>,
+    <span class="hljs-attr">&quot;merchant_name&quot;</span>: <span class="hljs-string">&quot;Carnicer&#xED;a el tajo&quot;</span>
   }
 ]
 </code></pre>
@@ -963,326 +959,6 @@
               </div>
             </div>
           </div>
-          <h1 id="tag-prepaid-protected" class="swagger-summary-tag" data-traverse-target="tag-prepaid-protected">prepaid-protected</h1>
-          <div class="tag-description doc-row">
-            <div class="doc-copy">
-              <p>Métodos internos de la API de prepago</p>
-            </div>
-          </div>
-          <div id="operation--prepaid--user_id--card-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--card-post">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-prepaid-protected">prepaid-protected</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">Emite una tarjeta</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">POST</span>
-                  <span class="operation-path">/prepaid/{user_id}/card</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>Emite una tarjeta de prepago y retorna el CVC</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">user_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">integer</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>ID del Cliente</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"></div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">201 Created</div>
-                      <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/prepaid_card">prepaid_card</a>
-                        </span>
-                      </div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>OK - Revise resultado</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">403 Forbidden</div>
-                      <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
-                        </span>
-                      </div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>Usuario borrado, bloqueado, o ya tiene prepago.</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">404 Not Found</div>
-                      <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
-                        </span>
-                      </div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>Cliente no existe</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">422 Unprocessable Entity</div>
-                      <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
-                        </span>
-                      </div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>Error de validación</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Response Example
-                    <span>(201 Created)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-  <span class="hljs-attr">&quot;processor_user_id&quot;</span>: <span class="hljs-string">&quot;2231-9892-781283049685&quot;</span>,
-  <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;123456******1234&quot;</span>,
-  <span class="hljs-attr">&quot;expiration&quot;</span>: <span class="hljs-string">&quot;11/22&quot;</span>,
-  <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;JUAN PEREZ P.&quot;</span>,
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-  }
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-                <section>
-                  <h5>Response Example
-                    <span>(403 Forbidden)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-                <section>
-                  <h5>Response Example
-                    <span>(404 Not Found)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-                <section>
-                  <h5>Response Example
-                    <span>(422 Unprocessable Entity)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="operation--prepaid--user_id--card-get" class="operation panel" data-traverse-target="operation--prepaid--user_id--card-get">
-            <!-- <section class="operation-tags row"> -->
-            <!-- <div class="doc-copy"> -->
-            <div class="operation-tags">
-              <a class="label" href="#tag-prepaid-protected">prepaid-protected</a>
-              <!---->
-            </div>
-            <!-- </div> -->
-            <!-- </section> -->
-            <h2 class="operation-title">
-              <span class="operation-summary">Consulta la tarjeta</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">GET</span>
-                  <span class="operation-path">/prepaid/{user_id}/card</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>Consulta una tarjeta de prepago, pero
-                    <em>no</em> retorna el CVC</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">user_id</div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                      <div class="prop-subtitle">
-                        <span class="json-property-type">integer</span>
-                        <span class="json-property-range" title="Value limits"></span>
-                      </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>ID del Cliente</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples"></div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                      <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/prepaid_card">prepaid_card</a>
-                        </span>
-                      </div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>OK - Revise resultado</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                    </div>
-                    <div class="prop-value">
-                      <p>Usuario tiene clave y debe autenticarse para realizar esta operación</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">403 Forbidden</div>
-                      <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
-                        </span>
-                      </div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>Usuario borrado, bloqueado, o ya tiene prepago.</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">404 Not Found</div>
-                      <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
-                        </span>
-                      </div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>Cliente o tarjeta no existe</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Response Example
-                    <span>(200 OK)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-  <span class="hljs-attr">&quot;processor_user_id&quot;</span>: <span class="hljs-string">&quot;2231-9892-781283049685&quot;</span>,
-  <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;123456******1234&quot;</span>,
-  <span class="hljs-attr">&quot;expiration&quot;</span>: <span class="hljs-string">&quot;11/22&quot;</span>,
-  <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;JUAN PEREZ P.&quot;</span>,
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-  }
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-                <section>
-                  <h5>Response Example
-                    <span>(403 Forbidden)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-                <section>
-                  <h5>Response Example
-                    <span>(404 Not Found)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
           <h1>Schema Definitions</h1>
           <div id="definition-prepaid_topup_new" class="definition panel" data-traverse-target="definition-prepaid_topup_new">
             <h2 class="panel-title">
@@ -1318,6 +994,12 @@
                     </dt>
                     <dd>
                       <p>Identificador único que genera quien invoca a esta API</p>
+                      <h2 id="consideraciones">Consideraciones</h2>
+                      <ul>
+                        <li>Debe ser único dentro del día</li>
+                        <li>Cargas con este dato repetido dentro del día serán rechazadas</li>
+                        <li>Cuando quiera reversar la carga, se le pedirá este dato</li>
+                      </ul>
                     </dd>
                     <dt data-property-name="rut" class="has-description">
                       <span class="json-property-name">rut:</span>
@@ -1335,6 +1017,22 @@
                     <dd>
                       <p>Código de comercio MC</p>
                     </dd>
+                    <dt data-property-name="merchant_category" class="has-description">
+                      <span class="json-property-name">merchant_category:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Código de actividad del comercio</p>
+                    </dd>
+                    <dt data-property-name="merchant_name" class="has-description">
+                      <span class="json-property-name">merchant_name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Nombre del comercio</p>
+                    </dd>
                   </dl>
                 </section>
               </div>
@@ -1346,9 +1044,61 @@
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   },
-  <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;asdkjasdl&quot;</span>,
+  <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;MC_12312309123&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">14569484</span>,
-  <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>
+  <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
+  <span class="hljs-attr">&quot;merchant_category&quot;</span>: <span class="hljs-number">112</span>,
+  <span class="hljs-attr">&quot;merchant_name&quot;</span>: <span class="hljs-string">&quot;Carnicer&#xED;a el tajo&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-variable_data" class="definition panel" data-traverse-target="definition-variable_data">
+            <h2 class="panel-title">
+              <a name="/definitions/variable_data"></a>variable_data: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Dato de tipo llave=valor
+                    <strong>(Response)</strong>
+                  </p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="name" class="has-description">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Nombre del dato</p>
+                    </dd>
+                    <dt data-property-name="value" class="has-description">
+                      <span class="json-property-name">value:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Valor del dato</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;amount_paid&quot;</span>,
+  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;10.500&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1389,43 +1139,47 @@
                           <span class="json-property-range" title="Value limits"></span>
                         </dt>
                         <dd>
-                          <p>Identificador de la solicitud.</p>
+                          <p>Identificador de la carga</p>
                         </dd>
-                        <dt data-property-name="mc_voucher" class="has-description">
-                          <span class="json-property-name">mc_voucher:</span>
+                        <dt data-property-name="mc_voucher_type" class="has-description">
+                          <span class="json-property-name">mc_voucher_type:</span>
                           <span class="json-property-type">string</span>
+                          <span class="json-property-enum" title="Possible values">
+                            <span class="json-property-enum-item">A</span>,
+                            <span class="json-property-enum-item">B</span>
+                          </span>
                           <span class="json-property-range" title="Value limits"></span>
                         </dt>
                         <dd>
-                          <p>Cadena de texto que, si no viene en <code>null</code> o vacío, se incluirá en el voucher del Comercio Multicaja</p>
+                          <p>Identificador del tipo de voucher que se debe imprimir</p>
+                          <ul>
+                            <li>&#39;A&#39;: Imprimir un voucher de tipo A</li>
+                            <li>&#39;B&#39;: Imprimir un voucher de tipo B</li>
+                          </ul>
                         </dd>
-                        <dt data-property-name="amount_paid" class="has-description">
-                          <span class="json-property-name">amount_paid:</span>
-                          <span class="json-property-type">string</span>
+                        <dt data-property-name="mc_voucher_data" class="has-description">
+                          <span class="json-property-name">mc_voucher_data:</span>
+                          <span class="json-property-type">
+                            <span class="json-schema-ref-array">
+                              <a class="json-schema-ref" href="#/definitions/variable_data">variable_data</a>
+                            </span>
+                          </span>
                           <span class="json-property-range" title="Value limits"></span>
                         </dt>
                         <dd>
-                          <p>Corresponde al dinero entregado por el Cliente al Comercio Multicaja. Es igual a <code>prepaid_topup_new.amount</code>.</p>
-                          <p>Número en formato decimal.</p>
+                          <p>Lista de variables para usar en el voucher</p>
                         </dd>
-                        <dt data-property-name="fees" class="has-description">
-                          <span class="json-property-name">fees:</span>
-                          <span class="json-property-type">string</span>
-                          <span class="json-property-range" title="Value limits"></span>
+                        <dt class="json-inner-schema">
+                          <section class="json-schema-array-items">
+                            <span class="json-property-type">
+                              <span class="">
+                                <a class="json-schema-ref" href="#/definitions/variable_data">variable_data</a>
+                              </span>
+                            </span>
+                            <span class="json-property-range" title="Value limits"></span>
+                            <div class="json-inner-schema"> </div>
+                          </section>
                         </dt>
-                        <dd>
-                          <p>Corresponde al dinero cobrado al Cliente por esta transacción.</p>
-                          <p>Número en formato decimal.</p>
-                        </dd>
-                        <dt data-property-name="amount_credited_on_card" class="has-description">
-                          <span class="json-property-name">amount_credited_on_card:</span>
-                          <span class="json-property-type">string</span>
-                          <span class="json-property-range" title="Value limits"></span>
-                        </dt>
-                        <dd>
-                          <p>Corresponde al monto que se le depositó a la tarjeta del Cliente. Es igual a <code>prepaid_topup.amount_paid</code> - <code>prepaid_topup.fees</code></p>
-                          <p>Número en formato decimal.</p>
-                        </dd>
                         <dt data-property-name="user_id" class="has-description">
                           <span class="json-property-name">user_id:</span>
                           <span class="json-property-type">integer</span>
@@ -1453,10 +1207,13 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-  <span class="hljs-attr">&quot;mc_voucher&quot;</span>: <span class="hljs-string">&quot;hola ke ase&quot;</span>,
-  <span class="hljs-attr">&quot;amount_paid&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;fees&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;amount_credited_on_card&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;mc_voucher_type&quot;</span>: <span class="hljs-string">&quot;A&quot;</span>,
+  <span class="hljs-attr">&quot;mc_voucher_data&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;amount_paid&quot;</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;10.500&quot;</span>
+    }
+  ],
   <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">1291020</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -1466,9 +1223,11 @@
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   },
-  <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;asdkjasdl&quot;</span>,
+  <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;MC_12312309123&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">14569484</span>,
-  <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>
+  <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
+  <span class="hljs-attr">&quot;merchant_category&quot;</span>: <span class="hljs-number">112</span>,
+  <span class="hljs-attr">&quot;merchant_name&quot;</span>: <span class="hljs-string">&quot;Carnicer&#xED;a el tajo&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -2081,680 +1840,6 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
   <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="definition-amount_and_currency" class="definition panel" data-traverse-target="definition-amount_and_currency">
-            <h2 class="panel-title">
-              <a name="/definitions/amount_and_currency"></a>amount_and_currency: object
-              <!-- <span class="json-property-type"><span class="json-property-type"></span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-description">
-                  <p>Monto en una moneda específica
-                    <strong>(Response)</strong>
-                  </p>
-                </section>
-                <section class="json-schema-allOf">
-                  <section class="json-schema-allOf-inherited">
-                    <ul>
-                      <span class="">
-                        <a class="json-schema-ref" href="#/definitions/amount_and_currency_new">amount_and_currency_new</a>
-                      </span>
-                    </ul>
-                  </section>
-                  <section class="json-schema-allOf-additional">
-                    <section class="json-schema-properties">
-                      <dl>
-                        <dt data-property-name="currency_description" class="has-description">
-                          <span class="json-property-name">currency_description:</span>
-                          <span class="json-property-type">integer</span>
-                          <span class="json-property-range" title="Value limits"></span>
-                          <span class="json-property-required"></span>
-                        </dt>
-                        <dd>
-                          <p>Nombre de la moneda en español</p>
-                        </dd>
-                      </dl>
-                    </section>
-                  </section>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;currency_description&quot;</span>: <span class="hljs-string">&quot;Peso Chileno&quot;</span>,
-  <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
-  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="definition-transaction_type" class="definition panel" data-traverse-target="definition-transaction_type">
-            <h2 class="panel-title">
-              <a name="/definitions/transaction_type"></a>transaction_type: object
-              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-description">
-                  <p>Tipo de transacción
-                    <strong>(Response)</strong>
-                  </p>
-                </section>
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="type_code" class="has-description">
-                      <span class="json-property-name">type_code:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dd>
-                      <p>Tipo de factura</p>
-                    </dd>
-                    <dt data-property-name="type_description" class="has-description">
-                      <span class="json-property-name">type_description:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dd>
-                      <p>Descripción tipo de factura</p>
-                    </dd>
-                    <dt data-property-name="is_ammendment" class="has-description">
-                      <span class="json-property-name">is_ammendment:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dd>
-                      <p><code>true</code>: es una corrección <code>false</code>: no es una corrección</p>
-                    </dd>
-                    <dt data-property-name="is_positive" class="has-description">
-                      <span class="json-property-name">is_positive:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dd>
-                      <p><code>true</code>: es positivo <code>false</code>: es negativo</p>
-                    </dd>
-                  </dl>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;type_code&quot;</span>: <span class="hljs-string">&quot;0012&quot;</span>,
-  <span class="hljs-attr">&quot;type_description&quot;</span>: <span class="hljs-string">&quot;COMPRA EN CUOTAS&quot;</span>,
-  <span class="hljs-attr">&quot;is_ammendment&quot;</span>: <span class="hljs-string">&quot;false&quot;</span>,
-  <span class="hljs-attr">&quot;is_positive&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="definition-prepaid_card_balance" class="definition panel" data-traverse-target="definition-prepaid_card_balance">
-            <h2 class="panel-title">
-              <a name="/definitions/prepaid_card_balance"></a>prepaid_card_balance: object
-              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-description">
-                  <p>Saldo de la tarjeta de prepago
-                    <strong>(Response)</strong>
-                  </p>
-                  <h3 id="notas">Notas</h3>
-                  <ul>
-                    <li>Este objeto contiene el saldo el pesos y el saldo en dólares</li>
-                    <li>El saldo en pesos viene en <code>primary_balance</code></li>
-                    <li>El saldo en dólares viene en <code>secondary_balance</code></li>
-                  </ul>
-                </section>
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="primary_balance">
-                      <span class="json-property-name">primary_balance:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/amount_and_currency">amount_and_currency</a>
-                        </span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="secondary_balance">
-                      <span class="json-property-name">secondary_balance:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/amount_and_currency">amount_and_currency</a>
-                        </span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                  </dl>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;primary_balance&quot;</span>: {
-    <span class="hljs-attr">&quot;currency_description&quot;</span>: <span class="hljs-string">&quot;Peso Chileno&quot;</span>,
-    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-  },
-  <span class="hljs-attr">&quot;secondary_balance&quot;</span>: {
-    <span class="hljs-attr">&quot;currency_description&quot;</span>: <span class="hljs-string">&quot;Peso Chileno&quot;</span>,
-    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-  }
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="definition-prepaid_card_limit" class="definition panel" data-traverse-target="definition-prepaid_card_limit">
-            <h2 class="panel-title">
-              <a name="/definitions/prepaid_card_limit"></a>prepaid_card_limit: object
-              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-description">
-                  <p>Límite de uso para este usuario
-                    <strong>(Response)</strong>
-                  </p>
-                </section>
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="id" class="has-description">
-                      <span class="json-property-name">id:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Identificador del límite</p>
-                    </dd>
-                    <dt data-property-name="name" class="has-description">
-                      <span class="json-property-name">name:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Nombre del límite</p>
-                    </dd>
-                    <dt data-property-name="amount">
-                      <span class="json-property-name">amount:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/amount_and_currency">amount_and_currency</a>
-                        </span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                  </dl>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;001&quot;</span>,
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Saldo m&#xE1;ximo&quot;</span>,
-  <span class="hljs-attr">&quot;amount&quot;</span>: {
-    <span class="hljs-attr">&quot;currency_description&quot;</span>: <span class="hljs-string">&quot;Peso Chileno&quot;</span>,
-    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-  }
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="definition-prepaid_transaction_new" class="definition panel" data-traverse-target="definition-prepaid_transaction_new">
-            <h2 class="panel-title">
-              <a name="/definitions/prepaid_transaction_new"></a>prepaid_transaction_new: object
-              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-description">
-                  <p>Solicitud de abono o retiro
-                    <strong>(Request)</strong>
-                  </p>
-                </section>
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="amount">
-                      <span class="json-property-name">amount:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/amount_and_currency_new">amount_and_currency_new</a>
-                        </span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dt data-property-name="new_transaction_id" class="has-description">
-                      <span class="json-property-name">new_transaction_id:</span>
-                      <span class="json-property-type">integer</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dd>
-                      <p>Identificador único para evitar repeticiones</p>
-                      <p>
-                        <strong>Importante:</strong> La tupla <code>({user_id}, {fecha_actual}, {new_transaction_id})</code> debe ser única</p>
-                    </dd>
-                  </dl>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;amount&quot;</span>: {
-    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-  },
-  <span class="hljs-attr">&quot;new_transaction_id&quot;</span>: <span class="hljs-number">2</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="definition-prepaid_transaction" class="definition panel" data-traverse-target="definition-prepaid_transaction">
-            <h2 class="panel-title">
-              <a name="/definitions/prepaid_transaction"></a>prepaid_transaction: object
-              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-description">
-                  <p>Transacción realizada con la tarjeta de prepago
-                    <strong>(Response)</strong>
-                  </p>
-                  <h3 id="notas">Notas</h3>
-                  <ul>
-                    <li><code>amount_primary</code> es el monto de la transacción en pesos. Éste es el monto que afectó al saldo.</li>
-                    <li><code>amount_foreign</code> es el monto de la transacción en la moneda de origen. </li>
-                  </ul>
-                </section>
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="transaction_type">
-                      <span class="json-property-name">transaction_type:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/transaction_type">transaction_type</a>
-                        </span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dt data-property-name="auth_code" class="has-description">
-                      <span class="json-property-name">auth_code:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Identificador del movimiento enviado a la marca</p>
-                    </dd>
-                    <dt data-property-name="processor_transaction_id" class="has-description">
-                      <span class="json-property-name">processor_transaction_id:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dd>
-                      <p>Identificador del movimiento en el procesador</p>
-                    </dd>
-                    <dt data-property-name="pan" class="has-description">
-                      <span class="json-property-name">pan:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Número de tarjeta truncado</p>
-                    </dd>
-                    <dt data-property-name="real_date" class="has-description">
-                      <span class="json-property-name">real_date:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Fecha en la que ocurrió el movimiento, en formato yyyy-MM-dd</p>
-                    </dd>
-                    <dt data-property-name="accounting_date" class="has-description">
-                      <span class="json-property-name">accounting_date:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Fecha en la que quedó contabilizado el movimiento, en formato yyyy-MM-dd</p>
-                    </dd>
-                    <dt data-property-name="processing_date" class="has-description">
-                      <span class="json-property-name">processing_date:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Fecha en la que se presentó el movimiento, en formato yyyy-MM-dd</p>
-                    </dd>
-                    <dt data-property-name="amount_primary">
-                      <span class="json-property-name">amount_primary:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/amount_and_currency">amount_and_currency</a>
-                        </span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="amount_foreign">
-                      <span class="json-property-name">amount_foreign:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/amount_and_currency">amount_and_currency</a>
-                        </span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="place">
-                      <span class="json-property-name">place:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/place">place</a>
-                        </span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="merchant">
-                      <span class="json-property-name">merchant:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/merchant">merchant</a>
-                        </span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                  </dl>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;transaction_type&quot;</span>: {
-    <span class="hljs-attr">&quot;type_code&quot;</span>: <span class="hljs-string">&quot;0012&quot;</span>,
-    <span class="hljs-attr">&quot;type_description&quot;</span>: <span class="hljs-string">&quot;COMPRA EN CUOTAS&quot;</span>,
-    <span class="hljs-attr">&quot;is_ammendment&quot;</span>: <span class="hljs-string">&quot;false&quot;</span>,
-    <span class="hljs-attr">&quot;is_positive&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>
-  },
-  <span class="hljs-attr">&quot;auth_code&quot;</span>: <span class="hljs-string">&quot;884157&quot;</span>,
-  <span class="hljs-attr">&quot;processor_transaction_id&quot;</span>: <span class="hljs-string">&quot;112100908&quot;</span>,
-  <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;556677******1234&quot;</span>,
-  <span class="hljs-attr">&quot;real_date&quot;</span>: <span class="hljs-string">&quot;2018-03-17&quot;</span>,
-  <span class="hljs-attr">&quot;accounting_date&quot;</span>: <span class="hljs-string">&quot;2018-03-19&quot;</span>,
-  <span class="hljs-attr">&quot;processing_date&quot;</span>: <span class="hljs-string">&quot;2018-03-18&quot;</span>,
-  <span class="hljs-attr">&quot;amount_primary&quot;</span>: {
-    <span class="hljs-attr">&quot;currency_description&quot;</span>: <span class="hljs-string">&quot;Peso Chileno&quot;</span>,
-    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-  },
-  <span class="hljs-attr">&quot;amount_foreign&quot;</span>: {
-    <span class="hljs-attr">&quot;currency_description&quot;</span>: <span class="hljs-string">&quot;Peso Chileno&quot;</span>,
-    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-  }
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="definition-prepaid_card" class="definition panel" data-traverse-target="definition-prepaid_card">
-            <h2 class="panel-title">
-              <a name="/definitions/prepaid_card"></a>prepaid_card: object
-              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-description">
-                  <p>Tarjeta de prepago Visa o Mastercard
-                    <strong>(Response)</strong>
-                  </p>
-                  <h3 id="notas">Notas</h3>
-                  <ul>
-                    <li><code>timestamps.created_at</code> indicará la fecha en la que este cliente obtuvo su primera tarjeta de prepago</li>
-                    <li><code>timestamps.updated_at</code> indicará la fecha de la última acción de
-                      <em>bloqueo</em>,
-                      <em>desbloqueo</em> y
-                      <em>reemisión</em>.</li>
-                  </ul>
-                </section>
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="id" class="has-description">
-                      <span class="json-property-name">id:</span>
-                      <span class="json-property-type">integer</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dd>
-                      <p>Identificador interno. Campo read-only.</p>
-                    </dd>
-                    <dt data-property-name="processor_user_id" class="has-description">
-                      <span class="json-property-name">processor_user_id:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Identificador del cliente en el procesador</p>
-                    </dd>
-                    <dt data-property-name="pan" class="has-description">
-                      <span class="json-property-name">pan:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dd>
-                      <p>PAN de la tarjeta</p>
-                    </dd>
-                    <dt data-property-name="expiration" class="has-description">
-                      <span class="json-property-name">expiration:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Fecha de expiración de la tarjeta</p>
-                    </dd>
-                    <dt data-property-name="name_on_card" class="has-description">
-                      <span class="json-property-name">name_on_card:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Nombre impreso en la tarjeta</p>
-                    </dd>
-                    <dt data-property-name="status" class="has-description">
-                      <span class="json-property-name">status:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-enum" title="Possible values">
-                        <span class="json-property-enum-item">activa</span>,
-                        <span class="json-property-enum-item">bloqueada</span>,
-                        <span class="json-property-enum-item">expirada</span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Estado de la tarjeta</p>
-                      <ul>
-                        <li>activa: permite comprar</li>
-                        <li>bloqueada: la tarjeta fue bloqueada por el cliente</li>
-                        <li>expirada: la tarjeta expiró</li>
-                      </ul>
-                    </dd>
-                    <dt data-property-name="timestamps">
-                      <span class="json-property-name">timestamps:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/timestamps">timestamps</a>
-                        </span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                  </dl>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-  <span class="hljs-attr">&quot;processor_user_id&quot;</span>: <span class="hljs-string">&quot;2231-9892-781283049685&quot;</span>,
-  <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;123456******1234&quot;</span>,
-  <span class="hljs-attr">&quot;expiration&quot;</span>: <span class="hljs-string">&quot;11/22&quot;</span>,
-  <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;JUAN PEREZ P.&quot;</span>,
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-  }
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="definition-prepaid_user_data" class="definition panel" data-traverse-target="definition-prepaid_user_data">
-            <h2 class="panel-title">
-              <a name="/definitions/prepaid_user_data"></a>prepaid_user_data: object
-              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-description">
-                  <p>Tarjeta, límites y estado de un cliente de prepago
-                    <strong>(Response)</strong>
-                  </p>
-                </section>
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="card">
-                      <span class="json-property-name">card:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/prepaid_card">prepaid_card</a>
-                        </span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dt data-property-name="limits">
-                      <span class="json-property-name">limits:</span>
-                      <span class="json-property-type">
-                        <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/prepaid_card_limit">prepaid_card_limit</a>
-                        </span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dt class="json-inner-schema">
-                      <section class="json-schema-array-items">
-                        <span class="json-property-type">
-                          <span class="">
-                            <a class="json-schema-ref" href="#/definitions/prepaid_card_limit">prepaid_card_limit</a>
-                          </span>
-                        </span>
-                        <span class="json-property-range" title="Value limits"></span>
-                        <div class="json-inner-schema"> </div>
-                      </section>
-                    </dt>
-                  </dl>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;card&quot;</span>: {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-    <span class="hljs-attr">&quot;processor_user_id&quot;</span>: <span class="hljs-string">&quot;2231-9892-781283049685&quot;</span>,
-    <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;123456******1234&quot;</span>,
-    <span class="hljs-attr">&quot;expiration&quot;</span>: <span class="hljs-string">&quot;11/22&quot;</span>,
-    <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;JUAN PEREZ P.&quot;</span>,
-    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-    }
-  },
-  <span class="hljs-attr">&quot;limits&quot;</span>: [
-    {
-      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;001&quot;</span>,
-      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Saldo m&#xE1;ximo&quot;</span>,
-      <span class="hljs-attr">&quot;amount&quot;</span>: {
-        <span class="hljs-attr">&quot;currency_description&quot;</span>: <span class="hljs-string">&quot;Peso Chileno&quot;</span>,
-        <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
-        <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-      }
-    }
-  ]
 }
 </code></pre>
                   <!-- </div> -->
