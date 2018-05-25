@@ -29,6 +29,8 @@ tags:
     description: Cuentas bancarias de un cliente
   - name: direcciones
     description: Dirección física de un cliente
+  - name: parámetros
+    description: Listas de parámetros inmutables
 paths:
   /users/soft-signup:
     post:
@@ -840,7 +842,73 @@ paths:
         '200':
           description: OK
         '404':
-          description: Cliente o Dirección no existen          
+          description: Cliente o Dirección no existen 
+  /helpers/banks:
+    get:
+      summary: Lista bancos
+      tags: 
+        - parámetros
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/parameter'
+  /helpers/communes:
+    get:
+      summary: Lista comunas
+      tags: 
+        - parámetros
+      parameters:
+        - name: "region"
+          in: "query"
+          description: "id de region para busqueda"
+          required: false
+          type: "integer"
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/parameter'
+  /helpers/regions:
+    get:
+      summary: Lista regiones
+      tags: 
+        - parámetros
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/parameter'
+  /helpers/commercial_activity:
+    get:
+      summary: Lista giros comerciales
+      tags: 
+        - parámetros
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/parameter'
+  /helpers/user/tags:
+    get:
+      summary: Lista de etiquetas que pueden aplicar a un cliente
+      tags: 
+        - parámetros
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/parameter'         
 definitions:
   user_signup_new:
     type: object
@@ -1371,6 +1439,22 @@ definitions:
               * validada: el usuario hizo una aviso de depósito seguido de una transferencia desde esta cuenta
           timestamps:
             $ref: '#/definitions/timestamps'
+  parameter:
+    type: object
+    required:
+      - id
+      - value
+    description: Parámetro básico **(Response)**
+    properties:
+      id:
+        type: integer
+        description: identificador del parámetro
+      value:
+        type: string
+        description: nombre del parámetro
+      desc:
+        type: string
+        description: descripción del parámetro
   error_obj:
     type: object
     description: Error que devuelve la api ante un `HTTP 422` **(Response)**
