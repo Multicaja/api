@@ -602,69 +602,6 @@ definitions:
         example: "Saldo máximo"
       amount:
         $ref: '#/definitions/amount_and_currency'
-  prepaid_transaction_new:
-    type: object
-    required:
-      - amount
-      - new_transaction_id
-    description: |
-      Solicitud de abono o retiro **(Request)**
-    properties:
-      amount:
-        $ref: '#/definitions/amount_and_currency_new'
-      new_transaction_id:
-        type: integer
-        description: |
-          Identificador único para evitar repeticiones
-
-          **Importante:** La tupla `({user_id}, {fecha_actual}, {new_transaction_id})` debe ser única
-        example: 2
-  prepaid_transaction:
-    type: object
-    required:
-      - transaction_type
-      - processor_transaction_id
-    description: |
-      Transacción realizada con la tarjeta de prepago **(Response)**
-
-      ### Notas
-      - `amount_primary` es el monto de la transacción en pesos. Éste es el monto que afectó al saldo.
-      - `amount_foreign` es el monto de la transacción en la moneda de origen. 
-    properties:
-      transaction_type:
-        $ref: '#/definitions/transaction_type'
-      auth_code:
-        type: string
-        description: Identificador del movimiento enviado a la marca
-        example: "884157"
-      processor_transaction_id:
-        type: string
-        description: Identificador del movimiento en el procesador
-        example: "112100908"
-      pan:
-        type: string
-        description: Número de tarjeta truncado
-        example: "556677******1234"
-      real_date:
-        type: string
-        description: Fecha en la que ocurrió el movimiento, en formato yyyy-MM-dd
-        example: "2018-03-17"
-      accounting_date:
-        type: string
-        description: Fecha en la que quedó contabilizado el movimiento, en formato yyyy-MM-dd
-        example: "2018-03-19"
-      processing_date:
-        type: string
-        description: Fecha en la que se presentó el movimiento, en formato yyyy-MM-dd
-        example: "2018-03-18"
-      amount_primary:
-        $ref: '#/definitions/amount_and_currency'
-      amount_foreign:
-        $ref: '#/definitions/amount_and_currency'
-      place:
-        $ref: '#/definitions/place'
-      merchant:
-        $ref: '#/definitions/merchant'
   prepaid_card:
     type: object
     required:
