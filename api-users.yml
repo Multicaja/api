@@ -42,7 +42,6 @@ paths:
           * POST /users/soft-signup
           * GET  /users/soft-signup/{signup_id}
           * GET  /users/{user_id}
-          * POST /users/{user_id}/update_email
           * POST /users/{user_id}/update_personal_data
           * POST /users/{user_id}/validate_email # sin validation_channel
       parameters:
@@ -103,7 +102,6 @@ paths:
           * POST /users/full_signup
           * GET  /users/full_signup/{signup_id}
           * GET  /users/{user_id}
-          * POST /users/{user_id}/update_email
           * POST /users/{user_id}/update_personal_data
           * POST /users/{user_id}/validate_rut
           * POST /users/{user_id}/validate_email
@@ -286,42 +284,6 @@ paths:
           description: Error de validación en datos personales
           schema:
             $ref: '#/definitions/error_obj'
-  /users/{user_id}/update_email:
-    post:
-      tags:
-        - clientes
-      description: |
-        Actualiza el e-mail
-      parameters:
-        - in: path
-          name: user_id
-          description: ID del Cliente
-          required: true
-          type: "integer"
-        - in: body
-          name: personal_data
-          description: Parámetros del usuario a crear
-          required: true
-          schema:
-            $ref: '#/definitions/update_email_new'
-      responses:
-        '201':
-          description: |
-            OK - cambio aplicado
-          schema:
-            $ref: '#/definitions/user'
-        '401':
-          description: Sin permisos para realizar esta operación
-        '403':
-          description: Usuario borrado o bloqueado
-          schema:
-            $ref: '#/definitions/error_obj'
-        '404':
-          description: Cliente no existe.
-        '422':
-          description: Error de validación de mail
-          schema:
-            $ref: '#/definitions/error_obj'
   /users/{user_id}/validate_rut:
     post:
       tags:
@@ -474,7 +436,7 @@ paths:
         '404':
           description: Cliente no existe.
         '422':
-          description: Error de validación en update_email
+          description: Error de validación en update_cellphone
           schema:
             $ref: '#/definitions/error_obj'
   /users/{user_id}/mail:
