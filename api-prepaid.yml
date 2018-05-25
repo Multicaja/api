@@ -228,6 +228,20 @@ definitions:
         type: string
         description: Código de comercio MC
         example: "0023434"
+  variable_data:
+    type: object
+    description: Dato de tipo llave=valor **(Response)**
+    required:
+      - code
+    properties:
+      name:
+        type: string
+        description: Nombre del dato
+        example: 'amount_paid'
+      value:
+        type: string
+        description: Valor del dato
+        example: "10.500"
   prepaid_topup:
     type: object
     description: |
@@ -238,30 +252,22 @@ definitions:
         properties:
           id:
             type: integer
-            description: Identificador de la solicitud.
+            description: Identificador de la carga
             example: 7783834
-          mc_voucher:
+          mc_voucher_type:
             type: string
-            description: Cadena de texto que, si no viene en `null` o vacío, se incluirá en el voucher del Comercio Multicaja
-            example: 'hola ke ase'
-          amount_paid:
-            type: string
+            enum: ["A", "B"]
             description: |
-              Corresponde al dinero entregado por el Cliente al Comercio Multicaja. Es igual a `prepaid_topup_new.amount`.
+              Identificador del tipo de voucher que se debe imprimir
 
-              Número en formato decimal.
-          fees:
-            type: string
-            description: |
-              Corresponde al dinero cobrado al Cliente por esta transacción.
-
-              Número en formato decimal.
-          amount_credited_on_card:
-            type: string
-            description: |
-              Corresponde al monto que se le depositó a la tarjeta del Cliente. Es igual a `prepaid_topup.amount_paid` - `prepaid_topup.fees`
-
-              Número en formato decimal.
+              * 'A': Imprimir un voucher de tipo A
+              * 'B': Imprimir un voucher de tipo B
+            example: 'A'
+          mc_voucher_data:
+            type: array
+            description: Lista de variables para usar en el voucher
+            items:
+              $ref: '#/definitions/variable_data'
           user_id:
             type: integer
             description: Identificador del Cliente Multicaja afectado
