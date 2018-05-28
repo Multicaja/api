@@ -209,10 +209,10 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 definitions:
-  prepaid_topup_new:
+  prepaid_topup_base:
     type: object
     description: |
-      Solicitud de carga **(Request)**
+      Contenido mínimo de una carga
     properties:
       amount:
         $ref: '#/definitions/amount_and_currency_new'
@@ -226,22 +226,30 @@ definitions:
           * Cargas con este dato repetido dentro del día serán rechazadas
           * Cuando quiera reversar la carga, se le pedirá este dato
         example: "MC_12312309123"
-      rut:
-        type: integer
-        description: El rut sin puntos, guión, ni dígito verificador
-        example: 14569484
-      merchant_code:
-        type: string
-        description: Código de comercio MC
-        example: "0023434"
-      merchant_category:
-        type: integer
-        description: Código de actividad del comercio
-        example: 112
-      merchant_name:
-        type: string
-        description: Nombre del comercio
-        example: "Carnicería el tajo"
+  prepaid_topup_new:
+    type: object
+    description: |
+      Solicitud de carga **(Request)**
+    allOf:
+      - $ref: "#/definitions/prepaid_topup_base"
+      - type: object
+        properties:
+          rut:
+            type: integer
+            description: El rut sin puntos, guión, ni dígito verificador
+            example: 14569484
+          merchant_code:
+            type: string
+            description: Código de comercio MC
+            example: "0023434"
+          merchant_category:
+            type: integer
+            description: Código de actividad del comercio
+            example: 112
+          merchant_name:
+            type: string
+            description: Nombre del comercio
+            example: "Carnicería el tajo"
   variable_data:
     type: object
     description: Dato de tipo llave=valor **(Response)**
@@ -261,7 +269,7 @@ definitions:
     description: |
       Respuesta a solicitud de carga **(Response)**
     allOf:
-      - $ref: "#/definitions/prepaid_topup_new"
+      - $ref: "#/definitions/prepaid_topup_base"
       - type: object
         properties:
           id:
