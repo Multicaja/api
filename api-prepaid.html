@@ -71,6 +71,7 @@
           <a href="#definition-raw_transaction_body_new"> raw_transaction_body_new </a>
           <a href="#definition-raw_transaction_new"> raw_transaction_new </a>
           <a href="#definition-amount_and_currency_new"> amount_and_currency_new </a>
+          <a href="#definition-prepaid_balance"> prepaid_balance </a>
           <a href="#definition-error_obj"> error_obj </a>
         </nav>
       </div>
@@ -979,13 +980,13 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/amount_and_currency_new">amount_and_currency_new</a>
+                          <a class="json-schema-ref" href="#/definitions/prepaid_balance">prepaid_balance</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>OK - Balance obtenido</p>
+                      <p>OK - Saldo obtenido</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -1010,8 +1011,15 @@
                     <span>(200 OK)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
-  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  <span class="hljs-attr">&quot;primary&quot;</span>: {
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  },
+  <span class="hljs-attr">&quot;secondary&quot;</span>: {
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  },
+  <span class="hljs-attr">&quot;updated&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -2341,9 +2349,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Monto en una moneda específica
-                    <strong>(Request)</strong>
-                  </p>
+                  <p>Monto en una moneda específica</p>
                 </section>
                 <section class="json-schema-properties">
                   <dl>
@@ -2358,8 +2364,9 @@
                     </dd>
                     <dt data-property-name="value" class="has-description">
                       <span class="json-property-name">value:</span>
-                      <span class="json-property-type">string</span>
+                      <span class="json-property-type">number</span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
                     </dt>
                     <dd>
                       <p>Monto en formato decimal</p>
@@ -2373,6 +2380,71 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
   <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-prepaid_balance" class="definition panel" data-traverse-target="definition-prepaid_balance">
+            <h2 class="panel-title">
+              <a name="/definitions/prepaid_balance"></a>prepaid_balance: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Saldo del cliente</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="primary">
+                      <span class="json-property-name">primary:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/amount_and_currency_new">amount_and_currency_new</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="secondary">
+                      <span class="json-property-name">secondary:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/amount_and_currency_new">amount_and_currency_new</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="updated" class="has-description">
+                      <span class="json-property-name">updated:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>true o false dependiendo si fue actualizado desde el procesador</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;primary&quot;</span>: {
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  },
+  <span class="hljs-attr">&quot;secondary&quot;</span>: {
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  },
+  <span class="hljs-attr">&quot;updated&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
