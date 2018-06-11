@@ -250,6 +250,10 @@ definitions:
             type: string
             description: Nombre del comercio
             example: "Carnicería el tajo"
+          password:
+            type: integer
+            description: La clave del usuario
+            example: 1324
   variable_data:
     type: object
     description: Dato de tipo llave=valor **(Response)**
