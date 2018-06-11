@@ -70,6 +70,7 @@ paths:
           description: Cliente ya tiene prepago
         '422':
           description: No viene RUT o no viene email
+
   /prepaid/signup/{signup_id}:
     get:
       tags:
@@ -95,6 +96,7 @@ paths:
           description: Proceso de registro no existe.
         '410':
           description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /prepaid/UserSignup`.
+
   /prepaid/topup:
     post:
       tags:
@@ -124,6 +126,7 @@ paths:
           description: Carga no exitosa, revise error
           schema:
             $ref: '#/definitions/error_obj'
+
   /prepaid/topup/reverse:
     post:
       tags:
@@ -154,6 +157,7 @@ paths:
           description: Plazo para reversar expirado
           schema:
             $ref: '#/definitions/error_obj'
+
   /prepaid/withdrawal:
     post:
       tags:
@@ -183,6 +187,7 @@ paths:
           description: Retiro no exitoso, revise error
           schema:
             $ref: '#/definitions/error_obj'
+
   /prepaid/withdrawal/reverse:
     post:
       tags:
@@ -212,6 +217,7 @@ paths:
           description: Plazo para reversar expirado
           schema:
             $ref: '#/definitions/error_obj'
+
   /prepaid/{user_id}/topup:
     get:
       tags:
@@ -241,6 +247,7 @@ paths:
           description: Carga no exitosa, revise error
           schema:
             $ref: '#/definitions/error_obj'
+
   /prepaid/processor/notification:
     post:
       summary: Notificación (Callback)
@@ -283,22 +290,23 @@ paths:
       responses:
         '200':
           description: |
-            OK - Balance obtenido
+            OK - Saldo obtenido
           schema:
-            $ref: '#/definitions/amount_and_currency_new'
+            $ref: '#/definitions/prepaid_balance'
         '404':
           description: Cliente no existe
           schema:
             $ref: '#/definitions/error_obj'
 
 definitions:
+
   prepaid_topup_base:
     type: object
     description: |
       Contenido mínimo de una carga
     properties:
       amount:
-        $ref: '#/definitions/amount_and_currency_new'
+        $ref: '#/definitions/new_amount_and_currency'
       transaction_id:
         type: string
         description: |
@@ -309,6 +317,7 @@ definitions:
           * Cargas con este dato repetido dentro del día serán rechazadas
           * Cuando quiera reversar la carga, se le pedirá este dato
         example: "MC_12312309123"
+
   prepaid_topup_new:
     type: object
     description: |
@@ -333,6 +342,7 @@ definitions:
             type: string
             description: Nombre del comercio
             example: "Carnicería el tajo"
+
   prepaid_withdrawal_new:
     type: object
     description: |
@@ -353,6 +363,7 @@ definitions:
         type: string
         description: Valor del dato
         example: "10.500"
+
   prepaid_topup:
     type: object
     description: |
@@ -385,12 +396,14 @@ definitions:
             example: 1291020
           timestamps:
             $ref: '#/definitions/timestamps'
+
   prepaid_withdrawal:
     type: object
     description: |
       Solicitud de retiro **(Response)**
     allOf:
       - $ref: "#/definitions/prepaid_topup"
+
   prepaid_user_signup_new:
     type: object
     description: |
@@ -404,6 +417,7 @@ definitions:
         type: integer
         description: rut del prospecto de cliente, sin puntos, guión ni DV
         example: 15776844
+
   prepaid_user_signup:
     type: object
     description: |
@@ -456,6 +470,7 @@ definitions:
             example: true
           timestamps:
             $ref: '#/definitions/timestamps'
+
   timestamps:
     type: object
     description: |
@@ -469,6 +484,7 @@ definitions:
         type: string
         format: date-time
         example: "2018-03-02T10:03:12.123Z"
+
   raw_transaction_header_new:
     type: object
     description: |
@@ -490,6 +506,7 @@ definitions:
         type: string
         description: PAN truncado.
         example: "411111******1111"
+
   raw_transaction_body_new:
     type: object
     description: |
@@ -564,6 +581,7 @@ definitions:
         type: integer
         description: Código que identifica el resultado de la transacción
         example: 100
+
   raw_transaction_new:
     type: object
     description: |
@@ -577,21 +595,35 @@ definitions:
         type: string
         description: String concatenado con todos los campos disponibles, codificado en base 64
         example: "TWFuIGlzIGRpc3Rpbmd1a  ...  XNoZWQsIG5vdCBvS4="
-  amount_and_currency_new:
+
+  new_amount_and_currency:
     type: object
-    description: Monto en una moneda específica **(Request)**
+    description: Monto en una moneda específica
     required:
       - currency_code
-      - amount
+      - value
     properties:
       currency_code:
         type: integer
         description: Código ISO 4217 (numeric) de la moneda
         example: 152
       value:
-        type: string
+        type: number
         description: Monto en formato decimal
         example: "1000.00"
+
+  prepaid_balance:
+    type: object
+    description: Saldo del cliente
+    properties:
+      primary:
+        $ref: "#/definitions/new_amount_and_currency"
+      secondary:
+        $ref: "#/definitions/new_amount_and_currency"
+      updated:
+        type: boolean
+        description: true o false dependiendo si fue actualizado desde tecnocom
+
   error_obj:
     type: object
     description: Error que devuelve la api ante un `HTTP 422` **(Response)**
