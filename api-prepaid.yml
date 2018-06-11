@@ -6,10 +6,10 @@ info:
     ** Este es una API en alpha y por lo tanto sufrirá muchos cambios **
 
     Mientras está en modo alpha, no mantendremos versiones anteriores
-  version: '0.9'
+  version: '0.10'
   title: API Multicaja (Alpha)
 host: 'api.multicaja.cl'
-basePath: /v0.9-alpha/
+basePath: /v0.10-alpha/
 consumes:
   - application/json
 produces:
@@ -154,6 +154,64 @@ paths:
           description: Plazo para reversar expirado
           schema:
             $ref: '#/definitions/error_obj'
+  /prepaid/withdrawal:
+    post:
+      tags:
+        - prepaid
+      summary: Retira dinero de una tarjeta
+      description: |
+        Debita una tarjeta
+        
+        ### Notas
+        * Valida que el usuario esté habilitado para retirar. 
+        * Valida que el retiro no exceda los límites
+        * Debita la Tarjeta de Prepago y abona a la Cuenta de Traspaso Personal (CTP), luego debita la CTP y abona a la cuenta de destino.
+      parameters:
+        - in: body
+          name: new_withdrawal
+          description: Detalle del retiro a realizar
+          required: true
+          schema:
+            $ref: '#/definitions/prepaid_withdrawal_new'
+      responses:
+        '201':
+          description: |
+            OK - Retiro realizado
+          schema:
+            $ref: '#/definitions/prepaid_withdrawal'
+        '422':
+          description: Retiro no exitoso, revise error
+          schema:
+            $ref: '#/definitions/error_obj'
+  /prepaid/withdrawal/reverse:
+    post:
+      tags:
+        - prepaid
+      summary: Reversa un retiro
+      description: |
+        Reversa un retiro que a) coincida en todos los campos de prepaid_withdrawal_new y b) se haya recibido en las últimas 24 horas.
+        
+        ### Responderá `201` (éxito) en todos los siguientes casos:
+        * Si el retiro ya fue reversado, en cuyo caso no hará nada
+        * Si el retiro nunca se recibió, en cuyo caso no hará nada
+        * Si el retiro se recibió, y fue procesado, en cuyo caso reintegrará el importe a la tarjeta
+
+        ### Responderá error en los siguientes casos:
+        * Si es que el retiro fue recibido y no está reversado, pero el plazo para reversarlo ya expiró. En este caso, no hará nada y responderá `410`
+      parameters:
+        - in: body
+          name: new_withdrawal
+          description: Detalle de la carga a realizar
+          required: true
+          schema:
+            $ref: '#/definitions/prepaid_withdrawal_new'
+      responses:
+        '201':
+          description: OK - Reversa exitosa
+        '410':
+          description: Plazo para reversar expirado
+          schema:
+            $ref: '#/definitions/error_obj'
   /prepaid/{user_id}/topup:
     get:
       tags:
@@ -208,6 +266,31 @@ paths:
           description: El mensaje `raw_transaction_new` tiene un error
           schema:
             $ref: '#/definitions/error_obj'
+
+  /prepaid/{user_id}/balance:
+    get:
+      tags:
+        - prepaid
+      summary: Retorna el saldo de un cliente prepago
+      description: |
+        Retorna el saldo de cliente prepago
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: |
+            OK - Balance obtenido
+          schema:
+            $ref: '#/definitions/amount_and_currency_new'
+        '404':
+          description: Cliente no existe
+          schema:
+            $ref: '#/definitions/error_obj'
+
 definitions:
   prepaid_topup_base:
     type: object
@@ -254,6 +337,12 @@ definitions:
             type: integer
             description: La clave del usuario
             example: 1324
+  prepaid_withdrawal_new:
+    type: object
+    description: |
+      Solicitud de retiro **(Request)**
+    allOf:
+      - $ref: "#/definitions/prepaid_topup_new"
   variable_data:
     type: object
     description: Dato de tipo llave=valor **(Response)**
@@ -300,6 +389,12 @@ definitions:
             example: 1291020
           timestamps:
             $ref: '#/definitions/timestamps'
+  prepaid_withdrawal:
+    type: object
+    description: |
+      Solicitud de retiro **(Response)**
+    allOf:
+      - $ref: "#/definitions/prepaid_topup"
   prepaid_user_signup_new:
     type: object
     description: |
