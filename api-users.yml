@@ -250,6 +250,39 @@ paths:
           description: Error de validación (password no cumple con políticas o no se ha completado los pasos anteriores del proceso)
           schema:
             $ref: '#/definitions/error_obj'
+  /users/{user_id}/check_password:
+    post:
+      tags:
+        - clientes
+      description: |
+        Usuario indica su password
+        * Se realiza una comparación con la contraseña de la base de datos.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: "integer"
+        - in: body
+          name: password
+          description: Password escogido por el usuario
+          required: true
+          schema:
+            $ref: '#/definitions/user_password_new'
+      responses:
+        '200':
+          description: |
+            OK - Password correcta
+        '403':
+          description: Cliente borrado o bloqueado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '404':
+          description: Cliente no existe.
+        '422':
+          description: Error de validación (password no cumple con políticas minimas)
+          schema:
+            $ref: '#/definitions/error_obj'
   /users/{user_id}/update_personal_data:
     post:
       tags:
