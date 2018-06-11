@@ -266,6 +266,31 @@ paths:
           description: El mensaje `raw_transaction_new` tiene un error
           schema:
             $ref: '#/definitions/error_obj'
+
+  /prepaid/{user_id}/balance:
+    get:
+      tags:
+        - prepaid
+      summary: Retorna el saldo de un cliente prepago
+      description: |
+        Retorna el saldo de cliente prepago
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: |
+            OK - Balance obtenido
+          schema:
+            $ref: '#/definitions/amount_and_currency_new'
+        '404':
+          description: Cliente no existe
+          schema:
+            $ref: '#/definitions/error_obj'
+
 definitions:
   prepaid_topup_base:
     type: object
