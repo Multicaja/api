@@ -306,7 +306,7 @@ definitions:
       Contenido mínimo de una carga
     properties:
       amount:
-        $ref: '#/definitions/new_amount_and_currency'
+        $ref: '#/definitions/amount_and_currency_new'
       transaction_id:
         type: string
         description: |
@@ -596,7 +596,7 @@ definitions:
         description: String concatenado con todos los campos disponibles, codificado en base 64
         example: "TWFuIGlzIGRpc3Rpbmd1a  ...  XNoZWQsIG5vdCBvS4="
 
-  new_amount_and_currency:
+  amount_and_currency_new:
     type: object
     description: Monto en una moneda específica
     required:
@@ -617,9 +617,9 @@ definitions:
     description: Saldo del cliente
     properties:
       primary:
-        $ref: "#/definitions/new_amount_and_currency"
+        $ref: "#/definitions/amount_and_currency_new"
       secondary:
-        $ref: "#/definitions/new_amount_and_currency"
+        $ref: "#/definitions/amount_and_currency_new"
       updated:
         type: boolean
         description: true o false dependiendo si fue actualizado desde tecnocom
