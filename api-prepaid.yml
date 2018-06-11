@@ -622,7 +622,7 @@ definitions:
         $ref: "#/definitions/amount_and_currency_new"
       updated:
         type: boolean
-        description: true o false dependiendo si fue actualizado desde tecnocom
+        description: true o false dependiendo si fue actualizado desde el procesador
 
   error_obj:
     type: object
