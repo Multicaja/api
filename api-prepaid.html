@@ -1011,11 +1011,15 @@
                     <span>(200 OK)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;primary&quot;</span>: {
+  <span class="hljs-attr">&quot;balance&quot;</span>: {
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   },
-  <span class="hljs-attr">&quot;secondary&quot;</span>: {
+  <span class="hljs-attr">&quot;pca_main&quot;</span>: {
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  },
+  <span class="hljs-attr">&quot;pca_secondary&quot;</span>: {
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   },
@@ -2403,8 +2407,8 @@
                 </section>
                 <section class="json-schema-properties">
                   <dl>
-                    <dt data-property-name="primary">
-                      <span class="json-property-name">primary:</span>
+                    <dt data-property-name="balance">
+                      <span class="json-property-name">balance:</span>
                       <span class="json-property-type">
                         <span class="">
                           <a class="json-schema-ref" href="#/definitions/amount_and_currency_new">amount_and_currency_new</a>
@@ -2412,8 +2416,17 @@
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dt data-property-name="secondary">
-                      <span class="json-property-name">secondary:</span>
+                    <dt data-property-name="pca_main">
+                      <span class="json-property-name">pca_main:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/amount_and_currency_new">amount_and_currency_new</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="pca_secondary">
+                      <span class="json-property-name">pca_secondary:</span>
                       <span class="json-property-type">
                         <span class="">
                           <a class="json-schema-ref" href="#/definitions/amount_and_currency_new">amount_and_currency_new</a>
@@ -2436,11 +2449,15 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;primary&quot;</span>: {
+  <span class="hljs-attr">&quot;balance&quot;</span>: {
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   },
-  <span class="hljs-attr">&quot;secondary&quot;</span>: {
+  <span class="hljs-attr">&quot;pca_main&quot;</span>: {
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  },
+  <span class="hljs-attr">&quot;pca_secondary&quot;</span>: {
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   },
