@@ -620,10 +620,16 @@ definitions:
     type: object
     description: Saldo del cliente
     properties:
-      primary:
+      balance:
         $ref: "#/definitions/amount_and_currency_new"
-      secondary:
-        $ref: "#/definitions/amount_and_currency_new"
+      pca_clp:
+        type: integer
+        description: Para cuanto alcanza en pesos chilenos
+        example: "10"
+      pca_usd:
+        type: number
+        description: Para cuanto alcanza en dolares
+        example: "10.00"
       updated:
         type: boolean
         description: true o false dependiendo si fue actualizado desde el procesador
