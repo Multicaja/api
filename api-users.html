@@ -50,6 +50,9 @@
                 <a href="#operation--users--user_id--update_password-post"> POST /users/{user_id}/update_password </a>
               </li>
               <li>
+                <a href="#operation--users--user_id--check_password-post"> POST /users/{user_id}/check_password </a>
+              </li>
+              <li>
                 <a href="#operation--users--user_id--update_personal_data-post"> POST /users/{user_id}/update_personal_data </a>
               </li>
               <li>
@@ -1297,6 +1300,152 @@
 </code></pre>
                   <!-- </div> -->
                 </section>
+                <section>
+                  <h5>Response Example
+                    <span>(403 Forbidden)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(422 Unprocessable Entity)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--users--user_id--check_password-post" class="operation panel" data-traverse-target="operation--users--user_id--check_password-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-clientes">clientes</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-name">
+                <span class="operation-name">POST</span>
+                <span class="operation-path">/users/{user_id}/check_password</span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Usuario indica su password</p>
+                  <ul>
+                    <li>Se realiza una comparación con la contraseña de la base de datos.</li>
+                  </ul>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/user_password_new">user_password_new</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Password escogido por el usuario</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">user_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">integer</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID del Cliente</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK - Password correcta</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">403 Forbidden</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Cliente borrado o bloqueado</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Cliente no existe.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">422 Unprocessable Entity</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error de validación (password no cumple con políticas minimas)</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
                 <section>
                   <h5>Response Example
                     <span>(403 Forbidden)</span>
