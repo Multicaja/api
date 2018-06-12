@@ -620,9 +620,11 @@ definitions:
     type: object
     description: Saldo del cliente
     properties:
-      primary:
+      balance:
         $ref: "#/definitions/amount_and_currency_new"
-      secondary:
+      pca_main:
+        $ref: "#/definitions/amount_and_currency_new"
+      pca_secondary:
         $ref: "#/definitions/amount_and_currency_new"
       updated:
         type: boolean
