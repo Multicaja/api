@@ -298,7 +298,7 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
-  /prepaid/{user_id}/calculator/topup:
+  /prepaid/{user_id}/simulation/topup:
     post:
       tags:
         - prepaid
@@ -312,16 +312,16 @@ paths:
           required: true
           type: integer
         - in: body
-          name: calculator_request
+          name: simulation_new
           description: Requerimiento de calculo
           required: true
           schema:
-            $ref: '#/definitions/calculator_request'
+            $ref: '#/definitions/simulation_new'
       responses:
         '200':
           description: OK - Respuesta exitosa
           schema:
-            $ref: '#/definitions/calculator_topup_response'
+            $ref: '#/definitions/simulation_topup'
         '404':
           description: Cliente no existe o no tiene prepago
           schema:
@@ -331,7 +331,7 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
-  /prepaid/{user_id}/calculator/withdrawal:
+  /prepaid/{user_id}/simulation/withdrawal:
     post:
       tags:
         - prepaid
@@ -345,16 +345,16 @@ paths:
           required: true
           type: integer
         - in: body
-          name: calculator_request
+          name: simulation_new
           description: Requerimiento de calculo
           required: true
           schema:
-            $ref: '#/definitions/calculator_request'
+            $ref: '#/definitions/simulation_new'
       responses:
         '200':
           description: OK - Respuesta exitosa
           schema:
-            $ref: '#/definitions/calculator_withdrawal_response'
+            $ref: '#/definitions/simulation_withdrawal'
         '404':
           description: Cliente no existe o no tiene prepago
           schema:
@@ -696,7 +696,7 @@ definitions:
         type: boolean
         description: true o false dependiendo si fue actualizado desde el procesador
 
-  calculator_request:
+  simulation_new:
     type: object
     description: Requerimiento para la calculadora de carga o retiro
     properties:
@@ -704,15 +704,19 @@ definitions:
         $ref: "#/definitions/amount_and_currency_new"
       payment_method:
         type: string
-        description: WEB o POS
+        enum: ["WEB", "POS"]
+        description: |
+          Identificador del tipo simulación
 
-  calculator_topup_response:
+          * 'WEB': Carga o Retiro WEB
+          * 'POS': Carga o Retiro POS
+
+  simulation_topup:
     type: object
     description: Respuesta de la calculadora de carga
     properties:
       fee:
-        type: number
-        description: Comision calculada
+        $ref: "#/definitions/amount_and_currency_new"
       amount_to_pay:
         $ref: "#/definitions/amount_and_currency_new"
       pca:
@@ -720,13 +724,12 @@ definitions:
       eed:
         $ref: "#/definitions/amount_and_currency_new"
 
-  calculator_withdrawal_response:
+  simulation_withdrawal:
     type: object
     description: Respuesta de la calculadora de retiro
     properties:
       fee:
-        type: number
-        description: Comision calculada
+        $ref: "#/definitions/amount_and_currency_new"
       amount_to_discount:
         $ref: "#/definitions/amount_and_currency_new"
 
