@@ -298,6 +298,72 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
+  /prepaid/{user_id}/calculator/topup:
+    post:
+      tags:
+        - prepaid
+      summary: Calculadora de carga
+      description: |
+        Calculadora de carga
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: integer
+        - in: body
+          name: calculator_request
+          description: Requerimiento de calculo
+          required: true
+          schema:
+            $ref: '#/definitions/calculator_request'
+      responses:
+        '200':
+          description: OK - Respuesta exitosa
+          schema:
+            $ref: '#/definitions/calculator_topup_response'
+        '404':
+          description: Cliente no existe o no tiene prepago
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: Error en validación
+          schema:
+            $ref: '#/definitions/error_obj'
+
+  /prepaid/{user_id}/calculator/withdrawal:
+    post:
+      tags:
+        - prepaid
+      summary: Calculadora de retiro
+      description: |
+        Calculadora de retiro
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: integer
+        - in: body
+          name: calculator_request
+          description: Requerimiento de calculo
+          required: true
+          schema:
+            $ref: '#/definitions/calculator_request'
+      responses:
+        '200':
+          description: OK - Respuesta exitosa
+          schema:
+            $ref: '#/definitions/calculator_withdrawal_response'
+        '404':
+          description: Cliente no existe o no tiene prepago
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: Error en validación
+          schema:
+            $ref: '#/definitions/error_obj'
+
 definitions:
 
   prepaid_topup_base:
@@ -629,6 +695,40 @@ definitions:
       updated:
         type: boolean
         description: true o false dependiendo si fue actualizado desde el procesador
+
+  calculator_request:
+    type: object
+    description: Requerimiento para la calculadora de carga o retiro
+    properties:
+      amount:
+        $ref: "#/definitions/amount_and_currency_new"
+      payment_method:
+        type: string
+        description: WEB o POS
+
+  calculator_topup_response:
+    type: object
+    description: Respuesta de la calculadora de carga
+    properties:
+      fee:
+        type: number
+        description: Comision calculada
+      amount_to_pay:
+        $ref: "#/definitions/amount_and_currency_new"
+      pca:
+        $ref: "#/definitions/amount_and_currency_new"
+      eed:
+        $ref: "#/definitions/amount_and_currency_new"
+
+  calculator_withdrawal_response:
+    type: object
+    description: Respuesta de la calculadora de retiro
+    properties:
+      fee:
+        type: number
+        description: Comision calculada
+      amount_to_discount:
+        $ref: "#/definitions/amount_and_currency_new"
 
   error_obj:
     type: object
