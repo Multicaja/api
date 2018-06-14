@@ -1,0 +1,914 @@
+swagger: '2.0'
+info:
+  description:  |
+    Bienvenido a la API de [Multicaja](https://www.multicaja.cl) (Alpha)
+    ** Este es un proyecto alpha y por lo tanto sufrirá muchos cambios **
+    Todos los requests son autenticados usando un `api-key`.
+    Existen dos ambientes: `qa` y `producción`. El `host` de `qa` es `apiqa.multicaja.cl`.
+  version: "1.0.0"
+  title: API Multicaja BDP-REST
+  # put the contact info for your development or API team
+  contact:
+    email: mario.gonzales@multicaja.cl
+    
+# Added by API Auto Mocking Plugin
+# host: 'api.multicaja.cl'
+# basePath: /v0.1-alpha/
+consumes:
+  - application/json
+produces:
+  - application/json
+  
+# tags are used for organizing operations
+tags:
+- name: transaccional
+  description: Comunicación ecommerce
+- name: efectivo
+  description: Información efecitvo
+- name: transferencia
+  description: Información transferencia
+- name: transversal
+  description: Información transversal de todos los medios de pago
+
+paths:
+  /orders:
+    post:
+      tags:
+      - transaccional
+      summary: Crear pedido para el comercio
+      description: |
+        Servicio para poder crear un pedido y el cual retornara un una url para poder inicializar la transacción
+      parameters:
+      - in: body
+        name: paramItems
+        description: Parametros de entrada para el comercio
+        schema:
+          $ref: '#/definitions/paramItems'
+      consumes:
+      - application/json    
+      produces:
+      - application/json
+      responses:
+        201:
+          description: Pedido creado
+          schema:
+            $ref: '#/definitions/createOrderResult'
+        400:
+          description: Parametros de entrada incorrectos
+  /orders/{mc_order_id}:
+    get:
+      tags:
+      - transaccional
+      summary: Obtener el estado del pedido
+      operationId: addInventory
+      description: Servicio para obtener el estado pedido 
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: commerce_id
+          description: ID del comercio
+          required: true
+          type: "integer"
+        - in: path
+          name: branch_id
+          description: ni idea
+          required: true
+          type: integer
+        - in: path
+          name: mc_order_id
+          description: ni idea
+          required: true
+          type: "integer"
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/orderStatus'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+  /orders/{mc_order_id}/notify/:
+    post:
+      tags:
+      - transaccional
+      summary: Notificar el pedido al comercio
+      operationId: notificarPago
+      description: Notificar al comercio sobre el estado del pago
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: mc_order_id
+          description: id del pedido
+          required: true
+          type: "integer"
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/notifyPayment'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+          
+  /orders/{mc_order_id}/cancel/:
+    post:
+      tags:
+      - transaccional
+      summary: Cancelar pedido
+      operationId: cancelarOrder
+      description: Cancelar pedido creado por el comercio
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: body
+          name: cancelOrderInit
+          description: parametros para cancelar un pedido
+          schema:
+            $ref: '#/definitions/cancelOrderInit'
+        - in: path
+          name: mc_order_id
+          description: id del pedido
+          required: true
+          type: "integer"
+          
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/cancelOrderResponse'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+  
+  /cross/{id_pedido}/detailproducts/:
+    get:
+      tags:
+      - transversal
+      summary: detalle de los productos del pedido
+      description: Obtener detalle de los productos del pedido 
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: id_pedido
+          description: ID del pedido
+          required: true
+          type: "integer"
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/detailProductResponse'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos}
+        
+  /cross/{id_pedido}/detailorder/:
+    get:
+      tags:
+      - transversal
+      summary: detalle del pedido
+      description: Obtener detalle del pedido 
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: id_pedido
+          description: ID del pedido
+          required: true
+          type: "integer"
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/detailOrderResponse'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+  
+  /cross/canceldetails/:
+    post:
+      tags:
+      - transversal
+      summary: Cancelar detalles del pedido
+      description: Cancelar detalles del pedido
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: body
+          name: cancelDetailsInit
+          description: parametros para cancelar detalle de un pedido
+          schema:
+            $ref: '#/definitions/cancelDetailsInit'
+      responses:
+        201:
+          description: ok
+          schema:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: estado.
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+  
+  /cross/survey/:
+    post:
+      tags:
+      - transversal
+      summary: Encuensta de anulación
+      description: Encuensta de anulación
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: body
+          name: surveyInit
+          description: parametros para realizar la encuesta
+          schema:
+            $ref: '#/definitions/surveyInit'
+      responses:
+        201:
+          description: ok
+          schema:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: estado
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+  
+  /cross/{id_represented}/represented/:
+    get:
+      tags:
+      - transversal
+      summary: Obtener el representado
+      description: Obtener el representado
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: id_represented
+          description: ID del representado
+          required: true
+          type: "integer"
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/representedInit'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+
+  /cross/{id_represented}/paymentmethods/:
+    get:
+      tags:
+      - transversal
+      summary: Obtener los medios de pago
+      description: Obtener los medios de pago configurados para el representado
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: id_represented
+          description: ID del representado
+          required: true
+          type: "integer"
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/paymentmethodsInit'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+  
+  /cross/{token}/infotoken/:
+    get:
+      tags:
+      - transversal
+      summary: obtener información del pedido
+      description: Obtener información del pedido por medio de un token
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: token
+          description: token relacionado al pedido
+          required: true
+          type: string
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/cancelorderTokenResponse'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+  
+  /cross/{token}/cancelorder/:
+    post:
+      tags:
+      - transversal
+      summary: Anular pedido, por correo
+      description: Anular pedido por medio de un token (Email)
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: token
+          description: token relacionado al pedido
+          required: true
+          type: string
+      responses:
+        201:
+          description: ok
+          schema:
+            type: object
+            properties:
+              status:
+                type: boolean
+                description: estado
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+  
+  /transfers:
+    post:
+      tags:
+      - transferencia
+      summary: Generar Transferencia
+      description: Generar Transferencia
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: body
+          name: transfersInit
+          description: parametros para generar una transferencia
+          schema:
+            $ref: '#/definitions/transfersInit'
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/transfersResponse'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+  
+  /cash:
+    post:
+      tags:
+      - efectivo
+      summary: Generar pago en efectivo
+      description: Generar pago en efectivo
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: body
+          name: cashInit
+          description: parametros para generar un pago efectivo
+          schema:
+            $ref: '#/definitions/cashInit'
+      responses:
+        201:
+          description: ok
+          schema:
+            type: object
+            properties:
+              sequence_code:
+                type: string
+                example: 4684545456
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+definitions:
+  paramItems:
+    type: object
+    required:
+    - ec_order_id
+    - commerce_id
+    - branch_id
+    - total_amount
+    - general_description
+    - request_duration
+    - go_back_url
+    - notification_url
+    - cod_payment_method
+    - product
+    properties:
+      ec_order_id:
+        type: string
+        example: 123asdasd
+      commerce_id:
+        type: integer
+        example: 16086857
+      branch_id:
+        type: integer
+        example: 118890
+      total_amount:
+        type: number
+        example: 412546
+      general_description:
+        type: string
+        example: Test Test
+      request_duration:
+        type: integer
+        example: 3600
+      go_back_url:
+        type: string
+        example: www.ecommerce.cl/goBack
+      notification_url:
+        type: string
+        example: www.ecommerce.cl/notify
+      cod_payment_method:
+        type: integer
+        example: 10
+      product:
+        $ref: '#/definitions/paramItemsProduct'
+  
+  paramItemsProduct:
+    type: object
+    required:
+    - name
+    - description
+    - unit_price
+    - quantity
+    - total_price
+    properties:
+      name:
+        type: string
+        example: zapatilla
+      description:
+        type: string
+        example:  zapatilla roja
+      unit_price:
+        type: number
+        example: 1000
+      quantity:
+        type: integer
+        example:  1
+      total_price:
+        type: number
+        example: 1000
+          
+  createOrderResult:
+    required:
+    - mc_order_id
+    - redirect_url
+    properties:
+      mc_order_id:
+        type: integer
+        example: 82
+      redirect_url:
+        type: string
+        format: url
+        example:  https://10.170.1.30:8181/bdp/order.xhtml?id=82
+  
+  orderStatus:
+    required:
+    - order_status
+    - description
+    - ec_order_id
+    properties:
+      order_status:
+        type: integer
+        example: 82
+      description:
+        type: string
+        example:  EXPIRED
+      ec_order_id:
+        type: integer
+        example: 961779978
+        
+  notifyPayment:
+   required:
+    - notify_url
+   properties:
+    notify_url:
+      type: string
+      format: url
+      example: https://www.comercio.cl/sucess/notify_url?id=111111111
+      
+  cancelOrderInit:
+    required: 
+      - commerce_id
+      - branch_id
+      - cause_description
+    properties:
+      commerce_id:
+        type: integer
+        example: 111111111
+      branch_id:
+        type: integer
+        example: 111111111
+      cause_description:
+        type: string
+        example: NO QUIERO PAGAR
+  
+  cancelOrderResponse:
+    required: 
+      - ec_order_id
+      - code
+      - message
+    properties:
+      ec_order_id:
+        type: integer
+        example: 111111111
+      code:
+        type: integer
+        example: 111111111
+      message:
+        type: string
+        example: éxito
+  
+  detailProductResponse:
+    required: 
+      - products
+    properties:
+      products:
+        $ref: '#/definitions/detailProductResponseArray'
+          
+  detailProductResponseArray:
+    type: array
+    required:
+      - id
+      - quantity
+      - name
+      - total_price
+      - description
+      - unit_price
+    items:
+      type: object
+    properties:
+          id:
+            type: integer
+          quantity:
+            type: integer
+          name:
+            type: string
+          total_price:
+            type: number
+          description:
+            type: string
+          unit_price:
+            type: number        
+    example:
+      - id: 10
+        quantity: 3
+        name: recarga 1
+        totalPrice: 1500
+        description: carga
+        unitPrice: 500
+      - id: 11
+        quantity: 2
+        name: recarga 1
+        total_price: 1000
+        description: carga
+        unit_price: 500
+  
+  detailOrderResponse:
+    required: 
+      - id
+      - id_publico
+      - sec_ecommerce
+      - id_representado
+      - monto_trx
+      - fecha_expiracion
+      - url_retorno
+      - descripcion_compra
+    properties:
+      id:
+        type: integer
+        example: 111111111
+      id_publico:
+        type: integer
+        example: 111111111
+      sec_ecommerce:
+        type: string
+        example: éxito
+      id_representado:
+        type: string
+        example: éxito
+      monto_trx:
+        type: string
+        example: éxito
+      fecha_expiracion:
+        type: string
+        example: éxito 
+      url_retorno:
+        type: string
+        example: éxito
+      descripcion_compra:
+        type: string
+        example: éxito
+  
+  cancelDetailsInit:
+    type: object
+    required:
+    - order_id
+    - cancel_order
+    properties:
+      order_id:
+        type: integer
+        example: 1111111111
+      cancel_order:
+        type: integer
+        example: 0
+  
+  surveyInit:
+    type: object
+    required:
+    - id_order
+    - id_option
+    - id_user
+    - reason
+    - track
+    properties:
+      id_order:
+        type: integer
+        example: 1111111111
+      id_option:
+        type: integer
+        example: 5
+      id_user:
+        type: integer
+        example: 1
+      reason:
+        type: string
+        example: no encontre un lugar para pagar
+      track:
+        type: string
+        example: canal web
+  
+  representedInit:
+    type: object
+    required:
+    - repre_id
+    - repre_url_return
+    - repre_url_logo
+    - repre_description
+    - repre_name_represented
+    properties:
+      repre_id:
+        type: integer
+        example: 1111111111
+      repre_url_return:
+        type: string
+        example: https://www.comerciox.cl/return
+      repre_url_logo:
+        type: string
+        example: https://www.multicaja.cl/logo/comerciox
+      repre_description:
+        type: string
+        example: comercio x
+      repre_name_represented:
+        type: string
+        example: comercio x
+        
+  paymentmethodsInit:
+    required: 
+      - means
+    properties:
+      means:
+        $ref: '#/definitions/paymentmethodsInitArray'
+          
+  paymentmethodsInitArray:
+    type: array
+    required:
+      - id
+      - code
+      - name
+      - description
+      - id_status_means
+      - accept_anonymous_payment
+      - maximum_anonymous_amount
+    items:
+      type: object
+    properties:
+          id:
+            type: integer
+          code:
+            type: integer
+          name:
+            type: string
+          description:
+            type: string
+          id_status_means:
+            type: integer
+          accept_anonymous_payment:
+            type: boolean 
+          maximum_anonymous_amount:
+            type: number  
+    example:
+      - id: 1
+        code: 1
+        name: CUPON
+        description: PAGO EFECTIVO
+        id_status_means: 1
+        accept_anonymous_payment: false
+        maximum_anonymous_amount: 0
+      - id: 2
+        code: 2
+        name: TEF
+        description: PAGO CON TEF
+        id_status_means: 1
+        accept_anonymous_payment: false
+        maximum_anonymous_amount: 0
+  
+  cancelorderTokenResponse:
+    type: object
+    required:
+    - id
+    - id_public
+    - sec_ecommerce
+    - id_represented
+    - amount_trx
+    - expiration_date
+    - return_url
+    - description_purchase
+    properties:
+      id:
+        type: integer
+        example: 1111111111
+      id_public:
+        type: integer
+        example: 5
+      sec_ecommerce:
+        type: integer
+        example: 1
+      id_represented:
+        type: integer
+        example: 2
+      amount_trx:
+        type: number
+        example: 5000
+      expiration_date:
+        type: string
+        format: date-time
+        example: "2018-01-14T15:27:42.669Z"
+      return_url:
+        type: string
+        example: https://www.comerciox.cl/return
+      description_purchase:
+        type: string
+        example: recarga
+        
+  transfersInit:
+    type: object
+    required:
+    - id
+    - user_id
+    - id_person_app
+    - slp
+    properties:
+      id:
+        type: integer
+        example: 1
+      user_id:
+        type: integer
+        example: 1
+      id_person_app:
+        type: integer
+        example: 1
+      slp:
+        type: boolean
+        example: false
+  
+  transfersResponse:
+    type: object
+    required:
+    - id_trx
+    - user_new_slp
+    - tef_status
+    - tef_id
+    - tef_amount
+    - tef_expires
+    - tef_now
+    - tef_uses_slp
+    - tef_amount_slp
+    - account_name
+    - account_rut
+    - account_email
+    - account_bank
+    - account_type
+    - account_number
+    - account_new
+    properties:
+      id_trx:
+        type: string
+        example: 1
+      user_new_slp:
+        type: number
+        example: 1
+      tef_status:
+        type: string
+        example: 1
+      tef_id:
+        type: integer
+        example: 1
+      tef_amount:
+        type: integer
+        example: 1
+      tef_expires:
+        type: string
+        format: date-time
+        example: "2018-01-14T15:27:42.669Z"
+      tef_now:
+        type: string
+        format: date-time
+        example: "2018-01-14T15:27:42.669Z"
+      tef_uses_slp:
+        type: boolean
+        example: true
+      tef_amount_slp:
+        type: number
+        example: 1000
+      account_name:
+        type: string
+        example: mario
+      account_rut:
+        type: string
+        example: 1-9
+      account_email:
+        type: string
+        example: email@email.cl
+      account_bank:
+        type: string
+        example: El de los pobres
+      account_type:
+        type: string
+        example: de papel confort
+      account_number:
+        type: string
+        example: 0000000655712
+      account_new:
+        type: integer
+        example: 1
+        
+  cashInit:
+    type: object
+    required:
+    - order_id
+    - user_id
+    - user_email
+    properties:
+      order_id:
+        type: integer
+        example: 1111111111
+      user_id:
+        type: integer
+        example: 152
+      user_email:
+        type: string
+        example: mail@mail.cl
+
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /mariogoz/bdp-rest/1.0.0
+schemes:
+ - https
