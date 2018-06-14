@@ -503,6 +503,10 @@ paths:
             $ref: '#/definitions/prepaid_card'
         '404':
           description: Cliente no existe o no tiene tarjeta prepago
+        '422':
+          description: Cliente tiene primera carga en proceso
+          schema:
+            $ref: '#/definitions/error_obj'
         '500':
           description: Error indeterminado
 
