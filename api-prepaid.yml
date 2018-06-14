@@ -387,8 +387,6 @@ paths:
           description: Cliente no existe o no tiene tarjeta prepago
         '500':
           description: Error indeterminado
-          schema:
-            $ref: '#/definitions/error_obj'
 
 definitions:
 
@@ -780,12 +778,15 @@ definitions:
     description: |
       Información de la tarjeta prepago
     properties:
+      processor_user_id:
+        type: string
+        description: |
+          Id de usuario en el procesador externo.
+        example: "43438500955156352167"
       pan:
         type: string
         description: |
           Número de pan de la tarjeta
-          ### Consideraciones
-          * Solo visibles los primeros 4 digitos y los ultimos 4.
         example: "517608XXXXXX4840"
       name_on_card:
         type: string
