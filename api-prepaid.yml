@@ -279,6 +279,10 @@ paths:
       responses:
         '201':
           description: OK - Reversa exitosa
+        '404':
+          description: Cliente no existe o no tiene prepago
+          schema:
+            $ref: '#/definitions/error_obj'
         '410':
           description: Plazo para reversar expirado
           schema:
@@ -310,19 +314,15 @@ paths:
           description: Página
           type: integer
       responses:
-        '201':
+        '200':
           description: |
-            OK - Carga se realizará en los próximos segundos
+            OK - Búsqueda exitosa
           schema:
             type: array
             items:
               $ref: '#/definitions/prepaid_topup'
         '404':
           description: Cliente no existe o no tiene prepago
-          schema:
-            $ref: '#/definitions/error_obj'
-        '422':
-          description: Carga no exitosa, revise error
           schema:
             $ref: '#/definitions/error_obj'
         '400':
