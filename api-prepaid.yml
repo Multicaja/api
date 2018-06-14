@@ -60,16 +60,32 @@ paths:
             $ref: '#/definitions/prepaid_user_signup'
         '401':
           description: RUT o email corresponden a Cliente que ya tiene clave y que debe autenticarse para realizar esta operación
+          schema:
+            $ref: '#/definitions/error_obj'
         '403':
           description: Usuario borrado, bloqueado, o ya tiene prepago.
           schema:
             $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe
+          schema:
+            $ref: '#/definitions/error_obj'
         '410':
           description: Cliente ya tiene prepago
+          schema:
+            $ref: '#/definitions/error_obj'
         '422':
           description: No viene RUT o no viene email
+          schema:
+            $ref: '#/definitions/error_obj'
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'
 
   /prepaid/signup/{signup_id}:
     get:
@@ -92,10 +108,24 @@ paths:
             $ref: '#/definitions/prepaid_user_signup'
         '401':
           description: Usuario tiene clave y debe autenticarse para realizar esta operación
+          schema:
+            $ref: '#/definitions/error_obj'
         '404':
           description: Proceso de registro no existe.
+          schema:
+            $ref: '#/definitions/error_obj'
         '410':
           description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /prepaid/UserSignup`.
+          schema:
+            $ref: '#/definitions/error_obj'
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'
 
   /prepaid/topup:
     post:
@@ -122,8 +152,20 @@ paths:
             OK - Carga se realizará en los próximos segundos
           schema:
             $ref: '#/definitions/prepaid_topup'
+        '404':
+          description: Cliente no existe o no tiene prepago
+          schema:
+            $ref: '#/definitions/error_obj'
         '422':
           description: Carga no exitosa, revise error
+          schema:
+            $ref: '#/definitions/error_obj'
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
 
@@ -153,8 +195,20 @@ paths:
       responses:
         '201':
           description: OK - Reversa exitosa
+        '404':
+          description: Cliente no existe o no tiene prepago
+          schema:
+            $ref: '#/definitions/error_obj'
         '410':
           description: Plazo para reversar expirado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
 
@@ -183,8 +237,20 @@ paths:
             OK - Retiro realizado
           schema:
             $ref: '#/definitions/prepaid_withdrawal'
+        '404':
+          description: Cliente no existe o no tiene prepago
+          schema:
+            $ref: '#/definitions/error_obj'
         '422':
           description: Retiro no exitoso, revise error
+          schema:
+            $ref: '#/definitions/error_obj'
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
 
@@ -217,6 +283,14 @@ paths:
           description: Plazo para reversar expirado
           schema:
             $ref: '#/definitions/error_obj'
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'
 
   /prepaid/{user_id}/topup:
     get:
@@ -243,8 +317,20 @@ paths:
             type: array
             items:
               $ref: '#/definitions/prepaid_topup'
+        '404':
+          description: Cliente no existe o no tiene prepago
+          schema:
+            $ref: '#/definitions/error_obj'
         '422':
           description: Carga no exitosa, revise error
+          schema:
+            $ref: '#/definitions/error_obj'
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
 
@@ -273,6 +359,14 @@ paths:
           description: El mensaje `raw_transaction_new` tiene un error
           schema:
             $ref: '#/definitions/error_obj'
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'
 
   /prepaid/{user_id}/balance:
     get:
@@ -294,7 +388,15 @@ paths:
           schema:
             $ref: '#/definitions/prepaid_balance'
         '404':
-          description: Cliente no existe
+          description: Cliente no existe o no tiene prepago
+          schema:
+            $ref: '#/definitions/error_obj'
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
 
@@ -330,6 +432,14 @@ paths:
           description: Error en validación
           schema:
             $ref: '#/definitions/error_obj'
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'
 
   /prepaid/{user_id}/simulation/withdrawal:
     post:
@@ -361,6 +471,14 @@ paths:
             $ref: '#/definitions/error_obj'
         '422':
           description: Error en validación
+          schema:
+            $ref: '#/definitions/error_obj'
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
 
