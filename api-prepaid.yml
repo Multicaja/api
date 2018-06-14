@@ -364,6 +364,32 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
+  /prepaid/{user_id}/card:
+    get:
+      tags:
+        - prepaid
+      summary: Información de la tarjeta prepago
+      description: |
+        Retorna la información de la tarjeta prepago
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: |
+            OK - Información de la tarjeta prepago
+          schema:
+            $ref: '#/definitions/prepaid_card'
+        '404':
+          description: Cliente no existe o no tiene tarjeta prepago
+        '500':
+          description: Error indeterminado
+          schema:
+            $ref: '#/definitions/error_obj'
+
 definitions:
 
   prepaid_topup_base:
@@ -748,3 +774,41 @@ definitions:
         type: string
         description: Descripción corta del error
         example: "El cliente no pasó la validación"
+
+  prepaid_card:
+    type: object
+    description: |
+      Información de la tarjeta prepago
+    properties:
+      pan:
+        type: string
+        description: |
+          Número de pan de la tarjeta
+          ### Consideraciones
+          * Solo visibles los primeros 4 digitos y los ultimos 4.
+        example: "517608XXXXXX4840"
+      name_on_card:
+        type: string
+        description: |
+          Nombre impreso en la tarjeta
+        example: "Pedro Perez"
+      expiration_date:
+        type: integer
+        description: |
+          Fecha de expiración de la tarjeta
+          ### Consideraciones
+          * Esta en formato `YYYYMM`
+        example: 202301
+      status:
+        type: string
+        enum: ["ACTIVE", "PENDING", "LOCKED", "LOCKED_HARD", "EXPIRED"]
+        description: |
+          Estatus de la tarjeta
+
+          * 'PENDING': Pendiente
+          * 'ACTIVE': Activa
+          * 'LOCKED': Bloqueada
+          * 'LOCKED_HARD': Bloqueada por emisor
+          * 'EXPIRED': Expirada
+      timestamps:
+        $ref: '#/definitions/timestamps'
