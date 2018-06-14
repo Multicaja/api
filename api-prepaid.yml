@@ -489,6 +489,15 @@ paths:
       summary: Información de la tarjeta prepago
       description: |
         Retorna la información de la tarjeta prepago
+
+        ### Responderá `404` en los siguientes casos:
+        * Si el cliente no existe
+        * Si el cliente no está registrado en prepago
+        * Si el cliente está registrado en prepago, pero no ha realizado la primera carga
+
+        ### Responderá `422` en los siguientes casos:
+        * Si cliente está registrado en prepago, ya realizo la primera carga y la misma esta en proceso  
+
       parameters:
         - in: path
           name: user_id
