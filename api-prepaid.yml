@@ -482,6 +482,47 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
+  /prepaid/{user_id}/card:
+    get:
+      tags:
+        - prepaid
+      summary: Información de la tarjeta prepago
+      description: |
+        Retorna la información de la tarjeta prepago
+
+        ### Responderá `404` en los siguientes casos:
+        * Si el cliente no existe
+        * Si el cliente no está registrado en prepago
+        
+        ### Responderá `422` en los siguientes casos:
+        * Si el cliente está registrado en prepago, pero no ha realizado la primera carga
+        * Si cliente está registrado en prepago, ya realizo la primera carga y la misma esta en proceso  
+
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: |
+            OK - Información de la tarjeta prepago
+          schema:
+            $ref: '#/definitions/prepaid_card'
+        '404':
+          description: Cliente no existe o no tiene tarjeta prepago
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: Cliente tiene primera carga en proceso
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado
+          schema:
+            $ref: '#/definitions/error_obj'
+
 definitions:
 
   prepaid_topup_base:
@@ -866,3 +907,44 @@ definitions:
         type: string
         description: Descripción corta del error
         example: "El cliente no pasó la validación"
+
+  prepaid_card:
+    type: object
+    description: |
+      Información de la tarjeta prepago
+    properties:
+      processor_user_id:
+        type: string
+        description: |
+          Id de usuario en el procesador externo.
+        example: "43438500955156352167"
+      pan:
+        type: string
+        description: |
+          Número de pan de la tarjeta
+        example: "517608XXXXXX4840"
+      name_on_card:
+        type: string
+        description: |
+          Nombre impreso en la tarjeta
+        example: "Pedro Perez"
+      expiration_date:
+        type: integer
+        description: |
+          Fecha de expiración de la tarjeta
+          ### Consideraciones
+          * Esta en formato `YYYYMM`
+        example: 202301
+      status:
+        type: string
+        enum: ["ACTIVE", "PENDING", "LOCKED", "LOCKED_HARD", "EXPIRED"]
+        description: |
+          Estatus de la tarjeta
+
+          * 'PENDING': Pendiente
+          * 'ACTIVE': Activa
+          * 'LOCKED': Bloqueada
+          * 'LOCKED_HARD': Bloqueada por emisor
+          * 'EXPIRED': Expirada
+      timestamps:
+        $ref: '#/definitions/timestamps'
