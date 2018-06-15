@@ -493,9 +493,9 @@ paths:
         ### Responderá `404` en los siguientes casos:
         * Si el cliente no existe
         * Si el cliente no está registrado en prepago
-        * Si el cliente está registrado en prepago, pero no ha realizado la primera carga
-
+        
         ### Responderá `422` en los siguientes casos:
+        * Si el cliente está registrado en prepago, pero no ha realizado la primera carga
         * Si cliente está registrado en prepago, ya realizo la primera carga y la misma esta en proceso  
 
       parameters:
@@ -512,12 +512,16 @@ paths:
             $ref: '#/definitions/prepaid_card'
         '404':
           description: Cliente no existe o no tiene tarjeta prepago
+          schema:
+            $ref: '#/definitions/error_obj'
         '422':
           description: Cliente tiene primera carga en proceso
           schema:
             $ref: '#/definitions/error_obj'
         '500':
           description: Error indeterminado
+          schema:
+            $ref: '#/definitions/error_obj'
 
 definitions:
 
