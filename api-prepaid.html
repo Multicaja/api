@@ -50,6 +50,9 @@
               <li>
                 <a href="#operation--prepaid--user_id--simulation-withdrawal-post"> Calculadora de retiro </a>
               </li>
+              <li>
+                <a href="#operation--prepaid--user_id--card-get"> Información de la tarjeta prepago </a>
+              </li>
             </ul>
           </section>
           <section>
@@ -82,6 +85,7 @@
           <a href="#definition-simulation_topup"> simulation_topup </a>
           <a href="#definition-simulation_withdrawal"> simulation_withdrawal </a>
           <a href="#definition-error_obj"> error_obj </a>
+          <a href="#definition-prepaid_card"> prepaid_card </a>
         </nav>
       </div>
       <div id="docs" class="row collapse expanded drawer" data-drawer>
@@ -1903,6 +1907,180 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(422 Unprocessable Entity)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--prepaid--user_id--card-get" class="operation panel" data-traverse-target="operation--prepaid--user_id--card-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-prepaid">prepaid</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Informaci&#xF3;n de la tarjeta prepago</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/prepaid/{user_id}/card</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Retorna la información de la tarjeta prepago</p>
+                  <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>Si el cliente no existe</li>
+                    <li>Si el cliente no está registrado en prepago</li>
+                  </ul>
+                  <h3 id="responder-422-en-los-siguientes-casos-">Responderá <code>422</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>Si el cliente está registrado en prepago, pero no ha realizado la primera carga</li>
+                    <li>Si cliente está registrado en prepago, ya realizo la primera carga y la misma esta en proceso </li>
+                  </ul>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">user_id</div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                      <div class="prop-subtitle">
+                        <span class="json-property-type">integer</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                      </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID del Cliente</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/prepaid_card">prepaid_card</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK - Información de la tarjeta prepago</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Cliente no existe o no tiene tarjeta prepago</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">422 Unprocessable Entity</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Cliente tiene primera carga en proceso</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error indeterminado</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;processor_user_id&quot;</span>: <span class="hljs-string">&quot;43438500955156352167&quot;</span>,
+  <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;517608XXXXXX4840&quot;</span>,
+  <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;Pedro Perez&quot;</span>,
+  <span class="hljs-attr">&quot;expiration_date&quot;</span>: <span class="hljs-number">202301</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+  }
 }
 </code></pre>
                   <!-- </div> -->
@@ -3832,6 +4010,112 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-prepaid_card" class="definition panel" data-traverse-target="definition-prepaid_card">
+            <h2 class="panel-title">
+              <a name="/definitions/prepaid_card"></a>prepaid_card: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Información de la tarjeta prepago</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="processor_user_id" class="has-description">
+                      <span class="json-property-name">processor_user_id:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Id de usuario en el procesador externo.</p>
+                    </dd>
+                    <dt data-property-name="pan" class="has-description">
+                      <span class="json-property-name">pan:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Número de pan de la tarjeta</p>
+                    </dd>
+                    <dt data-property-name="name_on_card" class="has-description">
+                      <span class="json-property-name">name_on_card:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Nombre impreso en la tarjeta</p>
+                    </dd>
+                    <dt data-property-name="expiration_date" class="has-description">
+                      <span class="json-property-name">expiration_date:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Fecha de expiración de la tarjeta</p>
+                      <h3 id="consideraciones">Consideraciones</h3>
+                      <ul>
+                        <li>Esta en formato <code>YYYYMM</code></li>
+                      </ul>
+                    </dd>
+                    <dt data-property-name="status" class="has-description">
+                      <span class="json-property-name">status:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">ACTIVE</span>,
+                        <span class="json-property-enum-item">PENDING</span>,
+                        <span class="json-property-enum-item">LOCKED</span>,
+                        <span class="json-property-enum-item">LOCKED_HARD</span>,
+                        <span class="json-property-enum-item">EXPIRED</span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Estatus de la tarjeta</p>
+                      <ul>
+                        <li>&#39;PENDING&#39;: Pendiente</li>
+                        <li>&#39;ACTIVE&#39;: Activa</li>
+                        <li>&#39;LOCKED&#39;: Bloqueada</li>
+                        <li>&#39;LOCKED_HARD&#39;: Bloqueada por emisor</li>
+                        <li>&#39;EXPIRED&#39;: Expirada</li>
+                      </ul>
+                    </dd>
+                    <dt data-property-name="timestamps">
+                      <span class="json-property-name">timestamps:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/timestamps">timestamps</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;processor_user_id&quot;</span>: <span class="hljs-string">&quot;43438500955156352167&quot;</span>,
+  <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;517608XXXXXX4840&quot;</span>,
+  <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;Pedro Perez&quot;</span>,
+  <span class="hljs-attr">&quot;expiration_date&quot;</span>: <span class="hljs-number">202301</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+  }
 }
 </code></pre>
                   <!-- </div> -->
