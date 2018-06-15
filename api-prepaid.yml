@@ -600,10 +600,6 @@ definitions:
             type: string
             description: Nombre del comercio
             example: "Carnicería el tajo"
-          password:
-            type: integer
-            description: La clave del usuario
-            example: 1324
   
   prepaid_withdrawal_new:
     type: object
@@ -611,6 +607,13 @@ definitions:
       Solicitud de retiro **(Request)**
     allOf:
       - $ref: "#/definitions/prepaid_topup_new"
+      - type: object
+        properties:
+          password:
+            type: integer
+            description: La clave del usuario
+            example: 1324
+            
   variable_data:
     type: object
     description: Dato de tipo llave=valor **(Response)**
