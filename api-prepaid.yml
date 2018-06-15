@@ -523,6 +523,39 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
+  /prepaid/{user_id}:
+    get:
+      tags:
+          - prepaid
+      summary: Información del usuario prepago
+      description: |
+        Retorna la información del usuario prepago
+
+        ### Responderá `404` en los siguientes casos:
+        * Si el cliente no existe
+        * Si el cliente no está registrado en prepago
+
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: |
+            OK - Información del usuario prepago
+          schema:
+            $ref: '#/definitions/prepaid_user'
+        '404':
+          description: Cliente no existe o no tiene tarjeta prepago
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado
+          schema:
+            $ref: '#/definitions/error_obj'
+
 definitions:
 
   prepaid_topup_base:
@@ -948,3 +981,40 @@ definitions:
           * 'EXPIRED': Expirada
       timestamps:
         $ref: '#/definitions/timestamps'
+  
+  prepaid_user:
+    type: object
+    description: |
+      Información del usuario prepago
+    properties:
+      id:
+        type: number
+        description: |
+          Id de usuario prepago
+        example: 123456
+      user_id:
+        type: number
+        description: |
+          Id de usuario Multicaja
+        example: 654321
+      rut:
+        type: number
+        description: |
+          Numero de rut del usuario, sin puntos, guion ni digito verificador
+        example: 11111111
+      status:
+        type: string
+        enum: ["ACTIVE", "DISABLED"]
+        description: |
+          Estatus del usuario prepago
+
+          * 'ACTIVE': Activo
+          * 'DISABLED': Deshabilitado
+      user_level:
+        type: string
+        enum: ["LEVEL_1", "LEVEL_2"]
+        description: |
+          Nivel del usuario prepago
+          
+          * 'LEVEL_1': Cuando el `status` del nombre no esta verificado
+          * 'LEVEL_2': Cuando el `status` del rut y nombre esta verificado
