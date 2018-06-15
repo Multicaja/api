@@ -534,7 +534,7 @@ paths:
         ### Responderá `404` en los siguientes casos:
         * Si el cliente no existe
         * Si el cliente no está registrado en prepago
-        
+
       parameters:
         - in: path
           name: user_id
@@ -987,12 +987,12 @@ definitions:
     description: |
       Información del usuario prepago
     properties:
-      user_id:
+      id:
         type: number
         description: |
-          Id de usuario
+          Id de usuario prepago
         example: 123456
-      mc_user_id:
+      user_id:
         type: number
         description: |
           Id de usuario Multicaja
@@ -1000,7 +1000,7 @@ definitions:
       rut:
         type: number
         description: |
-          Numero de rut del usuario
+          Numero de rut del usuario, sin puntos, guion ni digito verificador
         example: 11111111
       status:
         type: string
