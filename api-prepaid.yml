@@ -556,6 +556,49 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
+  /prepaid/{user_id}/transactions:
+    get:
+      tags:
+        - prepaid
+      summary: Lista de transacciones
+      description: |
+        Retorna una lista con las transacciones del cliente
+
+        ### Responderá `404` en los siguientes casos:
+        * Si el cliente no existe
+        * Si el cliente no está registrado en prepago
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: integer
+        - in: query
+          name: from
+          description: Fecha desde (yyyy-mm-dd)
+          type: string
+          format: date
+        - in: query
+          name: to
+          description: Fecha hasta (yyyy-mm-dd)
+          type: string
+          format: date
+      responses:
+        '200':
+          description: |
+            OK - Transacciones
+          schema:
+            type: array
+            items: 
+              $ref: '#/definitions/prepaid_transaction'
+        '404':
+          description: Cliente no existe o no tiene tarjeta prepago
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado
+          schema:
+            $ref: '#/definitions/error_obj'
 definitions:
 
   prepaid_topup_base:
@@ -1021,3 +1064,24 @@ definitions:
           
           * 'LEVEL_1': Cuando el `status` del nombre no esta verificado
           * 'LEVEL_2': Cuando el `status` del rut y nombre esta verificado
+  
+  prepaid_transaction:
+    type: object
+    description: |
+      Transacción (Carga, retiro o compra)
+    properties:
+      date:
+        type: string
+        format: date
+        description: |
+          Fecha de la transacción
+        example: "2018-10-05"
+      description:
+        type: string
+        description: |
+          Descripcion de la transacción
+        example: "CARGA POR TRANSFERENCIA"
+      amount_primary:
+        $ref: '#/definitions/amount_and_currency_new'
+      amount_secondary:
+        $ref: '#/definitions/amount_and_currency_new'
