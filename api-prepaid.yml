@@ -539,6 +539,7 @@ paths:
         - in: query
           name: rut
           description: Rut sin puntos, guion ni digito verificador
+          required: true
           type: integer
       responses:
         '200':
@@ -1050,3 +1051,5 @@ definitions:
           
           * 'LEVEL_1': Cuando el `status` del nombre no esta verificado
           * 'LEVEL_2': Cuando el `status` del rut y nombre esta verificado
+      timestamps:
+        $ref: '#/definitions/timestamps'
