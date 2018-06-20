@@ -523,6 +523,39 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
+  /prepaid/:
+    get:
+      tags:
+          - prepaid
+      summary: Buscar usuario prepago
+      description: |
+        Retorna la información del usuario prepago por rut
+
+        ### Responderá `404` en los siguientes casos:
+        * Si el cliente no existe
+        * Si el cliente no está registrado en prepago
+
+      parameters:
+        - in: query
+          name: rut
+          description: Rut sin puntos, guion ni digito verificador
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: |
+            OK - Información del usuario prepago
+          schema:
+            $ref: '#/definitions/prepaid_user'
+        '404':
+          description: Cliente no existe o no tiene tarjeta prepago
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado
+          schema:
+            $ref: '#/definitions/error_obj'
+
   /prepaid/{user_id}:
     get:
       tags:
@@ -1064,6 +1097,8 @@ definitions:
           
           * 'LEVEL_1': Cuando el `status` del nombre no esta verificado
           * 'LEVEL_2': Cuando el `status` del rut y nombre esta verificado
+      timestamps:
+        $ref: '#/definitions/timestamps'
   
   prepaid_transaction:
     type: object
