@@ -374,7 +374,16 @@ paths:
         - prepaid
       summary: Retorna el saldo de un cliente prepago
       description: |
-        Retorna el saldo de cliente prepago
+        Retorna el saldo del cliente prepago
+
+        ### Responderá `404` en los siguientes casos:
+        * Si el cliente no existe
+        * Si el cliente no está registrado en prepago
+        
+        ### Responderá `422` en los siguientes casos:
+        * Si cliente no tiene saldo y una carga pendiente o tiene saldo expirado y una carga pendiente
+        * Saldo no disponible (significa que no tenia saldo en cache o su saldo estaba expirado y fallo al consultar el nuevo saldo a tecnocom)
+
       parameters:
         - in: path
           name: user_id
@@ -393,6 +402,10 @@ paths:
             $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe o no tiene prepago
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: Cliente no tiene saldo y una carga pendiente o tiene saldo expirado y una carga pendiente o saldo no se encuentra disponible
           schema:
             $ref: '#/definitions/error_obj'
         '500':
