@@ -1109,13 +1109,64 @@ definitions:
         type: string
         format: date
         description: |
-          Fecha de la transacción
+          Fecha de la transacción (Fecfac)
         example: "2018-10-05"
       description:
         type: string
         description: |
           Descripcion de la transacción
         example: "CARGA POR TRANSFERENCIA"
+      exchange_rate:
+        type: number
+        description: |
+          Cambio Aplicado (CMBAPLI)
+        example: 650
+      commerce_code:
+        type: string
+        description: |
+          Codigo Comercio (CODCOM)
+      economic_concept:
+        type: number
+        description: |
+          Codigo de concepto economico (CODCONECO)
+        example: 1234
+      desc_economic_concept:
+        type: string
+        description: |
+          Descripcion de concepto economico (DESCONECO)
+      amount_description_type:
+        type: string
+        description: |
+          Descripcion tipo de importe (DESTIPIMP)
+      invoice_description: 
+        type: string
+        description: |
+          Descripcion tipo de factura (DESTIPFAC)
+      application_amount:
+        type: number
+        description: |
+          Importe de aplicacion (IMPAPLECO)
+        example: 1234
+      gross_value:
+        type: number
+        description: |
+          Importe bruto (IMPRUECO)
+        example: 1234
+      extract_account:
+        type: number
+        description: |
+          Numero extracto cuenta (NUMEXTCTA)
+        example: 1234
+      extract_transaction:
+        type: number
+        description: |
+          Numero movimiento extracto (NUMMOVEXT)
+        example: 1234
+      invoice_type:
+        type: number
+        description: |
+          Tipo de factura (TIPOFAC)
+        example: 1234
       amount_primary:
         $ref: '#/definitions/amount_and_currency_new'
       amount_secondary:
