@@ -1125,33 +1125,56 @@ definitions:
         type: string
         description: |
           Codigo Comercio (CODCOM)
-      economic_concept:
+      economic_concept1:
         type: number
         description: |
           Codigo de concepto economico (CODCONECO)
         example: 1234
-      desc_economic_concept:
+      desc_economic_concept1:
         type: string
         description: |
           Descripcion de concepto economico (DESCONECO)
-      amount_description_type:
+      amount_description_type1:
         type: string
         description: |
           Descripcion tipo de importe (DESTIPIMP)
-      invoice_description: 
-        type: string
-        description: |
-          Descripcion tipo de factura (DESTIPFAC)
-      application_amount:
+      application_amount1:
         type: number
         description: |
           Importe de aplicacion (IMPAPLECO)
         example: 1234
-      gross_value:
+      gross_value1:
         type: number
         description: |
           Importe bruto (IMPRUECO)
         example: 1234
+      economic_concept2:
+        type: number
+        description: |
+          Codigo de concepto economico (CODCONECO)
+        example: 1234
+      desc_economic_concept2:
+        type: string
+        description: |
+          Descripcion de concepto economico (DESCONECO)
+      amount_description_type2:
+        type: string
+        description: |
+          Descripcion tipo de importe (DESTIPIMP)
+      application_amount2:
+        type: number
+        description: |
+          Importe de aplicacion (IMPAPLECO)
+        example: 1234
+      gross_value2:
+        type: number
+        description: |
+          Importe bruto (IMPRUECO)
+        example: 1234
+      invoice_description: 
+        type: string
+        description: |
+          Descripcion tipo de factura (DESTIPFAC)
       extract_account:
         type: number
         description: |
