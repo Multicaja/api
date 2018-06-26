@@ -1369,7 +1369,20 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Retorna el saldo de cliente prepago</p>
+                  <p>Retorna el saldo del cliente prepago</p>
+                  <h3 id="responder-404-con-c-digo-de-error-en-los-siguientes-casos-">Responderá <code>404</code> con código de error en los siguientes casos:</h3>
+                  <ul>
+                    <li>102001: Si el cliente no existe</li>
+                    <li>102003: Si el cliente no está registrado en prepago</li>
+                  </ul>
+                  <h3 id="responder-422-con-c-digo-de-error-en-los-siguientes-casos-">Responderá <code>422</code> con código de error en los siguientes casos:</h3>
+                  <ul>
+                    <li>102002: Cliente bloqueado o borrado</li>
+                    <li>102004: Cliente prepago bloqueado o borrado</li>
+                    <li>106007: Si cliente no tiene saldo o tiene saldo expirado y además tiene una carga pendiente</li>
+                    <li>106008: Si cliente no tiene saldo o tiene saldo expirado y además tiene una carga en proceso</li>
+                    <li>109002: Saldo no disponible (significa que no tenia saldo en cache o su saldo estaba expirado y fallo al consultar el nuevo saldo a tecnocom)</li>
+                  </ul>
                 </section>
               </div>
             </div>
@@ -1441,6 +1454,20 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
+                      <div class="prop-title">422 Unprocessable Entity</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Valicación de cliente o saldo</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
                       <div class="prop-title">500 Internal Server Error</div>
                       <div class="prop-ref">
                         <span class="">
@@ -1492,6 +1519,17 @@
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(422 Unprocessable Entity)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
