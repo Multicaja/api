@@ -1111,11 +1111,6 @@ definitions:
         description: |
           Fecha de la transacción (Fecfac)
         example: "2018-10-05"
-      description:
-        type: string
-        description: |
-          Descripcion de la transacción
-        example: "CARGA POR TRANSFERENCIA"
       exchange_rate:
         type: number
         description: |
@@ -1175,6 +1170,7 @@ definitions:
         type: string
         description: |
           Descripcion tipo de factura (DESTIPFAC)
+        example: "CARGA POR TRANSFERENCIA"
       extract_account:
         type: number
         description: |
