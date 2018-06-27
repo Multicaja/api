@@ -1174,7 +1174,7 @@ definitions:
       extract_account:
         type: number
         description: |
-          Numero extracto cuenta (NUMEXTCTA)
+          Numero extracto cuenta  (NUMEXTCTA)
         example: 1234
       extract_transaction:
         type: number
