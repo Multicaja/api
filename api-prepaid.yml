@@ -20,13 +20,13 @@ tags:
   - name: prepaid-signup
     description: Registro de usuarios de prepago
 paths:
-  /prepaid/signup:
+  /prepaid/{user_id}/signup:
     post:
       tags:
         - prepaid-signup
       summary: Inicia un proceso de registro para obtener la tarjeta de prepago
       description:  |
-        Inicia un proceso de registro. Retorna `user_signup`, el que indica qué pasos se deben realizar.
+        Inicia un proceso de registro. Retorna `prepaid_user`, el que indica qué pasos se deben realizar.
         
         Llamadas permitidas cuando el cliente está registrándose:
         ```
@@ -46,40 +46,23 @@ paths:
           POST /users/{user_id}/update_password # debe ser la última llamada
         ```
       parameters:
-        - in: body
-          name: user_data
-          description: RUT y Correo del usuario que quiere obtener una tarjeta
+        - in: path
+          name: user_id
+          description: ID del Cliente
           required: true
-          schema:
-            $ref: '#/definitions/prepaid_user_signup_new'
+          type: integer
       responses:
-        '201':
+        '200':
           description: |
-            OK - Consulte objeto de respuesta para saber qué pasos faltan y qué información puede mostrar pre llenada.
+            OK - Usuario registrado en prepago.
           schema:
-            $ref: '#/definitions/prepaid_user_signup'
+            $ref: '#/definitions/prepaid_user'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
           schema:
             $ref: '#/definitions/error_obj'
-        '401':
-          description: RUT o email corresponden a Cliente que ya tiene clave y que debe autenticarse para realizar esta operación
-          schema:
-            $ref: '#/definitions/error_obj'
-        '403':
-          description: Usuario borrado, bloqueado, o ya tiene prepago.
-          schema:
-            $ref: '#/definitions/error_obj'
         '404':
-          description: Cliente no existe
-          schema:
-            $ref: '#/definitions/error_obj'
-        '410':
-          description: Cliente ya tiene prepago
-          schema:
-            $ref: '#/definitions/error_obj'
-        '422':
-          description: No viene RUT o no viene email
+          description: Cliente no existe o no tiene prepago
           schema:
             $ref: '#/definitions/error_obj'
         '500':
