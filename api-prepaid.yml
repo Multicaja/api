@@ -118,8 +118,8 @@ paths:
           description: Proceso de registro no existe.
           schema:
             $ref: '#/definitions/error_obj'
-        '410':
-          description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /prepaid/UserSignup`.
+        
+        
           schema:
             $ref: '#/definitions/error_obj'
         '500':
@@ -1125,13 +1125,83 @@ definitions:
         type: string
         format: date
         description: |
-          Fecha de la transacción
+          Fecha de la transacción (Fecfac)
         example: "2018-10-05"
-      description:
+      exchange_rate:
+        type: number
+        description: |
+          Cambio Aplicado (CMBAPLI)
+        example: 650
+      commerce_code:
         type: string
         description: |
-          Descripcion de la transacción
+          Codigo Comercio (CODCOM)
+      economic_concept1:
+        type: number
+        description: |
+          Codigo de concepto economico (CODCONECO)
+        example: 1234
+      desc_economic_concept1:
+        type: string
+        description: |
+          Descripcion de concepto economico (DESCONECO)
+      amount_description_type1:
+        type: string
+        description: |
+          Descripcion tipo de importe (DESTIPIMP)
+      application_amount1:
+        type: number
+        description: |
+          Importe de aplicacion (IMPAPLECO)
+        example: 1234
+      gross_value1:
+        type: number
+        description: |
+          Importe bruto (IMPRUECO)
+        example: 1234
+      economic_concept2:
+        type: number
+        description: |
+          Codigo de concepto economico (CODCONECO)
+        example: 1234
+      desc_economic_concept2:
+        type: string
+        description: |
+          Descripcion de concepto economico (DESCONECO)
+      amount_description_type2:
+        type: string
+        description: |
+          Descripcion tipo de importe (DESTIPIMP)
+      application_amount2:
+        type: number
+        description: |
+          Importe de aplicacion (IMPAPLECO)
+        example: 1234
+      gross_value2:
+        type: number
+        description: |
+          Importe bruto (IMPRUECO)
+        example: 1234
+      invoice_description: 
+        type: string
+        description: |
+          Descripcion tipo de factura (DESTIPFAC)
         example: "CARGA POR TRANSFERENCIA"
+      extract_account:
+        type: number
+        description: |
+          Numero extracto cuenta  (NUMEXTCTA)
+        example: 1234
+      extract_transaction:
+        type: number
+        description: |
+          Numero movimiento extracto (NUMMOVEXT)
+        example: 1234
+      invoice_type:
+        type: number
+        description: |
+          Tipo de factura (TIPOFAC)
+        example: 1234
       amount_primary:
         $ref: '#/definitions/amount_and_currency_new'
       amount_secondary:
