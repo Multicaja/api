@@ -295,10 +295,10 @@ paths:
         * API Key faltante o invalido.
 
         ### Responderá `400` en los siguientes casos:
-        * Si faltan los parametros de header o body. Ver información del error para mas detalle.
+        * 101004: Si faltan parametros en el header o body. Ver información del error para mas detalle.
 
         ### Responderá `422` en los siguientes casos:
-        * Si el atributo `base64_data` no es un Base64 valido.
+        * 101007: Si el atributo `base64_data` no es un Base64 valido.
 
       parameters:
         - in: body
