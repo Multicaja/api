@@ -382,7 +382,7 @@ paths:
         '200':
           description: OK - Respuesta exitosa
           schema:
-            $ref: '#/definitions/simulation_topup'
+            $ref: '#/definitions/simulation_group'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
           schema:
@@ -932,14 +932,15 @@ definitions:
     properties:
       amount:
         $ref: "#/definitions/amount_and_currency_new"
-      payment_method:
-        type: string
-        enum: ["WEB", "POS"]
-        description: |
-          Identificador del tipo simulación
 
-          * 'WEB': Carga o Retiro WEB
-          * 'POS': Carga o Retiro POS
+  simulation_group:
+    type: object
+    description: Retorna simulacion web y pos
+    properties:
+      simulation_topup_web:
+        $ref: "#/definitions/simulation_topup"
+      simulation_topup_pos:
+        $ref: "#/definitions/simulation_topup"
 
   simulation_topup:
     type: object
@@ -952,6 +953,8 @@ definitions:
       pca:
         $ref: "#/definitions/amount_and_currency_new"
       eed:
+        $ref: "#/definitions/amount_and_currency_new"
+      opening_fee:
         $ref: "#/definitions/amount_and_currency_new"
 
   simulation_withdrawal:
