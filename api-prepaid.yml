@@ -285,9 +285,7 @@ paths:
       description: |
         **Mensaje invocado por el procesador emisor**
 
-
         Notifica una transacción ocurrida en una tarjeta de prepago
-
 
         Para invocar este servicio se debe incluir el API Key en el header __`X-API-KEY`__
 
@@ -379,7 +377,21 @@ paths:
         - prepaid
       summary: Calculadora de carga
       description: |
-        Calculadora de carga
+
+        Calculadora simulación de carga
+
+        ### Responderá `404` en los siguientes casos:
+        * 102001: Si el cliente no existe
+        * 102003: Si el cliente no está registrado en prepago
+
+        ### Responderá `422` en los siguientes casos:
+        * 108000: Error generico en CDT
+        * 108201: Error en CDT (LA_CARGA_SUPERA_EL_MONTO_MAXIMO_DE_CARGA_WEB)
+        * 108202: Error en CDT (LA_CARGA_SUPERA_EL_MONTO_MAXIMO_DE_CARGA_POS)
+        * 108203: Error en CDT (LA_CARGA_ES_MENOR_AL_MINIMO_DE_CARGA)
+        * 108204: Error en CDT (LA_CARGA_SUPERA_EL_MONTO_MAXIMO_DE_CARGAS_MENSUALES)
+        * 109000: Saldo supera el monto
+
       parameters:
         - in: path
           name: user_id
@@ -420,7 +432,21 @@ paths:
         - prepaid
       summary: Calculadora de retiro
       description: |
+
         Calculadora de retiro
+
+        ### Responderá `404` en los siguientes casos:
+        * 102001: Si el cliente no existe
+        * 102003: Si el cliente no está registrado en prepago
+
+        ### Responderá `422` en los siguientes casos:
+        * 108000: Error generico en CDT
+        * 108301: Error en CDT (EL_RETIRO_SUPERA_EL_MONTO_MAXIMO_DE_UN_RETIRO_WEB)
+        * 108302: Error en CDT (EL_RETIRO_SUPERA_EL_MONTO_MAXIMO_DE_UN_RETIRO_POS)
+        * 108303: Error en CDT (EL_MONTO_DE_RETIRO_ES_MENOR_AL_MONTO_MINIMO_DE_RETIROS)
+        * 108304: Error en CDT (EL_RETIRO_SUPERA_EL_MONTO_MAXIMO_DE_RETIROS_MENSUALES)
+        * 109001: Saldo insuficiente
+
       parameters:
         - in: path
           name: user_id
@@ -464,12 +490,14 @@ paths:
         Retorna la información de la tarjeta prepago
 
         ### Responderá `404` en los siguientes casos:
-        * Si el cliente no existe
-        * Si el cliente no está registrado en prepago
+        * 102001: Si el cliente no existe
+        * 102003: Si el cliente no está registrado en prepago
         
         ### Responderá `422` en los siguientes casos:
-        * Si el cliente está registrado en prepago, pero no ha realizado la primera carga
-        * Si cliente está registrado en prepago, ya realizo la primera carga y la misma esta en proceso  
+        * 102002: Cliente bloqueado o borrado
+        * 102004: Cliente prepago bloqueado o borrado
+        * 106007: Si el cliente está registrado en prepago, pero no ha realizado la primera carga
+        * 106008: Si cliente está registrado en prepago, ya realizo la primera carga y la misma esta en proceso  
 
       parameters:
         - in: path
@@ -505,8 +533,8 @@ paths:
         Retorna la información del usuario prepago por rut
 
         ### Responderá `404` en los siguientes casos:
-        * Si el cliente no existe
-        * Si el cliente no está registrado en prepago
+        * 102001: Si el cliente no existe
+        * 102003: Si el cliente no está registrado en prepago
 
       parameters:
         - in: query
@@ -538,8 +566,8 @@ paths:
         Retorna la información del usuario prepago
 
         ### Responderá `404` en los siguientes casos:
-        * Si el cliente no existe
-        * Si el cliente no está registrado en prepago
+        * 102001: Si el cliente no existe
+        * 102003: Si el cliente no está registrado en prepago
 
       parameters:
         - in: path
@@ -568,11 +596,19 @@ paths:
         - prepaid
       summary: Lista de transacciones
       description: |
+
         Retorna una lista con las transacciones del cliente
 
         ### Responderá `404` en los siguientes casos:
-        * Si el cliente no existe
-        * Si el cliente no está registrado en prepago
+        * 102001: Si el cliente no existe
+        * 102003: Si el cliente no está registrado en prepago
+
+        ### Responderá `422` con código de error en los siguientes casos:
+        * 102002: Cliente bloqueado o borrado
+        * 102004: Cliente prepago bloqueado o borrado
+        * 106007: Si el cliente está registrado en prepago, pero no ha realizado la primera carga
+        * 106008: Si cliente está registrado en prepago, ya realizo la primera carga y la misma esta en proceso 
+
       parameters:
         - in: path
           name: user_id
@@ -589,6 +625,10 @@ paths:
           description: Fecha hasta (yyyy-mm-dd)
           type: string
           format: date
+        - in: query
+          name: count
+          description: Total de registros a extraer, si no se envia significa que son todos los registros, si se envia solo se retornan la cantidad especificada
+          type: integer
       responses:
         '200':
           description: |
@@ -597,6 +637,10 @@ paths:
             type: array
             items: 
               $ref: '#/definitions/prepaid_transaction'
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe o no tiene tarjeta prepago
           schema:
