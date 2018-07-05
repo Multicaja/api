@@ -283,11 +283,23 @@ paths:
       tags: 
         - prepaid
       description: |
-        Notifica una transacción ocurrida en una tarjeta de prepago
-        
         **Mensaje invocado por el procesador emisor**
-        
-        * Si el mensaje de entrada no corresponde an un `raw_transaction_new`, el servicio responderá `422`
+
+
+        Notifica una transacción ocurrida en una tarjeta de prepago
+
+
+        Para invocar este servicio se debe incluir el API Key en el header __`X-API-KEY`__
+
+        ### Responderá `401` en los siguientes casos:
+        * API Key faltante o invalido.
+
+        ### Responderá `400` en los siguientes casos:
+        * 101004: Si faltan parametros en el header o body. Ver información del error para mas detalle.
+
+        ### Responderá `422` en los siguientes casos:
+        * 101007: Si el atributo `base64_data` no es un Base64 valido.
+
       parameters:
         - in: body
           name: transaction
@@ -296,8 +308,10 @@ paths:
           schema:
             $ref: '#/definitions/raw_transaction_new'
       responses:
-        '200':
+        '202':
           description: OK
+        '401':
+          description: Unauthorized
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
           schema:
@@ -894,7 +908,7 @@ definitions:
       base64_data:
         type: string
         description: String concatenado con todos los campos disponibles, codificado en base 64
-        example: "TWFuIGlzIGRpc3Rpbmd1a  ...  XNoZWQsIG5vdCBvS4="
+        example: "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvS4=="
 
   amount_and_currency_new:
     type: object
