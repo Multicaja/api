@@ -88,6 +88,7 @@
           <a href="#definition-amount_and_currency_new"> amount_and_currency_new </a>
           <a href="#definition-prepaid_balance"> prepaid_balance </a>
           <a href="#definition-simulation_new"> simulation_new </a>
+          <a href="#definition-simulation_group"> simulation_group </a>
           <a href="#definition-simulation_topup"> simulation_topup </a>
           <a href="#definition-simulation_withdrawal"> simulation_withdrawal </a>
           <a href="#definition-error_obj"> error_obj </a>
@@ -1642,8 +1643,7 @@
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-  },
-  <span class="hljs-attr">&quot;payment_method&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  }
 }
 </code></pre>
                   <!-- </div> -->
@@ -1658,7 +1658,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/simulation_topup">simulation_topup</a>
+                          <a class="json-schema-ref" href="#/definitions/simulation_group">simulation_group</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1731,21 +1731,49 @@
                     <span>(200 OK)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;fee&quot;</span>: {
-    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  <span class="hljs-attr">&quot;simulation_topup_web&quot;</span>: {
+    <span class="hljs-attr">&quot;fee&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;amount_to_pay&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;pca&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;eed&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;opening_fee&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    }
   },
-  <span class="hljs-attr">&quot;amount_to_pay&quot;</span>: {
-    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-  },
-  <span class="hljs-attr">&quot;pca&quot;</span>: {
-    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-  },
-  <span class="hljs-attr">&quot;eed&quot;</span>: {
-    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  <span class="hljs-attr">&quot;simulation_topup_pos&quot;</span>: {
+    <span class="hljs-attr">&quot;fee&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;amount_to_pay&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;pca&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;eed&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;opening_fee&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    }
   }
 }
 </code></pre>
@@ -1868,8 +1896,7 @@
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-  },
-  <span class="hljs-attr">&quot;payment_method&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  }
 }
 </code></pre>
                   <!-- </div> -->
@@ -4034,22 +4061,6 @@
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dt data-property-name="payment_method" class="has-description">
-                      <span class="json-property-name">payment_method:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-enum" title="Possible values">
-                        <span class="json-property-enum-item">WEB</span>,
-                        <span class="json-property-enum-item">POS</span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Identificador del tipo simulación</p>
-                      <ul>
-                        <li>&#39;WEB&#39;: Carga o Retiro WEB</li>
-                        <li>&#39;POS&#39;: Carga o Retiro POS</li>
-                      </ul>
-                    </dd>
                   </dl>
                 </section>
               </div>
@@ -4060,8 +4071,100 @@
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-simulation_group" class="definition panel" data-traverse-target="definition-simulation_group">
+            <h2 class="panel-title">
+              <a name="/definitions/simulation_group"></a>simulation_group: object
+              <!-- <span class="json-property-type">
+              <span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Retorna simulacion web y pos</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="simulation_topup_web">
+                      <span class="json-property-name">simulation_topup_web:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/simulation_topup">simulation_topup</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="simulation_topup_pos">
+                      <span class="json-property-name">simulation_topup_pos:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/simulation_topup">simulation_topup</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;simulation_topup_web&quot;</span>: {
+    <span class="hljs-attr">&quot;fee&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;amount_to_pay&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;pca&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;eed&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;opening_fee&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    }
   },
-  <span class="hljs-attr">&quot;payment_method&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  <span class="hljs-attr">&quot;simulation_topup_pos&quot;</span>: {
+    <span class="hljs-attr">&quot;fee&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;amount_to_pay&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;pca&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;eed&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    },
+    <span class="hljs-attr">&quot;opening_fee&quot;</span>: {
+      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+    }
+  }
 }
 </code></pre>
                   <!-- </div> -->
@@ -4122,6 +4225,15 @@
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dt data-property-name="opening_fee">
+                      <span class="json-property-name">opening_fee:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/amount_and_currency_new">amount_and_currency_new</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
                   </dl>
                 </section>
               </div>
@@ -4142,6 +4254,10 @@
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   },
   <span class="hljs-attr">&quot;eed&quot;</span>: {
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  },
+  <span class="hljs-attr">&quot;opening_fee&quot;</span>: {
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   }
