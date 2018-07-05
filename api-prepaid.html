@@ -1191,12 +1191,24 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Notifica una transacción ocurrida en una tarjeta de prepago</p>
                   <p>
                     <strong>Mensaje invocado por el procesador emisor</strong>
                   </p>
+                  <p>Notifica una transacción ocurrida en una tarjeta de prepago</p>
+                  <p>Para invocar este servicio se debe incluir el API Key en el header
+                    <strong><code>X-API-KEY</code></strong>
+                  </p>
+                  <h3 id="responder-401-en-los-siguientes-casos-">Responderá <code>401</code> en los siguientes casos:</h3>
                   <ul>
-                    <li>Si el mensaje de entrada no corresponde an un <code>raw_transaction_new</code>, el servicio responderá <code>422</code></li>
+                    <li>API Key faltante o invalido.</li>
+                  </ul>
+                  <h3 id="responder-400-en-los-siguientes-casos-">Responderá <code>400</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>101004: Si faltan parametros en el header o body. Ver información del error para mas detalle.</li>
+                  </ul>
+                  <h3 id="responder-422-en-los-siguientes-casos-">Responderá <code>422</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>101007: Si el atributo <code>base64_data</code> no es un Base64 valido.</li>
                   </ul>
                 </section>
               </div>
@@ -1246,7 +1258,7 @@
     <span class="hljs-attr">&quot;place_name&quot;</span>: <span class="hljs-string">&quot;Santiago&quot;</span>,
     <span class="hljs-attr">&quot;resolucion_tx&quot;</span>: <span class="hljs-number">100</span>
   },
-  <span class="hljs-attr">&quot;base64_data&quot;</span>: <span class="hljs-string">&quot;TWFuIGlzIGRpc3Rpbmd1a  ...  XNoZWQsIG5vdCBvS4=&quot;</span>
+  <span class="hljs-attr">&quot;base64_data&quot;</span>: <span class="hljs-string">&quot;TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvS4==&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1258,7 +1270,7 @@
                 <section class="swagger-responses">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
+                      <div class="prop-title">202 Accepted</div>
                     </div>
                     <div class="prop-value">
                       <p>OK</p>
@@ -1276,6 +1288,14 @@
                     </div>
                     <div class="prop-value">
                       <p>Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -3850,7 +3870,7 @@
     <span class="hljs-attr">&quot;place_name&quot;</span>: <span class="hljs-string">&quot;Santiago&quot;</span>,
     <span class="hljs-attr">&quot;resolucion_tx&quot;</span>: <span class="hljs-number">100</span>
   },
-  <span class="hljs-attr">&quot;base64_data&quot;</span>: <span class="hljs-string">&quot;TWFuIGlzIGRpc3Rpbmd1a  ...  XNoZWQsIG5vdCBvS4=&quot;</span>
+  <span class="hljs-attr">&quot;base64_data&quot;</span>: <span class="hljs-string">&quot;TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvS4==&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
