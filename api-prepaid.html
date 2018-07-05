@@ -1596,7 +1596,21 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Calculadora de carga</p>
+                  <p>Calculadora simulación de carga</p>
+                  <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>102001: Si el cliente no existe</li>
+                    <li>102003: Si el cliente no está registrado en prepago</li>
+                  </ul>
+                  <h3 id="responder-422-en-los-siguientes-casos-">Responderá <code>422</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>108000: Error generico en CDT</li>
+                    <li>108201: Error en CDT (LA_CARGA_SUPERA_EL_MONTO_MAXIMO_DE_CARGA_WEB)</li>
+                    <li>108202: Error en CDT (LA_CARGA_SUPERA_EL_MONTO_MAXIMO_DE_CARGA_POS)</li>
+                    <li>108203: Error en CDT (LA_CARGA_ES_MENOR_AL_MINIMO_DE_CARGA)</li>
+                    <li>108204: Error en CDT (LA_CARGA_SUPERA_EL_MONTO_MAXIMO_DE_CARGAS_MENSUALES)</li>
+                    <li>109000: Saldo supera el monto</li>
+                  </ul>
                 </section>
               </div>
             </div>
@@ -1850,6 +1864,20 @@
               <div class="doc-copy">
                 <section class="swagger-operation-description">
                   <p>Calculadora de retiro</p>
+                  <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>102001: Si el cliente no existe</li>
+                    <li>102003: Si el cliente no está registrado en prepago</li>
+                  </ul>
+                  <h3 id="responder-422-en-los-siguientes-casos-">Responderá <code>422</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>108000: Error generico en CDT</li>
+                    <li>108301: Error en CDT (EL_RETIRO_SUPERA_EL_MONTO_MAXIMO_DE_UN_RETIRO_WEB)</li>
+                    <li>108302: Error en CDT (EL_RETIRO_SUPERA_EL_MONTO_MAXIMO_DE_UN_RETIRO_POS)</li>
+                    <li>108303: Error en CDT (EL_MONTO_DE_RETIRO_ES_MENOR_AL_MONTO_MINIMO_DE_RETIROS)</li>
+                    <li>108304: Error en CDT (EL_RETIRO_SUPERA_EL_MONTO_MAXIMO_DE_RETIROS_MENSUALES)</li>
+                    <li>109001: Saldo insuficiente</li>
+                  </ul>
                 </section>
               </div>
             </div>
@@ -2069,13 +2097,15 @@
                   <p>Retorna la información de la tarjeta prepago</p>
                   <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
                   <ul>
-                    <li>Si el cliente no existe</li>
-                    <li>Si el cliente no está registrado en prepago</li>
+                    <li>102001: Si el cliente no existe</li>
+                    <li>102003: Si el cliente no está registrado en prepago</li>
                   </ul>
                   <h3 id="responder-422-en-los-siguientes-casos-">Responderá <code>422</code> en los siguientes casos:</h3>
                   <ul>
-                    <li>Si el cliente está registrado en prepago, pero no ha realizado la primera carga</li>
-                    <li>Si cliente está registrado en prepago, ya realizo la primera carga y la misma esta en proceso </li>
+                    <li>102002: Cliente bloqueado o borrado</li>
+                    <li>102004: Cliente prepago bloqueado o borrado</li>
+                    <li>106007: Si el cliente está registrado en prepago, pero no ha realizado la primera carga</li>
+                    <li>106008: Si cliente está registrado en prepago, ya realizo la primera carga y la misma esta en proceso </li>
                   </ul>
                 </section>
               </div>
@@ -2244,8 +2274,8 @@
                   <p>Retorna la información del usuario prepago por rut</p>
                   <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
                   <ul>
-                    <li>Si el cliente no existe</li>
-                    <li>Si el cliente no está registrado en prepago</li>
+                    <li>102001: Si el cliente no existe</li>
+                    <li>102003: Si el cliente no está registrado en prepago</li>
                   </ul>
                 </section>
               </div>
@@ -2389,8 +2419,8 @@
                   <p>Retorna la información del usuario prepago</p>
                   <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
                   <ul>
-                    <li>Si el cliente no existe</li>
-                    <li>Si el cliente no está registrado en prepago</li>
+                    <li>102001: Si el cliente no existe</li>
+                    <li>102003: Si el cliente no está registrado en prepago</li>
                   </ul>
                 </section>
               </div>
@@ -2534,8 +2564,15 @@
                   <p>Retorna una lista con las transacciones del cliente</p>
                   <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
                   <ul>
-                    <li>Si el cliente no existe</li>
-                    <li>Si el cliente no está registrado en prepago</li>
+                    <li>102001: Si el cliente no existe</li>
+                    <li>102003: Si el cliente no está registrado en prepago</li>
+                  </ul>
+                  <h3 id="responder-422-con-c-digo-de-error-en-los-siguientes-casos-">Responderá <code>422</code> con código de error en los siguientes casos:</h3>
+                  <ul>
+                    <li>102002: Cliente bloqueado o borrado</li>
+                    <li>102004: Cliente prepago bloqueado o borrado</li>
+                    <li>106007: Si el cliente está registrado en prepago, pero no ha realizado la primera carga</li>
+                    <li>106008: Si cliente está registrado en prepago, ya realizo la primera carga y la misma esta en proceso </li>
                   </ul>
                 </section>
               </div>
@@ -2588,6 +2625,20 @@
                       <p>Fecha hasta (yyyy-mm-dd)</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">count:
+                        <span class="prop-type">
+                          <span class="json-property-type">integer</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <div class="prop-subtitle"> in query </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Total de registros a extraer, si no se envia significa que son todos los registros, si se envia solo se retornan la cantidad especificada</p>
+                    </div>
+                  </div>
                 </section>
               </div>
               <div class="doc-examples"></div>
@@ -2618,6 +2669,20 @@
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2684,6 +2749,17 @@
     }
   }
 ]
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
 </code></pre>
                   <!-- </div> -->
                 </section>
