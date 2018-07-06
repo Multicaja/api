@@ -523,6 +523,88 @@ paths:
           description: Error indeterminado
           schema:
             $ref: '#/definitions/error_obj'
+  
+  /prepaid/{user_id}/card/lock:
+    put:
+      tags:
+        - prepaid
+      summary: Bloquea la tarjeta prepago
+      description: |
+        Bloquea la tarjeta prepago.
+
+        Si la tarjeta ya esta bloqueada este metodo no hace nada
+
+        ### Responderá `404` en los siguientes casos:
+        * Si el cliente no existe
+        * Si el cliente no está registrado en prepago
+        
+        ### Responderá `422` en los siguientes casos:
+        * Si el cliente está registrado en prepago, pero no ha realizado la primera carga
+        * Si cliente está registrado en prepago, ya realizo la primera carga y la misma esta en proceso  
+
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: integer
+      responses:
+        '204':
+          description: |
+            OK
+        '404':
+          description: Cliente no existe o no tiene tarjeta prepago
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: Cliente tiene primera carga en proceso
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado
+          schema:
+            $ref: '#/definitions/error_obj'
+  
+  /prepaid/{user_id}/card/unlock:
+    put:
+      tags:
+        - prepaid
+      summary: Desbloquea la tarjeta prepago
+      description: |
+        Desbloquea la tarjeta prepago
+
+        Si la tarjeta esta activa este metodo no hace nada
+
+        ### Responderá `404` en los siguientes casos:
+        * Si el cliente no existe
+        * Si el cliente no está registrado en prepago
+        
+        ### Responderá `422` en los siguientes casos:
+        * Si el cliente está registrado en prepago, pero no ha realizado la primera carga
+        * Si cliente está registrado en prepago, ya realizo la primera carga y la misma esta en proceso  
+
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: integer
+      responses:
+        '204':
+          description: |
+            OK
+        '404':
+          description: Cliente no existe o no tiene tarjeta prepago
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: Cliente tiene primera carga en proceso
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado
+          schema:
+            $ref: '#/definitions/error_obj'
 
   /prepaid/:
     get:
