@@ -380,17 +380,18 @@ paths:
 
         Calculadora simulación de carga
 
+        En caso de que una simulación tenga un error especifico, el mismo viene definido en los campos `code` y `message`
+
         ### Responderá `404` en los siguientes casos:
         * 102001: Si el cliente no existe
         * 102003: Si el cliente no está registrado en prepago
 
         ### Responderá `422` en los siguientes casos:
         * 108000: Error generico en CDT
-        * 108201: Error en CDT (LA_CARGA_SUPERA_EL_MONTO_MAXIMO_DE_CARGA_WEB)
-        * 108202: Error en CDT (LA_CARGA_SUPERA_EL_MONTO_MAXIMO_DE_CARGA_POS)
         * 108203: Error en CDT (LA_CARGA_ES_MENOR_AL_MINIMO_DE_CARGA)
         * 108204: Error en CDT (LA_CARGA_SUPERA_EL_MONTO_MAXIMO_DE_CARGAS_MENSUALES)
-        * 109000: Saldo supera el monto
+        * 108206: Error en CDT (LA_CARGA_SUPERA_EL_MONTO_MAXIMO_DE_PRIMERA_CARGA)
+        * 109000: Saldo supera el monto maximo
 
       parameters:
         - in: path
@@ -1086,6 +1087,15 @@ definitions:
     type: object
     description: Respuesta de la calculadora de carga
     properties:
+      code:
+        type: integer
+        format: int32
+        description: Código que representa el error. No será igual al código HTTP.
+        example: 1024
+      message:
+        type: string
+        description: Descripción corta del error
+        example: "La carga supera el monto máximo carga"
       fee:
         $ref: "#/definitions/amount_and_currency_new"
       amount_to_pay:
