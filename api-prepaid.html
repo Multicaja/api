@@ -1603,6 +1603,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-description">
                   <p>Calculadora simulación de carga</p>
+                  <p>En caso de que una simulación tenga un error especifico, el mismo viene definido en los campos <code>code</code> y <code>message</code></p>
                   <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
                   <ul>
                     <li>102001: Si el cliente no existe</li>
@@ -1611,11 +1612,10 @@
                   <h3 id="responder-422-en-los-siguientes-casos-">Responderá <code>422</code> en los siguientes casos:</h3>
                   <ul>
                     <li>108000: Error generico en CDT</li>
-                    <li>108201: Error en CDT (LA_CARGA_SUPERA_EL_MONTO_MAXIMO_DE_CARGA_WEB)</li>
-                    <li>108202: Error en CDT (LA_CARGA_SUPERA_EL_MONTO_MAXIMO_DE_CARGA_POS)</li>
                     <li>108203: Error en CDT (LA_CARGA_ES_MENOR_AL_MINIMO_DE_CARGA)</li>
                     <li>108204: Error en CDT (LA_CARGA_SUPERA_EL_MONTO_MAXIMO_DE_CARGAS_MENSUALES)</li>
-                    <li>109000: Saldo supera el monto</li>
+                    <li>108206: Error en CDT (LA_CARGA_SUPERA_EL_MONTO_MAXIMO_DE_PRIMERA_CARGA)</li>
+                    <li>109000: Saldo supera el monto maximo</li>
                   </ul>
                 </section>
               </div>
@@ -1752,6 +1752,8 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;simulation_topup_web&quot;</span>: {
+    <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+    <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La carga supera el monto m&#xE1;ximo carga&quot;</span>,
     <span class="hljs-attr">&quot;fee&quot;</span>: {
       <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
       <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
@@ -1774,6 +1776,8 @@
     }
   },
   <span class="hljs-attr">&quot;simulation_topup_pos&quot;</span>: {
+    <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+    <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La carga supera el monto m&#xE1;ximo carga&quot;</span>,
     <span class="hljs-attr">&quot;fee&quot;</span>: {
       <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
       <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
@@ -4508,6 +4512,8 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;simulation_topup_web&quot;</span>: {
+    <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+    <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La carga supera el monto m&#xE1;ximo carga&quot;</span>,
     <span class="hljs-attr">&quot;fee&quot;</span>: {
       <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
       <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
@@ -4530,6 +4536,8 @@
     }
   },
   <span class="hljs-attr">&quot;simulation_topup_pos&quot;</span>: {
+    <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+    <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La carga supera el monto m&#xE1;ximo carga&quot;</span>,
     <span class="hljs-attr">&quot;fee&quot;</span>: {
       <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
       <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
@@ -4575,6 +4583,23 @@
                 </section>
                 <section class="json-schema-properties">
                   <dl>
+                    <dt data-property-name="code" class="has-description">
+                      <span class="json-property-name">code:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-format">(int32)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Código que representa el error. No será igual al código HTTP.</p>
+                    </dd>
+                    <dt data-property-name="message" class="has-description">
+                      <span class="json-property-name">message:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Descripción corta del error</p>
+                    </dd>
                     <dt data-property-name="fee">
                       <span class="json-property-name">fee:</span>
                       <span class="json-property-type">
@@ -4627,6 +4652,8 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La carga supera el monto m&#xE1;ximo carga&quot;</span>,
   <span class="hljs-attr">&quot;fee&quot;</span>: {
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
