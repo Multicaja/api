@@ -9,6 +9,9 @@ info:
     Todos los requests son autenticados usando un `api-key`.
 
   version: '1.0'
+  x-logo:
+    url: "https://www.multicaja.cl/paypal/assets/logo.svg"
+    backgroundColor: "#FFFFFF"
 
 servers:
   - url: 'http://10.170.1.60:8000'
