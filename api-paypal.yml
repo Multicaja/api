@@ -7,11 +7,8 @@ info:
     ** Este es un proyecto alpha y por lo tanto sufrirá muchos cambios **
 
     Todos los requests son autenticados usando un `api-key`.
-
   version: '1.0'
-host: '10.170.1.60:8000'
-schemes: [http]
-basePath: /paypal/1.0
+
 produces:
   - application/json
 
@@ -20,6 +17,7 @@ tags:
     description: Endpoint para verificar si la API-PayPal esta funcionando.
   - name: users
     description: Obtener información de clientes de Multicaja/PayPal
+
 paths:
 
   /ping:
@@ -208,4 +206,8 @@ paths:
                 example: Ha ocurrido un error al obtener la información de PayPal
           examples:
             '0': '{"code":200000,"message":"Ha ocurrido un error al obtener la información de PayPal"}'
-            
+
+host: 10.170.1.60:8000
+basePath: /paypal/1.0
+schemes:
+ - http
