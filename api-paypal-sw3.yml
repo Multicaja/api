@@ -34,10 +34,6 @@ paths:
                     properties:
                       class:
                         type: string
-              examples:
-                '0':
-                  value: >-
-                    {"service":"PayPalResource10","implementation":{"class":"PayPalApiEJBBean10"}}
         401:
           $ref: "#/components/responses/NoApiKeyFound"
         403:
@@ -96,10 +92,6 @@ paths:
                     type: string
                     description: Estado del cliente en paypal
                     example: "UNVERIFIED/VERIFIED"
-              examples:
-                '0':
-                  value: >-
-                    {"last_name":"García","correlation_id":"7e332a1867d8","timestamp":"2018-06-27T09:55:46.098-07:00","name":"Ricardo","type":"PREMIER","country":"CL","status":"UNVERIFIED","account_id":"MCDYLVEEDQV34"}
         404:
           description: El email ingresado no fue encontrado en PayPal
           content:
@@ -114,9 +106,6 @@ paths:
                     type: string
                     description: Mensaje de error
                     example: Email no encontrado en PayPal
-              examples:
-                '0':
-                  value: '{"code":200100,"message":"Email no encontrado en PayPal"}'
         422:
           description: El email ingresado es invalido o no fue ingresado
           content:
@@ -131,9 +120,6 @@ paths:
                     type: string
                     description: Mensaje de error
                     example: El email ingresado es invalido
-              examples:
-                '0':
-                  value: '{"code":200101,"message":"El email ingresado es invalido1"}'
         500:
           description: Ocurrió un error al consultar la API de PayPal
           content:
@@ -148,9 +134,6 @@ paths:
                     type: string
                     description: Mensaje de error
                     example: Ha ocurrido un error al obtener la información de PayPal
-              examples:
-                '0':
-                  value: '{"code":200000,"message":"Ha ocurrido un error al obtener la información de PayPal"}'
         401:
           $ref: "#/components/responses/NoApiKeyFound"
         403:
@@ -209,10 +192,6 @@ paths:
                     type: string
                     description: Fecha de la consulta PayPal
                     example: "2018-05-14T14:34:07.824-07:00"
-              examples:
-                '0':
-                  value: >-
-                    {"last_name":"García","correlation_id":"7e332a1867d8","timestamp":"2018-06-27T09:55:46.098-07:00","name":"Ricardo","type":"PREMIER","country":"CL","status":"UNVERIFIED","account_id":"MCDYLVEEDQV34"}
         404:
           description: El email ingresado no fue encontrado en PayPal
           content:
@@ -227,9 +206,6 @@ paths:
                     type: string
                     description: Mensaje de error
                     example: Email no encontrado en PayPal
-              examples:
-                '0':
-                  value: '{"code":200100,"message":"Email no encontrado en PayPal"}'
         422:
           description: Alguno de los parametros no fue ingresado o es invalido
           content:
@@ -244,9 +220,6 @@ paths:
                     type: string
                     description: Mensaje de error
                     example: El email ingresado es invalido
-              examples:
-                '0':
-                  value: '{"code":200101,"message":"El email ingresado es invalido"}'
         500:
           description: Ocurrió un error al consultar la API de PayPal
           content:
@@ -261,9 +234,6 @@ paths:
                     type: string
                     description: Mensaje de error
                     example: Ha ocurrido un error al obtener la información de PayPal
-              examples:
-                '0':
-                  value: '{"code":200000,"message":"Ha ocurrido un error al obtener la información de PayPal"}'
         401:
           $ref: "#/components/responses/NoApiKeyFound"
         403:
@@ -291,10 +261,6 @@ components:
               message:
                 type: string
                 example: No API key found in request
-          examples:
-            '0':
-              value: >-
-                {"message":"No API key found in request"}
     InvalidCredentials:
       description: El ApiKey enviado es invalido
       content:
@@ -304,8 +270,4 @@ components:
               message:
                 type: string
                 example: Invalid authentication credentials
-          examples:
-            '0':
-              value: >-
-                {"message":"Invalid authentication credentials"}
           
