@@ -32,7 +32,7 @@ tags:
   - name: parámetros
     description: Listas de parámetros inmutables
 paths:
-  /users/soft-signup:
+  /users/soft_signup:
     post:
       tags:
         - registro
@@ -435,7 +435,7 @@ paths:
           description: Error de validación en update_email
           schema:
             $ref: '#/definitions/error_obj'
-  /users/{user_id}/validate_cellphone:
+  /users/{user_id}/update_cellphone:
     post:
       tags:
         - clientes
@@ -1086,10 +1086,10 @@ definitions:
     description: |
       Modificación de celular **(Request)**
     properties:
-      email:
+      cell_phone:
         type: integer
         description: celular del prospecto de cliente
-        example: 912345678
+        example: 56912345678
       validation_channel:
         type: string
         enum: ["C", "E"]
