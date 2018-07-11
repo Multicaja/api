@@ -69,7 +69,7 @@ paths:
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
-/prepaid/{user_id}/finish_signup:
+  /prepaid/{user_id}/finish_signup:
     post:
       tags:
         - prepaid_finish_signup
