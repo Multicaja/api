@@ -32,7 +32,7 @@ tags:
   - name: parámetros
     description: Listas de parámetros inmutables
 paths:
-  /users/soft-signup:
+  /users/soft_signup:
     post:
       tags:
         - registro
