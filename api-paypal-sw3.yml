@@ -1,0 +1,276 @@
+openapi: 3.0.0
+info:
+  title: API Multicaja PayPal (Alpha)
+  description: |
+    Bienvenido a la API de [Multicaja PayPal](https://www.multicaja.cl) (Alpha)
+
+    ** Este es un proyecto alpha y por lo tanto sufrirá muchos cambios **
+
+    Todos los requests son autenticados usando un `api-key`.
+
+  version: '1.0'
+  x-logo:
+    url: "https://www.multicaja.cl/paypal/assets/logo.svg"
+    backgroundColor: "#FFFFFF"
+
+servers:
+  - url: 'http://10.170.1.60:8000'
+
+paths:
+
+  /paypal/ping:
+    get:
+      tags:
+        - ping
+      description: Endpoint para verificar si la API-PayPal esta funcionando.
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  service:
+                    type: string
+                  implementation:
+                    type: object
+                    properties:
+                      class:
+                        type: string
+        401:
+          $ref: "#/components/responses/NoApiKeyFound"
+        403:
+          $ref: "#/components/responses/InvalidCredentials"
+
+  /paypal/users/info:
+    get:
+      tags:
+        - users
+      description: Obtiene la informacion de un usario en paypal
+      parameters:
+        - name: email
+          in: query
+          description: Email del cliente de PayPal que se quiere consultar
+          required: true
+          schema:
+            type: string
+          allowReserved: true
+          example: email=2w2w@studio505.cl
+      responses:
+        200:
+          description: Respuesta correcta
+          content:
+            application/json:
+              schema:
+                properties:
+                  country:
+                    type: string
+                    description: País de origen de la cuenta PayPal
+                    example: "CL"
+                  account_id:
+                    type: string
+                    description: Id del cliente en paypal
+                    example: "6FR8UB95HSZZU"
+                  timestamp:
+                    type: string
+                    description: Fecha de la consulta PayPal
+                    example: "2018-05-14T14:34:07.824-07:00"
+                  name:
+                    type: string
+                    description: Nombre del cliente registrado en paypal
+                    example: "Juan"
+                  last_name:
+                    type: string
+                    description: Apellido del cliente registrado en paypal
+                    example: "Perez"
+                  correlation_id:
+                    type: string
+                    description: Identificador de la llamada a la API de PayPal
+                    example: "2ef6d00c6b77c"
+                  type:
+                    type: string
+                    description: Tipo de cliente registrado en paypal
+                    example: "PREMIER"
+                  status:
+                    type: string
+                    description: Estado del cliente en paypal
+                    example: "UNVERIFIED/VERIFIED"
+        404:
+          description: El email ingresado no fue encontrado en PayPal
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    description: Codigo de error
+                    example: 200100
+                  message:
+                    type: string
+                    description: Mensaje de error
+                    example: Email no encontrado en PayPal
+        422:
+          description: El email ingresado es invalido o no fue ingresado
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    description: Codigo de error
+                    example: 200101
+                  message:
+                    type: string
+                    description: Mensaje de error
+                    example: El email ingresado es invalido
+        500:
+          description: Ocurrió un error al consultar la API de PayPal
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    description: Codigo de error
+                    example: 200000
+                  message:
+                    type: string
+                    description: Mensaje de error
+                    example: Ha ocurrido un error al obtener la información de PayPal
+        401:
+          $ref: "#/components/responses/NoApiKeyFound"
+        403:
+          $ref: "#/components/responses/InvalidCredentials"
+
+  /paypal/users/balance:
+    get:
+      tags:
+        - users
+      description: Obtienen el balance de un un cliente en PayPal
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+          allowReserved: true
+          example: ABONO
+          required: true
+          description: Tipo de transacción PayPal [ABONO/RETIRO/PIVOTE]
+        - name: email
+          in: query
+          schema:
+            type: string
+          allowReserved: true
+          example: l=2w2w@studio505.cl
+          required: true
+          description: Email del cliente de PayPal que se quiere consultar
+      responses:
+        200:
+          description: Respuesta correcta
+          content:
+            application/json:
+              schema:
+                properties:
+                  correlation_id:
+                    type: string
+                    description: Identificador de la llamada a la API de PayPal
+                    example: "33308fedb33e3"
+                  ack:
+                    type: string
+                    description: Estado de respuesta de la API de PayPal
+                    example: "SUCCESS"
+                  balance:
+                    type: object
+                    description: Objeto que contiene el balance de la cuanta PayPal. Puede contener mas de una moneda por email
+                    properties:
+                      value:
+                        type: string
+                        description: Saldo de la cuenta
+                        example: 60.00
+                      currency_id:
+                        type: string
+                        description: Moneda del saldo
+                        example: "USD"
+                  timestamp:
+                    type: string
+                    description: Fecha de la consulta PayPal
+                    example: "2018-05-14T14:34:07.824-07:00"
+        404:
+          description: El email ingresado no fue encontrado en PayPal
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    description: Codigo de error
+                    example: 200100
+                  message:
+                    type: string
+                    description: Mensaje de error
+                    example: Email no encontrado en PayPal
+        422:
+          description: Alguno de los parametros no fue ingresado o es invalido
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    description: Codigo de error
+                    example: 200101
+                  message:
+                    type: string
+                    description: Mensaje de error
+                    example: El email ingresado es invalido
+        500:
+          description: Ocurrió un error al consultar la API de PayPal
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    description: Codigo de error
+                    example: 200000
+                  message:
+                    type: string
+                    description: Mensaje de error
+                    example: Ha ocurrido un error al obtener la información de PayPal
+        401:
+          $ref: "#/components/responses/NoApiKeyFound"
+        403:
+          $ref: "#/components/responses/InvalidCredentials"
+
+tags:
+  - name: ping
+    description: Endpoint para verificar si la API-PayPal esta funcionando.
+  - name: users
+    description: Obtener información de clientes de Multicaja/PayPal
+    
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+  responses:
+    NoApiKeyFound:
+      description: No se ha enviado el ApiKey en los headers
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                type: string
+                example: No API key found in request
+    InvalidCredentials:
+      description: El ApiKey enviado es invalido
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                type: string
+                example: Invalid authentication credentials
+          

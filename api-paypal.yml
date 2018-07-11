@@ -1,0 +1,213 @@
+swagger: '2.0'
+info:
+  title: API Multicaja PayPal (Alpha)
+  description: |
+    Bienvenido a la API de [Multicaja PayPal](https://www.multicaja.cl) (Alpha)
+
+    ** Este es un proyecto alpha y por lo tanto sufrirá muchos cambios **
+
+    Todos los requests son autenticados usando un `api-key`.
+  version: '1.0'
+
+produces:
+  - application/json
+
+tags:
+  - name: ping
+    description: Endpoint para verificar si la API-PayPal esta funcionando.
+  - name: users
+    description: Obtener información de clientes de Multicaja/PayPal
+
+paths:
+
+  /ping:
+    get:
+      tags:
+        - ping
+      description: Endpoint para verificar si la API-PayPal esta funcionando.
+      responses:
+        200:
+          description: OK
+          examples:
+            '0':
+              {"service":"PayPalResource10","implementation":{"class":"PayPalApiEJBBean10"}}
+
+  /users/info:
+    get:
+      tags:
+        - users
+      description: Obtiene la informacion de un usario en paypal
+      parameters:
+        - name: email
+          in: query 
+          description: Email del cliente de PayPal que se quiere consultar
+          type: string
+      responses:
+        200:
+          description: Respuesta correcta
+          schema:
+            type: object
+            properties:
+              country:
+                type: string
+                description: País de origen de la cuenta PayPal
+                example: "CL"
+              account_id:
+                type: string
+                description: Id del cliente en paypal
+                example: "6FR8UB95HSZZU"
+              timestamp:
+                type: string
+                description: Fecha de la consulta PayPal
+                example: "2018-05-14T14:34:07.824-07:00"
+              name:
+                type: string
+                description: Nombre del cliente registrado en paypal
+                example: "Juan"
+              last_name:
+                type: string
+                description: Apellido del cliente registrado en paypal
+                example: "Perez"
+              correlation_id:
+                type: string
+                description: Identificador de la llamada a la API de PayPal
+                example: "2ef6d00c6b77c"
+              type:
+                type: string
+                description: Tipo de cliente registrado en paypal
+                example: "PREMIER"
+              status:
+                type: string
+                description: Estado del cliente en paypal
+                example: "UNVERIFIED/VERIFIED"
+        404:
+          description: El email ingresado no fue encontrado en PayPal
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                description: Codigo de error
+                example: 200100
+              message:
+                type: string
+                description: Mensaje de error
+                example: Email no encontrado en PayPal
+        422:
+          description: El email ingresado es invalido o no fue ingresado
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                description: Codigo de error
+                example: 200101
+              message:
+                type: string
+                description: Mensaje de error
+                example: El email ingresado es invalido
+        500:
+          description: Ocurrió un error al consultar la API de PayPal
+          schema:
+            properties:
+              code:
+                type: integer
+                description: Codigo de error
+                example: 200000
+              message:
+                type: string
+                description: Mensaje de error
+                example: Ha ocurrido un error al obtener la información de PayPal
+
+  /paypal/users/balance:
+    get:
+      tags:
+        - users
+      description: Obtienen el balance de un un cliente en PayPal
+      parameters:
+        - name: type
+          in: query
+          description: Tipo de transacción PayPal [ABONO/RETIRO/PIVOTE]
+          type: string
+        - name: email
+          in: query
+          type: string
+          description: Email del cliente de PayPal que se quiere consultar
+      responses:
+        200:
+          description: Respuesta correcta
+          schema:
+            properties:
+              correlation_id:
+                type: string
+                description: Identificador de la llamada a la API de PayPal
+                example: "33308fedb33e3"
+              ack:
+                type: string
+                description: Estado de respuesta de la API de PayPal
+                example: "SUCCESS"
+              balance:
+                type: object
+                description: Objeto que contiene el balance de la cuanta PayPal. Puede contener mas de una moneda por email
+                properties:
+                  value:
+                    type: string
+                    description: Saldo de la cuenta
+                    example: 60.00
+                  currency_id:
+                    type: string
+                    description: Moneda del saldo
+                    example: "USD"
+              timestamp:
+                type: string
+                description: Fecha de la consulta PayPal
+                example: "2018-05-14T14:34:07.824-07:00"
+          examples:
+            '0': {"last_name":"García","correlation_id":"7e332a1867d8","timestamp":"2018-06-27T09:55:46.098-07:00","name":"Ricardo","type":"PREMIER","country":"CL","status":"UNVERIFIED","account_id":"MCDYLVEEDQV34"}
+        404:
+          description: El email ingresado no fue encontrado en PayPal
+          schema:
+            properties:
+              code:
+                type: integer
+                description: Codigo de error
+                example: 200100
+              message:
+                type: string
+                description: Mensaje de error
+                example: Email no encontrado en PayPal
+          examples:
+            '0': '{"code":200100,"message":"Email no encontrado en PayPal"}'
+        422:
+          description: Alguno de los parametros no fue ingresado o es invalido
+          schema:
+            properties:
+              code:
+                type: integer
+                description: Codigo de error
+                example: 200101
+              message:
+                type: string
+                description: Mensaje de error
+                example: El email ingresado es invalido
+          examples:
+            '0': '{"code":200101,"message":"El email ingresado es invalido"}'
+        500:
+          description: Ocurrió un error al consultar la API de PayPal
+          schema:
+            properties:
+              code:
+                type: integer
+                description: Codigo de error
+                example: 200000
+              message:
+                type: string
+                description: Mensaje de error
+                example: Ha ocurrido un error al obtener la información de PayPal
+          examples:
+            '0': '{"code":200000,"message":"Ha ocurrido un error al obtener la información de PayPal"}'
+
+host: 10.170.1.60:8000
+basePath: /paypal/1.0
+schemes:
+ - http
