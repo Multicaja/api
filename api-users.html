@@ -27,7 +27,7 @@
                 <a href="#operation--users-soft_signup-post"> Inicia un proceso de pre-registro </a>
               </li>
               <li>
-                <a href="#operation--users-soft-signup--signup_id--get"> Obtiene el estado de un proceso de pre-registro </a>
+                <a href="#operation--users-soft_signup--signup_id--get"> Obtiene el estado de un proceso de pre-registro </a>
               </li>
               <li>
                 <a href="#operation--users-full_signup-post"> Inicia un proceso de registro </a>
@@ -246,8 +246,8 @@
                   <p>Permite registrar a un nuevo cliente que no ha pasado por un proceso de registro formal, dejándolo en estado de <code>pre-registro</code>. También se puede usar este método para actualizar los datos de un cliente ya existente en estado de <code>pre-registro</code>.</p>
                   <p>Llamadas permitidas cuando el cliente está en <code>pre-registro</code>:</p>
                   <ul>
-                    <li>POST /users/soft-signup</li>
-                    <li>GET /users/soft-signup/{signup_id}</li>
+                    <li>POST /users/soft_signup</li>
+                    <li>GET /users/soft_signup/{signup_id}</li>
                     <li>GET /users/{user_id}</li>
                     <li>POST /users/{user_id}/update_personal_data</li>
                     <li>POST /users/{user_id}/validate_email # sin validation_channel</li>
@@ -372,7 +372,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--users-soft-signup--signup_id--get" class="operation panel" data-traverse-target="operation--users-soft-signup--signup_id--get">
+          <div id="operation--users-soft_signup--signup_id--get" class="operation panel" data-traverse-target="operation--users-soft_signup--signup_id--get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -388,7 +388,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">GET</span>
-                  <span class="operation-path">/users/soft-signup/{signup_id}</span>
+                  <span class="operation-path">/users/soft_signup/{signup_id}</span>
                 </section>
               </div>
             </div>
