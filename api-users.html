@@ -24,7 +24,7 @@
             <a href="#tag-registro">registro</a>
             <ul>
               <li>
-                <a href="#operation--users-soft-signup-post"> Inicia un proceso de pre-registro </a>
+                <a href="#operation--users-soft_signup-post"> Inicia un proceso de pre-registro </a>
               </li>
               <li>
                 <a href="#operation--users-soft-signup--signup_id--get"> Obtiene el estado de un proceso de pre-registro </a>
@@ -65,7 +65,7 @@
                 <a href="#operation--users--user_id--validate_email-post"> POST /users/{user_id}/validate_email </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--validate_cellphone-post"> POST /users/{user_id}/validate_cellphone </a>
+                <a href="#operation--users--user_id--update_cellphone-post"> POST /users/{user_id}/update_cellphone </a>
               </li>
             </ul>
           </section>
@@ -220,7 +220,7 @@
               <p>Registro de nuevos clientes</p>
             </div>
           </div>
-          <div id="operation--users-soft-signup-post" class="operation panel" data-traverse-target="operation--users-soft-signup-post">
+          <div id="operation--users-soft_signup-post" class="operation panel" data-traverse-target="operation--users-soft_signup-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -236,7 +236,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/users/soft-signup</span>
+                  <span class="operation-path">/users/soft_signup</span>
                 </section>
               </div>
             </div>
@@ -2368,7 +2368,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--users--user_id--validate_cellphone-post" class="operation panel" data-traverse-target="operation--users--user_id--validate_cellphone-post">
+          <div id="operation--users--user_id--update_cellphone-post" class="operation panel" data-traverse-target="operation--users--user_id--update_cellphone-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -2380,7 +2380,7 @@
             <h2 class="operation-title">
               <span class="operation-name">
                 <span class="operation-name">POST</span>
-                <span class="operation-path">/users/{user_id}/validate_cellphone</span>
+                <span class="operation-path">/users/{user_id}/update_cellphone</span>
               </span>
             </h2>
             <div class="doc-row">
@@ -2430,7 +2430,7 @@
                 <section>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-number">912345678</span>,
+  <span class="hljs-attr">&quot;cell_phone&quot;</span>: <span class="hljs-number">56912345678</span>,
   <span class="hljs-attr">&quot;validation_channel&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
 </code></pre>
@@ -5202,8 +5202,8 @@
                 </section>
                 <section class="json-schema-properties">
                   <dl>
-                    <dt data-property-name="email" class="has-description">
-                      <span class="json-property-name">email:</span>
+                    <dt data-property-name="cell_phone" class="has-description">
+                      <span class="json-property-name">cell_phone:</span>
                       <span class="json-property-type">integer</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
@@ -5233,7 +5233,7 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-number">912345678</span>,
+  <span class="hljs-attr">&quot;cell_phone&quot;</span>: <span class="hljs-number">56912345678</span>,
   <span class="hljs-attr">&quot;validation_channel&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
 </code></pre>
