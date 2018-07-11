@@ -41,8 +41,8 @@ paths:
         Permite registrar a un nuevo cliente que no ha pasado por un proceso de registro formal, dejándolo en estado de `pre-registro`. También se puede usar este método para actualizar los datos de un cliente ya existente en estado de `pre-registro`.
         
         Llamadas permitidas cuando el cliente está en `pre-registro`:
-          * POST /users/soft-signup
-          * GET  /users/soft-signup/{signup_id}
+          * POST /users/soft_signup
+          * GET  /users/soft_signup/{signup_id}
           * GET  /users/{user_id}
           * POST /users/{user_id}/update_personal_data
           * POST /users/{user_id}/validate_email # sin validation_channel
@@ -67,7 +67,7 @@ paths:
             $ref: '#/definitions/error_obj'
         '422':
           description: No viene RUT o no viene email
-  /users/soft-signup/{signup_id}:
+  /users/soft_signup/{signup_id}:
     get:
       tags:
         - registro
