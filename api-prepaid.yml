@@ -69,7 +69,42 @@ paths:
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
-
+/prepaid/{user_id}/finish_signup:
+    post:
+      tags:
+        - prepaid_finish_signup
+      summary: Termina un proceso de registro para obtener la tarjeta de prepago
+      description:  |
+        Termina un proceso de registro. Retorna `prepaid_user`.   
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: |
+            OK - Usuario prepago.
+          schema:
+            $ref: '#/definitions/prepaid_user'
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '404':
+          description: Cliente no existe o no tiene prepago
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: Carga no exitosa, revise error
+          schema:
+            $ref: '#/definitions/error_obj'        
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'
+            
   /prepaid/topup:
     post:
       tags:
