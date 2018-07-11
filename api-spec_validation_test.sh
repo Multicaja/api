@@ -13,6 +13,7 @@ setUp()
   openApiSpecFileNames=(
      'api-users.yml'
      'api-prepaid.yml'
+     'api-paypal.yml'
    )
   
 
