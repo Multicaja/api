@@ -1183,21 +1183,28 @@ definitions:
           global_status:
             type: string
             enum:
-              - pre-registro
-              - activo
-              - bloqueado
-              - borrado
+              - ACTIVE
+              - DELETE
+              - DISABLED
+              - LOCKED
+              - PREREGISTERED
             description: |
               Estado del cliente. Campo read-only.
-              * "pre-registro": cliente no posee password
-              * "activo": cliente con password que puede transar
-              * "bloqueado": cuenta temporalmente congelada
-              * "borrado": eliminación lógica del cliente, no admite ningún cambio
-          has_password:
-            type: string
+              * "PREREGISTERED": cliente no posee password
+              * "ACTIVE": cliente con password que puede transar
+              * "LOCKED": cuenta temporalmente congelada
+              * "DELETE": eliminación lógica del cliente, no admite ningún cambio
+          is_blacklisted:
+            type: boolean
             description: |
-              `"true"` si el usuario tiene `password`; `"false"` en otro caso
-            example: "true"
+              Indica si el usuario esta en alguna lista negra 
+            example: true
+          has_password:
+            type: boolean
+            description: |
+              - `true` si el usuario tiene `password`
+              - `false` en otro caso
+            example: true
           timestamps:
             $ref: '#/definitions/timestamps'
   rut:
