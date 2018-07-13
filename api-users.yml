@@ -396,7 +396,7 @@ paths:
           description: Error de validación en tac_acceptance
           schema:
             $ref: '#/definitions/error_obj'
-  /users/{user_id}/validate_email:
+  /users/{user_id}/update_email:
     post:
       tags:
         - clientes
