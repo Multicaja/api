@@ -35,6 +35,9 @@
               <li>
                 <a href="#operation--users-full_signup--signup_id--get"> Obtiene el estado de un proceso de registro </a>
               </li>
+              <li>
+                <a href="#operation--users--user_id--finish_signup-post"> Termina un proceso de registro </a>
+              </li>
             </ul>
           </section>
           <section>
@@ -62,7 +65,7 @@
                 <a href="#operation--users--user_id--sign_contract-post"> POST /users/{user_id}/sign_contract </a>
               </li>
               <li>
-                <a href="#operation--users--user_id--validate_email-post"> POST /users/{user_id}/validate_email </a>
+                <a href="#operation--users--user_id--update_email-post"> POST /users/{user_id}/update_email </a>
               </li>
               <li>
                 <a href="#operation--users--user_id--update_cellphone-post"> POST /users/{user_id}/update_cellphone </a>
@@ -768,6 +771,181 @@
   },
   <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">15776844</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--users--user_id--finish_signup-post" class="operation panel" data-traverse-target="operation--users--user_id--finish_signup-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-registro">registro</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Termina un proceso de registro</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/users/{user_id}/finish_signup</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Termina un proceso de registro. Retorna <code>user</code>.</p>
+                  <p>Llamadas permitidas cuando el cliente está registrándose:</p>
+                  <ul>
+                    <li>POST /users/full_signup</li>
+                    <li>GET /users/full_signup/{signup_id}</li>
+                    <li>GET /users/{user_id}</li>
+                    <li>POST /users/{user_id}/update_personal_data</li>
+                    <li>POST /users/{user_id}/validate_rut</li>
+                    <li>POST /users/{user_id}/validate_email</li>
+                    <li>PUT /users/{user_id}/mail</li>
+                    <li>POST /users/{user_id}/validate_cellphone</li>
+                    <li>PUT /users/{user_id}/sms</li>
+                    <li>POST /users/{user_id}/sign_contract</li>
+                    <li>POST /users/{user_id}/update_password # debe ser la última</li>
+                  </ul>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">user_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">integer</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID del usuario</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/user">user</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK - Consulte objeto de respuesta para saber qué pasos faltan y qué información puede mostrar pre llenada.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">422 Unprocessable Entity</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Errores de validacion de negocio</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
+  <span class="hljs-attr">&quot;rut&quot;</span>: {
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
+    <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;K&quot;</span>,
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+    }
+  },
+  <span class="hljs-attr">&quot;cellphone&quot;</span>: {
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;912345678&quot;</span>,
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+    }
+  },
+  <span class="hljs-attr">&quot;email&quot;</span>: {
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+    }
+  },
+  <span class="hljs-attr">&quot;company_data&quot;</span>: {
+    <span class="hljs-attr">&quot;business_name&quot;</span>: <span class="hljs-string">&quot;Reparaciones Joselito Ltda.&quot;</span>,
+    <span class="hljs-attr">&quot;commercial_activity&quot;</span>: <span class="hljs-number">772</span>,
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+    }
+  },
+  <span class="hljs-attr">&quot;global_status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;is_blacklisted&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;has_password&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+  },
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
+  <span class="hljs-attr">&quot;lastname_1&quot;</span>: <span class="hljs-string">&quot;L&#xF3;pez&quot;</span>,
+  <span class="hljs-attr">&quot;lastname_2&quot;</span>: <span class="hljs-string">&quot;Carrasco&quot;</span>,
+  <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -2152,7 +2330,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--users--user_id--validate_email-post" class="operation panel" data-traverse-target="operation--users--user_id--validate_email-post">
+          <div id="operation--users--user_id--update_email-post" class="operation panel" data-traverse-target="operation--users--user_id--update_email-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -2164,7 +2342,7 @@
             <h2 class="operation-title">
               <span class="operation-name">
                 <span class="operation-name">POST</span>
-                <span class="operation-path">/users/{user_id}/validate_email</span>
+                <span class="operation-path">/users/{user_id}/update_email</span>
               </span>
             </h2>
             <div class="doc-row">
