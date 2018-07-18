@@ -185,19 +185,13 @@ paths:
           required: true
           type: "integer"
       responses:
-        '201':
+        '200':
           description: |
             OK - Consulte objeto de respuesta para saber qué pasos faltan y qué información puede mostrar pre llenada.
           schema:
             $ref: '#/definitions/user'
-        '401':
-          description: RUT o email corresponden a Cliente que ya tiene clave y que debe autenticarse para realizar esta operación
-        '403':
-          description: Usuario borrado o bloqueado
-          schema:
-            $ref: '#/definitions/error_obj'
         '422':
-          description: No viene RUT o no viene email
+          description: Errores de validacion de negocio
   /users/:
     get:
       summary: Buscar
