@@ -158,6 +158,46 @@ paths:
           description: Proceso de registro no existe.
         '410':
           description: Proceso de registro existe, pero expiró. Inicie uno nuevo con `POST /users/user_signup`.
+  /users/{user_id}/finish_signup:
+    post:
+      tags:
+        - registro
+      summary: Termina un proceso de registro
+      description: |
+        Termina un proceso de registro. Retorna `user`.
+        
+        Llamadas permitidas cuando el cliente está registrándose:
+          * POST /users/full_signup
+          * GET  /users/full_signup/{signup_id}
+          * GET  /users/{user_id}
+          * POST /users/{user_id}/update_personal_data
+          * POST /users/{user_id}/validate_rut
+          * POST /users/{user_id}/validate_email
+          * PUT /users/{user_id}/mail
+          * POST /users/{user_id}/validate_cellphone
+          * PUT /users/{user_id}/sms
+          * POST /users/{user_id}/sign_contract
+          * POST /users/{user_id}/update_password # debe ser la última
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+      responses:
+        '201':
+          description: |
+            OK - Consulte objeto de respuesta para saber qué pasos faltan y qué información puede mostrar pre llenada.
+          schema:
+            $ref: '#/definitions/user'
+        '401':
+          description: RUT o email corresponden a Cliente que ya tiene clave y que debe autenticarse para realizar esta operación
+        '403':
+          description: Usuario borrado o bloqueado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: No viene RUT o no viene email
   /users/:
     get:
       summary: Buscar
