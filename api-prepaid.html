@@ -101,7 +101,8 @@
           <a href="#definition-raw_transaction_new"> raw_transaction_new </a>
           <a href="#definition-amount_and_currency_new"> amount_and_currency_new </a>
           <a href="#definition-prepaid_balance"> prepaid_balance </a>
-          <a href="#definition-simulation_new"> simulation_new </a>
+          <a href="#definition-simulation_topup_new"> simulation_topup_new </a>
+          <a href="#definition-simulation_withdraw_new"> simulation_withdraw_new </a>
           <a href="#definition-simulation_group"> simulation_group </a>
           <a href="#definition-simulation_topup"> simulation_topup </a>
           <a href="#definition-simulation_withdrawal"> simulation_withdrawal </a>
@@ -1635,7 +1636,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/simulation_new">simulation_new</a>
+                          <a class="json-schema-ref" href="#/definitions/simulation_topup_new">simulation_topup_new</a>
                         </span>
                       </div>
                     </div>
@@ -1906,7 +1907,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/simulation_new">simulation_new</a>
+                          <a class="json-schema-ref" href="#/definitions/simulation_withdraw_new">simulation_withdraw_new</a>
                         </span>
                       </div>
                     </div>
@@ -1942,7 +1943,8 @@
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
-  }
+  },
+  <span class="hljs-attr">&quot;method&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -4599,9 +4601,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-simulation_new" class="definition panel" data-traverse-target="definition-simulation_new">
+          <div id="definition-simulation_topup_new" class="definition panel" data-traverse-target="definition-simulation_topup_new">
             <h2 class="panel-title">
-              <a name="/definitions/simulation_new"></a>simulation_new: object
+              <a name="/definitions/simulation_topup_new"></a>simulation_topup_new: object
               <!-- <span class="json-property-type">
               <span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
@@ -4612,7 +4614,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Requerimiento para la calculadora de carga o retiro</p>
+                  <p>Requerimiento para la calculadora de carga</p>
                 </section>
                 <section class="json-schema-properties">
                   <dl>
@@ -4636,6 +4638,60 @@
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-simulation_withdraw_new" class="definition panel" data-traverse-target="definition-simulation_withdraw_new">
+            <h2 class="panel-title">
+              <a name="/definitions/simulation_withdraw_new"></a>simulation_withdraw_new: object
+              <!-- <span class="json-property-type">
+              <span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Requerimiento para la calculadora de retiro</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="amount">
+                      <span class="json-property-name">amount:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/amount_and_currency_new">amount_and_currency_new</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="method">
+                      <span class="json-property-name">method:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">POS</span>,
+                        <span class="json-property-enum-item">WEB</span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;amount&quot;</span>: {
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  },
+  <span class="hljs-attr">&quot;method&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
