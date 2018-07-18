@@ -435,11 +435,11 @@ paths:
           required: true
           type: integer
         - in: body
-          name: simulation_new
+          name: simulation_topup_new
           description: Requerimiento de calculo
           required: true
           schema:
-            $ref: '#/definitions/simulation_new'
+            $ref: '#/definitions/simulation_topup_new'
       responses:
         '200':
           description: OK - Respuesta exitosa
@@ -490,11 +490,11 @@ paths:
           required: true
           type: integer
         - in: body
-          name: simulation_new
+          name: simulation_withdraw_new
           description: Requerimiento de calculo
           required: true
           schema:
-            $ref: '#/definitions/simulation_new'
+            $ref: '#/definitions/simulation_withdraw_new'
       responses:
         '200':
           description: OK - Respuesta exitosa
@@ -767,6 +767,7 @@ paths:
           description: Error indeterminado
           schema:
             $ref: '#/definitions/error_obj'
+
 definitions:
 
   prepaid_topup_base:
@@ -1102,13 +1103,22 @@ definitions:
         type: boolean
         description: true o false dependiendo si fue actualizado desde el procesador
 
-  simulation_new:
+  simulation_topup_new:
     type: object
-    description: Requerimiento para la calculadora de carga o retiro
+    description: Requerimiento para la calculadora de carga
     properties:
       amount:
         $ref: "#/definitions/amount_and_currency_new"
 
+  simulation_withdraw_new:
+    type: object
+    description: Requerimiento para la calculadora de retiro
+    properties:
+      amount:
+        $ref: "#/definitions/amount_and_currency_new"
+      method:
+        type: string
+        enum: ['POS', 'WEB']
   simulation_group:
     type: object
     description: Retorna simulacion web y pos
