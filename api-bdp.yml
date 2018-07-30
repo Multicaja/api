@@ -1,0 +1,684 @@
+swagger: '2.0'
+info:
+  description:  |
+    Bienvenido a la API de [Multicaja](https://www.multicaja.cl) (Alpha)
+    ** Este es un proyecto alpha y por lo tanto sufrirá muchos cambios **
+    Todos los requests son autenticados usando un `api-key`.
+    Existen dos ambientes: `qa` y `producción`. El `host` de `qa` es `apiqa.multicaja.cl`.
+  version: "1.0.0"
+  title: API Multicaja BDP-REST
+  # put the contact info for your development or API team
+  contact:
+    email: matias.salinas@multicaja.cl
+    
+# Added by API Auto Mocking Plugin
+# host: 'api.multicaja.cl'
+# basePath: /v0.1-alpha/
+consumes:
+  - application/json
+produces:
+  - application/json
+  
+# tags are used for organizing operations
+tags:
+- name: transaccional
+  description: Comunicación ecommerce
+- name: efectivo
+  description: Información efecitvo
+- name: transferencia
+  description: Información transferencia
+- name: general
+  description: Información transversal de todos los medios de pago
+- name: encuesta
+  description: Encuesta de anulaciones
+
+paths:
+  /order:
+    post:
+      tags:
+      - transaccional
+      summary: Crear pedido para el comercio
+      description: |
+        Servicio para poder crear un pedido y el cual retornara un una url para poder inicializar la transacción
+        Debe tomar el redireccionar al bdp con el order ID
+      parameters:
+      - in: body
+        name: paramItems
+        description: Parametros de entrada para el comercio
+        schema:
+          $ref: '#/definitions/paramItems'
+      consumes:
+      - application/json    
+      produces:
+      - application/json
+      responses:
+        201:
+          description: Pedido creado
+          schema:
+            $ref: '#/definitions/orderStatus'
+        400:
+          description: Parametros de entrada incorrectos
+  /order/user:
+    post:
+      tags:
+      - transaccional
+      summary: Crear pedido para el usuario
+      description: |
+        Servicio para poder crear un pedido y el cual retornara un una url para poder inicializar la transacción
+        Debe tomar el redireccionar al bdp con el order ID
+      parameters:
+      - in: body
+        name: paramItems
+        description: Parametros de entrada para el comercio
+        schema:
+          $ref: '#/definitions/paramItemsUser'
+      consumes:
+      - application/json    
+      produces:
+      - application/json
+      responses:
+        201:
+          description: Pedido creado
+          schema:
+            $ref: '#/definitions/orderStatusUser'
+        400:
+          description: Parametros de entrada incorrectos
+  /order/{order_id}:
+    get:
+      tags:
+      - transaccional
+      summary: Obtener el estado del pedido
+      operationId: addInventory
+      description: Servicio para obtener el estado pedido 
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: order_id
+          description: id de orden de boton de pago
+          required: true
+          type: number
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/orderStatus'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos
+    delete:
+      tags:
+      - transaccional
+      summary: Cancelar el pedido
+      description: Servicio para cancelar el pedido 
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: order_id
+          description: id de orden de boton de pago
+          required: true
+          type: number
+      responses:
+        201:
+          description: ok
+        400:
+          description: parametros invalidos
+        404:
+          description: error el pedido no existe
+  
+  
+  
+  /paymentmethod/cash:
+    post:
+      tags:
+      - efectivo
+      summary: Generar pago en efectivo
+      description: Generar pago en efectivo
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: body
+          name: cashInit
+          description: parametros para generar un pago efectivo
+          schema:
+            $ref: '#/definitions/cashInit'
+      responses:
+        201:
+          description: ok
+          schema:
+            type: object
+            properties:
+              sequence_code:
+                type: string
+                example: 4684545456
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos   
+          
+  /paymentmethod/transfers:
+      post:
+        tags:
+        - transferencia
+        summary: Generar Transferencia
+        description: Generar Transferencia
+        consumes:
+        - application/json
+        produces:
+        - application/json
+        parameters:
+          - in: body
+            name: transfersInit
+            description: parametros para generar una transferencia
+            schema:
+              $ref: '#/definitions/transfersInit'
+        responses:
+          201:
+            description: ok
+            schema:
+              $ref: '#/definitions/transfersResponse'
+          400:
+            description: parametros invalidos
+          404:
+            description: error obtención de datos  
+    
+  /general/paymentmethods:
+    get:
+      tags:
+      - general
+      summary: Obtener lista de medios de pago
+      description: Servicio para obtener la lista medios de pago
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: order_id
+          description: id de orden de boton de pago
+          required: true
+          type: number
+      responses:
+        200:
+          description: ok
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/paymentMethod'   
+              
+  /general/params/{param}:
+    get:
+      tags:
+      - general
+      summary: Obtener el parametro
+      description: Obtener el parametro
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: param
+          description: nombre del parametro
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/parameter'
+  /order/{order_id}/detailorder:
+    get:
+      tags:
+      - transaccional
+      summary: detalle del pedido
+      description: Obtener detalle del pedido 
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: order_id
+          description: ID del pedido
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: ok
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/detailOrderResponse'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos        
+                
+  /poll/answer/{pool_id}:
+    get:
+      tags:
+      - encuesta
+      summary: detalle del pedido
+      description: Obtener detalle del pedido 
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: pool_id
+          description: ID de encuesta
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: ok
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/pollAnswer'
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos     
+          
+  /poll/answer/{pool_id}/{answer_id}:
+    get:
+      tags:
+      - encuesta
+      summary: detalle del pedido
+      description: Obtener detalle del pedido 
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: path
+          name: pool_id
+          description: ID de encuesta
+          required: true
+          type: "integer"
+        - in: path
+          name: answer_id
+          description: ID de encuesta
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: ok
+        400:
+          description: parametros invalidos
+        404:
+          description: error obtención de datos   
+  
+definitions:
+
+  parameter:
+    type: object
+    required:
+      - id
+      - value
+    description: Parámetro básico **(Response)**
+    properties:
+      value:
+        type: string
+        description: descripción del parámetro
+        
+  paramItems:
+    type: object
+    required:
+    - ec_order_id
+    - total_amount
+    - general_description
+    - payment_method
+    properties:
+      ec_order_id:
+        type: string
+        example: "ERWER213"
+      mc_user_id:
+        type: integer
+        example: 15
+      mc_email:
+        type: string
+        example: "developer@email.cl"
+      mc_rut:
+        type: string
+        example: "1-9"
+      total_amount:
+        type: number
+        example: 40000
+      general_description:
+        type: string
+        example: Esta es una orden
+      payment_method:
+        type: number
+        example: 2
+        
+  paramItemsUser:
+    type: object
+    required:
+    - ec_order_id
+    - total_amount
+    - general_description
+    - payment_method
+
+    properties:
+      user_id:
+        type: integer
+        example: 125
+      total_amount:
+        type: number
+        example: 40000
+      general_description:
+        type: string
+        example: Esta es una orden
+ 
+  cashInit:
+    type: object
+    required:
+    - order_id
+    - user_id
+    - user_email
+    properties:
+      order_id:
+        type: integer
+        example: 1111111111
+      user_id:
+        type: integer
+        example: 152
+      user_email:
+        type: string
+        example: mail@mail.cl 
+  
+  
+  pollAnswer:
+    type: object
+    required:
+    - order_id
+    - user_id
+    - user_email
+    properties:
+      answer_id:
+        type: integer
+        example: 1111111111
+      text_answer:
+        type: string
+        example: 152
+  
+  detailOrderResponse:
+    required: 
+      - id
+      - id_publico
+      - sec_ecommerce
+      - id_representado
+      - monto_trx
+      - fecha_expiracion
+      - url_retorno
+      - descripcion_compra
+    properties:
+      id:
+        type: integer
+        example: 111111111
+      id_publico:
+        type: integer
+        example: 111111111
+      id_user:
+        type: integer
+        example: 111111111  
+      sec_ecommerce:
+        type: string
+        example: éxito
+      id_representado:
+        type: string
+        example: éxito
+      monto_trx:
+        type: string
+        example: éxito
+      fecha_expiracion:
+        type: string
+        example: éxito 
+      url_retorno:
+        type: string
+        example: éxito
+      descripcion_compra:
+        type: string
+        example: éxito
+ 
+  paymentMethod:
+    type: object
+    required:
+      - id
+      - value
+    description: Parámetro básico **(Response)**
+    properties:
+      id:
+        type: integer
+        description: identificador del metodo de pago
+        example: 1
+      code:
+        type: string
+        description: Código del metodo de pago
+        example: 15564
+      name:
+        type: string
+        description: Nombre del metodo de pago
+        example: "efectivo"
+      description:
+        type: string
+        description: Descripcion del metodo de pago
+        example: "Pago con cupon en comercio multicaja"
+      anonymous_payment:
+        type: string
+        description: Descripcion del meodo de pago
+        example: "Pago con cupon en comercio multicaja"
+      max_amount:
+        type: string
+        description: Monto maximo de pago
+        example: "Monto maximo aceptado en el medio de pago"
+      enabled:
+        type: boolean
+        description: Estado del medio de pago
+        example: true
+  
+  transfersInit:
+    type: object
+    required:
+    - id
+    - user_id
+    - id_person_app
+    - slp
+    properties:
+      id:
+        type: integer
+        example: 1
+      user_id:
+        type: integer
+        example: 1
+      id_person_app:
+        type: integer
+        example: 1
+      slp:
+        type: boolean
+        example: false
+  
+  transfersResponse:
+    type: object
+    required:
+    - id_trx
+    - user_new_slp
+    - tef_status
+    - tef_id
+    - tef_amount
+    - tef_expires
+    - tef_now
+    - tef_uses_slp
+    - tef_amount_slp
+    - account_name
+    - account_rut
+    - account_email
+    - account_bank
+    - account_type
+    - account_number
+    - account_new
+    properties:
+      id_trx:
+        type: string
+        example: 1
+      user_new_slp:
+        type: number
+        example: 1
+      tef_status:
+        type: string
+        example: 1
+      tef_id:
+        type: integer
+        example: 1
+      tef_amount:
+        type: integer
+        example: 1
+      tef_expires:
+        type: string
+        format: date-time
+        example: "2018-01-14T15:27:42.669Z"
+      tef_now:
+        type: string
+        format: date-time
+        example: "2018-01-14T15:27:42.669Z"
+      tef_uses_slp:
+        type: boolean
+        example: true
+      tef_amount_slp:
+        type: number
+        example: 1000
+      account_name:
+        type: string
+        example: mario
+      account_rut:
+        type: string
+        example: 1-9
+      account_email:
+        type: string
+        example: email@email.cl
+      account_bank:
+        type: string
+        example: El de los pobres
+      account_type:
+        type: string
+        example: de papel confort
+      account_number:
+        type: string
+        example: 0000000655712
+      account_new:
+        type: integer
+        example: 1
+          
+  orderStatus:
+    required:
+    - order_status
+    - description
+    - ec_order_id
+    - payment_method
+    properties:
+      order_id:
+        type: integer
+        example: 455665
+      order_status:
+        type: integer
+        example: 2
+      description:
+        type: string
+        example:  EXPIRED
+      ec_order_id:
+        type: string
+        example: "EH32434"
+      ecommerce_id:
+        type: string
+        example: "EH32434"
+      total_amount:
+        type: string
+        example: 60000
+      payment_info:
+        $ref: '#/definitions/param_payment_method'
+        
+  orderStatusUser:
+    required:
+    - user_id
+    - order_status
+    - description
+    - payment_method
+    properties:
+      order_id:
+        type: integer
+        example: 455665
+      order_status:
+        type: integer
+        example: 2
+      description:
+        type: string
+        example:  EXPIRED
+      userr_id:
+        type: string
+        example: "EH32434"
+      total_amount:
+        type: string
+        example: 60000
+      payment_info:
+        $ref: '#/definitions/param_payment_method'
+        
+  param_payment_method:
+    type: object
+    required:
+    - payment_method
+    - payment_date
+    - payment_user
+    - payment_authorization
+    - payment_amount
+    - payment_date_expiration
+    - payment_date_created
+    - payment_canceled
+    properties:
+      payment_method:
+        type: string
+        example: Efectivo Multicaja
+      payment_date:
+        type: string
+        example: "2018-01-14T15:27:42.669Z"
+      payment_user:
+        $ref: '#/definitions/payment_user'
+      payment_amount:
+        type: number
+        example: 25000
+      payment_date_expiration:
+        type: string
+        example: "2018-01-14T15:27:42.669Z"
+      payment_date_update:
+        type: string
+        example: "2018-01-14T15:27:42.669Z"
+      payment_date_created:
+        type: string
+        example: "2018-01-14T15:27:42.669Z"
+      payment_canceled:
+        type: boolean
+        example: false
+        
+  payment_user: 
+    type: object
+    required:
+    - correo
+    - rut
+    properties:
+      payment_date:
+        type: string
+        example: "micorreo@micorreo.cl"
+      rut:
+        type: string
+        example: '1-9'
