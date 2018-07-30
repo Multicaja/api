@@ -8,6 +8,7 @@
 | [Prepaid](https://multicaja.github.io/api/api-prepaid.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-prepaid.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-prepaid.yml) | Tarjetas de prepago, saldo, emisión, transacciones |
 | [PayPal](https://multicaja.github.io/api/api-paypal.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-paypal.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-paypal.yml) | Multicaja/PayPal |
 | [Recharges](https://multicaja.github.io/api/api-recharges.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-recharges.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-recharges.yml) | Recargas en Switch Multicaja|
+| [BDP](https://multicaja.github.io/api/api-bdp.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-bdp.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-bdp.yml) | Api boton de pago Multicaja|
 
 ### Buenas prácticas
 
