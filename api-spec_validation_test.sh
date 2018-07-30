@@ -15,6 +15,7 @@ setUp()
      'api-prepaid.yml'
      'api-paypal.yml'
      'api-recharges.yml'
+     'api-bdp.yml'
    )
   
 
