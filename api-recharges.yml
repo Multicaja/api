@@ -1,0 +1,403 @@
+swagger: '2.0'
+info:
+  description: |
+    API de Recargas Multicaja
+    
+    Todos los requests son autenticados usando el header `X-Api-Key`.
+  version: '1.0'
+  title: API Multicaja
+host: 'api.multicaja.cl'
+basePath: /recharges/v1
+consumes:
+  - application/json
+produces:
+  - application/json
+tags:
+  - name: recargas
+    description: Operaciones de recargas
+paths:
+  /products:
+    get:
+      summary: Productos
+      tags: 
+        - recargas
+      description: Listado de productos de recarga agrupados por operador
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Products'
+  /check:
+    post:
+      summary: Factibilidad
+      description: Verificación de factibilidad de una recarga
+      tags: 
+        - recargas
+      parameters: 
+        - in: body
+          name: recarga
+          description: Datos de la recarga
+          required: true
+          schema:
+            $ref: '#/definitions/CheckRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CheckResponse'
+        '400':
+          description: Alguno de los campos requeridos no viene o es inválido
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '502':
+          description: Error al comunicarse con el Switch Multicaja
+        '504':
+          description: Timeout al comunicarse con el Switch Multicaja
+  /recharge:
+    post:
+      summary: Recargar
+      description: Realiza una recarga
+      tags: 
+        - recargas
+      parameters: 
+        - in: body
+          name: recarga
+          description: Datos de la recarga
+          required: true
+          schema:
+            $ref: '#/definitions/RechargeRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/RechargeResponse'
+        '400':
+          description: Alguno de los campos requeridos no viene o es inválido
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '502':
+          description: Error al comunicarse con el Switch Multicaja
+        '504':
+          description: Timeout al comunicarse con el Switch Multicaja
+definitions:
+  Products:
+    type: array
+    items: 
+      $ref: "#/definitions/Operator"
+  Operator:
+    type: object
+    description: Datos del operador
+    required:
+      - id
+      - order
+      - code
+      - name
+      - products
+    properties:
+      id:
+        type: integer
+        format: int64
+        example: 1
+        description: Identificador del operador
+      order:
+        type: integer
+        format: int32
+        example: 1
+        description: Orden de aparición
+      code:
+        type: string
+        example: "movistar"
+        description: Código interno del operador
+      name: 
+        type: string
+        example: "Movistar"
+        description: Nombre público del operador
+      products:
+        type: array
+        items:
+          $ref: "#/definitions/Product"
+  Product:
+    type: object
+    description: Datos del producto
+    required:
+      - id
+      - type
+      - amount
+      - suscriptor
+    properties:
+      id:
+        type: integer
+        format: int64
+        example: 1
+        description: Identificador del producto
+      type:
+        $ref: "#/definitions/Type"
+      amount:
+        $ref: "#/definitions/Amount"
+      suscriptor:
+        type: string
+        example: "numero"
+        description: Tipo de suscriptor del producto, puede ser `numero` o `rut`
+  Type:
+    type: object
+    description: Tipo de producto
+    required: 
+      - id
+      - code
+      - order
+      - name
+    properties:
+      id:
+        type: integer
+        format: int64
+        example: 1
+        description: Identificador del tipo de producto
+      code:
+        type: string
+        example: "bam"
+        description: Código interno del tipo de producto
+      name: 
+        type: string
+        example: "Banda Ancha Móvil"
+        description: Nombre público del tipo de producto
+      order:
+        type: integer
+        format: int32
+        example: 1
+        description: Orden de aparición
+  Amount:
+    type: object
+    description: | 
+      Datos de los montos aceptados.
+      
+      Ignorar los valores `min` y `max` si el valor `multi` es distinto de null
+    properties:
+      min:
+        type: integer
+        format: int64
+        example: 750
+        description: Monto mínimo aceptado
+      max:
+        type: integer
+        format: int64
+        example: 25000
+        description: Monto máximo aceptado
+      multi:
+        type: array
+        items: 
+          type: integer
+          format: int64
+          example: 
+            - 750
+            - 1000
+            - 2000
+        description: Montos fijos aceptados
+  Recharge:
+    type: object
+    description: Datos de la recarga
+    properties:
+      suscriptor: 
+        type: string
+        example: "988598372"
+        description: "Número identificador de la recarga"
+      amount: 
+        type: integer
+        format: int64
+        example: 1500
+        description: Monto de la recarga
+      operator: 
+        type: string
+        example: "Movistar"
+        description: "Nombre del operador"
+      type: 
+        type: string
+        example: "Telefonía Móvil"
+        description: "Nombre del producto"
+  CheckRequest:
+    type: object
+    required: 
+      - origin
+      - stan
+      - product_id
+      - amount
+      - suscriptor
+      - commerce_id
+      - branch_id
+      - terminal_id
+    properties:
+      origin: 
+        type: string
+        example: RECARGACL
+        description: Texto que identifica la plataforma que está haciendo la recarga, es requerido por el Switch de Multicaja como dato de control
+      stan:
+        type: integer
+        format: int32
+        example: 1
+        description: Identificador secuencial de la transacción, largo máximo 6 dígitos
+      product_id:
+        type: integer
+        format: int64
+        example: 1
+        description: Identificador del producto a recargar
+      amount:
+        type: integer
+        format: int64
+        example: 1500
+        description: Monto a recargar
+      suscriptor: 
+        type: string
+        example: 995168137
+        description: Número identificador de la recarga, dependiendo del producto puede ser un rut o un número de teléfono
+      commerce_id:
+        type: integer
+        format: int64
+        example: 325
+        description: Identificador del comercio
+      branch_id:
+        type: integer
+        format: int64
+        example: 325
+        description: Identificador de la sucursal
+      terminal_id:
+        type: integer
+        format: int64
+        example: 317
+        description: Identificador del terminal
+  CheckResponse:
+    type: object
+    properties:
+      response_code:
+        type: string
+        example: "01"
+        description: Código de resultado de la transacción enviada al Switch Multicaja
+      response_message:
+        type: string
+        example: "TRANSACCION APROBADA"
+        description: Mensaje de respuesta del Switch Multicaja
+      transaction_id:
+        type: integer
+        format: int64
+        example: 795547062
+        description: Identificador de la transacción
+      authorization_id:
+        type: string
+        example: "700000612259"
+        description: Código de autorización de la transacción
+      created_at:
+        type: string
+        format: date-time
+        example: "2018-03-16T16:38:31.28571"
+        description: Fecha y hora de la transacción
+      recharge:
+        $ref: "#/definitions/Recharge"
+  RechargeRequest:
+    type: object
+    required: 
+      - origin
+      - stan
+      - product_id
+      - amount
+      - suscriptor
+      - commerce_id
+      - branch_id
+      - terminal_id
+      - check_transaction_id
+    properties:
+      origin: 
+        type: string
+        example: RECARGACL
+        description: Texto que identifica la plataforma que está haciendo la recarga, es requerido por el Switch de Multicaja como dato de control
+      stan:
+        type: integer
+        format: int32
+        example: 1
+        description: Identificador secuencial de la transacción, largo máximo 6 dígitos
+      product_id:
+        type: integer
+        format: int64
+        example: 1
+        description: Identificador del producto a recargar
+      amount:
+        type: integer
+        format: int64
+        example: 1500
+        description: Monto a recargar
+      suscriptor: 
+        type: string
+        example: 995168137
+        description: Número identificador de la recarga, dependiendo del producto puede ser un rut o un número de teléfono
+      check_transaction_id:
+        type: integer
+        format: int64
+        example: 795547062
+        description: Identificador de la transacción de verificación de factibilidad
+      commerce_id:
+        type: integer
+        format: int64
+        example: 325
+        description: Identificador del comercio
+      branch_id:
+        type: integer
+        format: int64
+        example: 325
+        description: Identificador de la sucursal
+      terminal_id:
+        type: integer
+        format: int64
+        example: 317
+        description: Identificador del terminal
+  RechargeResponse:
+    type: object
+    properties:
+      response_code:
+        type: string
+        example: "01"
+        description: Código de resultado de la transacción enviada al Switch Multicaja
+      response_message:
+        type: string
+        example: "TRANSACCION APROBADA"
+        description: Mensaje de respuesta del Switch Multicaja
+      transaction_id:
+        type: integer
+        format: int64
+        example: 795547062
+        description: Identificador de la transacción
+      transaction_status:
+        type: string
+        example: "APROBADA"
+        description: Estado de la transacción recién generada
+      authorization_id:
+        type: string
+        example: "700000612259"
+        description: Código de autorización de la transacción
+      created_at:
+        type: string
+        format: date-time
+        example: "2018-03-16T16:38:31.28571"
+        description: Fecha y hora de la transacción
+  ErrorResponse:
+    type: object
+    properties:
+      status: 
+        type: integer
+        format: int32
+        example: 400
+        description: Código HTTP
+      error: 
+        type: string
+        example: Bad Request
+        description: Nombre del código HTTP
+      message:
+        type: string
+        example: Invalid property 'amount'.
+        description: Descripción del error
+      path:
+        type: string
+        example: "/recharges/check"
+        description: Url de la solicitud http
+      timestamp:
+        type: string
+        format: date-time
+        example: "2018-03-16T16:38:31.28571"
+        description: Fecha y hora del error
+        
