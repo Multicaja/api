@@ -23,7 +23,7 @@ script:
   - spectacle --target-dir docs-recharges --target-file api-recharges.html api-recharges.yml
   - mv docs-prepaid/api-prepaid.html docs/
   - mv docs-paypal/api-paypal.html docs/
-  - mv docs-paypal/api-recharges.html docs/
+  - mv docs-recharges/api-recharges.html docs/
   - cp README.md docs/
  
 deploy:
