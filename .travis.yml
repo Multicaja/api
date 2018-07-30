@@ -21,9 +21,11 @@ script:
   - spectacle --target-dir docs-prepaid --target-file api-prepaid.html api-prepaid.yml
   - spectacle --target-dir docs-paypal --target-file api-paypal.html api-paypal.yml
   - spectacle --target-dir docs-recharges --target-file api-recharges.html api-recharges.yml
+  - spectacle --target-dir docs-bdp --target-file api-bdp.html api-bdp.yml
   - mv docs-prepaid/api-prepaid.html docs/
   - mv docs-paypal/api-paypal.html docs/
   - mv docs-recharges/api-recharges.html docs/
+  - mv docs-bdp/api-bdp.html docs/
   - cp README.md docs/
  
 deploy:
