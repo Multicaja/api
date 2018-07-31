@@ -464,7 +464,7 @@ definitions:
       - public_id
       - sec_ecommerce
       - ecommerce_id
-      - rode_trx
+      - value_trx
       - expiration_date
       - return_url
       - description
