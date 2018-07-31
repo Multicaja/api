@@ -481,7 +481,7 @@ definitions:
       ecommerce_id:
         type: integer
         example: 1334
-      rode_trx:
+      value_trx:
         type: string
         example: éxito
       monto_trx:
