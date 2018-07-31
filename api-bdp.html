@@ -24,19 +24,19 @@
             <a href="#tag-transaccional">transaccional</a>
             <ul>
               <li>
-                <a href="#operation--order-post"> Crear pedido para el comercio </a>
+                <a href="#operation--pdp-order-post"> Crear pedido para el comercio </a>
               </li>
               <li>
-                <a href="#operation--order-user-post"> Crear pedido para el usuario </a>
+                <a href="#operation--pdp-order-user-post"> Crear pedido para el usuario </a>
               </li>
               <li>
-                <a href="#operation--order--order_id--get"> Obtener el estado del pedido </a>
+                <a href="#operation--pdp-order--order_id--get"> Obtener el estado del pedido </a>
               </li>
               <li>
-                <a href="#operation--order--order_id--delete"> Cancelar el pedido </a>
+                <a href="#operation--pdp-order--order_id--delete"> Cancelar el pedido </a>
               </li>
               <li>
-                <a href="#operation--order--order_id--detailorder-get"> detalle del pedido </a>
+                <a href="#operation--pdp-order--order_id--detailorder-get"> detalle del pedido </a>
               </li>
             </ul>
           </section>
@@ -44,7 +44,7 @@
             <a href="#tag-efectivo">efectivo</a>
             <ul>
               <li>
-                <a href="#operation--paymentmethod-cash-post"> Generar pago en efectivo </a>
+                <a href="#operation--pdp-paymentmethod-cash-post"> Generar pago en efectivo </a>
               </li>
             </ul>
           </section>
@@ -52,7 +52,7 @@
             <a href="#tag-transferencia">transferencia</a>
             <ul>
               <li>
-                <a href="#operation--paymentmethod-transfers-post"> Generar Transferencia </a>
+                <a href="#operation--pdp-paymentmethod-transfers-post"> Generar Transferencia </a>
               </li>
             </ul>
           </section>
@@ -60,10 +60,10 @@
             <a href="#tag-general">general</a>
             <ul>
               <li>
-                <a href="#operation--general-paymentmethods-get"> Obtener lista de medios de pago </a>
+                <a href="#operation--pdp-general-paymentmethods-get"> Obtener lista de medios de pago </a>
               </li>
               <li>
-                <a href="#operation--general-params--param--get"> Obtener el parametro </a>
+                <a href="#operation--pdp-general-params--param--get"> Obtener el parametro </a>
               </li>
             </ul>
           </section>
@@ -71,10 +71,10 @@
             <a href="#tag-encuesta">encuesta</a>
             <ul>
               <li>
-                <a href="#operation--poll-answer--pool_id--get"> detalle del pedido </a>
+                <a href="#operation--pdp-poll--pool_id--get"> Obtener lista de respuestas de una encuesta </a>
               </li>
               <li>
-                <a href="#operation--poll-answer--pool_id---answer_id--get"> detalle del pedido </a>
+                <a href="#operation--pdp-poll--pool_id--post"> Responde encuesta con el id de respuesta seleccionado </a>
               </li>
             </ul>
           </section>
@@ -92,6 +92,9 @@
           <a href="#definition-orderStatusUser"> orderStatusUser </a>
           <a href="#definition-param_payment_method"> param_payment_method </a>
           <a href="#definition-payment_user"> payment_user </a>
+          <a href="#definition-ErrorResponse"> ErrorResponse </a>
+          <a href="#definition-OrderCanceled"> OrderCanceled </a>
+          <a href="#definition-poolObject"> poolObject </a>
         </nav>
       </div>
       <div id="docs" class="row collapse expanded drawer" data-drawer>
@@ -134,7 +137,7 @@
               <p>Comunicación ecommerce</p>
             </div>
           </div>
-          <div id="operation--order-post" class="operation panel" data-traverse-target="operation--order-post">
+          <div id="operation--pdp-order-post" class="operation panel" data-traverse-target="operation--pdp-order-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -150,7 +153,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/order</span>
+                  <span class="operation-path">/pdp/order</span>
                 </section>
               </div>
             </div>
@@ -220,6 +223,12 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
                       <p>Parametros de entrada incorrectos</p>
@@ -259,10 +268,24 @@
 </code></pre>
                   <!-- </div> -->
                 </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
               </div>
             </div>
           </div>
-          <div id="operation--order-user-post" class="operation panel" data-traverse-target="operation--order-user-post">
+          <div id="operation--pdp-order-user-post" class="operation panel" data-traverse-target="operation--pdp-order-user-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -278,7 +301,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/order/user</span>
+                  <span class="operation-path">/pdp/order/user</span>
                 </section>
               </div>
             </div>
@@ -344,6 +367,12 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
                       <p>Parametros de entrada incorrectos</p>
@@ -382,10 +411,24 @@
 </code></pre>
                   <!-- </div> -->
                 </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
               </div>
             </div>
           </div>
-          <div id="operation--order--order_id--get" class="operation panel" data-traverse-target="operation--order--order_id--get">
+          <div id="operation--pdp-order--order_id--get" class="operation panel" data-traverse-target="operation--pdp-order--order_id--get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -401,7 +444,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">GET</span>
-                  <span class="operation-path">/order/{order_id}</span>
+                  <span class="operation-path">/pdp/order/{order_id}</span>
                 </section>
               </div>
             </div>
@@ -454,9 +497,29 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>parametros invalidos</p>
+                      <p>Parametros de entrada incorrectos</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">403 Forbidden</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/OrderCanceled">OrderCanceled</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>El pedido fue anulado.</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -501,10 +564,38 @@
 </code></pre>
                   <!-- </div> -->
                 </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(403 Forbidden)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">403</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Order canceled&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La orden N&#xB0; &apos;{order_id}&apos; fue anulada.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
               </div>
             </div>
           </div>
-          <div id="operation--order--order_id--delete" class="operation panel" data-traverse-target="operation--order--order_id--delete">
+          <div id="operation--pdp-order--order_id--delete" class="operation panel" data-traverse-target="operation--pdp-order--order_id--delete">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -520,7 +611,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">DELETE</span>
-                  <span class="operation-path">/order/{order_id}</span>
+                  <span class="operation-path">/pdp/order/{order_id}</span>
                 </section>
               </div>
             </div>
@@ -567,9 +658,15 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>parametros invalidos</p>
+                      <p>Parametros de entrada incorrectos</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -580,16 +677,58 @@
                       <p>error el pedido no existe</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">410 Gone</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/OrderCanceled">OrderCanceled</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>El pedido fue anulado.</p>
+                    </div>
+                  </div>
                 </section>
               </div>
               <div class="doc-examples">
                 <h5>Response Content-Types:
                   <span>application/json</span>
                 </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(410 Gone)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">403</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Order canceled&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La orden N&#xB0; &apos;{order_id}&apos; fue anulada.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
               </div>
             </div>
           </div>
-          <div id="operation--order--order_id--detailorder-get" class="operation panel" data-traverse-target="operation--order--order_id--detailorder-get">
+          <div id="operation--pdp-order--order_id--detailorder-get" class="operation panel" data-traverse-target="operation--pdp-order--order_id--detailorder-get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -605,7 +744,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">GET</span>
-                  <span class="operation-path">/order/{order_id}/detailorder</span>
+                  <span class="operation-path">/pdp/order/{order_id}/detailorder</span>
                 </section>
               </div>
             </div>
@@ -669,9 +808,15 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>parametros invalidos</p>
+                      <p>Parametros de entrada incorrectos</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -679,7 +824,21 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>error obtención de datos</p>
+                      <p>error obtención de datos.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">410 Gone</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/OrderCanceled">OrderCanceled</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>El pedido fue anulado.</p>
                     </div>
                   </div>
                 </section>
@@ -694,17 +853,45 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
   {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">111111111</span>,
-    <span class="hljs-attr">&quot;id_publico&quot;</span>: <span class="hljs-number">111111111</span>,
-    <span class="hljs-attr">&quot;id_user&quot;</span>: <span class="hljs-number">111111111</span>,
-    <span class="hljs-attr">&quot;sec_ecommerce&quot;</span>: <span class="hljs-string">&quot;&#xE9;xito&quot;</span>,
-    <span class="hljs-attr">&quot;id_representado&quot;</span>: <span class="hljs-string">&quot;&#xE9;xito&quot;</span>,
-    <span class="hljs-attr">&quot;monto_trx&quot;</span>: <span class="hljs-string">&quot;&#xE9;xito&quot;</span>,
-    <span class="hljs-attr">&quot;fecha_expiracion&quot;</span>: <span class="hljs-string">&quot;&#xE9;xito&quot;</span>,
-    <span class="hljs-attr">&quot;url_retorno&quot;</span>: <span class="hljs-string">&quot;&#xE9;xito&quot;</span>,
-    <span class="hljs-attr">&quot;descripcion_compra&quot;</span>: <span class="hljs-string">&quot;&#xE9;xito&quot;</span>
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">1254</span>,
+    <span class="hljs-attr">&quot;public_id&quot;</span>: <span class="hljs-number">1584</span>,
+    <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">&quot;ecommerce_id&quot;</span>: <span class="hljs-number">1334</span>,
+    <span class="hljs-attr">&quot;value_trx&quot;</span>: <span class="hljs-string">&quot;&#xE9;xito&quot;</span>,
+    <span class="hljs-attr">&quot;monto_trx&quot;</span>: <span class="hljs-number">40000</span>,
+    <span class="hljs-attr">&quot;expiration_date&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+    <span class="hljs-attr">&quot;return_url&quot;</span>: <span class="hljs-string">&quot;http://urlapp.cl/callback_payment&quot;</span>,
+    <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Esta es una compra&quot;</span>
   }
 ]
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(410 Gone)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">403</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Order canceled&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La orden N&#xB0; &apos;{order_id}&apos; fue anulada.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
 </code></pre>
                   <!-- </div> -->
                 </section>
@@ -717,7 +904,7 @@
               <p>Información efecitvo</p>
             </div>
           </div>
-          <div id="operation--paymentmethod-cash-post" class="operation panel" data-traverse-target="operation--paymentmethod-cash-post">
+          <div id="operation--pdp-paymentmethod-cash-post" class="operation panel" data-traverse-target="operation--pdp-paymentmethod-cash-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -733,7 +920,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/paymentmethod/cash</span>
+                  <span class="operation-path">/pdp/paymentmethod/cash</span>
                 </section>
               </div>
             </div>
@@ -802,9 +989,15 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>parametros invalidos</p>
+                      <p>Parametros de entrada incorrectos</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -813,6 +1006,20 @@
                     </div>
                     <div class="prop-value">
                       <p>error obtención de datos</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">410 Gone</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/OrderCanceled">OrderCanceled</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>El pedido fue anulado.</p>
                     </div>
                   </div>
                 </section>
@@ -831,6 +1038,34 @@
 </code></pre>
                   <!-- </div> -->
                 </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(410 Gone)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">403</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Order canceled&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La orden N&#xB0; &apos;{order_id}&apos; fue anulada.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
               </div>
             </div>
           </div>
@@ -840,7 +1075,7 @@
               <p>Información transferencia</p>
             </div>
           </div>
-          <div id="operation--paymentmethod-transfers-post" class="operation panel" data-traverse-target="operation--paymentmethod-transfers-post">
+          <div id="operation--pdp-paymentmethod-transfers-post" class="operation panel" data-traverse-target="operation--pdp-paymentmethod-transfers-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -856,7 +1091,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/paymentmethod/transfers</span>
+                  <span class="operation-path">/pdp/paymentmethod/transfers</span>
                 </section>
               </div>
             </div>
@@ -923,9 +1158,15 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>parametros invalidos</p>
+                      <p>Parametros de entrada incorrectos</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -934,6 +1175,20 @@
                     </div>
                     <div class="prop-value">
                       <p>error obtención de datos</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">410 Gone</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/OrderCanceled">OrderCanceled</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>El pedido fue anulado.</p>
                     </div>
                   </div>
                 </section>
@@ -967,6 +1222,34 @@
 </code></pre>
                   <!-- </div> -->
                 </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(410 Gone)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">403</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Order canceled&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La orden N&#xB0; &apos;{order_id}&apos; fue anulada.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
               </div>
             </div>
           </div>
@@ -976,7 +1259,7 @@
               <p>Información transversal de todos los medios de pago</p>
             </div>
           </div>
-          <div id="operation--general-paymentmethods-get" class="operation panel" data-traverse-target="operation--general-paymentmethods-get">
+          <div id="operation--pdp-general-paymentmethods-get" class="operation panel" data-traverse-target="operation--pdp-general-paymentmethods-get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -992,7 +1275,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">GET</span>
-                  <span class="operation-path">/general/paymentmethods</span>
+                  <span class="operation-path">/pdp/general/paymentmethods</span>
                 </section>
               </div>
             </div>
@@ -1053,6 +1336,20 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">410 Gone</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/OrderCanceled">OrderCanceled</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>El pedido fue anulado.</p>
+                    </div>
+                  </div>
                 </section>
               </div>
               <div class="doc-examples">
@@ -1077,10 +1374,24 @@
 </code></pre>
                   <!-- </div> -->
                 </section>
+                <section>
+                  <h5>Response Example
+                    <span>(410 Gone)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">403</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Order canceled&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La orden N&#xB0; &apos;{order_id}&apos; fue anulada.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
               </div>
             </div>
           </div>
-          <div id="operation--general-params--param--get" class="operation panel" data-traverse-target="operation--general-params--param--get">
+          <div id="operation--pdp-general-params--param--get" class="operation panel" data-traverse-target="operation--pdp-general-params--param--get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -1096,7 +1407,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">GET</span>
-                  <span class="operation-path">/general/params/{param}</span>
+                  <span class="operation-path">/pdp/general/params/{param}</span>
                 </section>
               </div>
             </div>
@@ -1171,7 +1482,7 @@
               <p>Encuesta de anulaciones</p>
             </div>
           </div>
-          <div id="operation--poll-answer--pool_id--get" class="operation panel" data-traverse-target="operation--poll-answer--pool_id--get">
+          <div id="operation--pdp-poll--pool_id--get" class="operation panel" data-traverse-target="operation--pdp-poll--pool_id--get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -1181,20 +1492,20 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">detalle del pedido</span>
+              <span class="operation-summary">Obtener lista de respuestas de una encuesta</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">GET</span>
-                  <span class="operation-path">/poll/answer/{pool_id}</span>
+                  <span class="operation-path">/pdp/poll/{pool_id}</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Obtener detalle del pedido</p>
+                  <p>Obtener lista de respuestas de una encuesta</p>
                 </section>
               </div>
             </div>
@@ -1251,9 +1562,15 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>parametros invalidos</p>
+                      <p>Parametros de entrada incorrectos</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -1261,7 +1578,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>error obtención de datos</p>
+                      <p>error al obtener la liesta de respuestas</p>
                     </div>
                   </div>
                 </section>
@@ -1283,10 +1600,24 @@
 </code></pre>
                   <!-- </div> -->
                 </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
               </div>
             </div>
           </div>
-          <div id="operation--poll-answer--pool_id---answer_id--get" class="operation panel" data-traverse-target="operation--poll-answer--pool_id---answer_id--get">
+          <div id="operation--pdp-poll--pool_id--post" class="operation panel" data-traverse-target="operation--pdp-poll--pool_id--post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -1296,25 +1627,41 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">detalle del pedido</span>
+              <span class="operation-summary">Responde encuesta con el id de respuesta seleccionado</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-path">
-                  <span class="operation-method">GET</span>
-                  <span class="operation-path">/poll/answer/{pool_id}/{answer_id}</span>
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/pdp/poll/{pool_id}</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Obtener detalle del pedido</p>
+                  <p>Responde encuesta con el id de respuesta seleccionado</p>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/poolObject">poolObject</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>parametros para generar una transferencia</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
@@ -1331,24 +1678,24 @@
                       <p>ID de encuesta</p>
                     </div>
                   </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">answer_id:
-                        <span class="prop-type">
-                          <span class="json-property-type">integer</span>
-                          <span class="json-property-range" title="Value limits"></span>
-                        </span>
-                      </div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>ID de encuesta</p>
-                    </div>
-                  </div>
                 </section>
               </div>
-              <div class="doc-examples"></div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-number">5643</span>,
+  <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">445</span>,
+  <span class="hljs-attr">&quot;answer_id&quot;</span>: <span class="hljs-number">4554</span>,
+  <span class="hljs-attr">&quot;other_answer&quot;</span>: <span class="hljs-string">&quot;Texto de respuesta opcional&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
@@ -1364,9 +1711,15 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>parametros invalidos</p>
+                      <p>Parametros de entrada incorrectos</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -1374,7 +1727,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>error obtención de datos</p>
+                      <p>El error al obtener la encuesta</p>
                     </div>
                   </div>
                 </section>
@@ -1383,6 +1736,20 @@
                 <h5>Response Content-Types:
                   <span>application/json</span>
                 </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
               </div>
             </div>
           </div>
@@ -1661,49 +2028,49 @@
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
                     </dt>
-                    <dt data-property-name="id_publico">
-                      <span class="json-property-name">id_publico:</span>
+                    <dt data-property-name="public_id">
+                      <span class="json-property-name">public_id:</span>
                       <span class="json-property-type">integer</span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
                     </dt>
-                    <dt data-property-name="id_user">
-                      <span class="json-property-name">id_user:</span>
+                    <dt data-property-name="user_id">
+                      <span class="json-property-name">user_id:</span>
                       <span class="json-property-type">integer</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="sec_ecommerce">
-                      <span class="json-property-name">sec_ecommerce:</span>
-                      <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
                     </dt>
-                    <dt data-property-name="id_representado">
-                      <span class="json-property-name">id_representado:</span>
+                    <dt data-property-name="ecommerce_id">
+                      <span class="json-property-name">ecommerce_id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="value_trx">
+                      <span class="json-property-name">value_trx:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
                     </dt>
                     <dt data-property-name="monto_trx">
                       <span class="json-property-name">monto_trx:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="expiration_date">
+                      <span class="json-property-name">expiration_date:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
                     </dt>
-                    <dt data-property-name="fecha_expiracion">
-                      <span class="json-property-name">fecha_expiracion:</span>
+                    <dt data-property-name="return_url">
+                      <span class="json-property-name">return_url:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
                     </dt>
-                    <dt data-property-name="url_retorno">
-                      <span class="json-property-name">url_retorno:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dt data-property-name="descripcion_compra">
-                      <span class="json-property-name">descripcion_compra:</span>
+                    <dt data-property-name="description">
+                      <span class="json-property-name">description:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
@@ -1715,15 +2082,15 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">111111111</span>,
-  <span class="hljs-attr">&quot;id_publico&quot;</span>: <span class="hljs-number">111111111</span>,
-  <span class="hljs-attr">&quot;id_user&quot;</span>: <span class="hljs-number">111111111</span>,
-  <span class="hljs-attr">&quot;sec_ecommerce&quot;</span>: <span class="hljs-string">&quot;&#xE9;xito&quot;</span>,
-  <span class="hljs-attr">&quot;id_representado&quot;</span>: <span class="hljs-string">&quot;&#xE9;xito&quot;</span>,
-  <span class="hljs-attr">&quot;monto_trx&quot;</span>: <span class="hljs-string">&quot;&#xE9;xito&quot;</span>,
-  <span class="hljs-attr">&quot;fecha_expiracion&quot;</span>: <span class="hljs-string">&quot;&#xE9;xito&quot;</span>,
-  <span class="hljs-attr">&quot;url_retorno&quot;</span>: <span class="hljs-string">&quot;&#xE9;xito&quot;</span>,
-  <span class="hljs-attr">&quot;descripcion_compra&quot;</span>: <span class="hljs-string">&quot;&#xE9;xito&quot;</span>
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">1254</span>,
+  <span class="hljs-attr">&quot;public_id&quot;</span>: <span class="hljs-number">1584</span>,
+  <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">&quot;ecommerce_id&quot;</span>: <span class="hljs-number">1334</span>,
+  <span class="hljs-attr">&quot;value_trx&quot;</span>: <span class="hljs-string">&quot;&#xE9;xito&quot;</span>,
+  <span class="hljs-attr">&quot;monto_trx&quot;</span>: <span class="hljs-number">40000</span>,
+  <span class="hljs-attr">&quot;expiration_date&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+  <span class="hljs-attr">&quot;return_url&quot;</span>: <span class="hljs-string">&quot;http://urlapp.cl/callback_payment&quot;</span>,
+  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Esta es una compra&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -2321,6 +2688,220 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;payment_date&quot;</span>: <span class="hljs-string">&quot;micorreo@micorreo.cl&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-ErrorResponse" class="definition panel" data-traverse-target="definition-ErrorResponse">
+            <h2 class="panel-title">
+              <a name="/definitions/ErrorResponse"></a>ErrorResponse: object
+              <!-- <span class="json-property-type">
+              <span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="status" class="has-description">
+                      <span class="json-property-name">status:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-format">(int32)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Código HTTP</p>
+                    </dd>
+                    <dt data-property-name="error" class="has-description">
+                      <span class="json-property-name">error:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Nombre del código HTTP</p>
+                    </dd>
+                    <dt data-property-name="message" class="has-description">
+                      <span class="json-property-name">message:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Descripción del error</p>
+                    </dd>
+                    <dt data-property-name="path" class="has-description">
+                      <span class="json-property-name">path:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Url de la solicitud http</p>
+                    </dd>
+                    <dt data-property-name="timestamp" class="has-description">
+                      <span class="json-property-name">timestamp:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-format">(date-time)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Fecha y hora del error</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-OrderCanceled" class="definition panel" data-traverse-target="definition-OrderCanceled">
+            <h2 class="panel-title">
+              <a name="/definitions/OrderCanceled"></a>OrderCanceled: object
+              <!-- <span class="json-property-type">
+              <span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="status" class="has-description">
+                      <span class="json-property-name">status:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-format">(int32)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Código HTTP</p>
+                    </dd>
+                    <dt data-property-name="error" class="has-description">
+                      <span class="json-property-name">error:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Nombre del código HTTP</p>
+                    </dd>
+                    <dt data-property-name="message" class="has-description">
+                      <span class="json-property-name">message:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Descripción del error</p>
+                    </dd>
+                    <dt data-property-name="path" class="has-description">
+                      <span class="json-property-name">path:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Url de la solicitud http</p>
+                    </dd>
+                    <dt data-property-name="timestamp" class="has-description">
+                      <span class="json-property-name">timestamp:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-format">(date-time)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Fecha y hora del error</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">403</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Order canceled&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La orden N&#xB0; &apos;{order_id}&apos; fue anulada.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-poolObject" class="definition panel" data-traverse-target="definition-poolObject">
+            <h2 class="panel-title">
+              <a name="/definitions/poolObject"></a>poolObject:
+              <!-- <span class="json-property-type">
+              <span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="order_id" class="has-description">
+                      <span class="json-property-name">order_id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>ID de pedido</p>
+                    </dd>
+                    <dt data-property-name="user_id" class="has-description">
+                      <span class="json-property-name">user_id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>ID del usuario que responde la encuesta</p>
+                    </dd>
+                    <dt data-property-name="answer_id" class="has-description">
+                      <span class="json-property-name">answer_id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>ID de la respuesta</p>
+                    </dd>
+                    <dt data-property-name="other_answer" class="has-description">
+                      <span class="json-property-name">other_answer:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Respuesta opcional</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-number">5643</span>,
+  <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">445</span>,
+  <span class="hljs-attr">&quot;answer_id&quot;</span>: <span class="hljs-number">4554</span>,
+  <span class="hljs-attr">&quot;other_answer&quot;</span>: <span class="hljs-string">&quot;Texto de respuesta opcional&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
