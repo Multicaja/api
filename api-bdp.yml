@@ -33,7 +33,7 @@ tags:
   description: Encuesta de anulaciones
 
 paths:
-  /order:
+  /pdp/order:
     post:
       tags:
       - transaccional
@@ -43,6 +43,7 @@ paths:
         Debe tomar el redireccionar al bdp con el order ID
       parameters:
       - in: body
+        required: true
         name: paramItems
         description: Parametros de entrada para el comercio
         schema:
@@ -58,7 +59,9 @@ paths:
             $ref: '#/definitions/orderStatus'
         400:
           description: Parametros de entrada incorrectos
-  /order/user:
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /pdp/order/user:
     post:
       tags:
       - transaccional
@@ -70,6 +73,7 @@ paths:
       - in: body
         name: paramItems
         description: Parametros de entrada para el comercio
+        required: true
         schema:
           $ref: '#/definitions/paramItemsUser'
       consumes:
@@ -83,7 +87,9 @@ paths:
             $ref: '#/definitions/orderStatusUser'
         400:
           description: Parametros de entrada incorrectos
-  /order/{order_id}:
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /pdp/order/{order_id}:
     get:
       tags:
       - transaccional
@@ -106,7 +112,13 @@ paths:
           schema:
             $ref: '#/definitions/orderStatus'
         400:
-          description: parametros invalidos
+          description: Parametros de entrada incorrectos
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        403:
+          description: El pedido fue anulado.
+          schema:
+            $ref: '#/definitions/OrderCanceled'
         404:
           description: error obtención de datos
     delete:
@@ -128,13 +140,16 @@ paths:
         201:
           description: ok
         400:
-          description: parametros invalidos
+          description: Parametros de entrada incorrectos
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        410:
+          description: El pedido fue anulado.
+          schema:
+            $ref: '#/definitions/OrderCanceled'
         404:
           description: error el pedido no existe
-  
-  
-  
-  /paymentmethod/cash:
+  /pdp/paymentmethod/cash:
     post:
       tags:
       - efectivo
@@ -147,6 +162,7 @@ paths:
       parameters:
         - in: body
           name: cashInit
+          required: true
           description: parametros para generar un pago efectivo
           schema:
             $ref: '#/definitions/cashInit'
@@ -160,37 +176,50 @@ paths:
                 type: string
                 example: 4684545456
         400:
-          description: parametros invalidos
+          description: Parametros de entrada incorrectos
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        410:
+          description: El pedido fue anulado.
+          schema:
+            $ref: '#/definitions/OrderCanceled'
         404:
           description: error obtención de datos   
           
-  /paymentmethod/transfers:
-      post:
-        tags:
-        - transferencia
-        summary: Generar Transferencia
-        description: Generar Transferencia
-        consumes:
-        - application/json
-        produces:
-        - application/json
-        parameters:
-          - in: body
-            name: transfersInit
-            description: parametros para generar una transferencia
-            schema:
-              $ref: '#/definitions/transfersInit'
-        responses:
-          201:
-            description: ok
-            schema:
-              $ref: '#/definitions/transfersResponse'
-          400:
-            description: parametros invalidos
-          404:
-            description: error obtención de datos  
+  /pdp/paymentmethod/transfers:
+    post:
+      tags:
+      - transferencia
+      summary: Generar Transferencia
+      description: Generar Transferencia
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - in: body
+          required: true
+          name: transfersInit
+          description: parametros para generar una transferencia
+          schema:
+            $ref: '#/definitions/transfersInit'
+      responses:
+        201:
+          description: ok
+          schema:
+            $ref: '#/definitions/transfersResponse'
+        400:
+          description: Parametros de entrada incorrectos
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        410:
+          description: El pedido fue anulado.
+          schema:
+            $ref: '#/definitions/OrderCanceled'
+        404:
+          description: error obtención de datos  
     
-  /general/paymentmethods:
+  /pdp/general/paymentmethods:
     get:
       tags:
       - general
@@ -212,9 +241,12 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/paymentMethod'   
-              
-  /general/params/{param}:
+              $ref: '#/definitions/paymentMethod'  
+        410:
+          description: El pedido fue anulado.
+          schema:
+            $ref: '#/definitions/OrderCanceled'
+  /pdp/general/params/{param}:
     get:
       tags:
       - general
@@ -231,11 +263,12 @@ paths:
           required: true
           type: string
       responses:
-        '200':
+        200:
           description: OK
           schema:
             $ref: '#/definitions/parameter'
-  /order/{order_id}/detailorder:
+        
+  /pdp/order/{order_id}/detailorder:
     get:
       tags:
       - transaccional
@@ -259,16 +292,22 @@ paths:
             items:
               $ref: '#/definitions/detailOrderResponse'
         400:
-          description: parametros invalidos
+          description: Parametros de entrada incorrectos
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        410:
+          description: El pedido fue anulado.
+          schema:
+            $ref: '#/definitions/OrderCanceled'
         404:
-          description: error obtención de datos        
-                
-  /poll/answer/{pool_id}:
+          description: error obtención de datos.     
+          
+  /pdp/poll/{pool_id}:
     get:
       tags:
       - encuesta
-      summary: detalle del pedido
-      description: Obtener detalle del pedido 
+      summary: Obtener lista de respuestas de una encuesta
+      description: Obtener lista de respuestas de una encuesta
       consumes:
       - application/json
       produces:
@@ -287,16 +326,16 @@ paths:
             items:
               $ref: '#/definitions/pollAnswer'
         400:
-          description: parametros invalidos
+          description: Parametros de entrada incorrectos
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         404:
-          description: error obtención de datos     
-          
-  /poll/answer/{pool_id}/{answer_id}:
-    get:
+          description: error al obtener la liesta de respuestas   
+    post:
       tags:
       - encuesta
-      summary: detalle del pedido
-      description: Obtener detalle del pedido 
+      summary: Responde encuesta con el id de respuesta seleccionado
+      description: Responde encuesta con el id de respuesta seleccionado
       consumes:
       - application/json
       produces:
@@ -307,18 +346,22 @@ paths:
           description: ID de encuesta
           required: true
           type: "integer"
-        - in: path
-          name: answer_id
-          description: ID de encuesta
+        - in: body
           required: true
-          type: "integer"
+          name: transfersInit
+          description: parametros para generar una transferencia
+          schema:
+            $ref: '#/definitions/poolObject'
       responses:
         200:
           description: ok
         400:
-          description: parametros invalidos
+          description: Parametros de entrada incorrectos
+          schema:
+            $ref: '#/definitions/ErrorResponse'
         404:
-          description: error obtención de datos   
+          description: El error al obtener la encuesta   
+        
   
 definitions:
 
@@ -417,41 +460,42 @@ definitions:
   detailOrderResponse:
     required: 
       - id
-      - id_publico
+      - user_id
+      - public_id
       - sec_ecommerce
-      - id_representado
-      - monto_trx
-      - fecha_expiracion
-      - url_retorno
-      - descripcion_compra
+      - ecommerce_id
+      - rode_trx
+      - expiration_date
+      - return_url
+      - description
     properties:
       id:
         type: integer
-        example: 111111111
-      id_publico:
+        example: 1254
+      public_id:
         type: integer
-        example: 111111111
-      id_user:
+        example: 1584
+      user_id:
         type: integer
-        example: 111111111  
-      sec_ecommerce:
-        type: string
-        example: éxito
-      id_representado:
+        example: 1  
+      ecommerce_id:
+        type: integer
+        example: 1334
+      rode_trx:
         type: string
         example: éxito
       monto_trx:
+        type: integer
+        example: 40000
+      expiration_date:
         type: string
-        example: éxito
-      fecha_expiracion:
+        example: "2018-01-14T15:27:42.669Z" 
+      return_url:
         type: string
-        example: éxito 
-      url_retorno:
+        example: "http://urlapp.cl/callback_payment"
+      description:
         type: string
-        example: éxito
-      descripcion_compra:
-        type: string
-        example: éxito
+        example: "Esta es una compra"
  
   paymentMethod:
     type: object
@@ -682,3 +726,77 @@ definitions:
       rut:
         type: string
         example: '1-9'
+        
+  ErrorResponse:
+    type: object
+    properties:
+      status: 
+        type: integer
+        format: int32
+        example: 400
+        description: Código HTTP
+      error: 
+        type: string
+        example: Bad Request
+        description: Nombre del código HTTP
+      message:
+        type: string
+        example: Invalid property '{property_name}'.
+        description: Descripción del error
+      path:
+        type: string
+        example: "/pdp/{path}"
+        description: Url de la solicitud http
+      timestamp:
+        type: string
+        format: date-time
+        example: "2018-03-16T16:38:31.28571"
+        description: Fecha y hora del error
+  
+  OrderCanceled:
+    type: object
+    properties:
+      status: 
+        type: integer
+        format: int32
+        example: 403
+        description: Código HTTP
+      error: 
+        type: string
+        example: Order canceled
+        description: Nombre del código HTTP
+      message:
+        type: string
+        example: La orden N° '{order_id}' fue anulada.
+        description: Descripción del error
+      path:
+        type: string
+        example: "/pdp/{path}"
+        description: Url de la solicitud http
+      timestamp:
+        type: string
+        format: date-time
+        example: "2018-03-16T16:38:31.28571"
+        description: Fecha y hora del error
+  
+  poolObject:
+    properties:
+      order_id: 
+        type: integer
+        example: 5643
+        description: ID de pedido
+      user_id: 
+        type: integer
+        example: 445
+        description: ID del usuario que responde la encuesta
+      answer_id: 
+        type: integer
+        example: 4554
+        description: ID de la respuesta
+      other_answer:
+        type: string
+        example: "Texto de respuesta opcional"
+        description: Respuesta opcional
+        
+      
+    
