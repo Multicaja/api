@@ -293,7 +293,7 @@ paths:
     get:
       tags:
       - encuesta
-      summary: Obtener lista de respuestas de una encuesta  ***(Público)***
+      summary: Obtener lista de respuestas de una encuesta  ***(Interno)***
       description: |
         Este servicio permite obtener la lista de respuestas de una encuesta.
       consumes:
