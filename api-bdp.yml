@@ -175,12 +175,6 @@ paths:
           type: integer
           required: true
           description: Id de orden
-        - in: body
-          name: body
-          required: true
-          description: parametros para generar un pago efectivo
-          schema:
-            $ref: '#/definitions/cashInit'
       responses:
         201:
           description: ok
@@ -221,9 +215,11 @@ paths:
         - in: body
           required: true
           name: body
-          description: parametros para generar una transferencia
+          description: |
+            El body debe contener 
+              * bank_id : ID del banco
           schema:
-            $ref: '#/definitions/transfersInit'
+            $ref: '#/definitions/transferInput'
       responses:
         201:
           description: ok
@@ -358,6 +354,17 @@ paths:
   
 definitions:
 
+  transferInput: 
+    type: object
+    required:
+      - bank_id
+    properties: 
+      bank_id:
+         type: integer
+         example: 645
+      
+    
+
   parameter:
     type: object
     required:
@@ -423,14 +430,6 @@ definitions:
         example: "1-9"
 
  
-  cashInit:
-    type: object
-    required:
-    - order_id
-    properties:
-      order_id:
-        type: integer
-        example: 1111111111
         
   pollAnswer:
     type: object
@@ -483,17 +482,7 @@ definitions:
         description: Estado del medio de pago
         example: true
   
-  transfersInit:
-    type: object
-    required:
-    - id
-    - user_id
-    - id_person_app
-    - slp
-    properties:
-      order_id:
-        type: integer
-        example: 1
+ 
   
   transfersResponse:
     type: object
@@ -505,8 +494,6 @@ definitions:
     - tef_amount
     - tef_expires
     - tef_now
-    - tef_uses_slp
-    - tef_amount_slp
     - account_name
     - account_rut
     - account_email
@@ -515,21 +502,15 @@ definitions:
     - account_number
     - account_new
     properties:
-      id_trx:
+      ec_order_id: 
         type: string
-        example: 1
-      user_new_slp:
-        type: number
-        example: 1
+        example: "ERWER213"
       tef_status:
         type: string
-        example: 1
-      tef_id:
-        type: integer
-        example: 1
+        example: "PENDIENTE"
       tef_amount:
         type: integer
-        example: 1
+        example: 10000
       tef_expires:
         type: string
         format: date-time
@@ -538,15 +519,9 @@ definitions:
         type: string
         format: date-time
         example: "2018-01-14T15:27:42.669Z"
-      tef_uses_slp:
-        type: boolean
-        example: true
-      tef_amount_slp:
-        type: number
-        example: 1000
       account_name:
         type: string
-        example: mario
+        example: "Cuenta corriente de transferencia"
       account_rut:
         type: string
         example: 1-9
@@ -555,10 +530,10 @@ definitions:
         example: email@email.cl
       account_bank:
         type: string
-        example: El de los pobres
+        example: Banco de chile
       account_type:
         type: string
-        example: de papel confort
+        example: Corriente
       account_number:
         type: string
         example: 0000000655712
