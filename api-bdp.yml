@@ -39,8 +39,7 @@ paths:
       - transaccional
       summary: Generar nuevo pedido para el comercio
       description: |
-        Servicio para poder crear un nuevo pedido y el cual retornara un una url para poder inicializar la transacción
-        Debe tomar el redireccionar al bdp con el order ID
+        Servicio para poder crear un nuevo pedido y el cual retornara la información de la orden.
       parameters:
       - in: body
         required: true
@@ -57,33 +56,6 @@ paths:
           description: Pedido creado
           schema:
             $ref: '#/definitions/orderStatus'
-        400:
-          description: Parametros de entrada incorrectos
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-  /pdp/order/user:
-    post:
-      tags:
-      - transaccional
-      summary: Crear pedido para el usuario
-      description: |
-        Servicio para poder crear un pedido desde un usuario de multicaja (Con login de multicaja)
-      parameters:
-      - in: body
-        name: body
-        description: Parametros de entrada para el usuario
-        required: true
-        schema:
-          $ref: '#/definitions/paramItemsUser'
-      consumes:
-      - application/json    
-      produces:
-      - application/json
-      responses:
-        201:
-          description: Pedido creado
-          schema:
-            $ref: '#/definitions/orderStatusUser'
         400:
           description: Parametros de entrada incorrectos
           schema:
@@ -408,12 +380,8 @@ definitions:
       ec_order_id:
         type: string
         example: "ERWER213"
-      email:
-        type: string
-        example: "developer@email.cl"
-      rut:
-        type: string
-        example: "1-9"
+      user_data: 
+        $ref: '#/definitions/userData'
       total_amount:
         type: number
         example: 40000
@@ -431,46 +399,29 @@ definitions:
   
   orderUpdate:
     type: object
-    required:
-    - ec_order_id
-    - total_amount
-    - general_description
-    - payment_method
     properties:
       ec_order_id:
         type: string
         example: "ERWER213"
-      email:
-        type: string
-        example: "developer@email.cl"
-      rut:
-        type: string
-        example: "1-9"
       general_description:
         type: string
         example: Esta es una orden
       payment_method:
         type: number
         example: 2
+      user_data: 
+        $ref: '#/definitions/userData'
         
-  paramItemsUser:
+  userData: 
     type: object
-    required:
-    - ec_order_id
-    - total_amount
-    - general_description
-    - payment_method
-
     properties:
-      user_id:
-        type: integer
-        example: 125
-      total_amount:
-        type: number
-        example: 40000
-      general_description:
+      email:
+          type: string
+          example: "developer@email.cl"
+      rut:
         type: string
-        example: Esta es una orden
+        example: "1-9"
+
  
   cashInit:
     type: object
@@ -631,6 +582,8 @@ definitions:
       description:
         type: string
         example:  EXPIRED
+      user_data: 
+        $ref: '#/definitions/userData'
       ec_order_id:
         type: string
         example: "EH32434"
@@ -656,30 +609,7 @@ definitions:
           type: string
           example: "http://multicaja.cl/goback"
   
-  orderStatusUser:
-    required:
-    - user_id
-    - order_status
-    - description
-    - payment_method
-    properties:
-      order_id:
-        type: integer
-        example: 455665
-      order_status:
-        type: integer
-        example: 2
-      description:
-        type: string
-        example:  EXPIRED
-      userr_id:
-        type: string
-        example: "EH32434"
-      total_amount:
-        type: string
-        example: 60000
-      payment_info:
-        $ref: '#/definitions/paramPaymentMethod'
+  
         
   paramPaymentMethod:
     type: object
@@ -699,8 +629,6 @@ definitions:
       payment_date:
         type: string
         example: "2018-01-14T15:27:42.669Z"
-      payment_user:
-        $ref: '#/definitions/paymentUser'
       payment_amount:
         type: number
         example: 40000
@@ -717,18 +645,7 @@ definitions:
         type: boolean
         example: false
         
-  paymentUser: 
-    type: object
-    required:
-    - correo
-    - rut
-    properties:
-      payment_date:
-        type: string
-        example: "2018-01-14T15:27:42.669Z"
-      rut:
-        type: string
-        example: '1-9'
+  
         
   ErrorResponse:
     type: object
