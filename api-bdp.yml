@@ -37,17 +37,16 @@ paths:
     post:
       tags:
       - transaccional
-      summary: Crear pedido para el comercio
+      summary: Generar nuevo pedido para el comercio ***(Público)***
       description: |
-        Servicio para poder crear un pedido y el cual retornara un una url para poder inicializar la transacción
-        Debe tomar el redireccionar al bdp con el order ID
+        Servicio para poder crear un nuevo pedido y el cual retornara la información de la orden.
       parameters:
       - in: body
         required: true
-        name: paramItems
+        name: body
         description: Parametros de entrada para el comercio
         schema:
-          $ref: '#/definitions/paramItems'
+          $ref: '#/definitions/orderInput'
       consumes:
       - application/json    
       produces:
@@ -61,41 +60,14 @@ paths:
           description: Parametros de entrada incorrectos
           schema:
             $ref: '#/definitions/ErrorResponse'
-  /pdp/order/user:
-    post:
-      tags:
-      - transaccional
-      summary: Crear pedido para el usuario
-      description: |
-        Servicio para poder crear un pedido y el cual retornara un una url para poder inicializar la transacción
-        Debe tomar el redireccionar al bdp con el order ID
-      parameters:
-      - in: body
-        name: paramItems
-        description: Parametros de entrada para el comercio
-        required: true
-        schema:
-          $ref: '#/definitions/paramItemsUser'
-      consumes:
-      - application/json    
-      produces:
-      - application/json
-      responses:
-        201:
-          description: Pedido creado
-          schema:
-            $ref: '#/definitions/orderStatusUser'
-        400:
-          description: Parametros de entrada incorrectos
-          schema:
-            $ref: '#/definitions/ErrorResponse'
   /pdp/order/{order_id}:
     get:
       tags:
       - transaccional
-      summary: Obtener el estado del pedido
+      description: |
+        Servicio para poder obtener detalles del pedido y su estado actual
+      summary: Obtener el estado del pedido  ***(Público)***
       operationId: addInventory
-      description: Servicio para obtener el estado pedido 
       consumes:
       - application/json
       produces:
@@ -103,7 +75,7 @@ paths:
       parameters:
         - in: path
           name: order_id
-          description: id de orden de boton de pago
+          description: ID de orden de boton de pago
           required: true
           type: number
       responses:
@@ -121,11 +93,48 @@ paths:
             $ref: '#/definitions/OrderCanceled'
         404:
           description: error obtención de datos
+    put:
+      tags:
+      - transaccional
+      summary: Actualizar el pedido  ***(Interno)***
+      description: |
+        Servicio para actualizar datos del pedido, solo permite 
+          - ID interno del ecommmerce ec_order_id.
+          - Dirección de correo del comprador.
+          - RUT del comprado
+          - Descripción de la compra.
+      parameters:
+        - in: path
+          name: order_id
+          description: ID de pedido de boton de pago
+          required: true
+          type: number
+        - in: body
+          required: true
+          name: body
+          description: Parametros de entrada para el comercio
+          schema:
+            $ref: '#/definitions/orderUpdate'
+      consumes:
+      - application/json    
+      produces:
+      - application/json
+      responses:
+        201:
+          description: Pedido creado
+          schema:
+            $ref: '#/definitions/orderStatus'
+        400:
+          description: Parametros de entrada incorrectos
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      
     delete:
       tags:
       - transaccional
-      summary: Cancelar el pedido
-      description: Servicio para cancelar el pedido 
+      summary: Cancelar el pedido  ***(Público)***
+      description: |
+        Este servicio permite anular un pedido.
       consumes:
       - application/json
       produces:
@@ -149,23 +158,23 @@ paths:
             $ref: '#/definitions/OrderCanceled'
         404:
           description: error el pedido no existe
-  /pdp/paymentmethod/cash:
+  /pdp/order/{order_id}/cash: 
     post:
       tags:
       - efectivo
-      summary: Generar pago en efectivo
-      description: Generar pago en efectivo
+      summary: Generar pago en efectivo  ***(Público)***
+      description: |
+        Este servicio genera el pago de un pedido en efectivo.
       consumes:
       - application/json
       produces:
       - application/json
       parameters:
-        - in: body
-          name: cashInit
+        - in: path
+          name : order_id
+          type: integer
           required: true
-          description: parametros para generar un pago efectivo
-          schema:
-            $ref: '#/definitions/cashInit'
+          description: Id de orden
       responses:
         201:
           description: ok
@@ -186,23 +195,31 @@ paths:
         404:
           description: error obtención de datos   
           
-  /pdp/paymentmethod/transfers:
+  /pdp/order/{order_id}/transfers:
     post:
       tags:
       - transferencia
-      summary: Generar Transferencia
-      description: Generar Transferencia
+      summary: Generar Transferencia  ***(Público)***
+      description: |
+        Configurar pago por transferencia en transferencia.
       consumes:
       - application/json
       produces:
       - application/json
       parameters:
+        - in: path
+          name : order_id
+          type: integer
+          required: true
+          description: Id de orden
         - in: body
           required: true
-          name: transfersInit
-          description: parametros para generar una transferencia
+          name: body
+          description: |
+            El body debe contener 
+              * bank_id : ID del banco
           schema:
-            $ref: '#/definitions/transfersInit'
+            $ref: '#/definitions/transferInput'
       responses:
         201:
           description: ok
@@ -218,13 +235,13 @@ paths:
             $ref: '#/definitions/OrderCanceled'
         404:
           description: error obtención de datos  
-    
   /pdp/general/paymentmethods:
     get:
       tags:
       - general
-      summary: Obtener lista de medios de pago
-      description: Servicio para obtener la lista medios de pago
+      summary: Obtener lista de medios de pago  ***(Público)***
+      description: |
+        Setear pago por cupón.
       consumes:
       - application/json
       produces:
@@ -250,8 +267,9 @@ paths:
     get:
       tags:
       - general
-      summary: Obtener el parametro
-      description: Obtener el parametro
+      summary: Obtener el parametro ***(Interno)*** 
+      description: |
+        Obtener parametros de la plataforma. 
       consumes:
       - application/json
       produces:
@@ -267,47 +285,13 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/parameter'
-        
-  /pdp/order/{order_id}/detailorder:
-    get:
-      tags:
-      - transaccional
-      summary: detalle del pedido
-      description: Obtener detalle del pedido 
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-        - in: path
-          name: order_id
-          description: ID del pedido
-          required: true
-          type: "integer"
-      responses:
-        200:
-          description: ok
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/detailOrderResponse'
-        400:
-          description: Parametros de entrada incorrectos
-          schema:
-            $ref: '#/definitions/ErrorResponse'
-        410:
-          description: El pedido fue anulado.
-          schema:
-            $ref: '#/definitions/OrderCanceled'
-        404:
-          description: error obtención de datos.     
-          
   /pdp/poll/{pool_id}:
     get:
       tags:
       - encuesta
-      summary: Obtener lista de respuestas de una encuesta
-      description: Obtener lista de respuestas de una encuesta
+      summary: Obtener lista de respuestas de una encuesta  ***(Interno)***
+      description: |
+        Este servicio permite obtener la lista de respuestas de una encuesta.
       consumes:
       - application/json
       produces:
@@ -334,8 +318,9 @@ paths:
     post:
       tags:
       - encuesta
-      summary: Responde encuesta con el id de respuesta seleccionado
-      description: Responde encuesta con el id de respuesta seleccionado
+      summary: Responde encuesta con el id de respuesta seleccionado  ***(Público)***
+      description: |
+        Este servicio permite responder la encuesta.
       consumes:
       - application/json
       produces:
@@ -348,8 +333,12 @@ paths:
           type: "integer"
         - in: body
           required: true
-          name: transfersInit
-          description: parametros para generar una transferencia
+          name: body
+          description: |
+            El body debe contener 
+              * order_id : ID del pedido
+              * answer_id : ID de respuesta
+              * other_answer : Other Answer
           schema:
             $ref: '#/definitions/poolObject'
       responses:
@@ -365,6 +354,17 @@ paths:
   
 definitions:
 
+  transferInput: 
+    type: object
+    required:
+      - bank_id
+    properties: 
+      bank_id:
+         type: integer
+         example: 645
+      
+    
+
   parameter:
     type: object
     required:
@@ -376,7 +376,7 @@ definitions:
         type: string
         description: descripción del parámetro
         
-  paramItems:
+  orderInput:
     type: object
     required:
     - ec_order_id
@@ -387,62 +387,50 @@ definitions:
       ec_order_id:
         type: string
         example: "ERWER213"
-      mc_user_id:
-        type: integer
-        example: 15
-      mc_email:
-        type: string
-        example: "developer@email.cl"
-      mc_rut:
-        type: string
-        example: "1-9"
+      user_data: 
+        $ref: '#/definitions/userData'
       total_amount:
         type: number
         example: 40000
+      type_amount:
+        type: string
+        example: "CLP"
       general_description:
         type: string
         example: Esta es una orden
       payment_method:
         type: number
         example: 2
-        
-  paramItemsUser:
+      urls:
+        $ref: '#/definitions/urlObject'
+  
+  orderUpdate:
     type: object
-    required:
-    - ec_order_id
-    - total_amount
-    - general_description
-    - payment_method
-
     properties:
-      user_id:
-        type: integer
-        example: 125
-      total_amount:
-        type: number
-        example: 40000
+      ec_order_id:
+        type: string
+        example: "ERWER213"
       general_description:
         type: string
         example: Esta es una orden
- 
-  cashInit:
+      payment_method:
+        type: number
+        example: 2
+      user_data: 
+        $ref: '#/definitions/userData'
+        
+  userData: 
     type: object
-    required:
-    - order_id
-    - user_id
-    - user_email
     properties:
-      order_id:
-        type: integer
-        example: 1111111111
-      user_id:
-        type: integer
-        example: 152
-      user_email:
+      email:
+          type: string
+          example: "developer@email.cl"
+      rut:
         type: string
-        example: mail@mail.cl 
-  
-  
+        example: "1-9"
+
+ 
+        
   pollAnswer:
     type: object
     required:
@@ -457,46 +445,7 @@ definitions:
         type: string
         example: 152
   
-  detailOrderResponse:
-    required: 
-      - id
-      - user_id
-      - public_id
-      - sec_ecommerce
-      - ecommerce_id
-      - value_trx
-      - expiration_date
-      - return_url
-      - description
-    properties:
-      id:
-        type: integer
-        example: 1254
-      public_id:
-        type: integer
-        example: 1584
-      user_id:
-        type: integer
-        example: 1  
-      ecommerce_id:
-        type: integer
-        example: 1334
-      value_trx:
-        type: string
-        example: éxito
-      monto_trx:
-        type: integer
-        example: 40000
-      expiration_date:
-        type: string
-        example: "2018-01-14T15:27:42.669Z" 
-      return_url:
-        type: string
-        example: "http://urlapp.cl/callback_payment"
-      description:
-        type: string
-        example: "Esta es una compra"
- 
+
   paymentMethod:
     type: object
     required:
@@ -533,26 +482,7 @@ definitions:
         description: Estado del medio de pago
         example: true
   
-  transfersInit:
-    type: object
-    required:
-    - id
-    - user_id
-    - id_person_app
-    - slp
-    properties:
-      id:
-        type: integer
-        example: 1
-      user_id:
-        type: integer
-        example: 1
-      id_person_app:
-        type: integer
-        example: 1
-      slp:
-        type: boolean
-        example: false
+ 
   
   transfersResponse:
     type: object
@@ -564,8 +494,6 @@ definitions:
     - tef_amount
     - tef_expires
     - tef_now
-    - tef_uses_slp
-    - tef_amount_slp
     - account_name
     - account_rut
     - account_email
@@ -574,21 +502,15 @@ definitions:
     - account_number
     - account_new
     properties:
-      id_trx:
+      ec_order_id: 
         type: string
-        example: 1
-      user_new_slp:
-        type: number
-        example: 1
+        example: "ERWER213"
       tef_status:
         type: string
-        example: 1
-      tef_id:
-        type: integer
-        example: 1
+        example: "PENDIENTE"
       tef_amount:
         type: integer
-        example: 1
+        example: 10000
       tef_expires:
         type: string
         format: date-time
@@ -597,15 +519,9 @@ definitions:
         type: string
         format: date-time
         example: "2018-01-14T15:27:42.669Z"
-      tef_uses_slp:
-        type: boolean
-        example: true
-      tef_amount_slp:
-        type: number
-        example: 1000
       account_name:
         type: string
-        example: mario
+        example: "Cuenta corriente de transferencia"
       account_rut:
         type: string
         example: 1-9
@@ -614,10 +530,10 @@ definitions:
         example: email@email.cl
       account_bank:
         type: string
-        example: El de los pobres
+        example: Banco de chile
       account_type:
         type: string
-        example: de papel confort
+        example: Corriente
       account_number:
         type: string
         example: 0000000655712
@@ -641,6 +557,8 @@ definitions:
       description:
         type: string
         example:  EXPIRED
+      user_data: 
+        $ref: '#/definitions/userData'
       ec_order_id:
         type: string
         example: "EH32434"
@@ -648,37 +566,27 @@ definitions:
         type: string
         example: "EH32434"
       total_amount:
-        type: string
+        type: integer
         example: 60000
       payment_info:
-        $ref: '#/definitions/param_payment_method'
-        
-  orderStatusUser:
+        $ref: '#/definitions/paramPaymentMethod'
+      urls:
+        $ref: '#/definitions/urlObject'
+  
+  urlObject:
     required:
-    - user_id
-    - order_status
-    - description
-    - payment_method
+      - url_notify 
     properties:
-      order_id:
-        type: integer
-        example: 455665
-      order_status:
-        type: integer
-        example: 2
-      description:
-        type: string
-        example:  EXPIRED
-      userr_id:
-        type: string
-        example: "EH32434"
-      total_amount:
-        type: string
-        example: 60000
-      payment_info:
-        $ref: '#/definitions/param_payment_method'
+      url_notify:
+          type: string
+          example: "http://multicaja.cl/notify"
+      url_goback:
+          type: string
+          example: "http://multicaja.cl/goback"
+  
+  
         
-  param_payment_method:
+  paramPaymentMethod:
     type: object
     required:
     - payment_method
@@ -696,11 +604,9 @@ definitions:
       payment_date:
         type: string
         example: "2018-01-14T15:27:42.669Z"
-      payment_user:
-        $ref: '#/definitions/payment_user'
       payment_amount:
         type: number
-        example: 25000
+        example: 40000
       payment_date_expiration:
         type: string
         example: "2018-01-14T15:27:42.669Z"
@@ -714,18 +620,7 @@ definitions:
         type: boolean
         example: false
         
-  payment_user: 
-    type: object
-    required:
-    - correo
-    - rut
-    properties:
-      payment_date:
-        type: string
-        example: "micorreo@micorreo.cl"
-      rut:
-        type: string
-        example: '1-9'
+  
         
   ErrorResponse:
     type: object
