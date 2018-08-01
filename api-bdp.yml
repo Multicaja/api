@@ -127,10 +127,10 @@ paths:
       summary: Actualizar el pedido
       description: |
         Servicio para actualizar datos del pedido, solo permite 
-          * ID interno del ecommmerce ec_order_id.
-          * Dirección de correo del comprador.
-          * RUT del comprado
-          * Descripción de la compra.
+          - ID interno del ecommmerce ec_order_id.
+          - Dirección de correo del comprador.
+          - RUT del comprado
+          - Descripción de la compra.
       parameters:
         - in: path
           name: order_id
