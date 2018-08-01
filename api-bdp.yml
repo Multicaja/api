@@ -37,7 +37,7 @@ paths:
     post:
       tags:
       - transaccional
-      summary: Generar nuevo pedido para el comercio
+      summary: Generar nuevo pedido para el comercio ***(Público)***
       description: |
         Servicio para poder crear un nuevo pedido y el cual retornara la información de la orden.
       parameters:
@@ -66,7 +66,7 @@ paths:
       - transaccional
       description: |
         Servicio para poder obtener detalles del pedido y su estado actual
-      summary: Obtener el estado del pedido
+      summary: Obtener el estado del pedido  ***(Público)***
       operationId: addInventory
       consumes:
       - application/json
@@ -96,7 +96,7 @@ paths:
     put:
       tags:
       - transaccional
-      summary: Actualizar el pedido
+      summary: Actualizar el pedido  ***(Interno)***
       description: |
         Servicio para actualizar datos del pedido, solo permite 
           - ID interno del ecommmerce ec_order_id.
@@ -132,7 +132,7 @@ paths:
     delete:
       tags:
       - transaccional
-      summary: Cancelar el pedido
+      summary: Cancelar el pedido  ***(Público)***
       description: |
         Este servicio permite anular un pedido.
       consumes:
@@ -158,11 +158,11 @@ paths:
             $ref: '#/definitions/OrderCanceled'
         404:
           description: error el pedido no existe
-  /pdp/order/{order_id}/cash:
+  /pdp/order/{order_id}/cash: 
     post:
       tags:
       - efectivo
-      summary: Generar pago en efectivo
+      summary: Generar pago en efectivo  ***(Público)***
       description: |
         Este servicio genera el pago de un pedido en efectivo.
       consumes:
@@ -205,7 +205,7 @@ paths:
     post:
       tags:
       - transferencia
-      summary: Generar Transferencia
+      summary: Generar Transferencia  ***(Público)***
       description: |
         Configurar pago por transferencia en transferencia.
       consumes:
@@ -243,7 +243,7 @@ paths:
     get:
       tags:
       - general
-      summary: Obtener lista de medios de pago
+      summary: Obtener lista de medios de pago  ***(Público)***
       description: |
         Setear pago por cupón.
       consumes:
@@ -271,9 +271,9 @@ paths:
     get:
       tags:
       - general
-      summary: Obtener el parametro
+      summary: Obtener el parametro ***(Interno)*** 
       description: |
-        Obtener parametros de la plataforma.
+        Obtener parametros de la plataforma. 
       consumes:
       - application/json
       produces:
@@ -293,7 +293,7 @@ paths:
     get:
       tags:
       - encuesta
-      summary: Obtener lista de respuestas de una encuesta
+      summary: Obtener lista de respuestas de una encuesta  ***(Público)***
       description: |
         Este servicio permite obtener la lista de respuestas de una encuesta.
       consumes:
@@ -322,7 +322,7 @@ paths:
     post:
       tags:
       - encuesta
-      summary: Responde encuesta con el id de respuesta seleccionado
+      summary: Responde encuesta con el id de respuesta seleccionado  ***(Público)***
       description: |
         Este servicio permite responder la encuesta.
       consumes:
