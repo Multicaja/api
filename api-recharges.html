@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API Multicaja | API Reference</title>
+    <title>API Recargas | API Reference</title>
     <link rel="stylesheet" href="stylesheets/foundation.min.css" />
     <link rel="stylesheet" href="stylesheets/spectacle.min.css" />
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -24,7 +24,7 @@
                 <a href="#path--products">/products</a>
                 <ul> -->
           <!-- <li> -->
-          <a href="#operation--products-get"> Productos </a>
+          <a href="#operation--products-get"> Obtener productos </a>
           <!-- </li> -->
           <!-- </ul>
               </section> -->
@@ -32,7 +32,7 @@
                 <a href="#path--check">/check</a>
                 <ul> -->
           <!-- <li> -->
-          <a href="#operation--check-post"> Factibilidad </a>
+          <a href="#operation--check-post"> Verificar factibilidad </a>
           <!-- </li> -->
           <!-- </ul>
               </section> -->
@@ -40,7 +40,7 @@
                 <a href="#path--recharge">/recharge</a>
                 <ul> -->
           <!-- <li> -->
-          <a href="#operation--recharge-post"> Recargar </a>
+          <a href="#operation--recharge-post"> Realizar recargar </a>
           <!-- </li> -->
           <!-- </ul>
               </section> -->
@@ -64,19 +64,29 @@
         </button>
         <div class="example-box doc-content"></div>
         <article>
-          <h1 class="doc-title">API Multicaja
+          <h1 class="doc-title">API Recargas
             <span>API Reference</span>
           </h1>
           <div id="introduction" data-traverse-target="introduction">
             <div class="doc-row">
               <div class="doc-copy">
-                <p>API de Recargas Multicaja</p>
-                <p>Todos los requests son autenticados usando el header <code>X-Api-Key</code>.</p>
-              </div>
+                <p>La API de recargas de Multicaja es la que usan sus diferentes productos digitales para realizar recargas a través del Switch Transaccional de Multicaja.</p>
+                <h1 id="autenticaci-n">Autenticación</h1>
+                <p>Todos los requerimientos son autenticados usando un
+                  <strong>api-key</strong> incluido en el header <code>x-api-key</code> o <code>apikey</code>.</p>
+                <h1 id="errores">Errores</h1>
+                <p>La API usa códigos HTTP estándares para indicar el éxito o fracaso de un requerimiento. El cuerpo del mensaje es <code>json</code> con el siguiente formato:</p> <pre><code class="hljs">{
+    <span class="hljs-attr">"status"</span>: <span class="hljs-number">400</span>,
+    <span class="hljs-attr">"error"</span>: <span class="hljs-string">"Bad Request"</span>,
+    <span class="hljs-attr">"message"</span>: <span class="hljs-string">"Invalid property 'origin'"</span>,
+    <span class="hljs-attr">"path"</span>: <span class="hljs-string">"/recharges/v1/check"</span>,
+    <span class="hljs-attr">"timestamp"</span>: <span class="hljs-string">"2018-08-02T14:56:37.427"</span>
+}
+</code></pre> </div>
               <div class="doc-examples">
                 <section>
                   <h5>API Endpoint</h5>
-                  <!-- <div class="hljs"> --><pre><code>http://api.multicaja.cl/recharges/v1</code></pre>
+                  <!-- <div class="hljs"> --><pre><code>https://api.multicaja.cl/recharges/v1</code></pre>
                   <!-- </div> -->
                   <h5>Request Content-Types:
                     <span>application/json</span>
@@ -84,8 +94,11 @@
                   <h5>Response Content-Types:
                     <span>application/json</span>
                   </h5>
+                  <h5>Schemes:
+                    <span>https</span>
+                  </h5>
                   <h5>Version:
-                    <span>1.0</span>
+                    <span>1.0.0</span>
                   </h5>
                 </section>
               </div>
@@ -97,13 +110,13 @@
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
-              <a class="label" href="#tag-recargas">recargas</a>
+              <a class="label" href="#tag-Recargas">Recargas</a>
               <!---->
             </div>
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Productos</span>
+              <span class="operation-summary">Obtener productos</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -116,7 +129,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Listado de productos de recarga agrupados por operador</p>
+                  <p>Obtiene un listado de productos de recarga agrupados por operador</p>
                 </section>
               </div>
             </div>
@@ -139,6 +152,20 @@
                     </div>
                     <div class="prop-value">
                       <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Server Error</p>
                     </div>
                   </div>
                 </section>
@@ -182,6 +209,20 @@
 </code></pre>
                   <!-- </div> -->
                 </section>
+                <section>
+                  <h5>Response Example
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;amount&apos;.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/recharges/check&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
               </div>
             </div>
           </div>
@@ -190,13 +231,13 @@
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
-              <a class="label" href="#tag-recargas">recargas</a>
+              <a class="label" href="#tag-Recargas">Recargas</a>
               <!---->
             </div>
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Factibilidad</span>
+              <span class="operation-summary">Verificar factibilidad</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -283,7 +324,27 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Server Error</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
                       <div class="prop-title">502 Bad Gateway</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
                       <p>Error al comunicarse con el Switch Multicaja</p>
@@ -292,6 +353,12 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">504 Gateway Timeout</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
                       <p>Timeout al comunicarse con el Switch Multicaja</p>
@@ -334,6 +401,48 @@
 </code></pre>
                   <!-- </div> -->
                 </section>
+                <section>
+                  <h5>Response Example
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;amount&apos;.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/recharges/check&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(502 Bad Gateway)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;amount&apos;.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/recharges/check&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(504 Gateway Timeout)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;amount&apos;.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/recharges/check&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
               </div>
             </div>
           </div>
@@ -342,13 +451,13 @@
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
-              <a class="label" href="#tag-recargas">recargas</a>
+              <a class="label" href="#tag-Recargas">Recargas</a>
               <!---->
             </div>
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Recargar</span>
+              <span class="operation-summary">Realizar recargar</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -361,7 +470,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Realiza una recarga</p>
+                  <p>Realiza una recarga con cargo al comercio informado</p>
                 </section>
               </div>
             </div>
@@ -436,7 +545,27 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Server Error</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
                       <div class="prop-title">502 Bad Gateway</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
                       <p>Error al comunicarse con el Switch Multicaja</p>
@@ -445,6 +574,12 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">504 Gateway Timeout</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
                       <p>Timeout al comunicarse con el Switch Multicaja</p>
@@ -471,6 +606,48 @@
                 <section>
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;amount&apos;.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/recharges/check&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;amount&apos;.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/recharges/check&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(502 Bad Gateway)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
+  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;amount&apos;.&quot;</span>,
+  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/recharges/check&quot;</span>,
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(504 Gateway Timeout)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
