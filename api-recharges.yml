@@ -1,38 +1,73 @@
 swagger: '2.0'
-info:
-  description: |
-    API de Recargas Multicaja
-    
-    Todos los requests son autenticados usando el header `X-Api-Key`.
-  version: '1.0'
-  title: API Multicaja
+schemes:
+  - "https"
 host: 'api.multicaja.cl'
 basePath: /recharges/v1
 consumes:
   - application/json
 produces:
   - application/json
+
+info:
+  title: "API Recargas"
+  version: '1.0.0'
+  x-logo:
+    url: "http://www.mrcomanda.com/web/wp-content/uploads/multicaja.jpg"
+  description: |
+    La API de recargas de Multicaja es la que usan sus diferentes productos digitales para realizar recargas a través del Switch Transaccional de Multicaja.
+    
+    # Autenticación
+
+    Todos los requerimientos son autenticados usando un **api-key** incluido en el header `x-api-key` o `apikey`.
+
+    # Errores
+
+    La API usa códigos HTTP estándares para indicar el éxito o fracaso de un requerimiento. El cuerpo del mensaje es `json` con el siguiente formato:
+
+    ```
+    {
+        "status": 400,
+        "error": "Bad Request",
+        "message": "Invalid property 'origin'",
+        "path": "/recharges/v1/check",
+        "timestamp": "2018-08-02T14:56:37.427"
+    }
+    ```
+
 tags:
-  - name: recargas
-    description: Operaciones de recargas
+  - name: Recargas
+    x-displayName: "Recargas"
+    description: Operaciones disponibles para recargas
+
 paths:
   /products:
     get:
-      summary: Productos
+      summary: Obtener productos
+      description: Obtiene un listado de productos de recarga agrupados por operador
       tags: 
-        - recargas
-      description: Listado de productos de recarga agrupados por operador
+        - Recargas
       responses:
-        '200':
-          description: OK
+        200:
+          description: "OK"
           schema:
             $ref: '#/definitions/Products'
+        500:
+          description: "Server Error"
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+          examples:
+            application/json:
+              status: 500
+              error: "Server Error"
+              message: "Error description"
+              path: "/recharges/v1/products"
+              timestamp: "2018-03-16T16:38:31.28571"
   /check:
     post:
-      summary: Factibilidad
+      summary: Verificar factibilidad
       description: Verificación de factibilidad de una recarga
       tags: 
-        - recargas
+        - Recargas
       parameters: 
         - in: body
           name: recarga
@@ -41,24 +76,53 @@ paths:
           schema:
             $ref: '#/definitions/CheckRequest'
       responses:
-        '200':
-          description: OK
+        200:
+          description: "OK"
           schema:
             $ref: '#/definitions/CheckResponse'
-        '400':
-          description: Alguno de los campos requeridos no viene o es inválido
+        400:
+          description: "Alguno de los campos requeridos no viene o es inválido"
           schema:
             $ref: '#/definitions/ErrorResponse'
-        '502':
-          description: Error al comunicarse con el Switch Multicaja
-        '504':
-          description: Timeout al comunicarse con el Switch Multicaja
+        500:
+          description: "Server Error"
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+          examples:
+            application/json:
+              status: 500
+              error: "Server Error"
+              message: "Error description"
+              path: "/recharges/v1/check"
+              timestamp: "2018-03-16T16:38:31.28571"
+        502:
+          description: "Error al comunicarse con el Switch Multicaja"
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+          examples:
+            application/json:
+              status: 502
+              error: "Bad Gateway"
+              message: "Cannot connect to a service endpoint"
+              path: "/recharges/v1/check"
+              timestamp: "2018-03-16T16:38:31.28571"
+        504:
+          description: "Timeout al comunicarse con el Switch Multicaja"
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+          examples:
+            application/json:
+              status: 504
+              error: "Gateway Timeout"
+              message: "Cannot get a response in time"
+              path: "/recharges/v1/check"
+              timestamp: "2018-03-16T16:38:31.28571"
   /recharge:
     post:
-      summary: Recargar
-      description: Realiza una recarga
+      summary: Realizar recargar
+      description: Realiza una recarga con cargo al comercio informado
       tags: 
-        - recargas
+        - Recargas
       parameters: 
         - in: body
           name: recarga
@@ -67,18 +131,47 @@ paths:
           schema:
             $ref: '#/definitions/RechargeRequest'
       responses:
-        '200':
-          description: OK
+        200:
+          description: "OK"
           schema:
             $ref: '#/definitions/RechargeResponse'
-        '400':
-          description: Alguno de los campos requeridos no viene o es inválido
+        400:
+          description: "Alguno de los campos requeridos no viene o es inválido"
           schema:
             $ref: '#/definitions/ErrorResponse'
-        '502':
-          description: Error al comunicarse con el Switch Multicaja
-        '504':
-          description: Timeout al comunicarse con el Switch Multicaja
+        500:
+          description: "Server Error"
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+          examples:
+            application/json:
+              status: 500
+              error: "Server Error"
+              message: "Error description"
+              path: "/recharges/v1/check"
+              timestamp: "2018-03-16T16:38:31.28571"
+        502:
+          description: "Error al comunicarse con el Switch Multicaja"
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+          examples:
+            application/json:
+              status: 502
+              error: "Bad Gateway"
+              message: "Cannot connect to a service endpoint"
+              path: "/recharges/v1/check"
+              timestamp: "2018-03-16T16:38:31.28571"
+        504:
+          description: "Timeout al comunicarse con el Switch Multicaja"
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+          examples:
+            application/json:
+              status: 504
+              error: "Gateway Timeout"
+              message: "Cannot get a response in time"
+              path: "/recharges/v1/check"
+              timestamp: "2018-03-16T16:38:31.28571"
 definitions:
   Products:
     type: array
