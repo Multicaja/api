@@ -69,6 +69,7 @@ paths:
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
+  
   /prepaid/{user_id}/finish_signup:
     post:
       tags:
@@ -100,7 +101,74 @@ paths:
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
-            
+
+  /prepaid/{user_id}/signup/tac:
+    get:
+      tags:
+        - prepaid-signup
+      summary: Terminos y Condiciones
+      description: |
+        Informacion de los terminos y condiciones vigentes para Prepago
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: |
+            OK
+          schema:
+            $ref: '#/definitions/prepaid_tac'
+        '404':
+          description: Cliente no existe o no tiene prepago
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'
+
+    post:
+      tags:
+        - prepaid-signup
+      summary: Aceptar Terminos y Condiciones
+      description: |
+        Aceptar los beneficios y los terminos y condiciones del producto Prepago
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: integer
+        - in: body
+          name: new_tac
+          description: Detalle
+          required: true
+          schema:
+            $ref: '#/definitions/prepaid_tac_new'
+      responses:
+        '200':
+          description: |
+            OK
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '404':
+          description: Cliente no existe o no tiene prepago
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: Error de validación de negocio, revise error
+          schema:
+            $ref: '#/definitions/error_obj'        
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'
+
   /prepaid/topup:
     post:
       tags:
@@ -764,41 +832,6 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
-  /prepaid/{user_id}/tac:
-    post:
-      tags:
-        - prepaid
-      summary: Aceptar Terminos y Condiciones
-      description: |
-        Aceptar los beneficios y los terminos y condiciones del producto Prepago
-      parameters:
-        - in: body
-          name: new_tac
-          description: Detalle
-          required: true
-          schema:
-            $ref: '#/definitions/prepaid_tac_new'
-      responses:
-        '201':
-          description: |
-            OK
-        '400':
-          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
-          schema:
-            $ref: '#/definitions/error_obj'
-        '404':
-          description: Cliente no existe o no tiene prepago
-          schema:
-            $ref: '#/definitions/error_obj'
-        '422':
-          description: Error de validación de negocio, revise error
-          schema:
-            $ref: '#/definitions/error_obj'        
-        '500':
-          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
-          schema:
-            $ref: '#/definitions/error_obj'
-
 definitions:
 
   prepaid_topup_base:
@@ -1383,21 +1416,31 @@ definitions:
   prepaid_tac_new:
     type: object
     description: |
-      Contenido mínimo de una carga
+      Objeto para aceptar los terminos y condiciones
     properties:
-      terms_and_conditions_version:
+      version:
         type: string
         description: |
           Version de los terminos y condiciones aceptados por el usuario
         example: "v1.0"
-      terms_and_conditions_accepted:
-        type: boolean
-        description: |
-          Cliente acepta los terminos y condiciones
-        example: true
       benefits_accepted:
         type: boolean
         description: |
           Cliente acepta recibir beneficios relacionados con el producto prepago
         example: false
-  
+
+  prepaid_tac:
+    type: object
+    description: |
+      Objeto que representa los terminos y condiciones
+    properties:
+      version:
+        type: string
+        description: |
+          Version de los terminos y condiciones aceptados por el usuario
+        example: "v1.0"
+      location:
+        type: string
+        description: |
+          URL en el cual se encuentran los Terminos y Condiciones
+        example: "/prepaid/terms_and_conditions_v10"
