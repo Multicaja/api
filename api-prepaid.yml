@@ -832,6 +832,61 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
+  /prepaid/{user_id}/identity/files:
+    post:
+      tags:
+        - prepaid
+      summary: Carga fotos de verificacion de identidad
+      description: |
+        Carga la informacion de las fotos de verificacion de identidad
+        - CI lado frontal
+        - CI lado posterior
+        - Selfie con CI
+
+         ### Responderá `400` en los siguientes casos:
+        * 101004: Si falta un parametro requerido.
+
+        ### Responderá `404` en los siguientes casos:
+        * 102001: Si el cliente no existe
+        * 102003: Si el cliente no está registrado en prepago
+
+        ### Responderá `422` en los siguientes casos:
+        * 102002: Si el cliente esta bloqueado o borrado.
+        * 102004: Si el cliente prepago esta bloqueado o borrado.
+
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: integer
+        - in: body
+          name: prepaid_identity_verification_new
+          description: Informacion de fotos
+          required: true
+          schema:
+            $ref: '#/definitions/prepaid_identity_verification_new'
+      responses:
+        '201':
+          description: OK - Respuesta exitosa
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado. Verificar detalle del error.
+          schema:
+            $ref: '#/definitions/error_obj'
+        '404':
+          description: Cliente no existe o no tiene prepago
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: Error en validación. Verificar detalle del error.
+          schema:
+            $ref: '#/definitions/error_obj'        
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'
+
+
 definitions:
 
   prepaid_topup_base:
@@ -1444,3 +1499,36 @@ definitions:
         description: |
           URL en el cual se encuentran los Terminos y Condiciones
         example: "/prepaid/terms_and_conditions_v10"
+
+  prepaid_identity_verification_file_new:
+    type: object
+    description: |
+      Archivo para verificacion de identidad
+    properties:
+      name:
+        type: string
+        description: |
+          Nombre del archivo
+        example: "USER_CI_FRONTAL"
+      mime_type:
+        type: string
+        description: |
+          MimeType del archivo
+        example: "image/jpeg"
+      location:
+        type: string
+        description: |
+          URL donde se encuentra el archivo
+        example: "/path/to/image"
+
+  prepaid_identity_verification_new:
+    type: object
+    description: |
+      Objeto que contiene la informacion de fotos para la verificacion de identidad
+    properties:
+      USER_CI_FRONTAL:
+        $ref: "#/definitions/prepaid_identity_verification_file_new"
+      USER_ID_BACK:
+        $ref: "#/definitions/prepaid_identity_verification_file_new"
+      USER_SELFIE:
+        $ref: "#/definitions/prepaid_identity_verification_file_new"
