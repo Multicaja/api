@@ -68,6 +68,9 @@
               <li>
                 <a href="#operation--prepaid--user_id--transactions-get"> Lista de transacciones </a>
               </li>
+              <li>
+                <a href="#operation--prepaid--user_id--identity-files-post"> Carga fotos de verificacion de identidad </a>
+              </li>
             </ul>
           </section>
           <section>
@@ -118,6 +121,8 @@
           <a href="#definition-prepaid_transaction"> prepaid_transaction </a>
           <a href="#definition-prepaid_tac_new"> prepaid_tac_new </a>
           <a href="#definition-prepaid_tac"> prepaid_tac </a>
+          <a href="#definition-prepaid_identity_verification_file_new"> prepaid_identity_verification_file_new </a>
+          <a href="#definition-prepaid_identity_verification_new"> prepaid_identity_verification_new </a>
         </nav>
       </div>
       <div id="docs" class="row collapse expanded drawer" data-drawer>
@@ -3120,6 +3125,230 @@
               </div>
             </div>
           </div>
+          <div id="operation--prepaid--user_id--identity-files-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--identity-files-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-prepaid">prepaid</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Carga fotos de verificacion de identidad</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/prepaid/{user_id}/identity/files</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Carga la informacion de las fotos de verificacion de identidad</p>
+                  <ul>
+                    <li>CI lado frontal</li>
+                    <li>CI lado posterior</li>
+                    <li>
+                      <p>Selfie con CI</p>
+                      <h3 id="responder-400-en-los-siguientes-casos-">Responderá <code>400</code> en los siguientes casos:</h3>
+                    </li>
+                    <li>101004: Si falta un parametro requerido.</li>
+                  </ul>
+                  <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>102001: Si el cliente no existe</li>
+                    <li>102003: Si el cliente no está registrado en prepago</li>
+                  </ul>
+                  <h3 id="responder-422-en-los-siguientes-casos-">Responderá <code>422</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>102002: Si el cliente esta bloqueado o borrado.</li>
+                    <li>102004: Si el cliente prepago esta bloqueado o borrado.</li>
+                  </ul>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/prepaid_identity_verification_new">prepaid_identity_verification_new</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Informacion de fotos</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">user_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">integer</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID del Cliente</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;USER_CI_FRONTAL&quot;</span>: {
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;USER_CI_FRONTAL&quot;</span>,
+    <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;image/jpeg&quot;</span>,
+    <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/path/to/image&quot;</span>
+  },
+  <span class="hljs-attr">&quot;USER_ID_BACK&quot;</span>: {
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;USER_CI_FRONTAL&quot;</span>,
+    <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;image/jpeg&quot;</span>,
+    <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/path/to/image&quot;</span>
+  },
+  <span class="hljs-attr">&quot;USER_SELFIE&quot;</span>: {
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;USER_CI_FRONTAL&quot;</span>,
+    <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;image/jpeg&quot;</span>,
+    <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/path/to/image&quot;</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">201 Created</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK - Respuesta exitosa</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado. Verificar detalle del error.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Cliente no existe o no tiene prepago</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">422 Unprocessable Entity</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error en validación. Verificar detalle del error.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(422 Unprocessable Entity)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
           <h1 id="tag-prepaid-signup" class="swagger-summary-tag" data-traverse-target="tag-prepaid-signup">prepaid-signup</h1>
           <div class="tag-description doc-row">
             <div class="doc-copy">
@@ -5868,6 +6097,137 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;v1.0&quot;</span>,
   <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/prepaid/terms_and_conditions_v10&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-prepaid_identity_verification_file_new" class="definition panel" data-traverse-target="definition-prepaid_identity_verification_file_new">
+            <h2 class="panel-title">
+              <a name="/definitions/prepaid_identity_verification_file_new"></a>prepaid_identity_verification_file_new: object
+              <!-- <span class="json-property-type">
+              <span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Archivo para verificacion de identidad</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="name" class="has-description">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Nombre del archivo</p>
+                    </dd>
+                    <dt data-property-name="mime_type" class="has-description">
+                      <span class="json-property-name">mime_type:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>MimeType del archivo</p>
+                    </dd>
+                    <dt data-property-name="location" class="has-description">
+                      <span class="json-property-name">location:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>URL donde se encuentra el archivo</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;USER_CI_FRONTAL&quot;</span>,
+  <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;image/jpeg&quot;</span>,
+  <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/path/to/image&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-prepaid_identity_verification_new" class="definition panel" data-traverse-target="definition-prepaid_identity_verification_new">
+            <h2 class="panel-title">
+              <a name="/definitions/prepaid_identity_verification_new"></a>prepaid_identity_verification_new: object
+              <!-- <span class="json-property-type">
+              <span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Objeto que contiene la informacion de fotos para la verificacion de identidad</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="USER_CI_FRONTAL">
+                      <span class="json-property-name">USER_CI_FRONTAL:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/prepaid_identity_verification_file_new">prepaid_identity_verification_file_new</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="USER_ID_BACK">
+                      <span class="json-property-name">USER_ID_BACK:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/prepaid_identity_verification_file_new">prepaid_identity_verification_file_new</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="USER_SELFIE">
+                      <span class="json-property-name">USER_SELFIE:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/prepaid_identity_verification_file_new">prepaid_identity_verification_file_new</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;USER_CI_FRONTAL&quot;</span>: {
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;USER_CI_FRONTAL&quot;</span>,
+    <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;image/jpeg&quot;</span>,
+    <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/path/to/image&quot;</span>
+  },
+  <span class="hljs-attr">&quot;USER_ID_BACK&quot;</span>: {
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;USER_CI_FRONTAL&quot;</span>,
+    <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;image/jpeg&quot;</span>,
+    <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/path/to/image&quot;</span>
+  },
+  <span class="hljs-attr">&quot;USER_SELFIE&quot;</span>: {
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;USER_CI_FRONTAL&quot;</span>,
+    <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;image/jpeg&quot;</span>,
+    <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/path/to/image&quot;</span>
+  }
 }
 </code></pre>
                   <!-- </div> -->
