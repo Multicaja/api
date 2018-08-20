@@ -1,25 +1,25 @@
 swagger: '2.0'
 info:
   description: |
-    API Adquirencia
     
     ## Limitaciones
     - Sólo tarjetas de crédito Mastercard
     - Sin cuotas
     - Sin captura diferida
-    - Todos los montos deben estar en pesos chilenos (ISO 4217 = `152`)
+    - Todos los montos deben estar en pesos chilenos (ISO 4217 = CLP)
     - La API no soporta CORS
-    
+
     ## Reglas de la API
-    - Todos los métodos son idempotentes y, por lo tanto, pueden ser reintentados
-    - El campo `consumer_transaction_id` debe ser único (incluso en días y transacciones distintas) 
-    - Cuando Multicaja recibe por enésima vez una transacción (`consumer_transaction_id` repetido), retornará el resultado de la primera vez que la realizó
+    - El campo `consumer_transaction_id` debe ser único (incluso en días y transacciones distintas).
+    - Todos los requerimientos deben ser realizados sobre *HTTPS*.
+    - Todos los requerimientos son autenticados. Debe incluir el encabezado `Api-Key: <key>`.
     
-    ## Pendientes
-    - Agregar autenticación con `api_key` o similar
-    - Agregar operación de devolución.
+    ## Idempotencia
+    La API soporta *idempotencia*, por lo tanto puedes reintentar un requerimiento sin peligro de que el recurso se cree dos veces. Para esto debes incluir el encabezado `Idempotency-Key: <key>`, donde `key` es un identificador único de tu sistema o UUID. La clave tiene una validez de 24 horas.  
+
   version: '0.1'
   title: API Adquirencia
+  
 host: 'api.multicaja.cl'
 basePath: /adquirencia/v0.1/
 consumes:
@@ -28,7 +28,7 @@ produces:
   - application/json
 paths:
 
-  /charge:
+  /charges:
     post:
       summary: Venta con tarjeta
       description: |
@@ -62,7 +62,7 @@ paths:
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
-  /charge/reversal:
+  /charges/reversal:
     post:
       summary: Reversa de venta con tarjeta
       description: |
@@ -93,9 +93,88 @@ paths:
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
-
+  /charges/{charge_id}/refund:
+    post:
+      summary: Devolución de un cargo realizado a una tarjeta
+      description: |
+        Devuelve total o parcialmante un cargo realizado a una tarjeta de crédito.
+        
+        ## Devolución total
+        - El objeto `amount` es opcional. En caso que se envíe, debe corresponder al monto total del cargo.
+        
+        ## Devolución parcial
+        - El objeto `amount` corresponde al monto que se quiere devolver. Debe ser menor o igual al monto no devuelto de la venta.
+        - Puedes realizar hasta **10 devoluciones parciales** asociadas al mismo cargo
+        
+      parameters:
+        - in: path
+          name: charge_id
+          description: ID del cargo
+          required: true
+          type: string
+        - in: body
+          name: refund_new
+          description: Devolución de cargo
+          schema:
+            $ref: '#/definitions/refund_new'
+      responses:
+        '200':
+          description: |
+            OK - devolución exitosa
+          schema:
+            $ref: '#/definitions/refund'
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '401':
+          description: API Key no autorizada
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'
 definitions:
 
+  refund_new:
+    type: object
+    description: |
+      Solicitud de devolución **(Request)**
+    required:
+      - consumer_transaction_id
+    properties:
+      consumer_transaction_id:
+        type: string
+        description: Identificador único de la transacción generado por el consumidor de la API
+        example: "xhGXSPKviU83lln_xc9lc"
+      amount:
+        $ref: "#/definitions/amount_and_currency_new"  
+    
+  refund:
+    type: object
+    description: |
+      Solicitud de devolución **(Response)**
+    required:
+      - consumer_transaction_id
+    properties:
+      consumer_transaction_id:
+        type: string
+        description: Identificador único de la transacción generado por el consumidor de la API
+        example: "xhGXSPKviU83lln_xc9lc"
+      id:
+        type: integer
+        description: Identificador único de la devolución generado por Multicaja
+        example: 7654320
+      state:
+        type: string
+        enum: ["approved", "failed"]
+        description: Estado de la devolución
+      amount:
+        $ref: "#/definitions/amount_and_currency_new"
+      timestamps:
+        $ref: '#/definitions/timestamps'
+        
   reversal_new:
     type: object
     description: |
@@ -106,7 +185,7 @@ definitions:
       consumer_transaction_id:
         type: string
         description: Identificador único de la transacción generado por el consumidor de la API
-        example: "9cf7f55"
+        example: "r1D0cdF2aVBHTlko2CKJGDZntA"
         
   reversal:
     type: object
@@ -118,41 +197,24 @@ definitions:
         required:
           - process_date
         properties:
-          original_transaction_status:
+          status: 
             type: string
-            enum: ["approved-reconciled", "approved-not-reconciled", "failed", "non-existent"]
-            description: |
-             Estado de la transacción original
-
-              * 'approved-reconciled': La transacción original estaba aprobada y conciliada con la bandera. Consulte los campos `original_transaction_codigo_mc`, `original_transaction_external_authorization_code` y `original_transaction_process_date`. (La transacción original será reversada)
-              * 'approved-not-reconciled': La transacción original estaba aprobada y *no* conciliada con la bandera. Consulte los campos `original_transaction_codigo_mc`, `original_transaction_external_authorization_code` y `original_transaction_process_date`. (La transacción original será reversada)
-              * 'failed': La transacción original existe, pero fue rechazada. Esta llamada no ha tenido efecto.
-              * 'non-existent': La transacción original no existe. Esta llamada no ha tenido efecto.
-          original_transaction_multicaja_id:
-            type: integer
-            description: Código identificador de la transacción original reversada. Si este campo viene vacío, significa que Multicaja no recibió la transacción original
-            example: 7783834
-          original_transaction_external_authorization_code:
-            type: integer
-            description: Identificador único de la transacción original reversada en el switch de la bandera
-            example: 1231232
-          original_transaction_process_date:
-            type: string
-            format: date-time
-            description: Fecha en la que la transacción original hubiera sido o fue conciliada con la bandera, en formato ISO 8601
-            example: "2018-01-14"
+            description: Estado de la reversa.
+            example: "approved"
+          original_charge:
+            $ref: "#/definitions/charge"
 
   charge_base:
     type: object
     description: |
       Contenido mínimo de una venta con tarjeta
     properties:
-      amount:
-        $ref: "#/definitions/amount_and_currency_new"
       consumer_transaction_id:
         type: string
         description: Identificador único de la transacción generado por el consumidor de la API
-        example: "9cf7f55"
+        example: "crlfUYEBK14zotCTykezJkfg"
+      amount:
+        $ref: "#/definitions/amount_and_currency_new"
         
   charge_new:
     type: object
@@ -173,10 +235,10 @@ definitions:
             type: string
             description: Código de comercio asociado a la compra
             example: "0023434"
-          merchant_descriptor:
+          soft_descriptor:
             type: string
             description: Nombre del comercio. Máximo 6 caracteres.
-            example: "PAYPAL"
+            example: "STORE-001"
 
   charge:
     type: object
@@ -186,15 +248,19 @@ definitions:
       - $ref: "#/definitions/charge_base"
       - type: object
         required:
-          - codigo_mc
+          - id
           - external_authorization_code
           - process_date
           - timestamps
         properties:
-          multicaja_id:
+          id:
             type: integer
             description: Código identificador de la compra en los sistemas de Multicaja
             example: 7783834
+          status:
+            type: string
+            enum: ["approved", "failed"]
+            description: Estado del cargo
           external_authorization_code:
             type: integer
             description: Identificador único de la transacción en el switch de la bandera
@@ -206,6 +272,7 @@ definitions:
             example: "2018-01-14"
           timestamps:
             $ref: '#/definitions/timestamps'
+            
   timestamps:
     type: object
     description: |
@@ -227,15 +294,15 @@ definitions:
       - currency_code
       - value
     properties:
-      currency_code:
-        type: integer
-        description: Código ISO 4217 (numeric) de la moneda
-        example: 152
       value:
         type: number
         description: Monto en formato decimal
         example: "1000.00"
-
+      currency_code:
+        type: string
+        description: Código ISO 4217 de la moneda
+        example: "CLP"
+        
   error_obj:
     type: object
     description: Error
@@ -244,9 +311,8 @@ definitions:
     properties:
       code:
         type: string
-        format: int32
         description: Código que representa el error. No será igual al código HTTP.
-        example: "Mastercard0098234892"
+        example: "INSUFFICIENT_FUNDS"
       message:
         type: string
         description: Descripción corta del error
@@ -255,12 +321,16 @@ definitions:
   card_new:
     type: object
     description: |
-      Información de la tarjeta prepago
+      Información de la tarjeta de crédito
     required:
       - exp_month
       - exp_year
       - pan
     properties:
+      pan:
+        type: string
+        description: PAN de la tarjeta
+        example: "5144611670946763"
       exp_month:
         type: integer
         description: mes de expiración
@@ -273,10 +343,6 @@ definitions:
         type: integer
         description: código de seguridad
         example: 123
-      pan:
-        type: string
-        description: PAN de la tarjeta
-        example: "1234123412341234"
       name_on_card:
         type: string
         description: Nombre impreso en la tarjeta
