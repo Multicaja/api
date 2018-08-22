@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API Adquirencia | API Reference</title>
+    <title>API Pagos con tarjeta | API Reference</title>
     <link rel="stylesheet" href="stylesheets/foundation.min.css" />
     <link rel="stylesheet" href="stylesheets/spectacle.min.css" />
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -29,18 +29,18 @@
           <!-- </ul>
               </section> -->
           <!-- <section>
-                <a href="#path--charges-reversal">/charges/reversal</a>
+                <a href="#path--reversals">/reversals</a>
                 <ul> -->
           <!-- <li> -->
-          <a href="#operation--charges-reversal-post"> Reversa de venta con tarjeta </a>
+          <a href="#operation--reversals-post"> Reversa de una venta o devolución </a>
           <!-- </li> -->
           <!-- </ul>
               </section> -->
           <!-- <section>
-                <a href="#path--charges--charge_id--refund">/charges/{charge_id}/refund</a>
+                <a href="#path--refunds">/refunds</a>
                 <ul> -->
           <!-- <li> -->
-          <a href="#operation--charges--charge_id--refund-post"> Devolución de un cargo realizado a una tarjeta </a>
+          <a href="#operation--refunds-post"> Devolución de un cargo realizado a una tarjeta </a>
           <!-- </li> -->
           <!-- </ul>
               </section> -->
@@ -56,6 +56,7 @@
           <a href="#definition-amount_and_currency_new"> amount_and_currency_new </a>
           <a href="#definition-error_obj"> error_obj </a>
           <a href="#definition-card_new"> card_new </a>
+          <a href="#definition-addtitional_data"> addtitional_data </a>
         </nav>
       </div>
       <div id="docs" class="row collapse expanded drawer" data-drawer>
@@ -64,7 +65,7 @@
         </button>
         <div class="example-box doc-content"></div>
         <article>
-          <h1 class="doc-title">API Adquirencia
+          <h1 class="doc-title">API Pagos con tarjeta
             <span>API Reference</span>
           </h1>
           <div id="introduction" data-traverse-target="introduction">
@@ -80,19 +81,25 @@
                 </ul>
                 <h2 id="reglas-de-la-api">Reglas de la API</h2>
                 <ul>
-                  <li>El campo <code>consumer_transaction_id</code> debe ser único (incluso en días y transacciones distintas).</li>
+                  <li>El campo <code>consumer_transaction_id</code>
+                    <strong>debe</strong> ser único (incluso en días y transacciones distintas).</li>
                   <li>Todos los requerimientos deben ser realizados sobre
-                    <em>HTTPS</em>.</li>
+                    <em>HTTPS</em>. Los requerimientos sobre
+                    <em>HTTP</em> fallarán.</li>
                   <li>Todos los requerimientos son autenticados. Debe incluir el encabezado <code>Api-Key: &lt;key&gt;</code>.</li>
                 </ul>
                 <h2 id="idempotencia">Idempotencia</h2>
                 <p>La API soporta
-                  <em>idempotencia</em>, por lo tanto puedes reintentar un requerimiento sin peligro de que el recurso se cree dos veces. Para esto debes incluir el encabezado <code>Idempotency-Key: &lt;key&gt;</code>, donde <code>key</code> es un identificador único de tu sistema o UUID. La clave tiene una validez de 24 horas. </p>
+                  <em>idempotencia</em>, por lo tanto puedes reintentar un requerimiento sin peligro de que el recurso se cree dos veces. Para esto debes incluir el encabezado <code>Idempotency-Key: &lt;key&gt;</code>, donde <code>key</code> es un identificador único de tu sistema o UUID. La clave tiene una validez de 24 horas.</p>
+                <ul>
+                  <li>NOTA: Si envías dos requerimientos con igual <code>consumer_transaction_id</code> y distinto <code>Idempotency-Key</code>, se entendrán como dos requerimientos
+                    <strong>diferentes</strong> y uno de ellos fallará dado que el campo <code>consumer_transaction_id</code> debe ser único.</li>
+                </ul>
               </div>
               <div class="doc-examples">
                 <section>
                   <h5>API Endpoint</h5>
-                  <!-- <div class="hljs"> --><pre><code>http://api.multicaja.cl/adquirencia/v0.1/</code></pre>
+                  <!-- <div class="hljs"> --><pre><code>http://api.multicaja.cl/card-payments/v0.1/</code></pre>
                   <!-- </div> -->
                   <h5>Request Content-Types:
                     <span>application/json</span>
@@ -124,7 +131,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Realiza un cargo en una tarjeta de crédito Mastercard.</p>
+                  <p>Realiza un cargo en una tarjeta de crédito.</p>
                 </section>
               </div>
             </div>
@@ -160,6 +167,7 @@
   },
   <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
   <span class="hljs-attr">&quot;soft_descriptor&quot;</span>: <span class="hljs-string">&quot;STORE-001&quot;</span>,
+  <span class="hljs-attr">&quot;additional_data&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>,
   <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>,
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
@@ -253,9 +261,7 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;external_authorization_code&quot;</span>: <span class="hljs-number">1231232</span>,
-  <span class="hljs-attr">&quot;process_date&quot;</span>: <span class="hljs-string">&quot;2018-01-14&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
@@ -316,23 +322,23 @@
               </div>
             </div>
           </div>
-          <span id="path--charges-reversal"></span>
-          <div id="operation--charges-reversal-post" class="operation panel" data-traverse-target="operation--charges-reversal-post">
+          <span id="path--reversals"></span>
+          <div id="operation--reversals-post" class="operation panel" data-traverse-target="operation--reversals-post">
             <h2 class="operation-title">
-              <span class="operation-summary">Reversa de venta con tarjeta</span>
+              <span class="operation-summary">Reversa de una venta o devoluci&#xF3;n</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/charges/reversal</span>
+                  <span class="operation-path">/reversals</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Devuelve la totalidad del monto cobrado a través de una compra.</p>
+                  <p>Reversa una transacción previamente autorizada</p>
                 </section>
               </div>
             </div>
@@ -359,7 +365,7 @@
                 <section>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;r1D0cdF2aVBHTlko2CKJGDZntA&quot;</span>
+  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -434,22 +440,11 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;approved&quot;</span>,
-  <span class="hljs-attr">&quot;original_charge&quot;</span>: {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;external_authorization_code&quot;</span>: <span class="hljs-number">1231232</span>,
-    <span class="hljs-attr">&quot;process_date&quot;</span>: <span class="hljs-string">&quot;2018-01-14&quot;</span>,
-    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-    },
-    <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>,
-    <span class="hljs-attr">&quot;amount&quot;</span>: {
-      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
-      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>
-    }
+  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
   },
-  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;r1D0cdF2aVBHTlko2CKJGDZntA&quot;</span>
+  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -490,8 +485,8 @@
               </div>
             </div>
           </div>
-          <span id="path--charges--charge_id--refund"></span>
-          <div id="operation--charges--charge_id--refund-post" class="operation panel" data-traverse-target="operation--charges--charge_id--refund-post">
+          <span id="path--refunds"></span>
+          <div id="operation--refunds-post" class="operation panel" data-traverse-target="operation--refunds-post">
             <h2 class="operation-title">
               <span class="operation-summary">Devoluci&#xF3;n de un cargo realizado a una tarjeta</span>
             </h2>
@@ -499,7 +494,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/charges/{charge_id}/refund</span>
+                  <span class="operation-path">/refunds</span>
                 </section>
               </div>
             </div>
@@ -509,13 +504,13 @@
                   <p>Devuelve total o parcialmante un cargo realizado a una tarjeta de crédito.</p>
                   <h2 id="devoluci-n-total">Devolución total</h2>
                   <ul>
-                    <li>El objeto <code>amount</code> es opcional. En caso que se envíe, debe corresponder al monto total del cargo.</li>
+                    <li>El objeto <code>amount</code> es opcional. En caso que se envíe, el campo <code>value</code> debe corresponder al monto total del cargo.</li>
                   </ul>
                   <h2 id="devoluci-n-parcial">Devolución parcial</h2>
                   <ul>
-                    <li>El objeto <code>amount</code> corresponde al monto que se quiere devolver. Debe ser menor o igual al monto no devuelto de la venta.</li>
+                    <li>El objeto <code>amount</code> corresponde al monto que se quiere devolver. Debe ser mayor que cero y menor o igual al monto no devuelto de la venta.</li>
                     <li>Puedes realizar hasta
-                      <strong>10 devoluciones parciales</strong> asociadas al mismo cargo</li>
+                      <strong>10 devoluciones parciales</strong> asociadas a la misma venta.</li>
                   </ul>
                 </section>
               </div>
@@ -538,33 +533,18 @@
                     </div>
                   </div>
                 </section>
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">charge_id:
-                        <span class="prop-type">
-                          <span class="json-property-type">string</span>
-                          <span class="json-property-range" title="Value limits"></span>
-                        </span>
-                      </div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>ID del cargo</p>
-                    </div>
-                  </div>
-                </section>
               </div>
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;xhGXSPKviU83lln_xc9lc&quot;</span>,
+  <span class="hljs-attr">&quot;original_consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>,
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>
-  }
+  },
+  <span class="hljs-attr">&quot;additional_data&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -639,12 +619,12 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;xhGXSPKviU83lln_xc9lc&quot;</span>,
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7654320</span>,
-  <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>
   },
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7654320</span>,
+  <span class="hljs-attr">&quot;external_authorization_code&quot;</span>: <span class="hljs-number">1231232</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
@@ -718,11 +698,29 @@
                     <dd>
                       <p>Identificador único de la transacción generado por el consumidor de la API</p>
                     </dd>
+                    <dt data-property-name="original_consumer_transaction_id" class="has-description">
+                      <span class="json-property-name">original_consumer_transaction_id:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Identificador de la venta original, sobre la que se realizará la devolución.</p>
+                    </dd>
                     <dt data-property-name="amount">
                       <span class="json-property-name">amount:</span>
                       <span class="json-property-type">
                         <span class="">
                           <a class="json-schema-ref" href="#/definitions/amount_and_currency_new">amount_and_currency_new</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="additional_data">
+                      <span class="json-property-name">additional_data:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/addtitional_data">addtitional_data</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
@@ -735,10 +733,12 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;xhGXSPKviU83lln_xc9lc&quot;</span>,
+  <span class="hljs-attr">&quot;original_consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>,
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>
-  }
+  },
+  <span class="hljs-attr">&quot;additional_data&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -774,26 +774,6 @@
                     <dd>
                       <p>Identificador único de la transacción generado por el consumidor de la API</p>
                     </dd>
-                    <dt data-property-name="id" class="has-description">
-                      <span class="json-property-name">id:</span>
-                      <span class="json-property-type">integer</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Identificador único de la devolución generado por Multicaja</p>
-                    </dd>
-                    <dt data-property-name="state" class="has-description">
-                      <span class="json-property-name">state:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-enum" title="Possible values">
-                        <span class="json-property-enum-item">approved</span>,
-                        <span class="json-property-enum-item">failed</span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Estado de la devolución</p>
-                    </dd>
                     <dt data-property-name="amount">
                       <span class="json-property-name">amount:</span>
                       <span class="json-property-type">
@@ -803,6 +783,22 @@
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dt data-property-name="id" class="has-description">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Identificador único de la devolución generado por Multicaja</p>
+                    </dd>
+                    <dt data-property-name="external_authorization_code" class="has-description">
+                      <span class="json-property-name">external_authorization_code:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Identificador único de la transacción en el switch de la bandera</p>
+                    </dd>
                     <dt data-property-name="timestamps">
                       <span class="json-property-name">timestamps:</span>
                       <span class="json-property-type">
@@ -820,12 +816,12 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;xhGXSPKviU83lln_xc9lc&quot;</span>,
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7654320</span>,
-  <span class="hljs-attr">&quot;state&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>
   },
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7654320</span>,
+  <span class="hljs-attr">&quot;external_authorization_code&quot;</span>: <span class="hljs-number">1231232</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
@@ -850,7 +846,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Solicitud de reversa de venta
+                  <p>Solicitud de reversa de una transacción
                     <strong>(Request)</strong>
                   </p>
                 </section>
@@ -863,7 +859,7 @@
                       <span class="json-property-required"></span>
                     </dt>
                     <dd>
-                      <p>Identificador único de la transacción generado por el consumidor de la API</p>
+                      <p>Identificador único de la transacción que se quiere reversar.</p>
                     </dd>
                   </dl>
                 </section>
@@ -872,7 +868,7 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;r1D0cdF2aVBHTlko2CKJGDZntA&quot;</span>
+  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -893,7 +889,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Respuesta a solicitud de reversa de venta
+                  <p>Respuesta a solicitud de reversa de una transacción
                     <strong>(Response)</strong>
                   </p>
                 </section>
@@ -912,15 +908,16 @@
                           <span class="json-property-name">status:</span>
                           <span class="json-property-type">string</span>
                           <span class="json-property-range" title="Value limits"></span>
+                          <span class="json-property-required"></span>
                         </dt>
                         <dd>
                           <p>Estado de la reversa.</p>
                         </dd>
-                        <dt data-property-name="original_charge">
-                          <span class="json-property-name">original_charge:</span>
+                        <dt data-property-name="timestamps">
+                          <span class="json-property-name">timestamps:</span>
                           <span class="json-property-type">
                             <span class="">
-                              <a class="json-schema-ref" href="#/definitions/charge">charge</a>
+                              <a class="json-schema-ref" href="#/definitions/timestamps">timestamps</a>
                             </span>
                           </span>
                           <span class="json-property-range" title="Value limits"></span>
@@ -935,22 +932,11 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;approved&quot;</span>,
-  <span class="hljs-attr">&quot;original_charge&quot;</span>: {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;external_authorization_code&quot;</span>: <span class="hljs-number">1231232</span>,
-    <span class="hljs-attr">&quot;process_date&quot;</span>: <span class="hljs-string">&quot;2018-01-14&quot;</span>,
-    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-    },
-    <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>,
-    <span class="hljs-attr">&quot;amount&quot;</span>: {
-      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
-      <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>
-    }
+  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
   },
-  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;r1D0cdF2aVBHTlko2CKJGDZntA&quot;</span>
+  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1066,6 +1052,15 @@
                         <dd>
                           <p>Nombre del comercio. Máximo 6 caracteres.</p>
                         </dd>
+                        <dt data-property-name="additional_data">
+                          <span class="json-property-name">additional_data:</span>
+                          <span class="json-property-type">
+                            <span class="">
+                              <a class="json-schema-ref" href="#/definitions/addtitional_data">addtitional_data</a>
+                            </span>
+                          </span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
                       </dl>
                     </section>
                   </section>
@@ -1084,6 +1079,7 @@
   },
   <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
   <span class="hljs-attr">&quot;soft_descriptor&quot;</span>: <span class="hljs-string">&quot;STORE-001&quot;</span>,
+  <span class="hljs-attr">&quot;additional_data&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>,
   <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>,
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
@@ -1133,18 +1129,6 @@
                         <dd>
                           <p>Código identificador de la compra en los sistemas de Multicaja</p>
                         </dd>
-                        <dt data-property-name="status" class="has-description">
-                          <span class="json-property-name">status:</span>
-                          <span class="json-property-type">string</span>
-                          <span class="json-property-enum" title="Possible values">
-                            <span class="json-property-enum-item">approved</span>,
-                            <span class="json-property-enum-item">failed</span>
-                          </span>
-                          <span class="json-property-range" title="Value limits"></span>
-                        </dt>
-                        <dd>
-                          <p>Estado del cargo</p>
-                        </dd>
                         <dt data-property-name="external_authorization_code" class="has-description">
                           <span class="json-property-name">external_authorization_code:</span>
                           <span class="json-property-type">integer</span>
@@ -1153,16 +1137,6 @@
                         </dt>
                         <dd>
                           <p>Identificador único de la transacción en el switch de la bandera</p>
-                        </dd>
-                        <dt data-property-name="process_date" class="has-description">
-                          <span class="json-property-name">process_date:</span>
-                          <span class="json-property-type">string</span>
-                          <span class="json-property-format">(date-time)</span>
-                          <span class="json-property-range" title="Value limits"></span>
-                          <span class="json-property-required"></span>
-                        </dt>
-                        <dd>
-                          <p>Fecha en la que la transacción será conciliada con la bandera, en formato ISO 8601</p>
                         </dd>
                         <dt data-property-name="timestamps">
                           <span class="json-property-name">timestamps:</span>
@@ -1184,9 +1158,7 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;external_authorization_code&quot;</span>: <span class="hljs-number">1231232</span>,
-  <span class="hljs-attr">&quot;process_date&quot;</span>: <span class="hljs-string">&quot;2018-01-14&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
@@ -1424,6 +1396,32 @@
   <span class="hljs-attr">&quot;cvc&quot;</span>: <span class="hljs-number">123</span>,
   <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;Pedro Perez&quot;</span>
 }
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-addtitional_data" class="definition panel" data-traverse-target="definition-addtitional_data">
+            <h2 class="panel-title">
+              <a name="/definitions/addtitional_data"></a>addtitional_data: object
+              <!-- <span class="json-property-type">
+              <span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Objeto JSON con atributos adicionales para la transacción.</p>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;object&quot;</span>
 </code></pre>
                   <!-- </div> -->
                 </section>
