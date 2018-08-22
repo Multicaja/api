@@ -8,20 +8,24 @@ info:
     - Sin captura diferida
     - Todos los montos deben estar en pesos chilenos (ISO 4217 = CLP)
     - La API no soporta CORS
-
+    
     ## Reglas de la API
-    - El campo `consumer_transaction_id` debe ser único (incluso en días y transacciones distintas).
-    - Todos los requerimientos deben ser realizados sobre *HTTPS*.
+    - El campo `consumer_transaction_id` **debe** ser único (incluso en días y transacciones distintas).
+    - Todos los requerimientos deben ser realizados sobre *HTTPS*. Los requerimientos sobre *HTTP* fallarán.
     - Todos los requerimientos son autenticados. Debe incluir el encabezado `Api-Key: <key>`.
     
     ## Idempotencia
-    La API soporta *idempotencia*, por lo tanto puedes reintentar un requerimiento sin peligro de que el recurso se cree dos veces. Para esto debes incluir el encabezado `Idempotency-Key: <key>`, donde `key` es un identificador único de tu sistema o UUID. La clave tiene una validez de 24 horas.  
-
+    La API soporta *idempotencia*, por lo tanto puedes reintentar un requerimiento sin peligro de que el recurso se cree dos veces. Para esto debes incluir el encabezado `Idempotency-Key: <key>`, donde `key` es un identificador único de tu sistema o UUID. La clave tiene una validez de 24 horas.
+    
+    - NOTA: Si envías dos requerimientos con igual `consumer_transaction_id` y distinto `Idempotency-Key`, se entendrán como dos requerimientos **diferentes** y uno de ellos fallará dado que el campo `consumer_transaction_id` debe ser único.
+    
+    
+    
   version: '0.1'
-  title: API Adquirencia
+  title: API Pagos con tarjeta
   
 host: 'api.multicaja.cl'
-basePath: /adquirencia/v0.1/
+basePath: /card-payments/v0.1/
 consumes:
   - application/json
 produces:
@@ -32,7 +36,7 @@ paths:
     post:
       summary: Venta con tarjeta
       description: |
-        Realiza un cargo en una tarjeta de crédito Mastercard.
+        Realiza un cargo en una tarjeta de crédito.
       parameters:
         - in: body
           name: charge_new
@@ -62,15 +66,15 @@ paths:
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
-  /charges/reversal:
+  /reversals:
     post:
-      summary: Reversa de venta con tarjeta
+      summary: Reversa de una venta o devolución
       description: |
-        Devuelve la totalidad del monto cobrado a través de una compra.
+        Reversa una transacción previamente autorizada
         
       parameters:
         - in: body
-          name: charge_new
+          name: reversal_new
           description: Reversa de venta con tarjeta
           required: true
           schema:
@@ -93,25 +97,20 @@ paths:
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
-  /charges/{charge_id}/refund:
+  /refunds:
     post:
       summary: Devolución de un cargo realizado a una tarjeta
       description: |
         Devuelve total o parcialmante un cargo realizado a una tarjeta de crédito.
         
         ## Devolución total
-        - El objeto `amount` es opcional. En caso que se envíe, debe corresponder al monto total del cargo.
+        - El objeto `amount` es opcional. En caso que se envíe, el campo `value` debe corresponder al monto total del cargo.
         
         ## Devolución parcial
-        - El objeto `amount` corresponde al monto que se quiere devolver. Debe ser menor o igual al monto no devuelto de la venta.
-        - Puedes realizar hasta **10 devoluciones parciales** asociadas al mismo cargo
+        - El objeto `amount` corresponde al monto que se quiere devolver. Debe ser mayor que cero y menor o igual al monto no devuelto de la venta.
+        - Puedes realizar hasta **10 devoluciones parciales** asociadas a la misma venta.
         
       parameters:
-        - in: path
-          name: charge_id
-          description: ID del cargo
-          required: true
-          type: string
         - in: body
           name: refund_new
           description: Devolución de cargo
@@ -135,6 +134,8 @@ paths:
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
+            
+  
 definitions:
 
   refund_new:
@@ -142,14 +143,21 @@ definitions:
     description: |
       Solicitud de devolución **(Request)**
     required:
+      - original_consumer_transaction_id
       - consumer_transaction_id
     properties:
       consumer_transaction_id:
         type: string
         description: Identificador único de la transacción generado por el consumidor de la API
         example: "xhGXSPKviU83lln_xc9lc"
+      original_consumer_transaction_id:  
+        type: string
+        description: Identificador de la venta original, sobre la que se realizará la devolución.
+        example: "crlfUYEBK14zotCTykezJkfg"
       amount:
-        $ref: "#/definitions/amount_and_currency_new"  
+        $ref: "#/definitions/amount_and_currency_new"
+      additional_data:
+        $ref: "#/definitions/addtitional_data"  
     
   refund:
     type: object
@@ -162,47 +170,48 @@ definitions:
         type: string
         description: Identificador único de la transacción generado por el consumidor de la API
         example: "xhGXSPKviU83lln_xc9lc"
+      amount:
+        $ref: '#/definitions/amount_and_currency_new'
       id:
         type: integer
         description: Identificador único de la devolución generado por Multicaja
         example: 7654320
-      state:
-        type: string
-        enum: ["approved", "failed"]
-        description: Estado de la devolución
-      amount:
-        $ref: "#/definitions/amount_and_currency_new"
+      external_authorization_code:
+        type: integer
+        description: Identificador único de la transacción en el switch de la bandera
+        example: 1231232
       timestamps:
         $ref: '#/definitions/timestamps'
         
   reversal_new:
     type: object
     description: |
-      Solicitud de reversa de venta **(Request)**
+      Solicitud de reversa de una transacción **(Request)**
     required:
       - consumer_transaction_id
     properties:
       consumer_transaction_id:
         type: string
-        description: Identificador único de la transacción generado por el consumidor de la API
-        example: "r1D0cdF2aVBHTlko2CKJGDZntA"
+        description: Identificador único de la transacción que se quiere reversar.
+        example: "crlfUYEBK14zotCTykezJkfg"
         
   reversal:
     type: object
     description: |
-      Respuesta a solicitud de reversa de venta **(Response)**
+      Respuesta a solicitud de reversa de una transacción **(Response)**
     allOf:
       - $ref: "#/definitions/reversal_new"
       - type: object
         required:
-          - process_date
+          - status
         properties:
           status: 
             type: string
             description: Estado de la reversa.
-            example: "approved"
-          original_charge:
-            $ref: "#/definitions/charge"
+            example: "approved"      
+          timestamps:
+            $ref: '#/definitions/timestamps'
+
 
   charge_base:
     type: object
@@ -239,6 +248,8 @@ definitions:
             type: string
             description: Nombre del comercio. Máximo 6 caracteres.
             example: "STORE-001"
+          additional_data:
+            $ref: "#/definitions/addtitional_data"
 
   charge:
     type: object
@@ -257,19 +268,10 @@ definitions:
             type: integer
             description: Código identificador de la compra en los sistemas de Multicaja
             example: 7783834
-          status:
-            type: string
-            enum: ["approved", "failed"]
-            description: Estado del cargo
           external_authorization_code:
             type: integer
             description: Identificador único de la transacción en el switch de la bandera
             example: 1231232
-          process_date:
-            type: string
-            format: date-time
-            description: Fecha en la que la transacción será conciliada con la bandera, en formato ISO 8601
-            example: "2018-01-14"
           timestamps:
             $ref: '#/definitions/timestamps'
             
@@ -347,3 +349,7 @@ definitions:
         type: string
         description: Nombre impreso en la tarjeta
         example: "Pedro Perez"
+  addtitional_data:
+    type: object
+    description: |
+      Objeto JSON con atributos adicionales para la transacción.
