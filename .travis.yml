@@ -27,7 +27,7 @@ script:
   - mv docs-paypal/api-paypal.html docs/
   - mv docs-recharges/api-recharges.html docs/
   - mv docs-bdp/api-bdp.html docs/
-  - mv docs-acquirement/api-card-payments.html docs/
+  - mv docs-card-payments/api-card-payments.html docs/
   - cp README.md docs/
  
 deploy:
