@@ -16,7 +16,7 @@ setUp()
      'api-paypal.yml'
      'api-recharges.yml'
      'api-bdp.yml'
-     'api-acquirement.yml'
+     'api-card-payments.yml'
    )
   
 
