@@ -22,12 +22,12 @@ script:
   - spectacle --target-dir docs-paypal --target-file api-paypal.html api-paypal.yml
   - spectacle --target-dir docs-recharges --target-file api-recharges.html api-recharges.yml
   - spectacle --target-dir docs-bdp --target-file api-bdp.html api-bdp.yml
-  - spectacle --target-dir docs-acquirement --target-file api-acquirement.html api-acquirement.yml
+  - spectacle --target-dir docs-card-payments --target-file api-card-payments.html api-card-payments.yml
   - mv docs-prepaid/api-prepaid.html docs/
   - mv docs-paypal/api-paypal.html docs/
   - mv docs-recharges/api-recharges.html docs/
   - mv docs-bdp/api-bdp.html docs/
-  - mv docs-acquirement/api-acquirement.html docs/
+  - mv docs-acquirement/api-card-payments.html docs/
   - cp README.md docs/
  
 deploy:
