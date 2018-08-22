@@ -155,7 +155,9 @@ definitions:
         description: Identificador de la venta original, sobre la que se realizará la devolución.
         example: "crlfUYEBK14zotCTykezJkfg"
       amount:
-        $ref: "#/definitions/amount_and_currency_new"  
+        $ref: "#/definitions/amount_and_currency_new"
+      additional_data:
+        $ref: "#/definitions/addtitional_data"  
     
   refund:
     type: object
