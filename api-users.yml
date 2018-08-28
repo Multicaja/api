@@ -29,6 +29,8 @@ tags:
     description: Cuentas bancarias de un cliente
   - name: direcciones
     description: Dirección física de un cliente
+  - name: archivos
+    description: Archivos de un cliente
   - name: parámetros
     description: Listas de parámetros inmutables
 paths:
@@ -901,6 +903,102 @@ paths:
           description: OK
         '404':
           description: Cliente o Dirección no existen 
+  /users/{user_id}/files:
+    get:
+      summary: Listar
+      tags: 
+        - archivos
+      description: |
+        Retorna la lista de archivos de un cliente
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - name: "app"
+          in: "query"
+          description: "nombre de la aplicación"
+          type: string
+        - name: "name"
+          in: "query"
+          description: "nombre del archivo"
+          type: string
+        - in: "version"
+          name: "version"
+          description: "versión del archivo"
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/user_file'
+        '404':
+          description: Cliente no existe
+          schema:
+            $ref: '#/definitions/error_obj'
+    post:
+      summary: Crear
+      tags: 
+        - archivos
+      description: |
+        Crea un nuevo archivo para este cliente
+        
+        * La terna (`file.app` + `file.name` + `file.version`) debe ser única para este usuario. De lo contrario, el servicio retornará error.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: body
+          name: file
+          description: Archivo
+          required: true
+          schema:
+            $ref: '#/definitions/user_file_new'
+      responses:
+        '201':
+          description: OK
+          schema:
+            $ref: '#/definitions/user_file'
+        '404':
+          description: Cliente no existe
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: No paso validación
+          schema:
+            $ref: '#/definitions/error_obj'
+  /users/{user_id}/files/{file_id}:
+    get:
+      summary: Listar
+      tags: 
+        - archivos
+      description: |
+        Retorna el archivo de un cliente
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: path
+          name: "file_id"
+          required: true
+          description: ID del archivo
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/user_file'
+        '404':
+          description: Cliente o archivo no existe
+          schema:
+            $ref: '#/definitions/error_obj'
   /helpers/banks:
     get:
       summary: Lista bancos
@@ -967,6 +1065,7 @@ paths:
             type: array
             items:
               $ref: '#/definitions/parameter'         
+  
 definitions:
   user_signup_new:
     type: object
@@ -1581,3 +1680,85 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/email_attachment_new'
+  
+  user_file_new:
+    type: object
+    description: |
+      Archivo de cliente **(Request)**
+    required:
+      - app
+      - name
+      - version
+      - mime_type
+      - location
+    properties:
+      app:
+        type: string
+        description: |
+          Aplicacion del archivo
+        example: "prepago"
+      name:
+        type: string
+        description: |
+          Nombre del archivo
+        example: "USER_CI_FRONTAL"
+      version:
+        type: string
+        description: |
+          Version del archivo
+        example: "v1.0"
+      description:
+        type: string
+        description: |
+          Descripcion del archivo
+        example: "Foto frontal de CI del cliente"
+      mime_type:
+        type: string
+        description: |
+          MimeType del archivo
+        example: "image/jpeg"
+      location:
+        type: string
+        description: |
+          URL donde se encuentra el archivo
+        example: "/path/to/image"
+  user_file:
+    type: object
+    description: |
+      Archivo de cliente **(Response)**
+    properties:
+      id:
+        type: integer
+        description: Identificador interno. Campo read-only.
+        example: 7783834
+        readOnly: true
+      app:
+        type: string
+        description: |
+          Aplicacion del archivo
+        example: "prepago"
+      name:
+        type: string
+        description: |
+          Nombre del archivo
+        example: "USER_CI_FRONTAL"
+      version:
+        type: string
+        description: |
+          Version del archivo
+        example: "v1.0"
+      description:
+        type: string
+        description: |
+          Descripcion del archivo
+        example: "Foto frontal de CI del cliente"
+      mime_type:
+        type: string
+        description: |
+          MimeType del archivo
+        example: "image/jpeg"
+      location:
+        type: string
+        description: |
+          URL donde se encuentra el archivo
+        example: "/path/to/image"
