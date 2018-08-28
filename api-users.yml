@@ -521,8 +521,10 @@ paths:
         Envía una comunicación o código de validación al email del cliente
 
         ### Notas
-        * Si el `template` requiere datos mínimos, debe incluirse estos datos en formato JSON mediante el campo `template_data`
+        * Los correos son enviados de forma asincrónica.
+        * Si el `template` requiere datos mínimos, debe incluirse estos datos en formato JSON mediante el campo `template_data`.
         * La validación del email se logra enviando un código de validación mendiante el uso de un template destinado para ello.
+        * Si el correo envia archivos adjuntos, incluirlos en el campo `attachments`.
       parameters:
         - in: path
           name: user_id
@@ -534,29 +536,14 @@ paths:
           description: Correo electrónico a enviar
           required: true
           schema:
-            type: object
-            required: 
-              - template
-            properties:
-              template:
-                type: string
-                description: Tipo de correo electrónico a enviar
-                example: "Prepago/ValidacionCorreo"
-              template_data:
-                type: string
-                description: JSON con tantos pares llave-valor como requiera el template del correo a enviar
-                example: "{'saludo': 'Estimado Pepito', 'despedida': 'Chao!'}"
-              address:
-                type: string
-                description: Correo electrónico al que se enviará este mensaje. Si no se incluye este campo, se usará el campo `email.value`  del Cliente.
-                example: "pepito@gmail.com"
+            $ref: '#/definitions/email_new'
       responses:
-        '201':
-          description: OK
-          schema:
-            type: boolean
+        '202':
+          description: Accepted
         '404':
           description: Cliente no existe
+          schema:
+            $ref: '#/definitions/error_obj'
         '422':
           description: El mail contiene datos inválidos
           schema:
@@ -1548,3 +1535,49 @@ definitions:
         type: string
         description: Descripción corta del error
         example: "El cliente no pasó la validación"
+
+  email_attachment_new:
+    type: object
+    description: Archivo a adjuntar en un email
+    required:
+      - file_name
+      - mime_type
+      - content
+    properties:
+      file_name:
+        type: string
+        description: Nombre del archivo
+        example: "Test.pdf"
+      mime_type:
+        type: string
+        description: MimeType del archivo
+        example: "application/pdf"
+      content_file:
+        type: string
+        description: |
+          El texto del contenido en base64 no debe contener `data:image/jpeg;base64`, Solo el cuerpo del archivo
+        example: "VGVzdA=="
+
+  email_new:
+    type: object
+    description: |
+      Email **(Request)**
+    required:
+      -  template
+    properties:
+      template:
+        type: string
+        description: Tipo de correo electrónico a enviar
+        example: "Prepago/ValidacionCorreo"
+      template_data:
+        type: string
+        description: JSON con tantos pares llave-valor como requiera el template del correo a enviar
+        example: "{'saludo': 'Estimado Pepito', 'despedida': 'Chao!'}"
+      address:
+        type: string
+        description: Correo electrónico al que se enviará este mensaje. Si no se incluye este campo, se usará el campo `email.value`  del Cliente.
+        example: "pepito@gmail.com"
+      attachments:
+        type: array
+        items:
+          $ref: '#/definitions/email_attachment_new'
