@@ -31,6 +31,8 @@ tags:
     description: Dirección física de un cliente
   - name: archivos
     description: Archivos de un cliente
+  - name: backoffice
+    description: Interacción con el backoffice (Freshdesk)
   - name: parámetros
     description: Listas de parámetros inmutables
 paths:
@@ -920,11 +922,11 @@ paths:
           in: "query"
           description: "nombre de la aplicación"
           type: string
-        - name: "name"
-          in: "query"
+        - in: query
+          name: "name"
           description: "nombre del archivo"
           type: string
-        - in: "version"
+        - in: query
           name: "version"
           description: "versión del archivo"
           type: string
@@ -999,6 +1001,42 @@ paths:
           description: Cliente o archivo no existe
           schema:
             $ref: '#/definitions/error_obj'
+  /users/{user_id}/backoffice/ticket:
+    post:
+      summary: Crear
+      tags: 
+        - backoffice
+      description: |
+        Crea un nuevo ticket en el bacoffice relacionado con el cliente
+        
+        Notas:
+        * El campo `description` acepta contenido HTML.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: body
+          name: ticket
+          description: ticket
+          required: true
+          schema:
+            $ref: '#/definitions/user_backoffice_ticket_new'
+      responses:
+        '201':
+          description: OK
+          schema:
+            $ref: '#/definitions/user_file'
+        '404':
+          description: Cliente no existe
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: No paso validación
+          schema:
+            $ref: '#/definitions/error_obj'
+  
   /helpers/banks:
     get:
       summary: Lista bancos
@@ -1762,3 +1800,45 @@ definitions:
         description: |
           URL donde se encuentra el archivo
         example: "/path/to/image"
+
+  user_backoffice_ticket_new:
+    type: object
+    description: |
+      Archivo de cliente **(Request)**
+    required:
+      - subject
+      - type
+      - priority
+      - description
+      - group_id
+    properties:
+      subject:
+        type: string
+        description: |
+          Titulo del ticket
+        example: "Verificación de identidad"
+      type:
+        type: string
+        description: |
+          Tipo de ticket
+        enum: ["VALIDACION_IDENTIDAD", "SOPORTE_GENERAL"]
+      priority:
+        type: string
+        description: |
+          Prioridad del ticket
+        enum: ["HIGH", "LOW", "MEDIUM", "URGENT"]
+      description:
+        type: string
+        description: |
+          Detalle del ticket. Soporta contenigo HTML.
+        example: "Realizar verificación de identidad al cliente Pepito Perez, rut: XX.XXX.XXX-X"
+      group_id:
+        type: integer
+        enum: [1, 2, 3]
+        description: |
+          Grupo al que sera asignado el ticket
+      product_id:
+        type: integer
+        enum: [999, 888, 777]
+        description: |
+          Producto al que esta asociado el ticket
