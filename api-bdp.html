@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API Multicaja BDP-REST | API Reference</title>
+    <title>API Multicaja PDP-REST | API Reference</title>
     <link rel="stylesheet" href="stylesheets/foundation.min.css" />
     <link rel="stylesheet" href="stylesheets/spectacle.min.css" />
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -24,16 +24,16 @@
             <a href="#tag-transaccional">transaccional</a>
             <ul>
               <li>
-                <a href="#operation--pdp-order-post"> Generar nuevo pedido para el comercio ***(Público)*** </a>
+                <a href="#operation--pdp-orders-post"> Generar una order (Intención de pago) ***(Público)*** </a>
               </li>
               <li>
-                <a href="#operation--pdp-order--order_id--get"> Obtener el estado del pedido ***(Público)*** </a>
+                <a href="#operation--pdp-orders--order_id--get"> Obtener el estado de la orden ***(Público)*** </a>
               </li>
               <li>
-                <a href="#operation--pdp-order--order_id--put"> Actualizar el pedido ***(Interno)*** </a>
+                <a href="#operation--pdp-orders--order_id--put"> Actualizar la orden ***(Interno)*** </a>
               </li>
               <li>
-                <a href="#operation--pdp-order--order_id--delete"> Cancelar el pedido ***(Público)*** </a>
+                <a href="#operation--pdp-orders--order_id--delete"> Cancelar la orden ***(Público)*** </a>
               </li>
             </ul>
           </section>
@@ -41,7 +41,7 @@
             <a href="#tag-efectivo">efectivo</a>
             <ul>
               <li>
-                <a href="#operation--pdp-order--order_id--cash-post"> Generar pago en efectivo ***(Público)*** </a>
+                <a href="#operation--pdp-orders--order_id--cash-post"> Generar pago en efectivo ***(Público)*** </a>
               </li>
             </ul>
           </section>
@@ -49,7 +49,7 @@
             <a href="#tag-transferencia">transferencia</a>
             <ul>
               <li>
-                <a href="#operation--pdp-order--order_id--transfers-post"> Generar Transferencia ***(Público)*** </a>
+                <a href="#operation--pdp-orders--order_id--transfers-post"> Generar Transferencia ***(Público)*** </a>
               </li>
             </ul>
           </section>
@@ -76,20 +76,18 @@
             </ul>
           </section>
           <h5>Schema Definitions</h5>
-          <a href="#definition-transferInput"> transferInput </a>
-          <a href="#definition-parameter"> parameter </a>
-          <a href="#definition-orderInput"> orderInput </a>
-          <a href="#definition-orderUpdate"> orderUpdate </a>
-          <a href="#definition-userData"> userData </a>
-          <a href="#definition-pollAnswer"> pollAnswer </a>
-          <a href="#definition-paymentMethod"> paymentMethod </a>
-          <a href="#definition-transfersResponse"> transfersResponse </a>
-          <a href="#definition-orderStatus"> orderStatus </a>
-          <a href="#definition-urlObject"> urlObject </a>
-          <a href="#definition-paramPaymentMethod"> paramPaymentMethod </a>
-          <a href="#definition-ErrorResponse"> ErrorResponse </a>
-          <a href="#definition-OrderCanceled"> OrderCanceled </a>
-          <a href="#definition-poolObject"> poolObject </a>
+          <a href="#definition-ordersModel"> ordersModel </a>
+          <a href="#definition-userModel"> userModel </a>
+          <a href="#definition-amountModel"> amountModel </a>
+          <a href="#definition-customModel"> customModel </a>
+          <a href="#definition-itemModel"> itemModel </a>
+          <a href="#definition-pollAnswerModel"> pollAnswerModel </a>
+          <a href="#definition-paymentMethodModel"> paymentMethodModel </a>
+          <a href="#definition-accountModel"> accountModel </a>
+          <a href="#definition-urlModel"> urlModel </a>
+          <a href="#definition-paymentMethodItemObject"> paymentMethodItemObject </a>
+          <a href="#definition-ErrorModel"> ErrorModel </a>
+          <a href="#definition-poolModel"> poolModel </a>
         </nav>
       </div>
       <div id="docs" class="row collapse expanded drawer" data-drawer>
@@ -98,7 +96,7 @@
         </button>
         <div class="example-box doc-content"></div>
         <article>
-          <h1 class="doc-title">API Multicaja BDP-REST
+          <h1 class="doc-title">API Multicaja PDP-REST
             <span>API Reference</span>
           </h1>
           <div id="introduction" data-traverse-target="introduction">
@@ -106,7 +104,7 @@
               <div class="doc-copy">
                 <p>Bienvenido a la API de
                   <a href="https://www.multicaja.cl">Multicaja</a> (Alpha)
-                  <strong> Este es un proyecto alpha y por lo tanto sufrirá muchos cambios </strong> Todos los requests son autenticados usando un <code>api-key</code>. Existen dos ambientes: <code>qa</code> y <code>producción</code>. El <code>host</code> de <code>qa</code> es <code>apiqa.multicaja.cl</code>.</p>
+                  <strong> Este es un proyecto alpha </strong> Todos los requests son autenticados usando un <code>api-key</code>.</p>
               </div>
               <div class="doc-examples">
                 <section>
@@ -129,10 +127,10 @@
           <h1 id="tag-transaccional" class="swagger-summary-tag" data-traverse-target="tag-transaccional">transaccional</h1>
           <div class="tag-description doc-row">
             <div class="doc-copy">
-              <p>Comunicación ecommerce</p>
+              <p>Opciones de la Orden</p>
             </div>
           </div>
-          <div id="operation--pdp-order-post" class="operation panel" data-traverse-target="operation--pdp-order-post">
+          <div id="operation--pdp-orders-post" class="operation panel" data-traverse-target="operation--pdp-orders-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -142,7 +140,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Generar nuevo pedido para el comercio
+              <span class="operation-summary">Generar una order (Intenci&#xF3;n de pago)
                 <strong>
                   <em>(P&#xFA;blico)</em>
                 </strong>
@@ -152,35 +150,73 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/pdp/order</span>
+                  <span class="operation-path">/pdp/orders</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Servicio para poder crear un nuevo pedido y el cual retornara la información de la orden.</p>
+                  <p>Servicio para poder crear una intención de pago. Los campos obligatorios son : </p>
+                  <ul>
+                    <li>
+                      <strong>reference_id</strong> : Es el
+                      <strong>ID</strong> interno del comercio.</li>
+                    <li>
+                      <strong>total_amount</strong> : Datos del monto.</li>
+                    <li>
+                      <strong>general_description</strong> : Descripción de orden.</li>
+                    <li>
+                      <strong>redirect_urls</strong> : Url de redirección para los casos de éxito y error.</li>
+                  </ul>
+                  <p>Los campos :</p>
+                  <ul>
+                    <li>
+                      <strong>payment_method_list</strong> : Lista de medios de pago habilitados ´[&quot;paypal&quot;,&quot;webpay&quot;,&quot;transferencia&quot;,&quot;efectivo&quot;]´</li>
+                    <li>
+                      <p>
+                        <strong>payment_method</strong> : Puede ser cualquier medio de pago disponible.</p>
+                      <p>
+                        <strong>Nota :</strong> *Existen dos flujos de integración 1. Pasarela debe llenar campo payment_method_list con los medios de pago a mostrar 2. boton de pago, debe llenar campo ´payment_method´ con el medio de pago a pagar.</p>
+                      <ol>
+                        <li>En caso de setear ´payment_method´ Este por defecto es el medio de pago, de manera que no se mostrara la lista de medios de pago.</li>
+                        <li>En caso de que no se cumpla (Que se envien ambos parametros o ninguno) esta regla se enviara un status 400 (Bad Request).*</li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>account_data</strong> : Si el objeto
+                        <em>´account_data´</em> esta seteado la api asume por defecto que el medio de pago es transferencia.</p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>item_list</strong> : El campo item list contiene la siguiente lista de objetos los cuales pertenecen al detalle de la operación.</p>
+                      <ul>
+                        <li>
+                          <strong>{ name : string, code : string, price : string, quantity : string }</strong>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>custom_values</strong> : El campo item list contiene la siguiente lista de key/value los cuales son utiles en el caso de ocupar un webhook.</p>
+                      <ul>
+                        <li>
+                          <strong>{ string : string } </strong>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul>
+                    <li>
+                      <strong>redirect_urls</strong> : Son las url de retorno en caso de que la operación se relice con éxito o error.</li>
+                  </ul>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-request-body">
-                  <div class="prop-row">
-                    <div class="prop-name">
-                      <div class="swagger-request-model">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/orderInput">orderInput</a>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="prop-value columns small-6">
-                      <!-- <div class="swagger-request-description"> -->
-                      <p>Parametros de entrada para el comercio</p>
-                      <!-- </div> -->
-                    </div>
-                  </div>
-                </section>
+                <section class="swagger-request-body"> </section>
               </div>
               <div class="doc-examples">
                 <section>
@@ -189,18 +225,13 @@
                   </h5>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;ec_order_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
-  <span class="hljs-attr">&quot;user_data&quot;</span>: {
-    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;developer@email.cl&quot;</span>,
-    <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>
-  },
-  <span class="hljs-attr">&quot;total_amount&quot;</span>: <span class="hljs-number">40000</span>,
-  <span class="hljs-attr">&quot;type_amount&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
-  <span class="hljs-attr">&quot;general_description&quot;</span>: <span class="hljs-string">&quot;Esta es una orden&quot;</span>,
-  <span class="hljs-attr">&quot;payment_method&quot;</span>: <span class="hljs-number">2</span>,
-  <span class="hljs-attr">&quot;urls&quot;</span>: {
-    <span class="hljs-attr">&quot;url_notify&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/notify&quot;</span>,
-    <span class="hljs-attr">&quot;url_goback&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/goback&quot;</span>
+  <span class="hljs-attr">&quot;account_data&quot;</span>: {
+    <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Cuenta corriente de transferencia&quot;</span>,
+    <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>,
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;email@email.cl&quot;</span>,
+    <span class="hljs-attr">&quot;account_type&quot;</span>: <span class="hljs-string">&quot;corriente&quot;</span>,
+    <span class="hljs-attr">&quot;account_number&quot;</span>: <span class="hljs-number">220106</span>
   }
 }
 </code></pre>
@@ -214,15 +245,11 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">201 Created</div>
-                      <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/orderStatus">orderStatus</a>
-                        </span>
-                      </div>
+                      <div class="prop-ref"> </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Pedido creado</p>
+                      <p>Orden creada con éxito</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -230,7 +257,7 @@
                       <div class="prop-title">400 Bad Request</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                          <a class="json-schema-ref" href="#/definitions/ErrorModel">ErrorModel</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -250,28 +277,22 @@
                     <span>(201 Created)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-number">455665</span>,
-  <span class="hljs-attr">&quot;order_status&quot;</span>: <span class="hljs-number">2</span>,
-  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;EXPIRED&quot;</span>,
-  <span class="hljs-attr">&quot;user_data&quot;</span>: {
-    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;developer@email.cl&quot;</span>,
-    <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>
-  },
-  <span class="hljs-attr">&quot;ec_order_id&quot;</span>: <span class="hljs-string">&quot;EH32434&quot;</span>,
-  <span class="hljs-attr">&quot;ecommerce_id&quot;</span>: <span class="hljs-string">&quot;EH32434&quot;</span>,
-  <span class="hljs-attr">&quot;total_amount&quot;</span>: <span class="hljs-number">60000</span>,
   <span class="hljs-attr">&quot;payment_info&quot;</span>: {
-    <span class="hljs-attr">&quot;payment_method&quot;</span>: <span class="hljs-string">&quot;Efectivo Multicaja&quot;</span>,
-    <span class="hljs-attr">&quot;payment_date&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;payment_amount&quot;</span>: <span class="hljs-number">40000</span>,
-    <span class="hljs-attr">&quot;payment_date_expiration&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;payment_date_update&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;payment_date_created&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;payment_canceled&quot;</span>: <span class="hljs-literal">false</span>
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">15564</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;efectivo&quot;</span>,
+    <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Pago con cupon en comercio multicaja&quot;</span>,
+    <span class="hljs-attr">&quot;anonymous_payment&quot;</span>: <span class="hljs-string">&quot;Pago con cupon en comercio multicaja&quot;</span>,
+    <span class="hljs-attr">&quot;max_amount&quot;</span>: <span class="hljs-string">&quot;Monto maximo aceptado en el medio de pago&quot;</span>,
+    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">true</span>
   },
-  <span class="hljs-attr">&quot;urls&quot;</span>: {
-    <span class="hljs-attr">&quot;url_notify&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/notify&quot;</span>,
-    <span class="hljs-attr">&quot;url_goback&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/goback&quot;</span>
+  <span class="hljs-attr">&quot;account_data&quot;</span>: {
+    <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Cuenta corriente de transferencia&quot;</span>,
+    <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>,
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;email@email.cl&quot;</span>,
+    <span class="hljs-attr">&quot;account_type&quot;</span>: <span class="hljs-string">&quot;corriente&quot;</span>,
+    <span class="hljs-attr">&quot;account_number&quot;</span>: <span class="hljs-number">220106</span>
   }
 }
 </code></pre>
@@ -282,11 +303,8 @@
                     <span>(400 Bad Request)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
-  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>,
-  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
-  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -294,7 +312,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--pdp-order--order_id--get" class="operation panel" data-traverse-target="operation--pdp-order--order_id--get">
+          <div id="operation--pdp-orders--order_id--get" class="operation panel" data-traverse-target="operation--pdp-orders--order_id--get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -304,7 +322,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Obtener el estado del pedido
+              <span class="operation-summary">Obtener el estado de la orden
                 <strong>
                   <em>(P&#xFA;blico)</em>
                 </strong>
@@ -314,14 +332,14 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">GET</span>
-                  <span class="operation-path">/pdp/order/{order_id}</span>
+                  <span class="operation-path">/pdp/orders/{order_id}</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Servicio para poder obtener detalles del pedido y su estado actual</p>
+                  <p>Servicio para poder obtener detalles de la orden y su estado actual</p>
                 </section>
               </div>
             </div>
@@ -353,11 +371,7 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">201 Created</div>
-                      <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/orderStatus">orderStatus</a>
-                        </span>
-                      </div>
+                      <div class="prop-ref"> </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
@@ -369,7 +383,7 @@
                       <div class="prop-title">400 Bad Request</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                          <a class="json-schema-ref" href="#/definitions/ErrorModel">ErrorModel</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -383,13 +397,13 @@
                       <div class="prop-title">403 Forbidden</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/OrderCanceled">OrderCanceled</a>
+                          <a class="json-schema-ref" href="#/definitions/ErrorModel">ErrorModel</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>El pedido fue anulado.</p>
+                      <p>La orden fue anulada.</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -411,28 +425,22 @@
                     <span>(201 Created)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-number">455665</span>,
-  <span class="hljs-attr">&quot;order_status&quot;</span>: <span class="hljs-number">2</span>,
-  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;EXPIRED&quot;</span>,
-  <span class="hljs-attr">&quot;user_data&quot;</span>: {
-    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;developer@email.cl&quot;</span>,
-    <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>
-  },
-  <span class="hljs-attr">&quot;ec_order_id&quot;</span>: <span class="hljs-string">&quot;EH32434&quot;</span>,
-  <span class="hljs-attr">&quot;ecommerce_id&quot;</span>: <span class="hljs-string">&quot;EH32434&quot;</span>,
-  <span class="hljs-attr">&quot;total_amount&quot;</span>: <span class="hljs-number">60000</span>,
   <span class="hljs-attr">&quot;payment_info&quot;</span>: {
-    <span class="hljs-attr">&quot;payment_method&quot;</span>: <span class="hljs-string">&quot;Efectivo Multicaja&quot;</span>,
-    <span class="hljs-attr">&quot;payment_date&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;payment_amount&quot;</span>: <span class="hljs-number">40000</span>,
-    <span class="hljs-attr">&quot;payment_date_expiration&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;payment_date_update&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;payment_date_created&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;payment_canceled&quot;</span>: <span class="hljs-literal">false</span>
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">15564</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;efectivo&quot;</span>,
+    <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Pago con cupon en comercio multicaja&quot;</span>,
+    <span class="hljs-attr">&quot;anonymous_payment&quot;</span>: <span class="hljs-string">&quot;Pago con cupon en comercio multicaja&quot;</span>,
+    <span class="hljs-attr">&quot;max_amount&quot;</span>: <span class="hljs-string">&quot;Monto maximo aceptado en el medio de pago&quot;</span>,
+    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">true</span>
   },
-  <span class="hljs-attr">&quot;urls&quot;</span>: {
-    <span class="hljs-attr">&quot;url_notify&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/notify&quot;</span>,
-    <span class="hljs-attr">&quot;url_goback&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/goback&quot;</span>
+  <span class="hljs-attr">&quot;account_data&quot;</span>: {
+    <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Cuenta corriente de transferencia&quot;</span>,
+    <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>,
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;email@email.cl&quot;</span>,
+    <span class="hljs-attr">&quot;account_type&quot;</span>: <span class="hljs-string">&quot;corriente&quot;</span>,
+    <span class="hljs-attr">&quot;account_number&quot;</span>: <span class="hljs-number">220106</span>
   }
 }
 </code></pre>
@@ -443,11 +451,8 @@
                     <span>(400 Bad Request)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
-  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>,
-  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
-  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -457,11 +462,8 @@
                     <span>(403 Forbidden)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">403</span>,
-  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Order canceled&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La orden N&#xB0; &apos;{order_id}&apos; fue anulada.&quot;</span>,
-  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
-  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -469,7 +471,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--pdp-order--order_id--put" class="operation panel" data-traverse-target="operation--pdp-order--order_id--put">
+          <div id="operation--pdp-orders--order_id--put" class="operation panel" data-traverse-target="operation--pdp-orders--order_id--put">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -479,7 +481,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Actualizar el pedido
+              <span class="operation-summary">Actualizar la orden
                 <strong>
                   <em>(Interno)</em>
                 </strong>
@@ -489,41 +491,55 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">PUT</span>
-                  <span class="operation-path">/pdp/order/{order_id}</span>
+                  <span class="operation-path">/pdp/orders/{order_id}</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Servicio para actualizar datos del pedido, solo permite </p>
+                  <p>Servicio para actualizar orden, permite actualizar los siguientes campos : </p>
                   <ul>
-                    <li>ID interno del ecommmerce ec_order_id.</li>
-                    <li>Dirección de correo del comprador.</li>
-                    <li>RUT del comprado</li>
-                    <li>Descripción de la compra.</li>
+                    <li>
+                      <strong>reference_id</strong> : Es el
+                      <strong>ID</strong> interno del comercio.</li>
+                    <li>
+                      <strong>general_description</strong> : Descripción de orden.
+                      <ul>
+                        <li>
+                          <strong>account_data</strong> : Si el objeto
+                          <em>´account_data´</em> esta seteado la api asume por defecto que el medio de pago es transferencia.</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>item_list</strong> : El campo item list contiene la siguiente lista de objetos los cuales pertenecen al detalle de la operación.</p>
+                      <ul>
+                        <li>
+                          <strong>{ name : string, code : string, price : string, quantity : string }</strong>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>custom_values</strong> : El campo item list contiene la siguiente lista de key/value los cuales son utiles en el caso de ocupar un webhook.</p>
+                      <ul>
+                        <li>
+                          <strong>{ string : string }</strong>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul>
+                    <li>
+                      <strong>redirect_urls</strong> : Son las url de retorno en caso de que la operación se relice con éxito o error.</li>
                   </ul>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-request-body">
-                  <div class="prop-row">
-                    <div class="prop-name">
-                      <div class="swagger-request-model">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/orderUpdate">orderUpdate</a>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="prop-value columns small-6">
-                      <!-- <div class="swagger-request-description"> -->
-                      <p>Parametros de entrada para el comercio</p>
-                      <!-- </div> -->
-                    </div>
-                  </div>
-                </section>
+                <section class="swagger-request-body"> </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
@@ -537,7 +553,7 @@
                       <div class="prop-subtitle"> in path </div>
                     </div>
                     <div class="prop-value">
-                      <p>ID de pedido de boton de pago</p>
+                      <p>ID de orden</p>
                     </div>
                   </div>
                 </section>
@@ -549,12 +565,30 @@
                   </h5>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;ec_order_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
+  <span class="hljs-attr">&quot;reference_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
   <span class="hljs-attr">&quot;general_description&quot;</span>: <span class="hljs-string">&quot;Esta es una orden&quot;</span>,
-  <span class="hljs-attr">&quot;payment_method&quot;</span>: <span class="hljs-number">2</span>,
   <span class="hljs-attr">&quot;user_data&quot;</span>: {
     <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;developer@email.cl&quot;</span>,
     <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>
+  },
+  <span class="hljs-attr">&quot;payment_method_list&quot;</span>: [
+    <span class="hljs-string">&quot;paypal&quot;</span>,
+    <span class="hljs-string">&quot;webpay&quot;</span>,
+    <span class="hljs-string">&quot;transferencia&quot;</span>,
+    <span class="hljs-string">&quot;efectivo&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;payment_method&quot;</span>: <span class="hljs-string">&quot;paypal&quot;</span>,
+  <span class="hljs-attr">&quot;item_list&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
+      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
+      <span class="hljs-attr">&quot;price&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
+      <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-string">&quot;number&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;redirect_urls&quot;</span>: {
+    <span class="hljs-attr">&quot;return_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/return_url&quot;</span>,
+    <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
   }
 }
 </code></pre>
@@ -568,15 +602,11 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">201 Created</div>
-                      <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/orderStatus">orderStatus</a>
-                        </span>
-                      </div>
+                      <div class="prop-ref"> </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Pedido creado</p>
+                      <p>Orden creada con éxito</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -584,7 +614,7 @@
                       <div class="prop-title">400 Bad Request</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                          <a class="json-schema-ref" href="#/definitions/ErrorModel">ErrorModel</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -604,28 +634,14 @@
                     <span>(201 Created)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-number">455665</span>,
-  <span class="hljs-attr">&quot;order_status&quot;</span>: <span class="hljs-number">2</span>,
-  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;EXPIRED&quot;</span>,
-  <span class="hljs-attr">&quot;user_data&quot;</span>: {
-    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;developer@email.cl&quot;</span>,
-    <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>
-  },
-  <span class="hljs-attr">&quot;ec_order_id&quot;</span>: <span class="hljs-string">&quot;EH32434&quot;</span>,
-  <span class="hljs-attr">&quot;ecommerce_id&quot;</span>: <span class="hljs-string">&quot;EH32434&quot;</span>,
-  <span class="hljs-attr">&quot;total_amount&quot;</span>: <span class="hljs-number">60000</span>,
   <span class="hljs-attr">&quot;payment_info&quot;</span>: {
-    <span class="hljs-attr">&quot;payment_method&quot;</span>: <span class="hljs-string">&quot;Efectivo Multicaja&quot;</span>,
-    <span class="hljs-attr">&quot;payment_date&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;payment_amount&quot;</span>: <span class="hljs-number">40000</span>,
-    <span class="hljs-attr">&quot;payment_date_expiration&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;payment_date_update&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;payment_date_created&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;payment_canceled&quot;</span>: <span class="hljs-literal">false</span>
-  },
-  <span class="hljs-attr">&quot;urls&quot;</span>: {
-    <span class="hljs-attr">&quot;url_notify&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/notify&quot;</span>,
-    <span class="hljs-attr">&quot;url_goback&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/goback&quot;</span>
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">15564</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;efectivo&quot;</span>,
+    <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Pago con cupon en comercio multicaja&quot;</span>,
+    <span class="hljs-attr">&quot;anonymous_payment&quot;</span>: <span class="hljs-string">&quot;Pago con cupon en comercio multicaja&quot;</span>,
+    <span class="hljs-attr">&quot;max_amount&quot;</span>: <span class="hljs-string">&quot;Monto maximo aceptado en el medio de pago&quot;</span>,
+    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">true</span>
   }
 }
 </code></pre>
@@ -636,11 +652,8 @@
                     <span>(400 Bad Request)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
-  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>,
-  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
-  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -648,7 +661,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--pdp-order--order_id--delete" class="operation panel" data-traverse-target="operation--pdp-order--order_id--delete">
+          <div id="operation--pdp-orders--order_id--delete" class="operation panel" data-traverse-target="operation--pdp-orders--order_id--delete">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -658,7 +671,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Cancelar el pedido
+              <span class="operation-summary">Cancelar la orden
                 <strong>
                   <em>(P&#xFA;blico)</em>
                 </strong>
@@ -668,14 +681,14 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">DELETE</span>
-                  <span class="operation-path">/pdp/order/{order_id}</span>
+                  <span class="operation-path">/pdp/orders/{order_id}</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Este servicio permite anular un pedido.</p>
+                  <p>Este servicio permite anular orden.</p>
                 </section>
               </div>
             </div>
@@ -717,7 +730,7 @@
                       <div class="prop-title">400 Bad Request</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                          <a class="json-schema-ref" href="#/definitions/ErrorModel">ErrorModel</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -731,7 +744,7 @@
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>error el pedido no existe</p>
+                      <p>error orden no existe</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -739,13 +752,13 @@
                       <div class="prop-title">410 Gone</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/OrderCanceled">OrderCanceled</a>
+                          <a class="json-schema-ref" href="#/definitions/ErrorModel">ErrorModel</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>El pedido fue anulado.</p>
+                      <p>La intención de pago fue anulada.</p>
                     </div>
                   </div>
                 </section>
@@ -759,11 +772,8 @@
                     <span>(400 Bad Request)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
-  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>,
-  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
-  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -773,11 +783,8 @@
                     <span>(410 Gone)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">403</span>,
-  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Order canceled&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La orden N&#xB0; &apos;{order_id}&apos; fue anulada.&quot;</span>,
-  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
-  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -791,7 +798,7 @@
               <p>Información efecitvo</p>
             </div>
           </div>
-          <div id="operation--pdp-order--order_id--cash-post" class="operation panel" data-traverse-target="operation--pdp-order--order_id--cash-post">
+          <div id="operation--pdp-orders--order_id--cash-post" class="operation panel" data-traverse-target="operation--pdp-orders--order_id--cash-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -811,14 +818,14 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/pdp/order/{order_id}/cash</span>
+                  <span class="operation-path">/pdp/orders/{order_id}/cash</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Este servicio genera el pago de un pedido en efectivo.</p>
+                  <p>Este servicio genera pago en efectivo.</p>
                 </section>
               </div>
             </div>
@@ -869,7 +876,7 @@
                       <div class="prop-title">400 Bad Request</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                          <a class="json-schema-ref" href="#/definitions/ErrorModel">ErrorModel</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -891,13 +898,13 @@
                       <div class="prop-title">410 Gone</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/OrderCanceled">OrderCanceled</a>
+                          <a class="json-schema-ref" href="#/definitions/ErrorModel">ErrorModel</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>El pedido fue anulado.</p>
+                      <p>La orden fue anulada con éxito.</p>
                     </div>
                   </div>
                 </section>
@@ -921,11 +928,8 @@
                     <span>(400 Bad Request)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
-  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>,
-  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
-  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -935,11 +939,8 @@
                     <span>(410 Gone)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">403</span>,
-  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Order canceled&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La orden N&#xB0; &apos;{order_id}&apos; fue anulada.&quot;</span>,
-  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
-  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -953,7 +954,7 @@
               <p>Información transferencia</p>
             </div>
           </div>
-          <div id="operation--pdp-order--order_id--transfers-post" class="operation panel" data-traverse-target="operation--pdp-order--order_id--transfers-post">
+          <div id="operation--pdp-orders--order_id--transfers-post" class="operation panel" data-traverse-target="operation--pdp-orders--order_id--transfers-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -973,14 +974,14 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/pdp/order/{order_id}/transfers</span>
+                  <span class="operation-path">/pdp/orders/{order_id}/transfers</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Configurar pago por transferencia en transferencia.</p>
+                  <p>Configurar pago por transferencia.</p>
                 </section>
               </div>
             </div>
@@ -991,16 +992,13 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/transferInput">transferInput</a>
+                          <a class="json-schema-ref" href="#/definitions/accountModel">accountModel</a>
                         </span>
                       </div>
                     </div>
                     <div class="prop-value columns small-6">
                       <!-- <div class="swagger-request-description"> -->
-                      <p>El body debe contener </p>
-                      <ul>
-                        <li>bank_id : ID del banco</li>
-                      </ul>
+                      <p>El body contiene la información de la cuenta de transferencia</p>
                       <!-- </div> -->
                     </div>
                   </div>
@@ -1030,7 +1028,12 @@
                   </h5>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">645</span>
+  <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Cuenta corriente de transferencia&quot;</span>,
+  <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>,
+  <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;email@email.cl&quot;</span>,
+  <span class="hljs-attr">&quot;account_type&quot;</span>: <span class="hljs-string">&quot;corriente&quot;</span>,
+  <span class="hljs-attr">&quot;account_number&quot;</span>: <span class="hljs-number">220106</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1043,11 +1046,7 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">201 Created</div>
-                      <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/transfersResponse">transfersResponse</a>
-                        </span>
-                      </div>
+                      <div class="prop-ref"> </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
@@ -1059,7 +1058,7 @@
                       <div class="prop-title">400 Bad Request</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                          <a class="json-schema-ref" href="#/definitions/ErrorModel">ErrorModel</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1081,13 +1080,13 @@
                       <div class="prop-title">410 Gone</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/OrderCanceled">OrderCanceled</a>
+                          <a class="json-schema-ref" href="#/definitions/ErrorModel">ErrorModel</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>El pedido fue anulado.</p>
+                      <p>La orden fue anulada.</p>
                     </div>
                   </div>
                 </section>
@@ -1101,18 +1100,7 @@
                     <span>(201 Created)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;ec_order_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
-  <span class="hljs-attr">&quot;tef_status&quot;</span>: <span class="hljs-string">&quot;PENDIENTE&quot;</span>,
-  <span class="hljs-attr">&quot;tef_amount&quot;</span>: <span class="hljs-number">10000</span>,
-  <span class="hljs-attr">&quot;tef_expires&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-  <span class="hljs-attr">&quot;tef_now&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-  <span class="hljs-attr">&quot;account_name&quot;</span>: <span class="hljs-string">&quot;Cuenta corriente de transferencia&quot;</span>,
-  <span class="hljs-attr">&quot;account_rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>,
-  <span class="hljs-attr">&quot;account_email&quot;</span>: <span class="hljs-string">&quot;email@email.cl&quot;</span>,
-  <span class="hljs-attr">&quot;account_bank&quot;</span>: <span class="hljs-string">&quot;Banco de chile&quot;</span>,
-  <span class="hljs-attr">&quot;account_type&quot;</span>: <span class="hljs-string">&quot;Corriente&quot;</span>,
-  <span class="hljs-attr">&quot;account_number&quot;</span>: <span class="hljs-number">220106</span>,
-  <span class="hljs-attr">&quot;account_new&quot;</span>: <span class="hljs-number">1</span>
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;PENDIENTE&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1122,11 +1110,8 @@
                     <span>(400 Bad Request)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
-  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>,
-  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
-  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1136,11 +1121,8 @@
                     <span>(410 Gone)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">403</span>,
-  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Order canceled&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La orden N&#xB0; &apos;{order_id}&apos; fue anulada.&quot;</span>,
-  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
-  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1181,30 +1163,12 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Setear pago por cupón.</p>
+                  <p>Muestra una lista de medios de pago.</p>
                 </section>
               </div>
             </div>
             <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-params">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">order_id:
-                        <span class="prop-type">
-                          <span class="json-property-type">number</span>
-                          <span class="json-property-range" title="Value limits"></span>
-                        </span>
-                      </div>
-                      <span class="json-property-required"></span>
-                      <div class="prop-subtitle"> in path </div>
-                    </div>
-                    <div class="prop-value">
-                      <p>id de orden de boton de pago</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
+              <div class="doc-copy"> </div>
               <div class="doc-examples"></div>
             </div>
             <div class="doc-row">
@@ -1215,7 +1179,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/paymentMethod">paymentMethod</a>
+                          <a class="json-schema-ref" href="#/definitions/paymentMethodItemObject">paymentMethodItemObject</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1229,7 +1193,7 @@
                     <div class="prop-value">
                       <span class="json-property-type">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/paymentMethod">paymentMethod</a>
+                          <a class="json-schema-ref" href="#/definitions/paymentMethodItemObject">paymentMethodItemObject</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
@@ -1240,13 +1204,13 @@
                       <div class="prop-title">410 Gone</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/OrderCanceled">OrderCanceled</a>
+                          <a class="json-schema-ref" href="#/definitions/ErrorModel">ErrorModel</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>El pedido fue anulado.</p>
+                      <p>La orden fue anulada.</p>
                     </div>
                   </div>
                 </section>
@@ -1261,13 +1225,8 @@
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
   {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">1</span>,
-    <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">15564</span>,
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;efectivo&quot;</span>,
-    <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Pago con cupon en comercio multicaja&quot;</span>,
-    <span class="hljs-attr">&quot;anonymous_payment&quot;</span>: <span class="hljs-string">&quot;Pago con cupon en comercio multicaja&quot;</span>,
-    <span class="hljs-attr">&quot;max_amount&quot;</span>: <span class="hljs-string">&quot;Monto maximo aceptado en el medio de pago&quot;</span>,
-    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attr">&quot;payment_method&quot;</span>: <span class="hljs-string">&quot;paypal&quot;</span>,
+    <span class="hljs-attr">&quot;payment_max_amount&quot;</span>: <span class="hljs-number">40000</span>
   }
 ]
 </code></pre>
@@ -1278,11 +1237,8 @@
                     <span>(410 Gone)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">403</span>,
-  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Order canceled&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La orden N&#xB0; &apos;{order_id}&apos; fue anulada.&quot;</span>,
-  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
-  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1349,11 +1305,7 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">200 OK</div>
-                      <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/parameter">parameter</a>
-                        </span>
-                      </div>
+                      <div class="prop-ref"> </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
@@ -1446,7 +1398,7 @@
                       <div class="prop-title">200 OK</div>
                       <div class="prop-ref">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/pollAnswer">pollAnswer</a>
+                          <a class="json-schema-ref" href="#/definitions/pollAnswerModel">pollAnswerModel</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1460,7 +1412,7 @@
                     <div class="prop-value">
                       <span class="json-property-type">
                         <span class="json-schema-ref-array">
-                          <a class="json-schema-ref" href="#/definitions/pollAnswer">pollAnswer</a>
+                          <a class="json-schema-ref" href="#/definitions/pollAnswerModel">pollAnswerModel</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
@@ -1471,7 +1423,7 @@
                       <div class="prop-title">400 Bad Request</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                          <a class="json-schema-ref" href="#/definitions/ErrorModel">ErrorModel</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1512,11 +1464,8 @@
                     <span>(400 Bad Request)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
-  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>,
-  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
-  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1562,7 +1511,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/poolObject">poolObject</a>
+                          <a class="json-schema-ref" href="#/definitions/poolModel">poolModel</a>
                         </span>
                       </div>
                     </div>
@@ -1570,7 +1519,7 @@
                       <!-- <div class="swagger-request-description"> -->
                       <p>El body debe contener </p>
                       <ul>
-                        <li>order_id : ID del pedido</li>
+                        <li>order_id : ID de la orden</li>
                         <li>answer_id : ID de respuesta</li>
                         <li>other_answer : Other Answer</li>
                       </ul>
@@ -1629,7 +1578,7 @@
                       <div class="prop-title">400 Bad Request</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorResponse">ErrorResponse</a>
+                          <a class="json-schema-ref" href="#/definitions/ErrorModel">ErrorModel</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -1657,11 +1606,8 @@
                     <span>(400 Bad Request)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
-  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>,
-  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
-  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1670,9 +1616,9 @@
             </div>
           </div>
           <h1>Schema Definitions</h1>
-          <div id="definition-transferInput" class="definition panel" data-traverse-target="definition-transferInput">
+          <div id="definition-ordersModel" class="definition panel" data-traverse-target="definition-ordersModel">
             <h2 class="panel-title">
-              <a name="/definitions/transferInput"></a>transferInput: object
+              <a name="/definitions/ordersModel"></a>ordersModel: object
               <!-- <span class="json-property-type">
               <span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
@@ -1684,86 +1630,8 @@
               <div class="doc-copy">
                 <section class="json-schema-properties">
                   <dl>
-                    <dt data-property-name="bank_id">
-                      <span class="json-property-name">bank_id:</span>
-                      <span class="json-property-type">integer</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                  </dl>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">645</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="definition-parameter" class="definition panel" data-traverse-target="definition-parameter">
-            <h2 class="panel-title">
-              <a name="/definitions/parameter"></a>parameter: object
-              <!-- <span class="json-property-type">
-              <span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-description">
-                  <p>Parámetro básico
-                    <strong>(Response)</strong>
-                  </p>
-                </section>
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="value" class="has-description">
-                      <span class="json-property-name">value:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dd>
-                      <p>descripción del parámetro</p>
-                    </dd>
-                  </dl>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="definition-orderInput" class="definition panel" data-traverse-target="definition-orderInput">
-            <h2 class="panel-title">
-              <a name="/definitions/orderInput"></a>orderInput: object
-              <!-- <span class="json-property-type">
-              <span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="ec_order_id">
-                      <span class="json-property-name">ec_order_id:</span>
+                    <dt data-property-name="reference_id">
+                      <span class="json-property-name">reference_id:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
@@ -1772,21 +1640,67 @@
                       <span class="json-property-name">user_data:</span>
                       <span class="json-property-type">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/userData">userData</a>
+                          <a class="json-schema-ref" href="#/definitions/userModel">userModel</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dt data-property-name="total_amount">
                       <span class="json-property-name">total_amount:</span>
-                      <span class="json-property-type">number</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/amountModel">amountModel</a>
+                        </span>
+                      </span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
                     </dt>
-                    <dt data-property-name="type_amount">
-                      <span class="json-property-name">type_amount:</span>
-                      <span class="json-property-type">string</span>
+                    <dt data-property-name="payment_method_list">
+                      <span class="json-property-name">payment_method_list:</span>
+                      <span class="json-property-type">string[]</span>
                       <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">string</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                    <dt data-property-name="payment_method" class="has-description">
+                      <span class="json-property-name">payment_method:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">paypal</span>,
+                        <span class="json-property-enum-item">webpay</span>,
+                        <span class="json-property-enum-item">transferencia</span>,
+                        <span class="json-property-enum-item">efectivo</span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Si se especifica, se ignora la lista de medio de pago[payment_method_list] y se envia al usuario directamente al flujo de pago seleccionado .</p>
+                    </dd>
+                    <dt data-property-name="item_list">
+                      <span class="json-property-name">item_list:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/itemModel">itemModel</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/itemModel">itemModel</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
                     </dt>
                     <dt data-property-name="general_description">
                       <span class="json-property-name">general_description:</span>
@@ -1794,17 +1708,21 @@
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
                     </dt>
-                    <dt data-property-name="payment_method">
-                      <span class="json-property-name">payment_method:</span>
-                      <span class="json-property-type">number</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dt data-property-name="urls">
-                      <span class="json-property-name">urls:</span>
+                    <dt data-property-name="custom_values">
+                      <span class="json-property-name">custom_values:</span>
                       <span class="json-property-type">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/urlObject">urlObject</a>
+                          <a class="json-schema-ref" href="#/definitions/customModel">customModel</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema"> </dt>
+                    <dt data-property-name="redirect_urls">
+                      <span class="json-property-name">redirect_urls:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/urlModel">urlModel</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
@@ -1816,18 +1734,38 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;ec_order_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
+  <span class="hljs-attr">&quot;reference_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
   <span class="hljs-attr">&quot;user_data&quot;</span>: {
     <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;developer@email.cl&quot;</span>,
     <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>
   },
-  <span class="hljs-attr">&quot;total_amount&quot;</span>: <span class="hljs-number">40000</span>,
-  <span class="hljs-attr">&quot;type_amount&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
+  <span class="hljs-attr">&quot;total_amount&quot;</span>: {
+    <span class="hljs-attr">&quot;currency&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
+    <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">41000</span>,
+    <span class="hljs-attr">&quot;details&quot;</span>: {
+      <span class="hljs-attr">&quot;subtotal&quot;</span>: <span class="hljs-number">40000</span>,
+      <span class="hljs-attr">&quot;tax&quot;</span>: <span class="hljs-number">1000</span>
+    }
+  },
+  <span class="hljs-attr">&quot;payment_method_list&quot;</span>: [
+    <span class="hljs-string">&quot;paypal&quot;</span>,
+    <span class="hljs-string">&quot;webpay&quot;</span>,
+    <span class="hljs-string">&quot;transferencia&quot;</span>,
+    <span class="hljs-string">&quot;efectivo&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;payment_method&quot;</span>: <span class="hljs-string">&quot;paypal&quot;</span>,
+  <span class="hljs-attr">&quot;item_list&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
+      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
+      <span class="hljs-attr">&quot;price&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
+      <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-string">&quot;number&quot;</span>
+    }
+  ],
   <span class="hljs-attr">&quot;general_description&quot;</span>: <span class="hljs-string">&quot;Esta es una orden&quot;</span>,
-  <span class="hljs-attr">&quot;payment_method&quot;</span>: <span class="hljs-number">2</span>,
-  <span class="hljs-attr">&quot;urls&quot;</span>: {
-    <span class="hljs-attr">&quot;url_notify&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/notify&quot;</span>,
-    <span class="hljs-attr">&quot;url_goback&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/goback&quot;</span>
+  <span class="hljs-attr">&quot;redirect_urls&quot;</span>: {
+    <span class="hljs-attr">&quot;return_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/return_url&quot;</span>,
+    <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
   }
 }
 </code></pre>
@@ -1836,68 +1774,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-orderUpdate" class="definition panel" data-traverse-target="definition-orderUpdate">
+          <div id="definition-userModel" class="definition panel" data-traverse-target="definition-userModel">
             <h2 class="panel-title">
-              <a name="/definitions/orderUpdate"></a>orderUpdate: object
-              <!-- <span class="json-property-type">
-              <span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="ec_order_id">
-                      <span class="json-property-name">ec_order_id:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="general_description">
-                      <span class="json-property-name">general_description:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="payment_method">
-                      <span class="json-property-name">payment_method:</span>
-                      <span class="json-property-type">number</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="user_data">
-                      <span class="json-property-name">user_data:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/userData">userData</a>
-                        </span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                  </dl>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;ec_order_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
-  <span class="hljs-attr">&quot;general_description&quot;</span>: <span class="hljs-string">&quot;Esta es una orden&quot;</span>,
-  <span class="hljs-attr">&quot;payment_method&quot;</span>: <span class="hljs-number">2</span>,
-  <span class="hljs-attr">&quot;user_data&quot;</span>: {
-    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;developer@email.cl&quot;</span>,
-    <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>
-  }
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="definition-userData" class="definition panel" data-traverse-target="definition-userData">
-            <h2 class="panel-title">
-              <a name="/definitions/userData"></a>userData: object
+              <a name="/definitions/userModel"></a>userModel: object
               <!-- <span class="json-property-type">
               <span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
@@ -1935,9 +1814,166 @@
               </div>
             </div>
           </div>
-          <div id="definition-pollAnswer" class="definition panel" data-traverse-target="definition-pollAnswer">
+          <div id="definition-amountModel" class="definition panel" data-traverse-target="definition-amountModel">
             <h2 class="panel-title">
-              <a name="/definitions/pollAnswer"></a>pollAnswer: object
+              <a name="/definitions/amountModel"></a>amountModel: object
+              <!-- <span class="json-property-type">
+              <span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="currency">
+                      <span class="json-property-name">currency:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="total">
+                      <span class="json-property-name">total:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="details">
+                      <span class="json-property-name">details:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="subtotal">
+                            <span class="json-property-name">subtotal:</span>
+                            <span class="json-property-type">number</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dt data-property-name="tax">
+                            <span class="json-property-name">tax:</span>
+                            <span class="json-property-type">number</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                        </dl>
+                      </section>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;currency&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
+  <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">41000</span>,
+  <span class="hljs-attr">&quot;details&quot;</span>: {
+    <span class="hljs-attr">&quot;subtotal&quot;</span>: <span class="hljs-number">40000</span>,
+    <span class="hljs-attr">&quot;tax&quot;</span>: <span class="hljs-number">1000</span>
+  }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-customModel" class="definition panel" data-traverse-target="definition-customModel">
+            <h2 class="panel-title">
+              <a name="/definitions/customModel"></a>customModel: object
+              <!-- <span class="json-property-type">
+              <span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="key">
+                      <span class="json-property-name">key:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="value">
+                      <span class="json-property-name">value:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;example&quot;</span>,
+  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;example&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-itemModel" class="definition panel" data-traverse-target="definition-itemModel">
+            <h2 class="panel-title">
+              <a name="/definitions/itemModel"></a>itemModel:
+              <!-- <span class="json-property-type">
+              <span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="name">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="code">
+                      <span class="json-property-name">code:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="price">
+                      <span class="json-property-name">price:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="quantity">
+                      <span class="json-property-name">quantity:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
+  <span class="hljs-attr">&quot;price&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
+  <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-string">&quot;number&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-pollAnswerModel" class="definition panel" data-traverse-target="definition-pollAnswerModel">
+            <h2 class="panel-title">
+              <a name="/definitions/pollAnswerModel"></a>pollAnswerModel: object
               <!-- <span class="json-property-type">
               <span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
@@ -1953,11 +1989,13 @@
                       <span class="json-property-name">answer_id:</span>
                       <span class="json-property-type">integer</span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
                     </dt>
                     <dt data-property-name="text_answer">
                       <span class="json-property-name">text_answer:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
                     </dt>
                   </dl>
                 </section>
@@ -1975,9 +2013,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-paymentMethod" class="definition panel" data-traverse-target="definition-paymentMethod">
+          <div id="definition-paymentMethodModel" class="definition panel" data-traverse-target="definition-paymentMethodModel">
             <h2 class="panel-title">
-              <a name="/definitions/paymentMethod"></a>paymentMethod: object
+              <a name="/definitions/paymentMethodModel"></a>paymentMethodModel: object
               <!-- <span class="json-property-type">
               <span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
@@ -1998,7 +2036,6 @@
                       <span class="json-property-name">id:</span>
                       <span class="json-property-type">integer</span>
                       <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
                     </dt>
                     <dd>
                       <p>identificador del metodo de pago</p>
@@ -2072,9 +2109,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-transfersResponse" class="definition panel" data-traverse-target="definition-transfersResponse">
+          <div id="definition-accountModel" class="definition panel" data-traverse-target="definition-accountModel">
             <h2 class="panel-title">
-              <a name="/definitions/transfersResponse"></a>transfersResponse: object
+              <a name="/definitions/accountModel"></a>accountModel: object
               <!-- <span class="json-property-type">
               <span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
@@ -2086,78 +2123,43 @@
               <div class="doc-copy">
                 <section class="json-schema-properties">
                   <dl>
-                    <dt data-property-name="ec_order_id">
-                      <span class="json-property-name">ec_order_id:</span>
+                    <dt data-property-name="bank_id" class="has-description">
+                      <span class="json-property-name">bank_id:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Este id se puede obtener de la api-helpers</p>
+                    </dd>
+                    <dt data-property-name="name">
+                      <span class="json-property-name">name:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dt data-property-name="tef_status">
-                      <span class="json-property-name">tef_status:</span>
+                    <dt data-property-name="rut">
+                      <span class="json-property-name">rut:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
                     </dt>
-                    <dt data-property-name="tef_amount">
-                      <span class="json-property-name">tef_amount:</span>
-                      <span class="json-property-type">integer</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dt data-property-name="tef_expires">
-                      <span class="json-property-name">tef_expires:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-format">(date-time)</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dt data-property-name="tef_now">
-                      <span class="json-property-name">tef_now:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-format">(date-time)</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dt data-property-name="account_name">
-                      <span class="json-property-name">account_name:</span>
+                    <dt data-property-name="email">
+                      <span class="json-property-name">email:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dt data-property-name="account_rut">
-                      <span class="json-property-name">account_rut:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dt data-property-name="account_email">
-                      <span class="json-property-name">account_email:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dt data-property-name="account_bank">
-                      <span class="json-property-name">account_bank:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
                     </dt>
                     <dt data-property-name="account_type">
                       <span class="json-property-name">account_type:</span>
                       <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">vista</span>,
+                        <span class="json-property-enum-item">corriente</span>,
+                        <span class="json-property-enum-item">credito</span>
+                      </span>
                       <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
                     </dt>
                     <dt data-property-name="account_number">
                       <span class="json-property-name">account_number:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dt data-property-name="account_new">
-                      <span class="json-property-name">account_new:</span>
-                      <span class="json-property-type">integer</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
                     </dt>
                   </dl>
                 </section>
@@ -2166,18 +2168,12 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;ec_order_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
-  <span class="hljs-attr">&quot;tef_status&quot;</span>: <span class="hljs-string">&quot;PENDIENTE&quot;</span>,
-  <span class="hljs-attr">&quot;tef_amount&quot;</span>: <span class="hljs-number">10000</span>,
-  <span class="hljs-attr">&quot;tef_expires&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-  <span class="hljs-attr">&quot;tef_now&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-  <span class="hljs-attr">&quot;account_name&quot;</span>: <span class="hljs-string">&quot;Cuenta corriente de transferencia&quot;</span>,
-  <span class="hljs-attr">&quot;account_rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>,
-  <span class="hljs-attr">&quot;account_email&quot;</span>: <span class="hljs-string">&quot;email@email.cl&quot;</span>,
-  <span class="hljs-attr">&quot;account_bank&quot;</span>: <span class="hljs-string">&quot;Banco de chile&quot;</span>,
-  <span class="hljs-attr">&quot;account_type&quot;</span>: <span class="hljs-string">&quot;Corriente&quot;</span>,
-  <span class="hljs-attr">&quot;account_number&quot;</span>: <span class="hljs-number">220106</span>,
-  <span class="hljs-attr">&quot;account_new&quot;</span>: <span class="hljs-number">1</span>
+  <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Cuenta corriente de transferencia&quot;</span>,
+  <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>,
+  <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;email@email.cl&quot;</span>,
+  <span class="hljs-attr">&quot;account_type&quot;</span>: <span class="hljs-string">&quot;corriente&quot;</span>,
+  <span class="hljs-attr">&quot;account_number&quot;</span>: <span class="hljs-number">220106</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -2185,9 +2181,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-orderStatus" class="definition panel" data-traverse-target="definition-orderStatus">
+          <div id="definition-urlModel" class="definition panel" data-traverse-target="definition-urlModel">
             <h2 class="panel-title">
-              <a name="/definitions/orderStatus"></a>orderStatus:
+              <a name="/definitions/urlModel"></a>urlModel:
               <!-- <span class="json-property-type">
               <span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
@@ -2199,65 +2195,17 @@
               <div class="doc-copy">
                 <section class="json-schema-properties">
                   <dl>
-                    <dt data-property-name="order_id">
-                      <span class="json-property-name">order_id:</span>
-                      <span class="json-property-type">integer</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="order_status">
-                      <span class="json-property-name">order_status:</span>
-                      <span class="json-property-type">integer</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dt data-property-name="description">
-                      <span class="json-property-name">description:</span>
+                    <dt data-property-name="return_url">
+                      <span class="json-property-name">return_url:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
                     </dt>
-                    <dt data-property-name="user_data">
-                      <span class="json-property-name">user_data:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/userData">userData</a>
-                        </span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="ec_order_id">
-                      <span class="json-property-name">ec_order_id:</span>
+                    <dt data-property-name="cancel_url">
+                      <span class="json-property-name">cancel_url:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
-                    </dt>
-                    <dt data-property-name="ecommerce_id">
-                      <span class="json-property-name">ecommerce_id:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="total_amount">
-                      <span class="json-property-name">total_amount:</span>
-                      <span class="json-property-type">integer</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="payment_info">
-                      <span class="json-property-name">payment_info:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/paramPaymentMethod">paramPaymentMethod</a>
-                        </span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="urls">
-                      <span class="json-property-name">urls:</span>
-                      <span class="json-property-type">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/urlObject">urlObject</a>
-                        </span>
-                      </span>
-                      <span class="json-property-range" title="Value limits"></span>
                     </dt>
                   </dl>
                 </section>
@@ -2266,29 +2214,8 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-number">455665</span>,
-  <span class="hljs-attr">&quot;order_status&quot;</span>: <span class="hljs-number">2</span>,
-  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;EXPIRED&quot;</span>,
-  <span class="hljs-attr">&quot;user_data&quot;</span>: {
-    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;developer@email.cl&quot;</span>,
-    <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>
-  },
-  <span class="hljs-attr">&quot;ec_order_id&quot;</span>: <span class="hljs-string">&quot;EH32434&quot;</span>,
-  <span class="hljs-attr">&quot;ecommerce_id&quot;</span>: <span class="hljs-string">&quot;EH32434&quot;</span>,
-  <span class="hljs-attr">&quot;total_amount&quot;</span>: <span class="hljs-number">60000</span>,
-  <span class="hljs-attr">&quot;payment_info&quot;</span>: {
-    <span class="hljs-attr">&quot;payment_method&quot;</span>: <span class="hljs-string">&quot;Efectivo Multicaja&quot;</span>,
-    <span class="hljs-attr">&quot;payment_date&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;payment_amount&quot;</span>: <span class="hljs-number">40000</span>,
-    <span class="hljs-attr">&quot;payment_date_expiration&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;payment_date_update&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;payment_date_created&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;payment_canceled&quot;</span>: <span class="hljs-literal">false</span>
-  },
-  <span class="hljs-attr">&quot;urls&quot;</span>: {
-    <span class="hljs-attr">&quot;url_notify&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/notify&quot;</span>,
-    <span class="hljs-attr">&quot;url_goback&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/goback&quot;</span>
-  }
+  <span class="hljs-attr">&quot;return_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/return_url&quot;</span>,
+  <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -2296,50 +2223,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-urlObject" class="definition panel" data-traverse-target="definition-urlObject">
+          <div id="definition-paymentMethodItemObject" class="definition panel" data-traverse-target="definition-paymentMethodItemObject">
             <h2 class="panel-title">
-              <a name="/definitions/urlObject"></a>urlObject:
-              <!-- <span class="json-property-type">
-              <span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="url_notify">
-                      <span class="json-property-name">url_notify:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dt data-property-name="url_goback">
-                      <span class="json-property-name">url_goback:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                  </dl>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;url_notify&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/notify&quot;</span>,
-  <span class="hljs-attr">&quot;url_goback&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/goback&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="definition-paramPaymentMethod" class="definition panel" data-traverse-target="definition-paramPaymentMethod">
-            <h2 class="panel-title">
-              <a name="/definitions/paramPaymentMethod"></a>paramPaymentMethod: object
+              <a name="/definitions/paymentMethodItemObject"></a>paymentMethodItemObject: object
               <!-- <span class="json-property-type">
               <span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
@@ -2355,42 +2241,11 @@
                       <span class="json-property-name">payment_method:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
                     </dt>
-                    <dt data-property-name="payment_date">
-                      <span class="json-property-name">payment_date:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dt data-property-name="payment_amount">
-                      <span class="json-property-name">payment_amount:</span>
+                    <dt data-property-name="payment_max_amount">
+                      <span class="json-property-name">payment_max_amount:</span>
                       <span class="json-property-type">number</span>
                       <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dt data-property-name="payment_date_expiration">
-                      <span class="json-property-name">payment_date_expiration:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dt data-property-name="payment_date_update">
-                      <span class="json-property-name">payment_date_update:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dt data-property-name="payment_date_created">
-                      <span class="json-property-name">payment_date_created:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dt data-property-name="payment_canceled">
-                      <span class="json-property-name">payment_canceled:</span>
-                      <span class="json-property-type">boolean</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
                     </dt>
                   </dl>
                 </section>
@@ -2399,13 +2254,8 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;payment_method&quot;</span>: <span class="hljs-string">&quot;Efectivo Multicaja&quot;</span>,
-  <span class="hljs-attr">&quot;payment_date&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-  <span class="hljs-attr">&quot;payment_amount&quot;</span>: <span class="hljs-number">40000</span>,
-  <span class="hljs-attr">&quot;payment_date_expiration&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-  <span class="hljs-attr">&quot;payment_date_update&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-  <span class="hljs-attr">&quot;payment_date_created&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-  <span class="hljs-attr">&quot;payment_canceled&quot;</span>: <span class="hljs-literal">false</span>
+  <span class="hljs-attr">&quot;payment_method&quot;</span>: <span class="hljs-string">&quot;paypal&quot;</span>,
+  <span class="hljs-attr">&quot;payment_max_amount&quot;</span>: <span class="hljs-number">40000</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -2413,9 +2263,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-ErrorResponse" class="definition panel" data-traverse-target="definition-ErrorResponse">
+          <div id="definition-ErrorModel" class="definition panel" data-traverse-target="definition-ErrorModel">
             <h2 class="panel-title">
-              <a name="/definitions/ErrorResponse"></a>ErrorResponse: object
+              <a name="/definitions/ErrorModel"></a>ErrorModel: object
               <!-- <span class="json-property-type">
               <span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
@@ -2427,22 +2277,13 @@
               <div class="doc-copy">
                 <section class="json-schema-properties">
                   <dl>
-                    <dt data-property-name="status" class="has-description">
-                      <span class="json-property-name">status:</span>
-                      <span class="json-property-type">integer</span>
-                      <span class="json-property-format">(int32)</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Código HTTP</p>
-                    </dd>
-                    <dt data-property-name="error" class="has-description">
-                      <span class="json-property-name">error:</span>
+                    <dt data-property-name="code" class="has-description">
+                      <span class="json-property-name">code:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>Nombre del código HTTP</p>
+                      <p>Variable de error</p>
                     </dd>
                     <dt data-property-name="message" class="has-description">
                       <span class="json-property-name">message:</span>
@@ -2452,23 +2293,6 @@
                     <dd>
                       <p>Descripción del error</p>
                     </dd>
-                    <dt data-property-name="path" class="has-description">
-                      <span class="json-property-name">path:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Url de la solicitud http</p>
-                    </dd>
-                    <dt data-property-name="timestamp" class="has-description">
-                      <span class="json-property-name">timestamp:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-format">(date-time)</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Fecha y hora del error</p>
-                    </dd>
                   </dl>
                 </section>
               </div>
@@ -2476,11 +2300,8 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">400</span>,
-  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Bad Request&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>,
-  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
-  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -2488,84 +2309,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-OrderCanceled" class="definition panel" data-traverse-target="definition-OrderCanceled">
+          <div id="definition-poolModel" class="definition panel" data-traverse-target="definition-poolModel">
             <h2 class="panel-title">
-              <a name="/definitions/OrderCanceled"></a>OrderCanceled: object
-              <!-- <span class="json-property-type">
-              <span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="status" class="has-description">
-                      <span class="json-property-name">status:</span>
-                      <span class="json-property-type">integer</span>
-                      <span class="json-property-format">(int32)</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Código HTTP</p>
-                    </dd>
-                    <dt data-property-name="error" class="has-description">
-                      <span class="json-property-name">error:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Nombre del código HTTP</p>
-                    </dd>
-                    <dt data-property-name="message" class="has-description">
-                      <span class="json-property-name">message:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Descripción del error</p>
-                    </dd>
-                    <dt data-property-name="path" class="has-description">
-                      <span class="json-property-name">path:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Url de la solicitud http</p>
-                    </dd>
-                    <dt data-property-name="timestamp" class="has-description">
-                      <span class="json-property-name">timestamp:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-format">(date-time)</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Fecha y hora del error</p>
-                    </dd>
-                  </dl>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">403</span>,
-  <span class="hljs-attr">&quot;error&quot;</span>: <span class="hljs-string">&quot;Order canceled&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La orden N&#xB0; &apos;{order_id}&apos; fue anulada.&quot;</span>,
-  <span class="hljs-attr">&quot;path&quot;</span>: <span class="hljs-string">&quot;/pdp/{path}&quot;</span>,
-  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-03-16T16:38:31.28571&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="definition-poolObject" class="definition panel" data-traverse-target="definition-poolObject">
-            <h2 class="panel-title">
-              <a name="/definitions/poolObject"></a>poolObject:
+              <a name="/definitions/poolModel"></a>poolModel:
               <!-- <span class="json-property-type">
               <span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
@@ -2583,7 +2329,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>ID de pedido</p>
+                      <p>ID de la orden</p>
                     </dd>
                     <dt data-property-name="user_id" class="has-description">
                       <span class="json-property-name">user_id:</span>
