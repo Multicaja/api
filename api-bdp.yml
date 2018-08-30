@@ -54,7 +54,7 @@ paths:
               1. En caso de setear ´payment_method´ Este por defecto es el medio de pago, de manera que no se mostrara la lista de medios de pago.
               2. En caso de que no se cumpla (Que se envien ambos parametros o ninguno) esta regla se enviara un status 400 (Bad Request).*
           
-          * **account_data** : Si el objeto *´account_data´* esta seteado la api asume por defecto que el medio de pago es transferencia.
+          * **user_bank_account** : Si el objeto *´user_bank_account´* esta seteado la api asume por defecto que el medio de pago es transferencia.
           
           * **item_list** : El campo item list contiene la siguiente lista de objetos los cuales pertenecen al detalle de la operación.
           
@@ -85,7 +85,7 @@ paths:
             - $ref: '#/definitions/ordersModel'
             - type: object
           properties:
-            account_data:
+            user_bank_account:
               $ref: '#/definitions/accountModel'
       consumes:
       - application/json    
@@ -99,10 +99,18 @@ paths:
                 - $ref: '#/definitions/ordersModel'
                 - type: object
               properties:
-                payment_info:
-                  $ref: '#/definitions/paymentMethodModel'
-                account_data:
+                status:
+                  type: string
+                  enum: ['created', 'pending', 'canceled', 'completed','expired']
+                  example: "created"
+                order_id:
+                  type: number
+                  example: 645646
+                user_bank_account:
                   $ref: '#/definitions/accountModel'
+                link:
+                  type: string
+                  example: 'http://pagos.multicaja.cl/url_retorno'
         400:
           description: Parametros de entrada incorrectos
           schema:
@@ -133,10 +141,20 @@ paths:
                 - $ref: '#/definitions/ordersModel'
                 - type: object
               properties:
-                payment_info:
-                  $ref: '#/definitions/paymentMethodModel'
-                account_data:
+                status:
+                  type: string
+                  enum: ['created', 'pending', 'canceled', 'completed','expired']
+                  example: "pending"
+                transactions:
+                  type: array
+                  items:
+                    $ref: '#/definitions/transactionModel'
+                user_bank_account:
                   $ref: '#/definitions/accountModel'
+                link:
+                  type: string
+                  example: 'http://pagos.multicaja.cl/url_retorno'
+                
         400:
           description: Parametros de entrada incorrectos
           schema:
@@ -156,7 +174,7 @@ paths:
         
           * **reference_id** : Es el **ID** interno del comercio.
           * **general_description** : Descripción de orden.
-           * **account_data** : Si el objeto *´account_data´* esta seteado la api asume por defecto que el medio de pago es transferencia.
+           * **user_bank_account** : Si el objeto *´user_bank_account´* esta seteado la api asume por defecto que el medio de pago es transferencia.
           * **item_list** : El campo item list contiene la siguiente lista de objetos los cuales pertenecen al detalle de la operación.
           
             * **{ 
@@ -195,7 +213,7 @@ paths:
               general_description:
                 type: string
                 example: Esta es una orden
-              user_data: 
+              user: 
                 $ref: '#/definitions/userModel'
               payment_method_list:
                 type: array
@@ -214,6 +232,7 @@ paths:
                 items:
                   $ref: '#/definitions/itemModel'
               custom_values:
+                type: array
                 items:
                   $ref: '#/definitions/customModel'
               redirect_urls:
@@ -230,8 +249,10 @@ paths:
                 - $ref: '#/definitions/ordersModel'
                 - type: object
               properties:
-                payment_info:
-                  $ref: '#/definitions/paymentMethodModel'
+                transactions:
+                  type: array
+                  items:
+                    $ref: '#/definitions/transactionModel'
         400:
           description: Parametros de entrada incorrectos
           schema:
@@ -476,7 +497,7 @@ definitions:
       reference_id:
         type: string
         example: "ERWER213"
-      user_data: 
+      user: 
         $ref: '#/definitions/userModel'
       total_amount:
         $ref: '#/definitions/amountModel'
@@ -500,6 +521,7 @@ definitions:
         type: string
         example: Esta es una orden
       custom_values:
+        type: array
         items:
           $ref: '#/definitions/customModel'
       redirect_urls:
@@ -541,10 +563,7 @@ definitions:
     properties:
       key:
         type: string
-        example: "example"
-      value:
-        type: string
-        example: "example"
+        example: "value"
 
   itemModel: 
     properties:
@@ -576,38 +595,36 @@ definitions:
         example: 152
   
 
-  paymentMethodModel:
+  transactionModel:
     type: object
     description: Parámetro básico **(Response)**
     properties:
       id:
         type: integer
-        description: identificador del metodo de pago
-        example: 1
-      code:
-        type: string
-        description: Código del metodo de pago
-        example: 15564
+        description: identificador de la operación
+        example: 132312213
       name:
         type: string
-        description: Nombre del metodo de pago
-        example: "efectivo"
+        enum: ["payment","cancellation","expiration","other"]
+        description: Tipo de operación
+        example: "payment"
       description:
         type: string
-        description: Descripcion del metodo de pago
+        description: Descripcion de la operación
         example: "Pago con cupon en comercio multicaja"
-      anonymous_payment:
+      total_operation:
+        type: number
+        description: Monto de la operación  (Opcional)
+        example: 41000
+      date:
         type: string
-        description: Descripcion del meodo de pago
-        example: "Pago con cupon en comercio multicaja"
-      max_amount:
+        format: date-time
+        example: "2018-01-14T15:27:42.669Z"
+      status:
         type: string
-        description: Monto maximo de pago
-        example: "Monto maximo aceptado en el medio de pago"
-      enabled:
-        type: boolean
-        description: Estado del medio de pago
-        example: true
+        enum: ["approved","rejected"]
+        description: Tipo de operación
+        example: "approved"
   
  
   
@@ -691,6 +708,3 @@ definitions:
         type: string
         example: "Texto de respuesta opcional"
         description: Respuesta opcional
-        
-      
-    
