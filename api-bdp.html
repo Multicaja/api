@@ -82,7 +82,7 @@
           <a href="#definition-customModel"> customModel </a>
           <a href="#definition-itemModel"> itemModel </a>
           <a href="#definition-pollAnswerModel"> pollAnswerModel </a>
-          <a href="#definition-paymentMethodModel"> paymentMethodModel </a>
+          <a href="#definition-transactionModel"> transactionModel </a>
           <a href="#definition-accountModel"> accountModel </a>
           <a href="#definition-urlModel"> urlModel </a>
           <a href="#definition-paymentMethodItemObject"> paymentMethodItemObject </a>
@@ -185,8 +185,8 @@
                     </li>
                     <li>
                       <p>
-                        <strong>account_data</strong> : Si el objeto
-                        <em>´account_data´</em> esta seteado la api asume por defecto que el medio de pago es transferencia.</p>
+                        <strong>user_bank_account</strong> : Si el objeto
+                        <em>´user_bank_account´</em> esta seteado la api asume por defecto que el medio de pago es transferencia.</p>
                     </li>
                     <li>
                       <p>
@@ -225,7 +225,7 @@
                   </h5>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;account_data&quot;</span>: {
+  <span class="hljs-attr">&quot;user_bank_account&quot;</span>: {
     <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">1</span>,
     <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Cuenta corriente de transferencia&quot;</span>,
     <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>,
@@ -277,23 +277,17 @@
                     <span>(201 Created)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;payment_info&quot;</span>: {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">1</span>,
-    <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">15564</span>,
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;efectivo&quot;</span>,
-    <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Pago con cupon en comercio multicaja&quot;</span>,
-    <span class="hljs-attr">&quot;anonymous_payment&quot;</span>: <span class="hljs-string">&quot;Pago con cupon en comercio multicaja&quot;</span>,
-    <span class="hljs-attr">&quot;max_amount&quot;</span>: <span class="hljs-string">&quot;Monto maximo aceptado en el medio de pago&quot;</span>,
-    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">true</span>
-  },
-  <span class="hljs-attr">&quot;account_data&quot;</span>: {
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;created&quot;</span>,
+  <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-number">645646</span>,
+  <span class="hljs-attr">&quot;user_bank_account&quot;</span>: {
     <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">1</span>,
     <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Cuenta corriente de transferencia&quot;</span>,
     <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>,
     <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;email@email.cl&quot;</span>,
     <span class="hljs-attr">&quot;account_type&quot;</span>: <span class="hljs-string">&quot;corriente&quot;</span>,
     <span class="hljs-attr">&quot;account_number&quot;</span>: <span class="hljs-number">220106</span>
-  }
+  },
+  <span class="hljs-attr">&quot;link&quot;</span>: <span class="hljs-string">&quot;http://pagos.multicaja.cl/url_retorno&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -425,23 +419,26 @@
                     <span>(201 Created)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;payment_info&quot;</span>: {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">1</span>,
-    <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">15564</span>,
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;efectivo&quot;</span>,
-    <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Pago con cupon en comercio multicaja&quot;</span>,
-    <span class="hljs-attr">&quot;anonymous_payment&quot;</span>: <span class="hljs-string">&quot;Pago con cupon en comercio multicaja&quot;</span>,
-    <span class="hljs-attr">&quot;max_amount&quot;</span>: <span class="hljs-string">&quot;Monto maximo aceptado en el medio de pago&quot;</span>,
-    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">true</span>
-  },
-  <span class="hljs-attr">&quot;account_data&quot;</span>: {
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;pending&quot;</span>,
+  <span class="hljs-attr">&quot;transactions&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">132312213</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;payment&quot;</span>,
+      <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Pago con cupon en comercio multicaja&quot;</span>,
+      <span class="hljs-attr">&quot;total_operation&quot;</span>: <span class="hljs-number">41000</span>,
+      <span class="hljs-attr">&quot;date&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;approved&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;user_bank_account&quot;</span>: {
     <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">1</span>,
     <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Cuenta corriente de transferencia&quot;</span>,
     <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>,
     <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;email@email.cl&quot;</span>,
     <span class="hljs-attr">&quot;account_type&quot;</span>: <span class="hljs-string">&quot;corriente&quot;</span>,
     <span class="hljs-attr">&quot;account_number&quot;</span>: <span class="hljs-number">220106</span>
-  }
+  },
+  <span class="hljs-attr">&quot;link&quot;</span>: <span class="hljs-string">&quot;http://pagos.multicaja.cl/url_retorno&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -507,8 +504,8 @@
                       <strong>general_description</strong> : Descripción de orden.
                       <ul>
                         <li>
-                          <strong>account_data</strong> : Si el objeto
-                          <em>´account_data´</em> esta seteado la api asume por defecto que el medio de pago es transferencia.</li>
+                          <strong>user_bank_account</strong> : Si el objeto
+                          <em>´user_bank_account´</em> esta seteado la api asume por defecto que el medio de pago es transferencia.</li>
                       </ul>
                     </li>
                     <li>
@@ -567,7 +564,7 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;reference_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
   <span class="hljs-attr">&quot;general_description&quot;</span>: <span class="hljs-string">&quot;Esta es una orden&quot;</span>,
-  <span class="hljs-attr">&quot;user_data&quot;</span>: {
+  <span class="hljs-attr">&quot;user&quot;</span>: {
     <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;developer@email.cl&quot;</span>,
     <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>
   },
@@ -584,6 +581,11 @@
       <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
       <span class="hljs-attr">&quot;price&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
       <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-string">&quot;number&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;custom_values&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;value&quot;</span>
     }
   ],
   <span class="hljs-attr">&quot;redirect_urls&quot;</span>: {
@@ -634,15 +636,16 @@
                     <span>(201 Created)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;payment_info&quot;</span>: {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">1</span>,
-    <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">15564</span>,
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;efectivo&quot;</span>,
-    <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Pago con cupon en comercio multicaja&quot;</span>,
-    <span class="hljs-attr">&quot;anonymous_payment&quot;</span>: <span class="hljs-string">&quot;Pago con cupon en comercio multicaja&quot;</span>,
-    <span class="hljs-attr">&quot;max_amount&quot;</span>: <span class="hljs-string">&quot;Monto maximo aceptado en el medio de pago&quot;</span>,
-    <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">true</span>
-  }
+  <span class="hljs-attr">&quot;transactions&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">132312213</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;payment&quot;</span>,
+      <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Pago con cupon en comercio multicaja&quot;</span>,
+      <span class="hljs-attr">&quot;total_operation&quot;</span>: <span class="hljs-number">41000</span>,
+      <span class="hljs-attr">&quot;date&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;approved&quot;</span>
+    }
+  ]
 }
 </code></pre>
                   <!-- </div> -->
@@ -1636,8 +1639,8 @@
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
                     </dt>
-                    <dt data-property-name="user_data">
-                      <span class="json-property-name">user_data:</span>
+                    <dt data-property-name="user">
+                      <span class="json-property-name">user:</span>
                       <span class="json-property-type">
                         <span class="">
                           <a class="json-schema-ref" href="#/definitions/userModel">userModel</a>
@@ -1711,13 +1714,23 @@
                     <dt data-property-name="custom_values">
                       <span class="json-property-name">custom_values:</span>
                       <span class="json-property-type">
-                        <span class="">
+                        <span class="json-schema-ref-array">
                           <a class="json-schema-ref" href="#/definitions/customModel">customModel</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dt class="json-inner-schema"> </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/customModel">customModel</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
                     <dt data-property-name="redirect_urls">
                       <span class="json-property-name">redirect_urls:</span>
                       <span class="json-property-type">
@@ -1735,7 +1748,7 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;reference_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
-  <span class="hljs-attr">&quot;user_data&quot;</span>: {
+  <span class="hljs-attr">&quot;user&quot;</span>: {
     <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;developer@email.cl&quot;</span>,
     <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>
   },
@@ -1763,6 +1776,11 @@
     }
   ],
   <span class="hljs-attr">&quot;general_description&quot;</span>: <span class="hljs-string">&quot;Esta es una orden&quot;</span>,
+  <span class="hljs-attr">&quot;custom_values&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;value&quot;</span>
+    }
+  ],
   <span class="hljs-attr">&quot;redirect_urls&quot;</span>: {
     <span class="hljs-attr">&quot;return_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/return_url&quot;</span>,
     <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
@@ -1898,11 +1916,6 @@
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dt data-property-name="value">
-                      <span class="json-property-name">value:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
                   </dl>
                 </section>
               </div>
@@ -1910,8 +1923,7 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;example&quot;</span>,
-  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;example&quot;</span>
+  <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;value&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -2013,9 +2025,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-paymentMethodModel" class="definition panel" data-traverse-target="definition-paymentMethodModel">
+          <div id="definition-transactionModel" class="definition panel" data-traverse-target="definition-transactionModel">
             <h2 class="panel-title">
-              <a name="/definitions/paymentMethodModel"></a>paymentMethodModel: object
+              <a name="/definitions/transactionModel"></a>transactionModel: object
               <!-- <span class="json-property-type">
               <span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
@@ -2038,23 +2050,21 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>identificador del metodo de pago</p>
-                    </dd>
-                    <dt data-property-name="code" class="has-description">
-                      <span class="json-property-name">code:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Código del metodo de pago</p>
+                      <p>identificador de la operación</p>
                     </dd>
                     <dt data-property-name="name" class="has-description">
                       <span class="json-property-name">name:</span>
                       <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">payment</span>,
+                        <span class="json-property-enum-item">cancellation</span>,
+                        <span class="json-property-enum-item">expiration</span>,
+                        <span class="json-property-enum-item">other</span>
+                      </span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>Nombre del metodo de pago</p>
+                      <p>Tipo de operación</p>
                     </dd>
                     <dt data-property-name="description" class="has-description">
                       <span class="json-property-name">description:</span>
@@ -2062,31 +2072,33 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>Descripcion del metodo de pago</p>
+                      <p>Descripcion de la operación</p>
                     </dd>
-                    <dt data-property-name="anonymous_payment" class="has-description">
-                      <span class="json-property-name">anonymous_payment:</span>
+                    <dt data-property-name="total_operation" class="has-description">
+                      <span class="json-property-name">total_operation:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Monto de la operación (Opcional)</p>
+                    </dd>
+                    <dt data-property-name="date">
+                      <span class="json-property-name">date:</span>
                       <span class="json-property-type">string</span>
+                      <span class="json-property-format">(date-time)</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dd>
-                      <p>Descripcion del meodo de pago</p>
-                    </dd>
-                    <dt data-property-name="max_amount" class="has-description">
-                      <span class="json-property-name">max_amount:</span>
+                    <dt data-property-name="status" class="has-description">
+                      <span class="json-property-name">status:</span>
                       <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">approved</span>,
+                        <span class="json-property-enum-item">rejected</span>
+                      </span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>Monto maximo de pago</p>
-                    </dd>
-                    <dt data-property-name="enabled" class="has-description">
-                      <span class="json-property-name">enabled:</span>
-                      <span class="json-property-type">boolean</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Estado del medio de pago</p>
+                      <p>Tipo de operación</p>
                     </dd>
                   </dl>
                 </section>
@@ -2095,13 +2107,12 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">1</span>,
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">15564</span>,
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;efectivo&quot;</span>,
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">132312213</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;payment&quot;</span>,
   <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Pago con cupon en comercio multicaja&quot;</span>,
-  <span class="hljs-attr">&quot;anonymous_payment&quot;</span>: <span class="hljs-string">&quot;Pago con cupon en comercio multicaja&quot;</span>,
-  <span class="hljs-attr">&quot;max_amount&quot;</span>: <span class="hljs-string">&quot;Monto maximo aceptado en el medio de pago&quot;</span>,
-  <span class="hljs-attr">&quot;enabled&quot;</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attr">&quot;total_operation&quot;</span>: <span class="hljs-number">41000</span>,
+  <span class="hljs-attr">&quot;date&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;approved&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
