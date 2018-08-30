@@ -232,6 +232,7 @@ paths:
                 items:
                   $ref: '#/definitions/itemModel'
               custom_values:
+                type: array
                 items:
                   $ref: '#/definitions/customModel'
               redirect_urls:
@@ -706,4 +707,4 @@ definitions:
       other_answer:
         type: string
         example: "Texto de respuesta opcional"
-        description: Respuesta opciona
+        description: Respuesta opcional
