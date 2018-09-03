@@ -32,7 +32,7 @@ tags:
   description: Encuesta de anulaciones
 
 paths:
-  /pdp/orders:
+  /pdp/v1.0/orders:
     post:
       tags:
       - transaccional
@@ -43,26 +43,21 @@ paths:
         
           * **reference_id** : Es el **ID** interno del comercio.
           * **total_amount** : Datos del monto.
-          * **general_description** : Descripción de orden.
-          * **redirect_urls** : Url de redirección para los casos de éxito y error.
+          * **description** : Descripción de orden.
+          * **urls** : Url de redirección para los casos de éxito y error.
         
         Los campos :
-          * **payment_method_list** : Lista de medios de pago habilitados ´["paypal","webpay","transferencia","efectivo"]´
-          * **payment_method** : Puede ser cualquier medio de pago disponible.
-          
-              **Nota :** *Existen dos flujos de integración 1. Pasarela debe llenar campo payment_method_list con los medios de pago a mostrar 2. boton de pago, debe llenar campo ´payment_method´ con el medio de pago a pagar.
-              1. En caso de setear ´payment_method´ Este por defecto es el medio de pago, de manera que no se mostrara la lista de medios de pago.
-              2. En caso de que no se cumpla (Que se envien ambos parametros o ninguno) esta regla se enviara un status 400 (Bad Request).*
+          * **payment_methods** : Lista de medios de pago habilitados ´["paypal","tarjetas","transferencia","efectivo"]´
           
           * **user_bank_account** : Si el objeto *´user_bank_account´* esta seteado la api asume por defecto que el medio de pago es transferencia.
           
-          * **item_list** : El campo item list contiene la siguiente lista de objetos los cuales pertenecen al detalle de la operación.
+          * **items** : El campo item list contiene la siguiente lista de objetos los cuales pertenecen al detalle de la operación.
           
             * **{ 
               name : string,
               code : string,
-              price : string,
-              quantity : string
+              price : number,
+              quantity : number
             }** 
           
           * **custom_values**  : 
@@ -74,7 +69,7 @@ paths:
             
           
           
-          * **redirect_urls** : Son las url de retorno en caso de que la operación se relice con éxito o error.
+          * **urls** : Son las url de retorno en caso de que la operación se relice con éxito o error.
       parameters:
       - in: body
         required: true
@@ -101,21 +96,21 @@ paths:
               properties:
                 status:
                   type: string
-                  enum: ['created', 'pending', 'canceled', 'completed','expired']
-                  example: "created"
+                  enum: ['pending', 'canceled', 'completed','expired']
+                  example: "pending"
                 order_id:
                   type: number
                   example: 645646
                 user_bank_account:
                   $ref: '#/definitions/accountModel'
-                link:
+                redirect_url:
                   type: string
                   example: 'http://pagos.multicaja.cl/url_retorno'
         400:
           description: Parametros de entrada incorrectos
           schema:
             $ref: '#/definitions/ErrorModel'
-  /pdp/orders/{order_id}:
+  /pdp/v1.0/orders/{order_id}:
     get:
       tags:
       - transaccional
@@ -145,13 +140,13 @@ paths:
                   type: string
                   enum: ['created', 'pending', 'canceled', 'completed','expired']
                   example: "pending"
-                transactions:
+                history:
                   type: array
                   items:
-                    $ref: '#/definitions/transactionModel'
+                    $ref: '#/definitions/historyModel'
                 user_bank_account:
                   $ref: '#/definitions/accountModel'
-                link:
+                redirect_url:
                   type: string
                   example: 'http://pagos.multicaja.cl/url_retorno'
                 
@@ -173,9 +168,9 @@ paths:
         Servicio para actualizar orden, permite actualizar los siguientes campos :  
         
           * **reference_id** : Es el **ID** interno del comercio.
-          * **general_description** : Descripción de orden.
+          * **description** : Descripción de orden.
            * **user_bank_account** : Si el objeto *´user_bank_account´* esta seteado la api asume por defecto que el medio de pago es transferencia.
-          * **item_list** : El campo item list contiene la siguiente lista de objetos los cuales pertenecen al detalle de la operación.
+          * **items** : El campo item list contiene la siguiente lista de objetos los cuales pertenecen al detalle de la operación.
           
             * **{ 
               name : string,
@@ -192,7 +187,7 @@ paths:
             }** 
             
           
-          * **redirect_urls** : Son las url de retorno en caso de que la operación se relice con éxito o error.
+          * **urls** : Son las url de retorno en caso de que la operación se relice con éxito o error.
           
           
       parameters:
@@ -210,24 +205,24 @@ paths:
               reference_id:
                 type: string
                 example: "ERWER213"
-              general_description:
+              description:
                 type: string
                 example: Esta es una orden
               user: 
                 $ref: '#/definitions/userModel'
-              payment_method_list:
+              payment_methods:
                 type: array
-                example: ['paypal', 'webpay', 'transferencia', 'efectivo']
+                example: ['paypal', 'tarjetas', 'transferencia', 'efectivo']
                 items:
                   type: string
                   example: "paypal"
               payment_method:
                 type: string
-                enum: ['paypal', 'webpay', 'transferencia', 'efectivo']
+                enum: ['paypal', 'tarjetas', 'transferencia', 'efectivo']
                 example: "paypal"
                 description: |
-                  Si se especifica, se ignora la lista de medio de pago[payment_method_list] y se envia al usuario directamente al flujo de pago seleccionado .
-              item_list:
+                  Si se especifica, se ignora la lista de medio de pago[payment_methods] y se envia al usuario directamente al flujo de pago seleccionado .
+              items:
                 type: array
                 items:
                   $ref: '#/definitions/itemModel'
@@ -235,7 +230,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/customModel'
-              redirect_urls:
+              urls:
                 $ref: '#/definitions/urlModel'
       consumes:
       - application/json    
@@ -249,10 +244,10 @@ paths:
                 - $ref: '#/definitions/ordersModel'
                 - type: object
               properties:
-                transactions:
+                history:
                   type: array
                   items:
-                    $ref: '#/definitions/transactionModel'
+                    $ref: '#/definitions/historyModel'
         400:
           description: Parametros de entrada incorrectos
           schema:
@@ -287,7 +282,7 @@ paths:
             $ref: '#/definitions/ErrorModel'
         404:
           description: error orden no existe
-  /pdp/orders/{order_id}/cash: 
+  /pdp/v1.0/orders/{order_id}/cash: 
     post:
       tags:
       - efectivo
@@ -324,7 +319,7 @@ paths:
         404:
           description: error obtención de datos   
           
-  /pdp/orders/{order_id}/transfers:
+  /pdp/v1.0/orders/{order_id}/transfers:
     post:
       tags:
       - transferencia
@@ -369,7 +364,7 @@ paths:
             $ref: '#/definitions/ErrorModel'
         404:
           description: error obtención de datos  
-  /pdp/general/paymentmethods:
+  /pdp/v1.0/general/paymentmethods:
     get:
       tags:
       - general
@@ -391,7 +386,7 @@ paths:
           description: La orden fue anulada.
           schema:
             $ref: '#/definitions/ErrorModel'
-  /pdp/general/params/{param}:
+  /pdp/v1.0/general/params/{param}:
     get:
       tags:
       - general
@@ -417,7 +412,7 @@ paths:
                 type: string
                 description: descripción del parámetro
         
-  /pdp/poll/{pool_id}:
+  /pdp/v1.0/poll/{pool_id}:
     get:
       tags:
       - encuesta
@@ -490,41 +485,35 @@ definitions:
     type: object
     required:
     - reference_id
-    - total_amount
-    - general_description
-    - payment_method
+    - amount
+    - description
+    - payment_methods
     properties:
       reference_id:
         type: string
         example: "ERWER213"
       user: 
         $ref: '#/definitions/userModel'
-      total_amount:
+      amount:
         $ref: '#/definitions/amountModel'
-      payment_method_list:
+      payment_methods:
         type: array
-        example: ['paypal', 'webpay', 'transferencia', 'efectivo']
+        example: ['paypal', 'tarjetas', 'transferencia', 'efectivo']
         items:
           type: string
           example: "paypal"
-      payment_method:
-        type: string
-        enum: ['paypal', 'webpay', 'transferencia', 'efectivo']
-        example: "paypal"
-        description: |
-          Si se especifica, se ignora la lista de medio de pago[payment_method_list] y se envia al usuario directamente al flujo de pago seleccionado .
-      item_list:
+      items:
         type: array
         items:
           $ref: '#/definitions/itemModel'
-      general_description:
+      description:
         type: string
         example: Esta es una orden
       custom_values:
         type: array
         items:
           $ref: '#/definitions/customModel'
-      redirect_urls:
+      urls:
         $ref: '#/definitions/urlModel'
         
   
@@ -553,7 +542,10 @@ definitions:
         properties:
           subtotal:
             type: number
-            example: 40000
+            example: 39000
+          commission:
+            type: number
+            example: 1000
           tax:
             type: number
             example: 1000
@@ -574,11 +566,14 @@ definitions:
         type: string
         example: "name"
       price:
-        type: string
-        example: "name"
+        type: number
+        example: 39000
+      unit_price:
+        type: number
+        example: 13000
       quantity:
-        type: string
-        example: number
+        type: number
+        example: 3
  
         
   pollAnswerModel:
@@ -595,7 +590,7 @@ definitions:
         example: 152
   
 
-  transactionModel:
+  historyModel:
     type: object
     description: Parámetro básico **(Response)**
     properties:
