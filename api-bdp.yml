@@ -1,3 +1,4 @@
+ 
 swagger: '2.0'
 info:
   description:  |
@@ -5,14 +6,12 @@ info:
     ** Este es un proyecto alpha  **
     Todos los requests son autenticados usando un `api-key`.
   version: "1.0.0"
-  title: API Multicaja PDP-REST
+  title: API Multicaja de Pasarela
   # put the contact info for your development or API team
   contact:
     email: matias.salinas@multicaja.cl
     
-# Added by API Auto Mocking Plugin
-# host: 'api.multicaja.cl'
-# basePath: /v0.1-alpha/
+
 consumes:
   - application/json
 produces:
@@ -22,71 +21,51 @@ produces:
 tags:
 - name: transaccional
   description: Opciones de la  Orden
-- name: efectivo
-  description: Información efecitvo
-- name: transferencia
-  description: Información transferencia
 - name: general
   description: Información transversal de todos los medios de pago
-- name: encuesta
-  description: Encuesta de anulaciones
 
 paths:
-  /pdp/orders:
+  /pdp/v1.0/orders:
     post:
       tags:
       - transaccional
-      summary: Generar una order (Intención de pago) ***(Público)***
+      summary: Generar una order (Intención de pago)
       description: |
         Servicio para poder crear una intención de pago.
         Los campos obligatorios son : 
         
           * **reference_id** : Es el **ID** interno del comercio.
-          * **total_amount** : Datos del monto.
-          * **general_description** : Descripción de orden.
-          * **redirect_urls** : Url de redirección para los casos de éxito y error.
+          * **amount** : Datos del monto.
+          * **description** : Descripción de orden.
+          * **urls** : Url de redirección para los casos de éxito y error.
         
         Los campos :
-          * **payment_method_list** : Lista de medios de pago habilitados ´["paypal","webpay","transferencia","efectivo"]´
-          * **payment_method** : Puede ser cualquier medio de pago disponible.
+          * **methods** : Lista de medios de pago habilitados ´["paypal","tarjetas","transferencia","efectivo"]´
           
-              **Nota :** *Existen dos flujos de integración 1. Pasarela debe llenar campo payment_method_list con los medios de pago a mostrar 2. boton de pago, debe llenar campo ´payment_method´ con el medio de pago a pagar.
-              1. En caso de setear ´payment_method´ Este por defecto es el medio de pago, de manera que no se mostrara la lista de medios de pago.
-              2. En caso de que no se cumpla (Que se envien ambos parametros o ninguno) esta regla se enviara un status 400 (Bad Request).*
-          
-          * **user_bank_account** : Si el objeto *´user_bank_account´* esta seteado la api asume por defecto que el medio de pago es transferencia.
-          
-          * **item_list** : El campo item list contiene la siguiente lista de objetos los cuales pertenecen al detalle de la operación.
+          * **items** : El campo item list contiene la siguiente lista de objetos los cuales pertenecen al detalle de la operación.
           
             * **{ 
               name : string,
               code : string,
-              price : string,
-              quantity : string
+              price : number,
+              quantity : number
             }** 
           
-          * **custom_values**  : 
+          * **customs**  : 
             El campo item list contiene la siguiente lista de key/value los cuales son utiles en el caso de ocupar un webhook.
             
             * **{ 
               string : string
             } **
-            
           
-          
-          * **redirect_urls** : Son las url de retorno en caso de que la operación se relice con éxito o error.
+          * **urls** : Son las url de retorno en caso de que la operación se relice con éxito o error.
       parameters:
       - in: body
         required: true
         name: body
         description: Parametros de entrada para el comercio
         schema:
-          allOf:
-            - $ref: '#/definitions/ordersModel'
-            - type: object
-          properties:
-            user_bank_account:
-              $ref: '#/definitions/accountModel'
+          $ref: '#/definitions/ordersModel'
       consumes:
       - application/json    
       produces:
@@ -95,33 +74,18 @@ paths:
         201:
           description: Orden creada con éxito
           schema:
-              allOf:
-                - $ref: '#/definitions/ordersModel'
-                - type: object
-              properties:
-                status:
-                  type: string
-                  enum: ['created', 'pending', 'canceled', 'completed','expired']
-                  example: "created"
-                order_id:
-                  type: number
-                  example: 645646
-                user_bank_account:
-                  $ref: '#/definitions/accountModel'
-                link:
-                  type: string
-                  example: 'http://pagos.multicaja.cl/url_retorno'
+            $ref: '#/definitions/orderModelResponse'
         400:
           description: Parametros de entrada incorrectos
           schema:
             $ref: '#/definitions/ErrorModel'
-  /pdp/orders/{order_id}:
+  /pdp/v1.0/orders/{order_id}:
     get:
       tags:
       - transaccional
       description: |
         Servicio para poder obtener detalles de la orden y su estado actual
-      summary: Obtener el estado de la orden  ***(Público)***
+      summary: Obtener el estado de la orden
       operationId: addInventory
       consumes:
       - application/json
@@ -134,27 +98,10 @@ paths:
           required: true
           type: number
       responses:
-        201:
+        200:
           description: ok
           schema:
-              allOf:
-                - $ref: '#/definitions/ordersModel'
-                - type: object
-              properties:
-                status:
-                  type: string
-                  enum: ['created', 'pending', 'canceled', 'completed','expired']
-                  example: "pending"
-                transactions:
-                  type: array
-                  items:
-                    $ref: '#/definitions/transactionModel'
-                user_bank_account:
-                  $ref: '#/definitions/accountModel'
-                link:
-                  type: string
-                  example: 'http://pagos.multicaja.cl/url_retorno'
-                
+            $ref: '#/definitions/orderModelResponse'
         400:
           description: Parametros de entrada incorrectos
           schema:
@@ -168,14 +115,13 @@ paths:
     put:
       tags:
       - transaccional
-      summary: Actualizar la orden  ***(Interno)***
+      summary: Actualizar la orden
       description: |
         Servicio para actualizar orden, permite actualizar los siguientes campos :  
         
           * **reference_id** : Es el **ID** interno del comercio.
-          * **general_description** : Descripción de orden.
-           * **user_bank_account** : Si el objeto *´user_bank_account´* esta seteado la api asume por defecto que el medio de pago es transferencia.
-          * **item_list** : El campo item list contiene la siguiente lista de objetos los cuales pertenecen al detalle de la operación.
+          * **description** : Descripción de orden.
+          * **items** : El campo item list contiene la siguiente lista de objetos los cuales pertenecen al detalle de la operación.
           
             * **{ 
               name : string,
@@ -192,8 +138,10 @@ paths:
             }** 
             
           
-          * **redirect_urls** : Son las url de retorno en caso de que la operación se relice con éxito o error.
+          * **urls** : Son las url de retorno en caso de que la operación se relice con éxito o error.
           
+          
+          **NOTA:** Esta operación solo esta permitida con ordenes pendientes de pago.
           
       parameters:
         - in: path
@@ -206,37 +154,7 @@ paths:
           name: body
           description: Parametros de entrada para el comercio
           schema:
-            properties:
-              reference_id:
-                type: string
-                example: "ERWER213"
-              general_description:
-                type: string
-                example: Esta es una orden
-              user: 
-                $ref: '#/definitions/userModel'
-              payment_method_list:
-                type: array
-                example: ['paypal', 'webpay', 'transferencia', 'efectivo']
-                items:
-                  type: string
-                  example: "paypal"
-              payment_method:
-                type: string
-                enum: ['paypal', 'webpay', 'transferencia', 'efectivo']
-                example: "paypal"
-                description: |
-                  Si se especifica, se ignora la lista de medio de pago[payment_method_list] y se envia al usuario directamente al flujo de pago seleccionado .
-              item_list:
-                type: array
-                items:
-                  $ref: '#/definitions/itemModel'
-              custom_values:
-                type: array
-                items:
-                  $ref: '#/definitions/customModel'
-              redirect_urls:
-                $ref: '#/definitions/urlModel'
+            $ref: '#/definitions/ordersModel'
       consumes:
       - application/json    
       produces:
@@ -245,14 +163,7 @@ paths:
         201:
           description: Orden creada con éxito
           schema:
-              allOf:
-                - $ref: '#/definitions/ordersModel'
-                - type: object
-              properties:
-                transactions:
-                  type: array
-                  items:
-                    $ref: '#/definitions/transactionModel'
+            $ref: '#/definitions/orderModelResponse'
         400:
           description: Parametros de entrada incorrectos
           schema:
@@ -261,7 +172,7 @@ paths:
     delete:
       tags:
       - transaccional
-      summary: Cancelar la orden  ***(Público)***
+      summary: Cancelar la orden
       description: |
         Este servicio permite anular orden.
       consumes:
@@ -275,7 +186,7 @@ paths:
           required: true
           type: number
       responses:
-        201:
+        200:
           description: ok
         400:
           description: Parametros de entrada incorrectos
@@ -287,93 +198,12 @@ paths:
             $ref: '#/definitions/ErrorModel'
         404:
           description: error orden no existe
-  /pdp/orders/{order_id}/cash: 
-    post:
-      tags:
-      - efectivo
-      summary: Generar pago en efectivo  ***(Público)***
-      description: |
-        Este servicio genera pago en efectivo.
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-        - in: path
-          name : order_id
-          type: integer
-          required: true
-          description: Id de orden
-      responses:
-        201:
-          description: ok
-          schema:
-            type: object
-            properties:
-              sequence_code:
-                type: string
-                example: 4684545456
-        400:
-          description: Parametros de entrada incorrectos
-          schema:
-            $ref: '#/definitions/ErrorModel'
-        410:
-          description: La orden fue anulada con éxito.
-          schema:
-            $ref: '#/definitions/ErrorModel'
-        404:
-          description: error obtención de datos   
-          
-  /pdp/orders/{order_id}/transfers:
-    post:
-      tags:
-      - transferencia
-      summary: Generar Transferencia  ***(Público)***
-      description: |
-        Configurar pago por transferencia.
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-        - in: path
-          name : order_id
-          type: integer
-          required: true
-          description: Id de orden
-        - in: body
-          required: true
-          name: body
-          description: |
-            El body contiene la información de la cuenta de transferencia
-          schema:
-            $ref: '#/definitions/accountModel'
-      responses:
-        201:
-          description: ok
-          schema:
-            properties:
-              status:
-                type: string
-                example: "PENDIENTE"
-            allOf:
-              - $ref: '#/definitions/accountModel'
-              - type: object
-        400:
-          description: Parametros de entrada incorrectos
-          schema:
-            $ref: '#/definitions/ErrorModel'
-        410:
-          description: La orden fue anulada.
-          schema:
-            $ref: '#/definitions/ErrorModel'
-        404:
-          description: error obtención de datos  
-  /pdp/general/paymentmethods:
+ 
+  /pdp/v1.0/general/paymentmethods:
     get:
       tags:
       - general
-      summary: Obtener lista de medios de pago  ***(Público)***
+      summary: Obtener lista de medios de pago
       description: |
         Muestra una lista de medios de pago.
       consumes:
@@ -390,98 +220,7 @@ paths:
         410:
           description: La orden fue anulada.
           schema:
-            $ref: '#/definitions/ErrorModel'
-  /pdp/general/params/{param}:
-    get:
-      tags:
-      - general
-      summary: Obtener el parametro ***(Interno)*** 
-      description: |
-        Obtener parametros de la plataforma. 
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-        - in: path
-          name: param
-          description: nombre del parametro
-          required: true
-          type: string
-      responses:
-        200:
-          description: OK
-          schema:
-            properties:
-              value:
-                type: string
-                description: descripción del parámetro
-        
-  /pdp/poll/{pool_id}:
-    get:
-      tags:
-      - encuesta
-      summary: Obtener lista de respuestas de una encuesta  ***(Interno)***
-      description: |
-        Este servicio permite obtener la lista de respuestas de una encuesta.
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-        - in: path
-          name: pool_id
-          description: ID de encuesta
-          required: true
-          type: "integer"
-      responses:
-        200:
-          description: ok
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/pollAnswerModel'
-        400:
-          description: Parametros de entrada incorrectos
-          schema:
-            $ref: '#/definitions/ErrorModel'
-        404:
-          description: error al obtener la liesta de respuestas   
-    post:
-      tags:
-      - encuesta
-      summary: Responde encuesta con el id de respuesta seleccionado  ***(Público)***
-      description: |
-        Este servicio permite responder la encuesta.
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-        - in: path
-          name: pool_id
-          description: ID de encuesta
-          required: true
-          type: "integer"
-        - in: body
-          required: true
-          name: body
-          description: |
-            El body debe contener 
-              * order_id : ID de la orden
-              * answer_id : ID de respuesta
-              * other_answer : Other Answer
-          schema:
-            $ref: '#/definitions/poolModel'
-      responses:
-        200:
-          description: ok
-        400:
-          description: Parametros de entrada incorrectos
-          schema:
-            $ref: '#/definitions/ErrorModel'
-        404:
-          description: El error al obtener la encuesta   
+            $ref: '#/definitions/ErrorModel' 
         
   
 definitions:
@@ -490,54 +229,56 @@ definitions:
     type: object
     required:
     - reference_id
-    - total_amount
-    - general_description
-    - payment_method
+    - amount
+    - description
+    - payments
     properties:
       reference_id:
         type: string
         example: "ERWER213"
-      user: 
-        $ref: '#/definitions/userModel'
-      total_amount:
+      amount:
         $ref: '#/definitions/amountModel'
-      payment_method_list:
+      methods:
         type: array
-        example: ['paypal', 'webpay', 'transferencia', 'efectivo']
+        example: ['paypal', 'tarjetas', 'transferencia', 'efectivo']
         items:
           type: string
           example: "paypal"
-      payment_method:
-        type: string
-        enum: ['paypal', 'webpay', 'transferencia', 'efectivo']
-        example: "paypal"
-        description: |
-          Si se especifica, se ignora la lista de medio de pago[payment_method_list] y se envia al usuario directamente al flujo de pago seleccionado .
-      item_list:
+      items:
         type: array
         items:
           $ref: '#/definitions/itemModel'
-      general_description:
+      description:
         type: string
         example: Esta es una orden
-      custom_values:
+      customs:
         type: array
         items:
           $ref: '#/definitions/customModel'
-      redirect_urls:
+      urls:
         $ref: '#/definitions/urlModel'
         
   
-        
-  userModel: 
-    type: object
-    properties:
-      email:
-          type: string
-          example: "developer@email.cl"
-      rut:
-        type: string
-        example: "1-9"
+
+  orderModelResponse:
+    allOf:
+      - $ref: '#/definitions/ordersModel'
+      - properties:
+          status:
+            type: string
+            enum: ['pending', 'canceled', 'completed','expired']
+            example: "pending"
+          order_id:
+            type: number
+            example: 645646
+          redirect_url:
+            type: string
+            example: 'http://pagos.multicaja.cl/url_retorno'
+          history:
+            type: array
+            items:
+              $ref: '#/definitions/historyModel'
+
 
   amountModel:
     type: object
@@ -553,7 +294,10 @@ definitions:
         properties:
           subtotal:
             type: number
-            example: 40000
+            example: 39000
+          commission:
+            type: number
+            example: 1000
           tax:
             type: number
             example: 1000
@@ -574,28 +318,18 @@ definitions:
         type: string
         example: "name"
       price:
-        type: string
-        example: "name"
+        type: number
+        example: 39000
+      unit_price:
+        type: number
+        example: 13000
       quantity:
-        type: string
-        example: number
+        type: number
+        example: 3
  
-        
-  pollAnswerModel:
-    type: object
-    required:
-    - answer_id
-    - text_answer
-    properties:
-      answer_id:
-        type: integer
-        example: 1111111111
-      text_answer:
-        type: string
-        example: 152
-  
 
-  transactionModel:
+
+  historyModel:
     type: object
     description: Parámetro básico **(Response)**
     properties:
@@ -605,13 +339,13 @@ definitions:
         example: 132312213
       name:
         type: string
-        enum: ["payment","cancellation","expiration","other"]
+        enum: ["payment","cancellation","expiration","other","crated"]
         description: Tipo de operación
-        example: "payment"
+        example: "crated"
       description:
         type: string
         description: Descripcion de la operación
-        example: "Pago con cupon en comercio multicaja"
+        example: "Orden fue creada con exito"
       total_operation:
         type: number
         description: Monto de la operación  (Opcional)
@@ -627,30 +361,6 @@ definitions:
         example: "approved"
   
  
-  
-  accountModel:
-    type: object
-    properties:
-      bank_id:
-        type: number
-        example: 1
-        description: "Este id se puede obtener de la api-helpers"
-      name:
-        type: string
-        example: "Cuenta corriente de transferencia"
-      rut:
-        type: string
-        example: 1-9
-      email:
-        type: string
-        example: email@email.cl
-      account_type:
-        type: string
-        enum: ['vista', 'corriente', 'credito']
-        example: 'corriente'
-      account_number:
-        type: string
-        example: 0000000655712
           
   
   
@@ -689,22 +399,4 @@ definitions:
         type: string
         example: Invalid property '{property_name}'.
         description: Descripción del error
-        
-  poolModel:
-    properties:
-      order_id: 
-        type: integer
-        example: 5643
-        description: ID de la orden
-      user_id: 
-        type: integer
-        example: 445
-        description: ID del usuario que responde la encuesta
-      answer_id: 
-        type: integer
-        example: 4554
-        description: ID de la respuesta
-      other_answer:
-        type: string
-        example: "Texto de respuesta opcional"
-        description: Respuesta opcional
+    
