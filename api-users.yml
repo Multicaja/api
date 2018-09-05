@@ -516,6 +516,34 @@ paths:
           description: Error de validación en update_cellphone
           schema:
             $ref: '#/definitions/error_obj'
+  /users/{user_id}/init_identity_validation:
+    put:
+      tags:
+        - clientes
+      description: |
+        Actualiza el `name_status` del usuario a `IN_REVIEW`. Si la verificación de identidad esta en proceso o ya fue realizada, entonces no se hace nada.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: "integer"
+      responses:
+        '200':
+          description: |
+            Accepted - cambio aplicado.
+          schema:
+            $ref: '#/definitions/user'
+        '401':
+          description: Usuario tiene clave y debe autenticarse para realizar esta operación
+        '404':
+          description: Cliente no existe.
+        '422':
+          description: Error de validación en update_cellphone
+          schema:
+            $ref: '#/definitions/error_obj'
+  
+  
   /users/{user_id}/mail:
     post:
       summary: Enviar correo
