@@ -272,10 +272,7 @@ definitions:
           redirect_url:
             type: string
             example: 'http://pagos.multicaja.cl/url_retorno'
-          history:
-            type: array
-            items:
-              $ref: '#/definitions/historyModel'
+            
   amountModel:
     type: object
     properties:
@@ -323,36 +320,7 @@ definitions:
         type: number
         example: 3
 
-  historyModel:
-    type: object
-    description: Parámetro básico **(Response)**
-    properties:
-      id:
-        type: integer
-        description: identificador de la operación
-        example: 132312213
-      name:
-        type: string
-        enum: ["payment","cancellation","expiration","other","created"]
-        description: Tipo de operación
-        example: "created"
-      description:
-        type: string
-        description: Descripcion de la operación
-        example: "Orden fue creada con exito"
-      total_operation:
-        type: number
-        description: Monto de la operación  (Opcional)
-        example: 41000
-      date:
-        type: string
-        format: date-time
-        example: "2018-01-14T15:27:42.669Z"
-      status:
-        type: string
-        enum: ["approved","rejected"]
-        description: Tipo de operación
-        example: "approved"
+  
         
   urlModel:
     required:
