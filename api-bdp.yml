@@ -2,11 +2,10 @@ swagger: '2.0'
 info:
   description:  |
     Bienvenido a la API de [Multicaja](https://www.multicaja.cl) (Alpha)
-    ** Este es un proyecto alpha y por lo tanto sufrirá muchos cambios **
+    ** Este es un proyecto alpha  **
     Todos los requests son autenticados usando un `api-key`.
-    Existen dos ambientes: `qa` y `producción`. El `host` de `qa` es `apiqa.multicaja.cl`.
   version: "1.0.0"
-  title: API Multicaja BDP-REST
+  title: API Multicaja PDP-REST
   # put the contact info for your development or API team
   contact:
     email: matias.salinas@multicaja.cl
@@ -22,7 +21,7 @@ produces:
 # tags are used for organizing operations
 tags:
 - name: transaccional
-  description: Comunicación ecommerce
+  description: Opciones de la  Orden
 - name: efectivo
   description: Información efecitvo
 - name: transferencia
@@ -33,40 +32,96 @@ tags:
   description: Encuesta de anulaciones
 
 paths:
-  /pdp/order:
+  /pdp/orders:
     post:
       tags:
       - transaccional
-      summary: Generar nuevo pedido para el comercio ***(Público)***
+      summary: Generar una order (Intención de pago) ***(Público)***
       description: |
-        Servicio para poder crear un nuevo pedido y el cual retornara la información de la orden.
+        Servicio para poder crear una intención de pago.
+        Los campos obligatorios son : 
+        
+          * **reference_id** : Es el **ID** interno del comercio.
+          * **total_amount** : Datos del monto.
+          * **general_description** : Descripción de orden.
+          * **redirect_urls** : Url de redirección para los casos de éxito y error.
+        
+        Los campos :
+          * **payment_method_list** : Lista de medios de pago habilitados ´["paypal","webpay","transferencia","efectivo"]´
+          * **payment_method** : Puede ser cualquier medio de pago disponible.
+          
+              **Nota :** *Existen dos flujos de integración 1. Pasarela debe llenar campo payment_method_list con los medios de pago a mostrar 2. boton de pago, debe llenar campo ´payment_method´ con el medio de pago a pagar.
+              1. En caso de setear ´payment_method´ Este por defecto es el medio de pago, de manera que no se mostrara la lista de medios de pago.
+              2. En caso de que no se cumpla (Que se envien ambos parametros o ninguno) esta regla se enviara un status 400 (Bad Request).*
+          
+          * **user_bank_account** : Si el objeto *´user_bank_account´* esta seteado la api asume por defecto que el medio de pago es transferencia.
+          
+          * **item_list** : El campo item list contiene la siguiente lista de objetos los cuales pertenecen al detalle de la operación.
+          
+            * **{ 
+              name : string,
+              code : string,
+              price : string,
+              quantity : string
+            }** 
+          
+          * **custom_values**  : 
+            El campo item list contiene la siguiente lista de key/value los cuales son utiles en el caso de ocupar un webhook.
+            
+            * **{ 
+              string : string
+            } **
+            
+          
+          
+          * **redirect_urls** : Son las url de retorno en caso de que la operación se relice con éxito o error.
       parameters:
       - in: body
         required: true
         name: body
         description: Parametros de entrada para el comercio
         schema:
-          $ref: '#/definitions/orderInput'
+          allOf:
+            - $ref: '#/definitions/ordersModel'
+            - type: object
+          properties:
+            user_bank_account:
+              $ref: '#/definitions/accountModel'
       consumes:
       - application/json    
       produces:
       - application/json
       responses:
         201:
-          description: Pedido creado
+          description: Orden creada con éxito
           schema:
-            $ref: '#/definitions/orderStatus'
+              allOf:
+                - $ref: '#/definitions/ordersModel'
+                - type: object
+              properties:
+                status:
+                  type: string
+                  enum: ['created', 'pending', 'canceled', 'completed','expired']
+                  example: "created"
+                order_id:
+                  type: number
+                  example: 645646
+                user_bank_account:
+                  $ref: '#/definitions/accountModel'
+                link:
+                  type: string
+                  example: 'http://pagos.multicaja.cl/url_retorno'
         400:
           description: Parametros de entrada incorrectos
           schema:
-            $ref: '#/definitions/ErrorResponse'
-  /pdp/order/{order_id}:
+            $ref: '#/definitions/ErrorModel'
+  /pdp/orders/{order_id}:
     get:
       tags:
       - transaccional
       description: |
-        Servicio para poder obtener detalles del pedido y su estado actual
-      summary: Obtener el estado del pedido  ***(Público)***
+        Servicio para poder obtener detalles de la orden y su estado actual
+      summary: Obtener el estado de la orden  ***(Público)***
       operationId: addInventory
       consumes:
       - application/json
@@ -82,31 +137,68 @@ paths:
         201:
           description: ok
           schema:
-            $ref: '#/definitions/orderStatus'
+              allOf:
+                - $ref: '#/definitions/ordersModel'
+                - type: object
+              properties:
+                status:
+                  type: string
+                  enum: ['created', 'pending', 'canceled', 'completed','expired']
+                  example: "pending"
+                transactions:
+                  type: array
+                  items:
+                    $ref: '#/definitions/transactionModel'
+                user_bank_account:
+                  $ref: '#/definitions/accountModel'
+                link:
+                  type: string
+                  example: 'http://pagos.multicaja.cl/url_retorno'
+                
         400:
           description: Parametros de entrada incorrectos
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '#/definitions/ErrorModel'
         403:
-          description: El pedido fue anulado.
+          description: La orden fue anulada.
           schema:
-            $ref: '#/definitions/OrderCanceled'
+            $ref: '#/definitions/ErrorModel'
         404:
           description: error obtención de datos
     put:
       tags:
       - transaccional
-      summary: Actualizar el pedido  ***(Interno)***
+      summary: Actualizar la orden  ***(Interno)***
       description: |
-        Servicio para actualizar datos del pedido, solo permite 
-          - ID interno del ecommmerce ec_order_id.
-          - Dirección de correo del comprador.
-          - RUT del comprado
-          - Descripción de la compra.
+        Servicio para actualizar orden, permite actualizar los siguientes campos :  
+        
+          * **reference_id** : Es el **ID** interno del comercio.
+          * **general_description** : Descripción de orden.
+           * **user_bank_account** : Si el objeto *´user_bank_account´* esta seteado la api asume por defecto que el medio de pago es transferencia.
+          * **item_list** : El campo item list contiene la siguiente lista de objetos los cuales pertenecen al detalle de la operación.
+          
+            * **{ 
+              name : string,
+              code : string,
+              price : string,
+              quantity : string
+            }** 
+          
+          * **custom_values**  : 
+            El campo item list contiene la siguiente lista de key/value los cuales son utiles en el caso de ocupar un webhook.
+            
+            * **{ 
+              string : string
+            }** 
+            
+          
+          * **redirect_urls** : Son las url de retorno en caso de que la operación se relice con éxito o error.
+          
+          
       parameters:
         - in: path
           name: order_id
-          description: ID de pedido de boton de pago
+          description: ID de orden
           required: true
           type: number
         - in: body
@@ -114,27 +206,64 @@ paths:
           name: body
           description: Parametros de entrada para el comercio
           schema:
-            $ref: '#/definitions/orderUpdate'
+            properties:
+              reference_id:
+                type: string
+                example: "ERWER213"
+              general_description:
+                type: string
+                example: Esta es una orden
+              user: 
+                $ref: '#/definitions/userModel'
+              payment_method_list:
+                type: array
+                example: ['paypal', 'webpay', 'transferencia', 'efectivo']
+                items:
+                  type: string
+                  example: "paypal"
+              payment_method:
+                type: string
+                enum: ['paypal', 'webpay', 'transferencia', 'efectivo']
+                example: "paypal"
+                description: |
+                  Si se especifica, se ignora la lista de medio de pago[payment_method_list] y se envia al usuario directamente al flujo de pago seleccionado .
+              item_list:
+                type: array
+                items:
+                  $ref: '#/definitions/itemModel'
+              custom_values:
+                type: array
+                items:
+                  $ref: '#/definitions/customModel'
+              redirect_urls:
+                $ref: '#/definitions/urlModel'
       consumes:
       - application/json    
       produces:
       - application/json
       responses:
         201:
-          description: Pedido creado
+          description: Orden creada con éxito
           schema:
-            $ref: '#/definitions/orderStatus'
+              allOf:
+                - $ref: '#/definitions/ordersModel'
+                - type: object
+              properties:
+                transactions:
+                  type: array
+                  items:
+                    $ref: '#/definitions/transactionModel'
         400:
           description: Parametros de entrada incorrectos
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '#/definitions/ErrorModel'
       
     delete:
       tags:
       - transaccional
-      summary: Cancelar el pedido  ***(Público)***
+      summary: Cancelar la orden  ***(Público)***
       description: |
-        Este servicio permite anular un pedido.
+        Este servicio permite anular orden.
       consumes:
       - application/json
       produces:
@@ -151,20 +280,20 @@ paths:
         400:
           description: Parametros de entrada incorrectos
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '#/definitions/ErrorModel'
         410:
-          description: El pedido fue anulado.
+          description: La intención de pago fue anulada.
           schema:
-            $ref: '#/definitions/OrderCanceled'
+            $ref: '#/definitions/ErrorModel'
         404:
-          description: error el pedido no existe
-  /pdp/order/{order_id}/cash: 
+          description: error orden no existe
+  /pdp/orders/{order_id}/cash: 
     post:
       tags:
       - efectivo
       summary: Generar pago en efectivo  ***(Público)***
       description: |
-        Este servicio genera el pago de un pedido en efectivo.
+        Este servicio genera pago en efectivo.
       consumes:
       - application/json
       produces:
@@ -187,21 +316,21 @@ paths:
         400:
           description: Parametros de entrada incorrectos
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '#/definitions/ErrorModel'
         410:
-          description: El pedido fue anulado.
+          description: La orden fue anulada con éxito.
           schema:
-            $ref: '#/definitions/OrderCanceled'
+            $ref: '#/definitions/ErrorModel'
         404:
           description: error obtención de datos   
           
-  /pdp/order/{order_id}/transfers:
+  /pdp/orders/{order_id}/transfers:
     post:
       tags:
       - transferencia
       summary: Generar Transferencia  ***(Público)***
       description: |
-        Configurar pago por transferencia en transferencia.
+        Configurar pago por transferencia.
       consumes:
       - application/json
       produces:
@@ -216,23 +345,28 @@ paths:
           required: true
           name: body
           description: |
-            El body debe contener 
-              * bank_id : ID del banco
+            El body contiene la información de la cuenta de transferencia
           schema:
-            $ref: '#/definitions/transferInput'
+            $ref: '#/definitions/accountModel'
       responses:
         201:
           description: ok
           schema:
-            $ref: '#/definitions/transfersResponse'
+            properties:
+              status:
+                type: string
+                example: "PENDIENTE"
+            allOf:
+              - $ref: '#/definitions/accountModel'
+              - type: object
         400:
           description: Parametros de entrada incorrectos
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '#/definitions/ErrorModel'
         410:
-          description: El pedido fue anulado.
+          description: La orden fue anulada.
           schema:
-            $ref: '#/definitions/OrderCanceled'
+            $ref: '#/definitions/ErrorModel'
         404:
           description: error obtención de datos  
   /pdp/general/paymentmethods:
@@ -241,28 +375,22 @@ paths:
       - general
       summary: Obtener lista de medios de pago  ***(Público)***
       description: |
-        Setear pago por cupón.
+        Muestra una lista de medios de pago.
       consumes:
       - application/json
       produces:
       - application/json
-      parameters:
-        - in: path
-          name: order_id
-          description: id de orden de boton de pago
-          required: true
-          type: number
       responses:
         200:
           description: ok
           schema:
             type: array
             items:
-              $ref: '#/definitions/paymentMethod'  
+              $ref: '#/definitions/paymentMethodItemObject'  
         410:
-          description: El pedido fue anulado.
+          description: La orden fue anulada.
           schema:
-            $ref: '#/definitions/OrderCanceled'
+            $ref: '#/definitions/ErrorModel'
   /pdp/general/params/{param}:
     get:
       tags:
@@ -284,7 +412,11 @@ paths:
         200:
           description: OK
           schema:
-            $ref: '#/definitions/parameter'
+            properties:
+              value:
+                type: string
+                description: descripción del parámetro
+        
   /pdp/poll/{pool_id}:
     get:
       tags:
@@ -308,11 +440,11 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/pollAnswer'
+              $ref: '#/definitions/pollAnswerModel'
         400:
           description: Parametros de entrada incorrectos
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '#/definitions/ErrorModel'
         404:
           description: error al obtener la liesta de respuestas   
     post:
@@ -336,90 +468,68 @@ paths:
           name: body
           description: |
             El body debe contener 
-              * order_id : ID del pedido
+              * order_id : ID de la orden
               * answer_id : ID de respuesta
               * other_answer : Other Answer
           schema:
-            $ref: '#/definitions/poolObject'
+            $ref: '#/definitions/poolModel'
       responses:
         200:
           description: ok
         400:
           description: Parametros de entrada incorrectos
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '#/definitions/ErrorModel'
         404:
           description: El error al obtener la encuesta   
         
   
 definitions:
 
-  transferInput: 
+  ordersModel:
     type: object
     required:
-      - bank_id
-    properties: 
-      bank_id:
-         type: integer
-         example: 645
-      
-    
-
-  parameter:
-    type: object
-    required:
-      - id
-      - value
-    description: Parámetro básico **(Response)**
-    properties:
-      value:
-        type: string
-        description: descripción del parámetro
-        
-  orderInput:
-    type: object
-    required:
-    - ec_order_id
+    - reference_id
     - total_amount
     - general_description
     - payment_method
     properties:
-      ec_order_id:
+      reference_id:
         type: string
         example: "ERWER213"
-      user_data: 
-        $ref: '#/definitions/userData'
+      user: 
+        $ref: '#/definitions/userModel'
       total_amount:
-        type: number
-        example: 40000
-      type_amount:
+        $ref: '#/definitions/amountModel'
+      payment_method_list:
+        type: array
+        example: ['paypal', 'webpay', 'transferencia', 'efectivo']
+        items:
+          type: string
+          example: "paypal"
+      payment_method:
         type: string
-        example: "CLP"
+        enum: ['paypal', 'webpay', 'transferencia', 'efectivo']
+        example: "paypal"
+        description: |
+          Si se especifica, se ignora la lista de medio de pago[payment_method_list] y se envia al usuario directamente al flujo de pago seleccionado .
+      item_list:
+        type: array
+        items:
+          $ref: '#/definitions/itemModel'
       general_description:
         type: string
         example: Esta es una orden
-      payment_method:
-        type: number
-        example: 2
-      urls:
-        $ref: '#/definitions/urlObject'
-  
-  orderUpdate:
-    type: object
-    properties:
-      ec_order_id:
-        type: string
-        example: "ERWER213"
-      general_description:
-        type: string
-        example: Esta es una orden
-      payment_method:
-        type: number
-        example: 2
-      user_data: 
-        $ref: '#/definitions/userData'
+      custom_values:
+        type: array
+        items:
+          $ref: '#/definitions/customModel'
+      redirect_urls:
+        $ref: '#/definitions/urlModel'
         
-  userData: 
+  
+        
+  userModel: 
     type: object
     properties:
       email:
@@ -429,14 +539,53 @@ definitions:
         type: string
         example: "1-9"
 
+  amountModel:
+    type: object
+    properties:
+      currency:
+        type: string
+        example: "CLP"
+      total:
+        type: number
+        example: 41000
+      details:
+        type: object
+        properties:
+          subtotal:
+            type: number
+            example: 40000
+          tax:
+            type: number
+            example: 1000
+            
+  customModel:
+    type: object
+    properties:
+      key:
+        type: string
+        example: "value"
+
+  itemModel: 
+    properties:
+      name:
+        type: string
+        example: "name"
+      code:
+        type: string
+        example: "name"
+      price:
+        type: string
+        example: "name"
+      quantity:
+        type: string
+        example: number
  
         
-  pollAnswer:
+  pollAnswerModel:
     type: object
     required:
-    - order_id
-    - user_id
-    - user_email
+    - answer_id
+    - text_answer
     properties:
       answer_id:
         type: integer
@@ -446,240 +595,107 @@ definitions:
         example: 152
   
 
-  paymentMethod:
+  transactionModel:
     type: object
-    required:
-      - id
-      - value
     description: Parámetro básico **(Response)**
     properties:
       id:
         type: integer
-        description: identificador del metodo de pago
-        example: 1
-      code:
-        type: string
-        description: Código del metodo de pago
-        example: 15564
+        description: identificador de la operación
+        example: 132312213
       name:
         type: string
-        description: Nombre del metodo de pago
-        example: "efectivo"
+        enum: ["payment","cancellation","expiration","other"]
+        description: Tipo de operación
+        example: "payment"
       description:
         type: string
-        description: Descripcion del metodo de pago
+        description: Descripcion de la operación
         example: "Pago con cupon en comercio multicaja"
-      anonymous_payment:
+      total_operation:
+        type: number
+        description: Monto de la operación  (Opcional)
+        example: 41000
+      date:
         type: string
-        description: Descripcion del meodo de pago
-        example: "Pago con cupon en comercio multicaja"
-      max_amount:
+        format: date-time
+        example: "2018-01-14T15:27:42.669Z"
+      status:
         type: string
-        description: Monto maximo de pago
-        example: "Monto maximo aceptado en el medio de pago"
-      enabled:
-        type: boolean
-        description: Estado del medio de pago
-        example: true
+        enum: ["approved","rejected"]
+        description: Tipo de operación
+        example: "approved"
   
  
   
-  transfersResponse:
+  accountModel:
     type: object
-    required:
-    - id_trx
-    - user_new_slp
-    - tef_status
-    - tef_id
-    - tef_amount
-    - tef_expires
-    - tef_now
-    - account_name
-    - account_rut
-    - account_email
-    - account_bank
-    - account_type
-    - account_number
-    - account_new
     properties:
-      ec_order_id: 
-        type: string
-        example: "ERWER213"
-      tef_status:
-        type: string
-        example: "PENDIENTE"
-      tef_amount:
-        type: integer
-        example: 10000
-      tef_expires:
-        type: string
-        format: date-time
-        example: "2018-01-14T15:27:42.669Z"
-      tef_now:
-        type: string
-        format: date-time
-        example: "2018-01-14T15:27:42.669Z"
-      account_name:
+      bank_id:
+        type: number
+        example: 1
+        description: "Este id se puede obtener de la api-helpers"
+      name:
         type: string
         example: "Cuenta corriente de transferencia"
-      account_rut:
+      rut:
         type: string
         example: 1-9
-      account_email:
+      email:
         type: string
         example: email@email.cl
-      account_bank:
-        type: string
-        example: Banco de chile
       account_type:
         type: string
-        example: Corriente
+        enum: ['vista', 'corriente', 'credito']
+        example: 'corriente'
       account_number:
         type: string
         example: 0000000655712
-      account_new:
-        type: integer
-        example: 1
           
-  orderStatus:
-    required:
-    - order_status
-    - description
-    - ec_order_id
-    - payment_method
-    properties:
-      order_id:
-        type: integer
-        example: 455665
-      order_status:
-        type: integer
-        example: 2
-      description:
-        type: string
-        example:  EXPIRED
-      user_data: 
-        $ref: '#/definitions/userData'
-      ec_order_id:
-        type: string
-        example: "EH32434"
-      ecommerce_id:
-        type: string
-        example: "EH32434"
-      total_amount:
-        type: integer
-        example: 60000
-      payment_info:
-        $ref: '#/definitions/paramPaymentMethod'
-      urls:
-        $ref: '#/definitions/urlObject'
   
-  urlObject:
+  
+  urlModel:
     required:
-      - url_notify 
+      - return_url 
+      - cancel_url
     properties:
-      url_notify:
+      return_url:
           type: string
-          example: "http://multicaja.cl/notify"
-      url_goback:
+          example: "http://multicaja.cl/return_url"
+      cancel_url:
           type: string
-          example: "http://multicaja.cl/goback"
+          example: "http://multicaja.cl/cancel_url"
   
   
         
-  paramPaymentMethod:
+  paymentMethodItemObject:
     type: object
-    required:
-    - payment_method
-    - payment_date
-    - payment_user
-    - payment_authorization
-    - payment_amount
-    - payment_date_expiration
-    - payment_date_created
-    - payment_canceled
     properties:
       payment_method:
         type: string
-        example: Efectivo Multicaja
-      payment_date:
-        type: string
-        example: "2018-01-14T15:27:42.669Z"
-      payment_amount:
+        example: 'paypal'
+      payment_max_amount:
         type: number
         example: 40000
-      payment_date_expiration:
-        type: string
-        example: "2018-01-14T15:27:42.669Z"
-      payment_date_update:
-        type: string
-        example: "2018-01-14T15:27:42.669Z"
-      payment_date_created:
-        type: string
-        example: "2018-01-14T15:27:42.669Z"
-      payment_canceled:
-        type: boolean
-        example: false
         
-  
-        
-  ErrorResponse:
+  ErrorModel:
     type: object
     properties:
-      status: 
-        type: integer
-        format: int32
-        example: 400
-        description: Código HTTP
-      error: 
+      code: 
         type: string
-        example: Bad Request
-        description: Nombre del código HTTP
+        example: INVALID_DATA
+        description: Variable de error
       message:
         type: string
         example: Invalid property '{property_name}'.
         description: Descripción del error
-      path:
-        type: string
-        example: "/pdp/{path}"
-        description: Url de la solicitud http
-      timestamp:
-        type: string
-        format: date-time
-        example: "2018-03-16T16:38:31.28571"
-        description: Fecha y hora del error
-  
-  OrderCanceled:
-    type: object
-    properties:
-      status: 
-        type: integer
-        format: int32
-        example: 403
-        description: Código HTTP
-      error: 
-        type: string
-        example: Order canceled
-        description: Nombre del código HTTP
-      message:
-        type: string
-        example: La orden N° '{order_id}' fue anulada.
-        description: Descripción del error
-      path:
-        type: string
-        example: "/pdp/{path}"
-        description: Url de la solicitud http
-      timestamp:
-        type: string
-        format: date-time
-        example: "2018-03-16T16:38:31.28571"
-        description: Fecha y hora del error
-  
-  poolObject:
+        
+  poolModel:
     properties:
       order_id: 
         type: integer
         example: 5643
-        description: ID de pedido
+        description: ID de la orden
       user_id: 
         type: integer
         example: 445
@@ -692,6 +708,3 @@ definitions:
         type: string
         example: "Texto de respuesta opcional"
         description: Respuesta opcional
-        
-      
-    
