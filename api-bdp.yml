@@ -333,9 +333,9 @@ definitions:
         example: 132312213
       name:
         type: string
-        enum: ["payment","cancellation","expiration","other","crated"]
+        enum: ["payment","cancellation","expiration","other","created"]
         description: Tipo de operación
-        example: "crated"
+        example: "created"
       description:
         type: string
         description: Descripcion de la operación
