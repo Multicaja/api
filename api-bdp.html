@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API Multicaja de Pasarela | API Reference</title>
+    <title>API de Pagos de Multicaja | API Reference</title>
     <link rel="stylesheet" href="stylesheets/foundation.min.css" />
     <link rel="stylesheet" href="stylesheets/spectacle.min.css" />
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -24,16 +24,16 @@
             <a href="#tag-transaccional">transaccional</a>
             <ul>
               <li>
-                <a href="#operation--pdp-v1.0-orders-post"> Generar una order (Intención de pago) </a>
+                <a href="#operation--payments-v1.0-orders-post"> Generar una order (Intención de pago) </a>
               </li>
               <li>
-                <a href="#operation--pdp-v1.0-orders--order_id--get"> Obtener el estado de la orden </a>
+                <a href="#operation--payments-v1.0-orders--order_id--get"> Obtener el estado de la orden </a>
               </li>
               <li>
-                <a href="#operation--pdp-v1.0-orders--order_id--put"> Actualizar la orden </a>
+                <a href="#operation--payments-v1.0-orders--order_id--put"> Actualizar la orden </a>
               </li>
               <li>
-                <a href="#operation--pdp-v1.0-orders--order_id--delete"> Cancelar la orden </a>
+                <a href="#operation--payments-v1.0-orders--order_id--delete"> Cancelar la orden </a>
               </li>
             </ul>
           </section>
@@ -41,7 +41,7 @@
             <a href="#tag-general">general</a>
             <ul>
               <li>
-                <a href="#operation--pdp-v1.0-general-paymentmethods-get"> Obtener lista de medios de pago </a>
+                <a href="#operation--payments-v1.0-general-paymentmethods-get"> Obtener lista de medios de pago </a>
               </li>
             </ul>
           </section>
@@ -62,15 +62,14 @@
         </button>
         <div class="example-box doc-content"></div>
         <article>
-          <h1 class="doc-title">API Multicaja de Pasarela
+          <h1 class="doc-title">API de Pagos de Multicaja
             <span>API Reference</span>
           </h1>
           <div id="introduction" data-traverse-target="introduction">
             <div class="doc-row">
               <div class="doc-copy">
                 <p>Bienvenido a la API de
-                  <a href="https://www.multicaja.cl">Multicaja</a> (Alpha)
-                  <strong> Este es un proyecto alpha </strong> Todos los requests son autenticados usando un <code>api-key</code>.</p>
+                  <a href="https://www.multicaja.cl">Multicaja</a> Todos los requests son autenticados usando un <code>api-key</code>.</p>
               </div>
               <div class="doc-examples">
                 <section>
@@ -96,7 +95,7 @@
               <p>Opciones de la Orden</p>
             </div>
           </div>
-          <div id="operation--pdp-v1.0-orders-post" class="operation panel" data-traverse-target="operation--pdp-v1.0-orders-post">
+          <div id="operation--payments-v1.0-orders-post" class="operation panel" data-traverse-target="operation--payments-v1.0-orders-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -112,7 +111,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/pdp/v1.0/orders</span>
+                  <span class="operation-path">/payments/v1.0/orders</span>
                 </section>
               </div>
             </div>
@@ -130,21 +129,15 @@
                       <strong>description</strong> : Descripción de orden.</li>
                     <li>
                       <strong>urls</strong> : Url de redirección para los casos de éxito y error.</li>
-                  </ul>
-                  <p>Los campos :</p>
-                  <ul>
                     <li>
-                      <p>
-                        <strong>methods</strong> : Lista de medios de pago habilitados ´[&quot;paypal&quot;,&quot;tarjetas&quot;,&quot;transferencia&quot;,&quot;efectivo&quot;]´</p>
-                    </li>
+                      <strong>methods</strong> : Lista de medios de pago habilitados ´[&quot;paypal&quot;,&quot;tarjetas&quot;]´ Nota: se puede usar
+                      <em> para utilizar todos los medios de pago, quedando el primer valor del arreglo como asterisco [&#39;</em>&#39;].</li>
                     <li>
                       <p>
                         <strong>items</strong> : El campo item list contiene la siguiente lista de objetos los cuales pertenecen al detalle de la operación.</p>
-                      <ul>
-                        <li>
-                          <strong>{ name : string, code : string, price : number, quantity : number }</strong>
-                        </li>
-                      </ul>
+                      <p>{ name : string, code : string, price : number, quantity : number }</p>
+                      <p>
+                        <strong>Son opcionales y dependen del negocio</strong>: </p>
                     </li>
                     <li>
                       <p>
@@ -195,20 +188,18 @@
     <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">41000</span>,
     <span class="hljs-attr">&quot;details&quot;</span>: {
       <span class="hljs-attr">&quot;subtotal&quot;</span>: <span class="hljs-number">39000</span>,
-      <span class="hljs-attr">&quot;commission&quot;</span>: <span class="hljs-number">1000</span>,
+      <span class="hljs-attr">&quot;fee&quot;</span>: <span class="hljs-number">1000</span>,
       <span class="hljs-attr">&quot;tax&quot;</span>: <span class="hljs-number">1000</span>
     }
   },
   <span class="hljs-attr">&quot;methods&quot;</span>: [
     <span class="hljs-string">&quot;paypal&quot;</span>,
-    <span class="hljs-string">&quot;tarjetas&quot;</span>,
-    <span class="hljs-string">&quot;transferencia&quot;</span>,
-    <span class="hljs-string">&quot;efectivo&quot;</span>
+    <span class="hljs-string">&quot;tarjetas&quot;</span>
   ],
   <span class="hljs-attr">&quot;items&quot;</span>: [
     {
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
+      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;code&quot;</span>,
       <span class="hljs-attr">&quot;price&quot;</span>: <span class="hljs-number">39000</span>,
       <span class="hljs-attr">&quot;unit_price&quot;</span>: <span class="hljs-number">13000</span>,
       <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-number">3</span>
@@ -281,20 +272,18 @@
     <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">41000</span>,
     <span class="hljs-attr">&quot;details&quot;</span>: {
       <span class="hljs-attr">&quot;subtotal&quot;</span>: <span class="hljs-number">39000</span>,
-      <span class="hljs-attr">&quot;commission&quot;</span>: <span class="hljs-number">1000</span>,
+      <span class="hljs-attr">&quot;fee&quot;</span>: <span class="hljs-number">1000</span>,
       <span class="hljs-attr">&quot;tax&quot;</span>: <span class="hljs-number">1000</span>
     }
   },
   <span class="hljs-attr">&quot;methods&quot;</span>: [
     <span class="hljs-string">&quot;paypal&quot;</span>,
-    <span class="hljs-string">&quot;tarjetas&quot;</span>,
-    <span class="hljs-string">&quot;transferencia&quot;</span>,
-    <span class="hljs-string">&quot;efectivo&quot;</span>
+    <span class="hljs-string">&quot;tarjetas&quot;</span>
   ],
   <span class="hljs-attr">&quot;items&quot;</span>: [
     {
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
+      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;code&quot;</span>,
       <span class="hljs-attr">&quot;price&quot;</span>: <span class="hljs-number">39000</span>,
       <span class="hljs-attr">&quot;unit_price&quot;</span>: <span class="hljs-number">13000</span>,
       <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-number">3</span>
@@ -319,8 +308,8 @@
                     <span>(400 Bad Request)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;ERROR_CODE&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;{error_message}&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -328,7 +317,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--pdp-v1.0-orders--order_id--get" class="operation panel" data-traverse-target="operation--pdp-v1.0-orders--order_id--get">
+          <div id="operation--payments-v1.0-orders--order_id--get" class="operation panel" data-traverse-target="operation--payments-v1.0-orders--order_id--get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -344,7 +333,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">GET</span>
-                  <span class="operation-path">/pdp/v1.0/orders/{order_id}</span>
+                  <span class="operation-path">/payments/v1.0/orders/{order_id}</span>
                 </section>
               </div>
             </div>
@@ -410,20 +399,6 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">403 Forbidden</div>
-                      <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/ErrorModel">ErrorModel</a>
-                        </span>
-                      </div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>La orden fue anulada.</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
                       <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
@@ -450,20 +425,18 @@
     <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">41000</span>,
     <span class="hljs-attr">&quot;details&quot;</span>: {
       <span class="hljs-attr">&quot;subtotal&quot;</span>: <span class="hljs-number">39000</span>,
-      <span class="hljs-attr">&quot;commission&quot;</span>: <span class="hljs-number">1000</span>,
+      <span class="hljs-attr">&quot;fee&quot;</span>: <span class="hljs-number">1000</span>,
       <span class="hljs-attr">&quot;tax&quot;</span>: <span class="hljs-number">1000</span>
     }
   },
   <span class="hljs-attr">&quot;methods&quot;</span>: [
     <span class="hljs-string">&quot;paypal&quot;</span>,
-    <span class="hljs-string">&quot;tarjetas&quot;</span>,
-    <span class="hljs-string">&quot;transferencia&quot;</span>,
-    <span class="hljs-string">&quot;efectivo&quot;</span>
+    <span class="hljs-string">&quot;tarjetas&quot;</span>
   ],
   <span class="hljs-attr">&quot;items&quot;</span>: [
     {
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
+      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;code&quot;</span>,
       <span class="hljs-attr">&quot;price&quot;</span>: <span class="hljs-number">39000</span>,
       <span class="hljs-attr">&quot;unit_price&quot;</span>: <span class="hljs-number">13000</span>,
       <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-number">3</span>
@@ -488,19 +461,8 @@
                     <span>(400 Bad Request)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-                <section>
-                  <h5>Response Example
-                    <span>(403 Forbidden)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;ERROR_CODE&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;{error_message}&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -508,7 +470,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--pdp-v1.0-orders--order_id--put" class="operation panel" data-traverse-target="operation--pdp-v1.0-orders--order_id--put">
+          <div id="operation--payments-v1.0-orders--order_id--put" class="operation panel" data-traverse-target="operation--payments-v1.0-orders--order_id--put">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -524,7 +486,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">PUT</span>
-                  <span class="operation-path">/pdp/v1.0/orders/{order_id}</span>
+                  <span class="operation-path">/payments/v1.0/orders/{order_id}</span>
                 </section>
               </div>
             </div>
@@ -615,20 +577,18 @@
     <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">41000</span>,
     <span class="hljs-attr">&quot;details&quot;</span>: {
       <span class="hljs-attr">&quot;subtotal&quot;</span>: <span class="hljs-number">39000</span>,
-      <span class="hljs-attr">&quot;commission&quot;</span>: <span class="hljs-number">1000</span>,
+      <span class="hljs-attr">&quot;fee&quot;</span>: <span class="hljs-number">1000</span>,
       <span class="hljs-attr">&quot;tax&quot;</span>: <span class="hljs-number">1000</span>
     }
   },
   <span class="hljs-attr">&quot;methods&quot;</span>: [
     <span class="hljs-string">&quot;paypal&quot;</span>,
-    <span class="hljs-string">&quot;tarjetas&quot;</span>,
-    <span class="hljs-string">&quot;transferencia&quot;</span>,
-    <span class="hljs-string">&quot;efectivo&quot;</span>
+    <span class="hljs-string">&quot;tarjetas&quot;</span>
   ],
   <span class="hljs-attr">&quot;items&quot;</span>: [
     {
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
+      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;code&quot;</span>,
       <span class="hljs-attr">&quot;price&quot;</span>: <span class="hljs-number">39000</span>,
       <span class="hljs-attr">&quot;unit_price&quot;</span>: <span class="hljs-number">13000</span>,
       <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-number">3</span>
@@ -701,20 +661,18 @@
     <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">41000</span>,
     <span class="hljs-attr">&quot;details&quot;</span>: {
       <span class="hljs-attr">&quot;subtotal&quot;</span>: <span class="hljs-number">39000</span>,
-      <span class="hljs-attr">&quot;commission&quot;</span>: <span class="hljs-number">1000</span>,
+      <span class="hljs-attr">&quot;fee&quot;</span>: <span class="hljs-number">1000</span>,
       <span class="hljs-attr">&quot;tax&quot;</span>: <span class="hljs-number">1000</span>
     }
   },
   <span class="hljs-attr">&quot;methods&quot;</span>: [
     <span class="hljs-string">&quot;paypal&quot;</span>,
-    <span class="hljs-string">&quot;tarjetas&quot;</span>,
-    <span class="hljs-string">&quot;transferencia&quot;</span>,
-    <span class="hljs-string">&quot;efectivo&quot;</span>
+    <span class="hljs-string">&quot;tarjetas&quot;</span>
   ],
   <span class="hljs-attr">&quot;items&quot;</span>: [
     {
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
+      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;code&quot;</span>,
       <span class="hljs-attr">&quot;price&quot;</span>: <span class="hljs-number">39000</span>,
       <span class="hljs-attr">&quot;unit_price&quot;</span>: <span class="hljs-number">13000</span>,
       <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-number">3</span>
@@ -739,8 +697,8 @@
                     <span>(400 Bad Request)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;ERROR_CODE&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;{error_message}&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -748,7 +706,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--pdp-v1.0-orders--order_id--delete" class="operation panel" data-traverse-target="operation--pdp-v1.0-orders--order_id--delete">
+          <div id="operation--payments-v1.0-orders--order_id--delete" class="operation panel" data-traverse-target="operation--payments-v1.0-orders--order_id--delete">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -764,7 +722,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">DELETE</span>
-                  <span class="operation-path">/pdp/v1.0/orders/{order_id}</span>
+                  <span class="operation-path">/payments/v1.0/orders/{order_id}</span>
                 </section>
               </div>
             </div>
@@ -855,8 +813,8 @@
                     <span>(400 Bad Request)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;ERROR_CODE&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;{error_message}&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -866,8 +824,8 @@
                     <span>(410 Gone)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;ERROR_CODE&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;{error_message}&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -881,7 +839,7 @@
               <p>Información transversal de todos los medios de pago</p>
             </div>
           </div>
-          <div id="operation--pdp-v1.0-general-paymentmethods-get" class="operation panel" data-traverse-target="operation--pdp-v1.0-general-paymentmethods-get">
+          <div id="operation--payments-v1.0-general-paymentmethods-get" class="operation panel" data-traverse-target="operation--payments-v1.0-general-paymentmethods-get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -897,7 +855,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">GET</span>
-                  <span class="operation-path">/pdp/v1.0/general/paymentmethods</span>
+                  <span class="operation-path">/payments/v1.0/general/paymentmethods</span>
                 </section>
               </div>
             </div>
@@ -978,8 +936,8 @@
                     <span>(410 Gone)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;ERROR_CODE&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;{error_message}&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1005,7 +963,7 @@
                     <dt data-property-name="reference_id">
                       <span class="json-property-name">reference_id:</span>
                       <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="Value limits">x ≤ 30</span>
                       <span class="json-property-required"></span>
                     </dt>
                     <dt data-property-name="amount">
@@ -1053,7 +1011,7 @@
                     <dt data-property-name="description">
                       <span class="json-property-name">description:</span>
                       <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="Value limits">x ≤ 300</span>
                       <span class="json-property-required"></span>
                     </dt>
                     <dt data-property-name="customs">
@@ -1098,20 +1056,18 @@
     <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">41000</span>,
     <span class="hljs-attr">&quot;details&quot;</span>: {
       <span class="hljs-attr">&quot;subtotal&quot;</span>: <span class="hljs-number">39000</span>,
-      <span class="hljs-attr">&quot;commission&quot;</span>: <span class="hljs-number">1000</span>,
+      <span class="hljs-attr">&quot;fee&quot;</span>: <span class="hljs-number">1000</span>,
       <span class="hljs-attr">&quot;tax&quot;</span>: <span class="hljs-number">1000</span>
     }
   },
   <span class="hljs-attr">&quot;methods&quot;</span>: [
     <span class="hljs-string">&quot;paypal&quot;</span>,
-    <span class="hljs-string">&quot;tarjetas&quot;</span>,
-    <span class="hljs-string">&quot;transferencia&quot;</span>,
-    <span class="hljs-string">&quot;efectivo&quot;</span>
+    <span class="hljs-string">&quot;tarjetas&quot;</span>
   ],
   <span class="hljs-attr">&quot;items&quot;</span>: [
     {
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
+      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;code&quot;</span>,
       <span class="hljs-attr">&quot;price&quot;</span>: <span class="hljs-number">39000</span>,
       <span class="hljs-attr">&quot;unit_price&quot;</span>: <span class="hljs-number">13000</span>,
       <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-number">3</span>
@@ -1176,7 +1132,7 @@
                         <dt data-property-name="redirect_url">
                           <span class="json-property-name">redirect_url:</span>
                           <span class="json-property-type">string</span>
-                          <span class="json-property-range" title="Value limits"></span>
+                          <span class="json-property-range" title="Value limits">x ≤ 300</span>
                         </dt>
                       </dl>
                     </section>
@@ -1196,20 +1152,18 @@
     <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">41000</span>,
     <span class="hljs-attr">&quot;details&quot;</span>: {
       <span class="hljs-attr">&quot;subtotal&quot;</span>: <span class="hljs-number">39000</span>,
-      <span class="hljs-attr">&quot;commission&quot;</span>: <span class="hljs-number">1000</span>,
+      <span class="hljs-attr">&quot;fee&quot;</span>: <span class="hljs-number">1000</span>,
       <span class="hljs-attr">&quot;tax&quot;</span>: <span class="hljs-number">1000</span>
     }
   },
   <span class="hljs-attr">&quot;methods&quot;</span>: [
     <span class="hljs-string">&quot;paypal&quot;</span>,
-    <span class="hljs-string">&quot;tarjetas&quot;</span>,
-    <span class="hljs-string">&quot;transferencia&quot;</span>,
-    <span class="hljs-string">&quot;efectivo&quot;</span>
+    <span class="hljs-string">&quot;tarjetas&quot;</span>
   ],
   <span class="hljs-attr">&quot;items&quot;</span>: [
     {
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
-      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
+      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;code&quot;</span>,
       <span class="hljs-attr">&quot;price&quot;</span>: <span class="hljs-number">39000</span>,
       <span class="hljs-attr">&quot;unit_price&quot;</span>: <span class="hljs-number">13000</span>,
       <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-number">3</span>
@@ -1269,8 +1223,8 @@
                             <span class="json-property-type">number</span>
                             <span class="json-property-range" title="Value limits"></span>
                           </dt>
-                          <dt data-property-name="commission">
-                            <span class="json-property-name">commission:</span>
+                          <dt data-property-name="fee">
+                            <span class="json-property-name">fee:</span>
                             <span class="json-property-type">number</span>
                             <span class="json-property-range" title="Value limits"></span>
                           </dt>
@@ -1293,7 +1247,7 @@
   <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">41000</span>,
   <span class="hljs-attr">&quot;details&quot;</span>: {
     <span class="hljs-attr">&quot;subtotal&quot;</span>: <span class="hljs-number">39000</span>,
-    <span class="hljs-attr">&quot;commission&quot;</span>: <span class="hljs-number">1000</span>,
+    <span class="hljs-attr">&quot;fee&quot;</span>: <span class="hljs-number">1000</span>,
     <span class="hljs-attr">&quot;tax&quot;</span>: <span class="hljs-number">1000</span>
   }
 }
@@ -1320,7 +1274,7 @@
                     <dt data-property-name="key">
                       <span class="json-property-name">key:</span>
                       <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="Value limits">x ≤ 500</span>
                     </dt>
                   </dl>
                 </section>
@@ -1354,12 +1308,12 @@
                     <dt data-property-name="name">
                       <span class="json-property-name">name:</span>
                       <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="Value limits">x ≤ 150</span>
                     </dt>
                     <dt data-property-name="code">
                       <span class="json-property-name">code:</span>
                       <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="Value limits">x ≤ 64</span>
                     </dt>
                     <dt data-property-name="price">
                       <span class="json-property-name">price:</span>
@@ -1384,7 +1338,7 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;code&quot;</span>,
   <span class="hljs-attr">&quot;price&quot;</span>: <span class="hljs-number">39000</span>,
   <span class="hljs-attr">&quot;unit_price&quot;</span>: <span class="hljs-number">13000</span>,
   <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-number">3</span>
@@ -1412,13 +1366,13 @@
                     <dt data-property-name="return_url">
                       <span class="json-property-name">return_url:</span>
                       <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="Value limits">x ≤ 300</span>
                       <span class="json-property-required"></span>
                     </dt>
                     <dt data-property-name="cancel_url">
                       <span class="json-property-name">cancel_url:</span>
                       <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="Value limits">x ≤ 300</span>
                       <span class="json-property-required"></span>
                     </dt>
                   </dl>
@@ -1514,8 +1468,8 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INVALID_DATA&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Invalid property &apos;{property_name}&apos;.&quot;</span>
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;ERROR_CODE&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;{error_message}&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
