@@ -2,11 +2,10 @@
 swagger: '2.0'
 info:
   description:  |
-    Bienvenido a la API de [Multicaja](https://www.multicaja.cl) (Alpha)
-    ** Este es un proyecto alpha  **
+    Bienvenido a la API de [Multicaja](https://www.multicaja.cl)
     Todos los requests son autenticados usando un `api-key`.
   version: "1.0.0"
-  title: API Multicaja de Pasarela
+  title: API de Pagos de Multicaja
   # put the contact info for your development or API team
   contact:
     email: matias.salinas@multicaja.cl
@@ -25,7 +24,7 @@ tags:
   description: Información transversal de todos los medios de pago
 
 paths:
-  /pdp/v1.0/orders:
+  /payments/v1.0/orders:
     post:
       tags:
       - transaccional
@@ -38,19 +37,18 @@ paths:
           * **amount** : Datos del monto.
           * **description** : Descripción de orden.
           * **urls** : Url de redirección para los casos de éxito y error.
-        
-        Los campos :
-          * **methods** : Lista de medios de pago habilitados ´["paypal","tarjetas","transferencia","efectivo"]´
-          
+          * **methods** : Lista de medios de pago habilitados ´["paypal","tarjetas"]´ 
+          Nota: se puede usar * para utilizar todos los medios de pago, quedando el primer valor del arreglo como asterisco ['*'].
           * **items** : El campo item list contiene la siguiente lista de objetos los cuales pertenecen al detalle de la operación.
           
-            * **{ 
+            { 
               name : string,
               code : string,
               price : number,
               quantity : number
-            }** 
+            }
           
+          **Son opcionales y dependen del negocio**: 
           * **customs**  : 
             El campo item list contiene la siguiente lista de key/value los cuales son utiles en el caso de ocupar un webhook.
             
@@ -59,6 +57,7 @@ paths:
             } **
           
           * **urls** : Son las url de retorno en caso de que la operación se relice con éxito o error.
+          
       parameters:
       - in: body
         required: true
@@ -79,7 +78,7 @@ paths:
           description: Parametros de entrada incorrectos
           schema:
             $ref: '#/definitions/ErrorModel'
-  /pdp/v1.0/orders/{order_id}:
+  /payments/v1.0/orders/{order_id}:
     get:
       tags:
       - transaccional
@@ -104,10 +103,6 @@ paths:
             $ref: '#/definitions/orderModelResponse'
         400:
           description: Parametros de entrada incorrectos
-          schema:
-            $ref: '#/definitions/ErrorModel'
-        403:
-          description: La orden fue anulada.
           schema:
             $ref: '#/definitions/ErrorModel'
         404:
@@ -199,7 +194,7 @@ paths:
         404:
           description: error orden no existe
  
-  /pdp/v1.0/general/paymentmethods:
+  /payments/v1.0/general/paymentmethods:
     get:
       tags:
       - general
@@ -236,11 +231,12 @@ definitions:
       reference_id:
         type: string
         example: "ERWER213"
+        maximum: 30
       amount:
         $ref: '#/definitions/amountModel'
       methods:
         type: array
-        example: ['paypal', 'tarjetas', 'transferencia', 'efectivo']
+        example: ['paypal', 'tarjetas']
         items:
           type: string
           example: "paypal"
@@ -251,6 +247,7 @@ definitions:
       description:
         type: string
         example: Esta es una orden
+        maximum: 300
       customs:
         type: array
         items:
@@ -272,6 +269,7 @@ definitions:
           redirect_url:
             type: string
             example: 'http://pagos.multicaja.cl/url_retorno'
+            maximum: 300
             
   amountModel:
     type: object
@@ -288,7 +286,7 @@ definitions:
           subtotal:
             type: number
             example: 39000
-          commission:
+          fee:
             type: number
             example: 1000
           tax:
@@ -301,15 +299,18 @@ definitions:
       key:
         type: string
         example: "value"
+        maximum: 500
 
   itemModel: 
     properties:
       name:
         type: string
         example: "name"
+        maximum: 150
       code:
         type: string
-        example: "name"
+        example: "code"
+        maximum: 64
       price:
         type: number
         example: 39000
@@ -330,9 +331,11 @@ definitions:
       return_url:
           type: string
           example: "http://multicaja.cl/return_url"
+          maximum: 300
       cancel_url:
           type: string
           example: "http://multicaja.cl/cancel_url"
+          maximum: 300
           
   paymentMethodItemObject:
     type: object
@@ -349,10 +352,9 @@ definitions:
     properties:
       code: 
         type: string
-        example: INVALID_DATA
+        example: ERROR_CODE
         description: Variable de error
       message:
         type: string
-        example: Invalid property '{property_name}'.
+        example: '{error_message}'
         description: Descripción del error
-    
