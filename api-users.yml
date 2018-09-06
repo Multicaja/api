@@ -29,6 +29,10 @@ tags:
     description: Cuentas bancarias de un cliente
   - name: direcciones
     description: Dirección física de un cliente
+  - name: archivos
+    description: Archivos de un cliente
+  - name: backoffice
+    description: Interacción con el backoffice (Freshdesk)
   - name: parámetros
     description: Listas de parámetros inmutables
 paths:
@@ -512,6 +516,34 @@ paths:
           description: Error de validación en update_cellphone
           schema:
             $ref: '#/definitions/error_obj'
+  /users/{user_id}/init_identity_validation:
+    put:
+      tags:
+        - clientes
+      description: |
+        Actualiza el `name_status` del usuario a `IN_REVIEW`. Si la verificación de identidad esta en proceso o ya fue realizada, entonces no se hace nada.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: "integer"
+      responses:
+        '200':
+          description: |
+            Accepted - cambio aplicado.
+          schema:
+            $ref: '#/definitions/user'
+        '401':
+          description: Usuario tiene clave y debe autenticarse para realizar esta operación
+        '404':
+          description: Cliente no existe.
+        '422':
+          description: Error de validación en update_cellphone
+          schema:
+            $ref: '#/definitions/error_obj'
+  
+  
   /users/{user_id}/mail:
     post:
       summary: Enviar correo
@@ -521,8 +553,10 @@ paths:
         Envía una comunicación o código de validación al email del cliente
 
         ### Notas
-        * Si el `template` requiere datos mínimos, debe incluirse estos datos en formato JSON mediante el campo `template_data`
+        * Los correos son enviados de forma asincrónica.
+        * Si el `template` requiere datos mínimos, debe incluirse estos datos en formato JSON mediante el campo `template_data`.
         * La validación del email se logra enviando un código de validación mendiante el uso de un template destinado para ello.
+        * Si el correo envia archivos adjuntos, incluirlos en el campo `attachments`.
       parameters:
         - in: path
           name: user_id
@@ -534,29 +568,14 @@ paths:
           description: Correo electrónico a enviar
           required: true
           schema:
-            type: object
-            required: 
-              - template
-            properties:
-              template:
-                type: string
-                description: Tipo de correo electrónico a enviar
-                example: "Prepago/ValidacionCorreo"
-              template_data:
-                type: string
-                description: JSON con tantos pares llave-valor como requiera el template del correo a enviar
-                example: "{'saludo': 'Estimado Pepito', 'despedida': 'Chao!'}"
-              address:
-                type: string
-                description: Correo electrónico al que se enviará este mensaje. Si no se incluye este campo, se usará el campo `email.value`  del Cliente.
-                example: "pepito@gmail.com"
+            $ref: '#/definitions/email_new'
       responses:
-        '201':
-          description: OK
-          schema:
-            type: boolean
+        '202':
+          description: Accepted
         '404':
           description: Cliente no existe
+          schema:
+            $ref: '#/definitions/error_obj'
         '422':
           description: El mail contiene datos inválidos
           schema:
@@ -914,6 +933,138 @@ paths:
           description: OK
         '404':
           description: Cliente o Dirección no existen 
+  /users/{user_id}/files:
+    get:
+      summary: Listar
+      tags: 
+        - archivos
+      description: |
+        Retorna la lista de archivos de un cliente
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - name: "app"
+          in: "query"
+          description: "nombre de la aplicación"
+          type: string
+        - in: query
+          name: "name"
+          description: "nombre del archivo"
+          type: string
+        - in: query
+          name: "version"
+          description: "versión del archivo"
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/user_file'
+        '404':
+          description: Cliente no existe
+          schema:
+            $ref: '#/definitions/error_obj'
+    post:
+      summary: Crear
+      tags: 
+        - archivos
+      description: |
+        Crea un nuevo archivo para este cliente
+        
+        * La terna (`file.app` + `file.name` + `file.version`) debe ser única para este usuario. De lo contrario, el servicio retornará error.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: body
+          name: file
+          description: Archivo
+          required: true
+          schema:
+            $ref: '#/definitions/user_file_new'
+      responses:
+        '201':
+          description: OK
+          schema:
+            $ref: '#/definitions/user_file'
+        '404':
+          description: Cliente no existe
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: No paso validación
+          schema:
+            $ref: '#/definitions/error_obj'
+  /users/{user_id}/files/{file_id}:
+    get:
+      summary: Listar
+      tags: 
+        - archivos
+      description: |
+        Retorna el archivo de un cliente
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: path
+          name: "file_id"
+          required: true
+          description: ID del archivo
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/user_file'
+        '404':
+          description: Cliente o archivo no existe
+          schema:
+            $ref: '#/definitions/error_obj'
+  /users/{user_id}/backoffice/ticket:
+    post:
+      summary: Crear
+      tags: 
+        - backoffice
+      description: |
+        Crea un nuevo ticket en el bacoffice relacionado con el cliente
+        
+        Notas:
+        * El campo `description` acepta contenido HTML.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: body
+          name: ticket
+          description: ticket
+          required: true
+          schema:
+            $ref: '#/definitions/user_backoffice_ticket_new'
+      responses:
+        '201':
+          description: OK
+          schema:
+            $ref: '#/definitions/user_file'
+        '404':
+          description: Cliente no existe
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: No paso validación
+          schema:
+            $ref: '#/definitions/error_obj'
+  
   /helpers/banks:
     get:
       summary: Lista bancos
@@ -980,6 +1131,7 @@ paths:
             type: array
             items:
               $ref: '#/definitions/parameter'         
+  
 definitions:
   user_signup_new:
     type: object
@@ -1548,3 +1700,173 @@ definitions:
         type: string
         description: Descripción corta del error
         example: "El cliente no pasó la validación"
+
+  email_attachment_new:
+    type: object
+    description: Archivo a adjuntar en un email
+    required:
+      - file_name
+      - mime_type
+      - content
+    properties:
+      file_name:
+        type: string
+        description: Nombre del archivo
+        example: "Test.pdf"
+      mime_type:
+        type: string
+        description: MimeType del archivo
+        example: "application/pdf"
+      content_file:
+        type: string
+        description: |
+          El texto del contenido en base64 no debe contener `data:image/jpeg;base64`, Solo el cuerpo del archivo
+        example: "VGVzdA=="
+
+  email_new:
+    type: object
+    description: |
+      Email **(Request)**
+    required:
+      -  template
+    properties:
+      template:
+        type: string
+        description: Tipo de correo electrónico a enviar
+        example: "Prepago/ValidacionCorreo"
+      template_data:
+        type: string
+        description: JSON con tantos pares llave-valor como requiera el template del correo a enviar
+        example: "{'saludo': 'Estimado Pepito', 'despedida': 'Chao!'}"
+      address:
+        type: string
+        description: Correo electrónico al que se enviará este mensaje. Si no se incluye este campo, se usará el campo `email.value`  del Cliente.
+        example: "pepito@gmail.com"
+      attachments:
+        type: array
+        items:
+          $ref: '#/definitions/email_attachment_new'
+  
+  user_file_new:
+    type: object
+    description: |
+      Archivo de cliente **(Request)**
+    required:
+      - app
+      - name
+      - version
+      - mime_type
+      - location
+    properties:
+      app:
+        type: string
+        description: |
+          Aplicacion del archivo
+        example: "prepago"
+      name:
+        type: string
+        description: |
+          Nombre del archivo
+        example: "USER_CI_FRONTAL"
+      version:
+        type: string
+        description: |
+          Version del archivo
+        example: "v1.0"
+      description:
+        type: string
+        description: |
+          Descripcion del archivo
+        example: "Foto frontal de CI del cliente"
+      mime_type:
+        type: string
+        description: |
+          MimeType del archivo
+        example: "image/jpeg"
+      location:
+        type: string
+        description: |
+          URL donde se encuentra el archivo
+        example: "/path/to/image"
+  user_file:
+    type: object
+    description: |
+      Archivo de cliente **(Response)**
+    properties:
+      id:
+        type: integer
+        description: Identificador interno. Campo read-only.
+        example: 7783834
+        readOnly: true
+      app:
+        type: string
+        description: |
+          Aplicacion del archivo
+        example: "prepago"
+      name:
+        type: string
+        description: |
+          Nombre del archivo
+        example: "USER_CI_FRONTAL"
+      version:
+        type: string
+        description: |
+          Version del archivo
+        example: "v1.0"
+      description:
+        type: string
+        description: |
+          Descripcion del archivo
+        example: "Foto frontal de CI del cliente"
+      mime_type:
+        type: string
+        description: |
+          MimeType del archivo
+        example: "image/jpeg"
+      location:
+        type: string
+        description: |
+          URL donde se encuentra el archivo
+        example: "/path/to/image"
+
+  user_backoffice_ticket_new:
+    type: object
+    description: |
+      Archivo de cliente **(Request)**
+    required:
+      - subject
+      - type
+      - priority
+      - description
+      - group_id
+    properties:
+      subject:
+        type: string
+        description: |
+          Titulo del ticket
+        example: "Verificación de identidad"
+      type:
+        type: string
+        description: |
+          Tipo de ticket
+        enum: ["VALIDACION_IDENTIDAD", "SOPORTE_GENERAL"]
+      priority:
+        type: string
+        description: |
+          Prioridad del ticket
+        enum: ["HIGH", "LOW", "MEDIUM", "URGENT"]
+      description:
+        type: string
+        description: |
+          Detalle del ticket. Soporta contenigo HTML.
+        example: "Realizar verificación de identidad al cliente Pepito Perez, rut: XX.XXX.XXX-X"
+      group_id:
+        type: integer
+        enum: [1, 2, 3]
+        description: |
+          Grupo al que sera asignado el ticket
+      product_id:
+        type: integer
+        enum: [999, 888, 777]
+        description: |
+          Producto al que esta asociado el ticket
