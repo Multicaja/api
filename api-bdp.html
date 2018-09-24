@@ -46,6 +46,7 @@
             </ul>
           </section>
           <h5>Schema Definitions</h5>
+          <a href="#definition-userModel"> userModel </a>
           <a href="#definition-ordersModel"> ordersModel </a>
           <a href="#definition-orderModelResponse"> orderModelResponse </a>
           <a href="#definition-amountModel"> amountModel </a>
@@ -124,6 +125,8 @@
                       <strong>reference_id</strong> : Es el
                       <strong>ID</strong> interno del comercio.</li>
                     <li>
+                      <strong>user</strong> :: Se pueden enviar los datos de usuario como el correo. </li>
+                    <li>
                       <strong>amount</strong> : Datos del monto.</li>
                     <li>
                       <strong>description</strong> : Descripción de orden.</li>
@@ -183,6 +186,9 @@
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;reference_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
+  <span class="hljs-attr">&quot;user&quot;</span>: {
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;example@multicaja.cl&quot;</span>
+  },
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;currency&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
     <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">41000</span>,
@@ -267,6 +273,9 @@
   <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-number">645646</span>,
   <span class="hljs-attr">&quot;redirect_url&quot;</span>: <span class="hljs-string">&quot;http://pagos.multicaja.cl/url_retorno&quot;</span>,
   <span class="hljs-attr">&quot;reference_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
+  <span class="hljs-attr">&quot;user&quot;</span>: {
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;example@multicaja.cl&quot;</span>
+  },
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;currency&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
     <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">41000</span>,
@@ -420,6 +429,9 @@
   <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-number">645646</span>,
   <span class="hljs-attr">&quot;redirect_url&quot;</span>: <span class="hljs-string">&quot;http://pagos.multicaja.cl/url_retorno&quot;</span>,
   <span class="hljs-attr">&quot;reference_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
+  <span class="hljs-attr">&quot;user&quot;</span>: {
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;example@multicaja.cl&quot;</span>
+  },
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;currency&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
     <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">41000</span>,
@@ -572,6 +584,9 @@
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;reference_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
+  <span class="hljs-attr">&quot;user&quot;</span>: {
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;example@multicaja.cl&quot;</span>
+  },
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;currency&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
     <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">41000</span>,
@@ -656,6 +671,9 @@
   <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-number">645646</span>,
   <span class="hljs-attr">&quot;redirect_url&quot;</span>: <span class="hljs-string">&quot;http://pagos.multicaja.cl/url_retorno&quot;</span>,
   <span class="hljs-attr">&quot;reference_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
+  <span class="hljs-attr">&quot;user&quot;</span>: {
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;example@multicaja.cl&quot;</span>
+  },
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;currency&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
     <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">41000</span>,
@@ -946,11 +964,43 @@
             </div>
           </div>
           <h1>Schema Definitions</h1>
+          <div id="definition-userModel" class="definition panel" data-traverse-target="definition-userModel">
+            <h2 class="panel-title">
+              <a name="/definitions/userModel"></a>userModel: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="email">
+                      <span class="json-property-name">email:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;example@multicaja.cl&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
           <div id="definition-ordersModel" class="definition panel" data-traverse-target="definition-ordersModel">
             <h2 class="panel-title">
               <a name="/definitions/ordersModel"></a>ordersModel: object
-              <!-- <span class="json-property-type">
-              <span class="json-property-type">object</span>
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
               
@@ -965,6 +1015,15 @@
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits">x ≤ 30</span>
                       <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="user">
+                      <span class="json-property-name">user:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/userModel">userModel</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dt data-property-name="amount">
                       <span class="json-property-name">amount:</span>
@@ -1051,6 +1110,9 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;reference_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
+  <span class="hljs-attr">&quot;user&quot;</span>: {
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;example@multicaja.cl&quot;</span>
+  },
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;currency&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
     <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">41000</span>,
@@ -1093,8 +1155,7 @@
           <div id="definition-orderModelResponse" class="definition panel" data-traverse-target="definition-orderModelResponse">
             <h2 class="panel-title">
               <a name="/definitions/orderModelResponse"></a>orderModelResponse:
-              <!-- <span class="json-property-type">
-              <span class="json-property-type"></span>
+              <!-- <span class="json-property-type"><span class="json-property-type"></span>
               <span class="json-property-range" title="Value limits"></span>
               
               
@@ -1147,6 +1208,9 @@
   <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-number">645646</span>,
   <span class="hljs-attr">&quot;redirect_url&quot;</span>: <span class="hljs-string">&quot;http://pagos.multicaja.cl/url_retorno&quot;</span>,
   <span class="hljs-attr">&quot;reference_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
+  <span class="hljs-attr">&quot;user&quot;</span>: {
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;example@multicaja.cl&quot;</span>
+  },
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;currency&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
     <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">41000</span>,
@@ -1189,8 +1253,7 @@
           <div id="definition-amountModel" class="definition panel" data-traverse-target="definition-amountModel">
             <h2 class="panel-title">
               <a name="/definitions/amountModel"></a>amountModel: object
-              <!-- <span class="json-property-type">
-              <span class="json-property-type">object</span>
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
               
@@ -1260,8 +1323,7 @@
           <div id="definition-customModel" class="definition panel" data-traverse-target="definition-customModel">
             <h2 class="panel-title">
               <a name="/definitions/customModel"></a>customModel: object
-              <!-- <span class="json-property-type">
-              <span class="json-property-type">object</span>
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
               
@@ -1294,8 +1356,7 @@
           <div id="definition-itemModel" class="definition panel" data-traverse-target="definition-itemModel">
             <h2 class="panel-title">
               <a name="/definitions/itemModel"></a>itemModel:
-              <!-- <span class="json-property-type">
-              <span class="json-property-type">object</span>
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
               
@@ -1352,8 +1413,7 @@
           <div id="definition-urlModel" class="definition panel" data-traverse-target="definition-urlModel">
             <h2 class="panel-title">
               <a name="/definitions/urlModel"></a>urlModel:
-              <!-- <span class="json-property-type">
-              <span class="json-property-type">object</span>
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
               
@@ -1394,8 +1454,7 @@
           <div id="definition-paymentMethodItemObject" class="definition panel" data-traverse-target="definition-paymentMethodItemObject">
             <h2 class="panel-title">
               <a name="/definitions/paymentMethodItemObject"></a>paymentMethodItemObject: object
-              <!-- <span class="json-property-type">
-              <span class="json-property-type">object</span>
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
               
@@ -1434,8 +1493,7 @@
           <div id="definition-ErrorModel" class="definition panel" data-traverse-target="definition-ErrorModel">
             <h2 class="panel-title">
               <a name="/definitions/ErrorModel"></a>ErrorModel: object
-              <!-- <span class="json-property-type">
-              <span class="json-property-type">object</span>
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
               
