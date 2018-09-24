@@ -34,6 +34,7 @@ paths:
         Los campos obligatorios son : 
         
           * **reference_id** : Es el **ID** interno del comercio.
+          * **user** :: Se pueden enviar los datos de usuario como el correo. 
           * **amount** : Datos del monto.
           * **description** : Descripción de orden.
           * **urls** : Url de redirección para los casos de éxito y error.
@@ -220,6 +221,13 @@ paths:
   
 definitions:
 
+  userModel:
+    type: object
+    properties:
+      email:
+        type: string
+        example: "example@multicaja.cl"
+      
   ordersModel:
     type: object
     required:
@@ -232,6 +240,8 @@ definitions:
         type: string
         example: "ERWER213"
         maximum: 30
+      user:
+        $ref: '#/definitions/userModel'
       amount:
         $ref: '#/definitions/amountModel'
       methods:
