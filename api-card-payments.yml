@@ -4,10 +4,11 @@ info:
     
     ## Limitaciones
     - Sólo tarjetas de crédito Mastercard
-    - Sin cuotas
+    - Con cuotas emisor
     - Sin captura diferida
     - Todos los montos deben estar en pesos chilenos (ISO 4217 = CLP)
     - La API no soporta CORS
+    - No está soportada la devolución ni reversa parcial.
     
     ## Reglas de la API
     - El campo `consumer_transaction_id` **debe** ser único (incluso en días y transacciones distintas).
@@ -21,11 +22,11 @@ info:
     
     
     
-  version: '0.1'
+  version: '0.2'
   title: API Pagos con tarjeta
   
 host: 'api.multicaja.cl'
-basePath: /card-payments/v0.1/
+basePath: /card-payments/v0.2/
 consumes:
   - application/json
 produces:
@@ -66,6 +67,7 @@ paths:
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
+            
   /reversals:
     post:
       summary: Reversa de una venta o devolución
@@ -106,9 +108,10 @@ paths:
         ## Devolución total
         - El objeto `amount` es opcional. En caso que se envíe, el campo `value` debe corresponder al monto total del cargo.
         
-        ## Devolución parcial
+        ## Devolución parcial (NOT IMPLEMENTED)
         - El objeto `amount` corresponde al monto que se quiere devolver. Debe ser mayor que cero y menor o igual al monto no devuelto de la venta.
         - Puedes realizar hasta **10 devoluciones parciales** asociadas a la misma venta.
+        
         
       parameters:
         - in: body
@@ -224,6 +227,12 @@ definitions:
         example: "crlfUYEBK14zotCTykezJkfg"
       amount:
         $ref: "#/definitions/amount_and_currency_new"
+      installments:
+        type: integer
+        description: cantidad de cuotas (cuotas emisor)
+        example: null
+      charge_type:
+        $ref: "#/definitions/charge_type"
         
   charge_new:
     type: object
@@ -236,17 +245,15 @@ definitions:
           - card
           - amount
           - consumer_transaction_id
-          - merchant_code
+          - merchant
         properties:
           card:
             $ref: "#/definitions/card_new"
-          merchant_code:
-            type: string
-            description: Código de comercio asociado a la compra
-            example: "0023434"
+          merchant:
+            $ref: "#/definitions/merchant"
           soft_descriptor:
             type: string
-            description: Nombre del comercio. Máximo 6 caracteres.
+            description: Nombre del comercio, como se verá en el extracto bancario. Máximo 6 caracteres.
             example: "STORE-001"
           additional_data:
             $ref: "#/definitions/addtitional_data"
@@ -274,7 +281,7 @@ definitions:
             example: 1231232
           timestamps:
             $ref: '#/definitions/timestamps'
-            
+    
   timestamps:
     type: object
     description: |
@@ -342,13 +349,48 @@ definitions:
         description: año de expiración
         example: 2020
       cvc:
-        type: integer
+        type: string
         description: código de seguridad
         example: 123
       name_on_card:
         type: string
         description: Nombre impreso en la tarjeta
         example: "Pedro Perez"
+  
+  merchant:
+    type: object
+    description: |
+      Datos del comercio que origina el cargo
+      
+    properties:
+      local_tax_number:
+        type: string
+        description: Rol Único Tributario (RUT) del comercio
+        example: "96675670-5"
+      merchant_code:
+        type: string
+        description: Código de comercio
+        example: "0023434"
+      mcc: 
+        type: string
+        description: Código ISO 18245 asignado por la bandera al comercio
+        example: "5999"
+  
+  charge_type:
+    type: object
+    description: |
+      Tipo de cargo que se realiza. Indica si el pago es recurrente o no y si los datos de la tarjeta fueron digitados por el tarjetahabiente o es card on file.
+    properties:
+      card_on_file:
+        type: boolean
+        description: Indica si card o file
+        example: false
+      recurring:
+        type: boolean
+        description: Indica si el cargo es recurrente
+        example: false
+  
+  
   addtitional_data:
     type: object
     description: |
