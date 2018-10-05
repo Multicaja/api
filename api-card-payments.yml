@@ -1,13 +1,23 @@
 swagger: '2.0'
+schemes:
+  - "https"
+host: 'api.multicaja.cl'
+consumes:
+  - application/json
+produces:
+  - application/json
 info:
+  title: API Pagos con tarjeta
+  version: '0.2'
   description: |
     
     ## Limitaciones
     - Sólo tarjetas de crédito Mastercard
-    - Sin cuotas
+    - Con cuotas emisor
     - Sin captura diferida
     - Todos los montos deben estar en pesos chilenos (ISO 4217 = CLP)
     - La API no soporta CORS
+    - No está soportada la devolución ni reversa parcial.
     
     ## Reglas de la API
     - El campo `consumer_transaction_id` **debe** ser único (incluso en días y transacciones distintas).
@@ -18,18 +28,8 @@ info:
     La API soporta *idempotencia*, por lo tanto puedes reintentar un requerimiento sin peligro de que el recurso se cree dos veces. Para esto debes incluir el encabezado `Idempotency-Key: <key>`, donde `key` es un identificador único de tu sistema o UUID. La clave tiene una validez de 24 horas.
     
     - NOTA: Si envías dos requerimientos con igual `consumer_transaction_id` y distinto `Idempotency-Key`, se entendrán como dos requerimientos **diferentes** y uno de ellos fallará dado que el campo `consumer_transaction_id` debe ser único.
-    
-    
-    
-  version: '0.1'
-  title: API Pagos con tarjeta
   
-host: 'api.multicaja.cl'
-basePath: /card-payments/v0.1/
-consumes:
-  - application/json
-produces:
-  - application/json
+basePath: /card-payments/v0.2/
 paths:
 
   /charges:
@@ -39,33 +39,64 @@ paths:
         Realiza un cargo en una tarjeta de crédito.
       parameters:
         - in: body
-          name: charge_new
+          name: charge_req
           description: Venta con tarjeta
           required: true
           schema:
             $ref: '#/definitions/charge_new'
       responses:
-        '200':
+        200:
           description: |
             OK - Venta exitosa
           schema:
             $ref: '#/definitions/charge'
-        '400':
-          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+        400:
+          description: "Alguno de los campos requeridos no viene o es inválido"
           schema:
             $ref: '#/definitions/error_obj'
-        '401':
+          examples:
+            application/json:
+              code: "MISSING_PARAMETER"
+              message: "The parameter 'amount' is missing "
+        401:
           description: API Key no autorizada
           schema:
             $ref: '#/definitions/error_obj'
-        '402':
+          examples:
+            application/json:
+              code: "UNAUTHORIZED"
+              message: "No valid API key provided."    
+        402:
           description: Transacción se intentó, pero falló.
           schema:
             $ref: '#/definitions/error_obj'
-        '500':
+        500:
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
+          examples:
+            application/json:
+              code: "BAD_GATEWAY"
+              message: "Cannot connect to a service endpoint"   
+    
+    get:
+      summary: Consulta de un cargo
+      description: |
+        Obtiene el objeto cargo
+      parameters:
+        - in: body
+          name: charge_req
+          description: Venta con tarjeta
+          required: true
+          schema:
+            $ref: '#/definitions/charge_new'
+      responses:
+        200:  
+          description: |
+            OK - Venta exitosa
+          schema:
+            $ref: '#/definitions/charge_all'
+     
   /reversals:
     post:
       summary: Reversa de una venta o devolución
@@ -106,9 +137,10 @@ paths:
         ## Devolución total
         - El objeto `amount` es opcional. En caso que se envíe, el campo `value` debe corresponder al monto total del cargo.
         
-        ## Devolución parcial
+        ## Devolución parcial (NOT IMPLEMENTED)
         - El objeto `amount` corresponde al monto que se quiere devolver. Debe ser mayor que cero y menor o igual al monto no devuelto de la venta.
         - Puedes realizar hasta **10 devoluciones parciales** asociadas a la misma venta.
+        
         
       parameters:
         - in: body
@@ -155,7 +187,7 @@ definitions:
         description: Identificador de la venta original, sobre la que se realizará la devolución.
         example: "crlfUYEBK14zotCTykezJkfg"
       amount:
-        $ref: "#/definitions/amount_and_currency_new"
+        $ref: "#/definitions/amount_and_currency"
       additional_data:
         $ref: "#/definitions/addtitional_data"  
     
@@ -171,7 +203,7 @@ definitions:
         description: Identificador único de la transacción generado por el consumidor de la API
         example: "xhGXSPKviU83lln_xc9lc"
       amount:
-        $ref: '#/definitions/amount_and_currency_new'
+        $ref: '#/definitions/amount_and_currency'
       id:
         type: integer
         description: Identificador único de la devolución generado por Multicaja
@@ -223,7 +255,19 @@ definitions:
         description: Identificador único de la transacción generado por el consumidor de la API
         example: "crlfUYEBK14zotCTykezJkfg"
       amount:
-        $ref: "#/definitions/amount_and_currency_new"
+        $ref: "#/definitions/amount_and_currency"
+      installments:
+        type: integer
+        description: cantidad de cuotas (cuotas emisor)
+        example: null
+      charge_type:
+        $ref: "#/definitions/charge_type"
+      merchant:
+        $ref: "#/definitions/merchant"
+      soft_descriptor:
+        type: string
+        description: Nombre del comercio, como se verá en el extracto bancario. Máximo 6 caracteres.
+        example: "STORE-001"
         
   charge_new:
     type: object
@@ -236,18 +280,10 @@ definitions:
           - card
           - amount
           - consumer_transaction_id
-          - merchant_code
+          - merchant
         properties:
           card:
-            $ref: "#/definitions/card_new"
-          merchant_code:
-            type: string
-            description: Código de comercio asociado a la compra
-            example: "0023434"
-          soft_descriptor:
-            type: string
-            description: Nombre del comercio. Máximo 6 caracteres.
-            example: "STORE-001"
+            $ref: "#/definitions/card"
           additional_data:
             $ref: "#/definitions/addtitional_data"
 
@@ -261,7 +297,6 @@ definitions:
         required:
           - id
           - external_authorization_code
-          - process_date
           - timestamps
         properties:
           id:
@@ -274,7 +309,34 @@ definitions:
             example: 1231232
           timestamps:
             $ref: '#/definitions/timestamps'
-            
+  
+  charge_all:
+    type: object
+    description: |
+      Respuesta a solicitud de venta **(Response)**
+    allOf:
+    - $ref: "#/definitions/charge"
+    - type: object
+      properties:
+        status:
+          type: string
+          description: Estado del cargo
+          example: "refunded"
+        failure_code:
+          type: string
+          description: Código de error
+          example: null
+        failure_message:
+          type: string
+          description: Mensaje de error
+          example: null
+        amount_refunded:
+          $ref: '#/definitions/amount_and_currency'
+        refunds:
+          type: array
+          items: 
+            $ref: "#/definitions/refund"
+          
   timestamps:
     type: object
     description: |
@@ -289,7 +351,7 @@ definitions:
         format: date-time
         example: "2018-03-02T10:03:12.123Z"
 
-  amount_and_currency_new:
+  amount_and_currency:
     type: object
     description: Monto en una moneda específica
     required:
@@ -304,26 +366,11 @@ definitions:
         type: string
         description: Código ISO 4217 de la moneda
         example: "CLP"
-        
-  error_obj:
-    type: object
-    description: Error
-    required:
-      - code
-    properties:
-      code:
-        type: string
-        description: Código que representa el error. No será igual al código HTTP.
-        example: "INSUFFICIENT_FUNDS"
-      message:
-        type: string
-        description: Descripción corta del error
-        example: "La tarjeta no tiene saldo"
 
-  card_new:
+  card:
     type: object
     description: |
-      Información de la tarjeta de crédito
+      Información de la tarjeta de crédito. Los campos deben ir encriptados.
     required:
       - exp_month
       - exp_year
@@ -331,25 +378,77 @@ definitions:
     properties:
       pan:
         type: string
-        description: PAN de la tarjeta
-        example: "5144611670946763"
+        description: PAN de la tarjeta encriptado
+        example: "FFDED408610A74DC0BCAFAD6448E8B4582673E87945DFFC1A0B97296C44CAB95"
       exp_month:
-        type: integer
-        description: mes de expiración
-        example: 9
+        type: string
+        description: mes de expiración encriptado
+        example: "966194C0DAD7136F2DF6AC8E9384CED5"
       exp_year:
-        type: integer
-        description: año de expiración
-        example: 2020
+        type: string
+        description: año de expiración encriptado
+        example: "A5AF09B7648AC5A6EF25EF4290FAB884"
       cvc:
-        type: integer
-        description: código de seguridad
-        example: 123
+        type: string
+        description: código de seguridad encriptado
+        example: "FEAB8C72585BB4F78C0144FAC062D0662"
       name_on_card:
         type: string
-        description: Nombre impreso en la tarjeta
-        example: "Pedro Perez"
+        description: Nombre impreso en la tarjeta encriptado
+        example: "7181651E086CA2AABEDAA63F3806484C"
+  
+  merchant:
+    type: object
+    description: |
+      Datos del comercio que origina el cargo
+    required:
+      - merchant_code      
+    properties:
+      local_tax_number:
+        type: string
+        description: Rol Único Tributario (RUT) del comercio
+        example: "96675670-5"
+      merchant_code:
+        type: string
+        description: Código de comercio
+        example: "0023434"
+      mcc: 
+        type: string
+        description: Código ISO 18245 asignado por la bandera al comercio
+        example: "5999"
+  
+  charge_type:
+    type: object
+    description: |
+      Tipo de cargo que se realiza. Indica si el pago es recurrente o no y si los datos de la tarjeta fueron digitados por el tarjetahabiente o es card on file.
+    properties:
+      card_on_file:
+        type: boolean
+        description: Indica si card on file
+        example: false
+      recurring:
+        type: boolean
+        description: Indica si el cargo es recurrente
+        example: false
+  
+  
   addtitional_data:
     type: object
     description: |
       Objeto JSON con atributos adicionales para la transacción.
+      
+  error_obj:
+    type: object
+    description: "Error"
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: string
+        example: "INSUFFICIENT_FUNDS"
+        description: Código que representa el error.
+      message:
+        type: string
+        example: "La tarjeta no tiene saldo"
+        description: Descripción corta del error    
