@@ -9,6 +9,7 @@ before_install:
 before_script:
   - curl -L "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/shunit2/shunit2-2.1.6.tgz" | tar zx
   - npm install -g spectacle-docs
+  - npm install -g redoc-cli
 
 script:
   # Get proper branch name based on http://graysonkoonce.com/getting-the-current-branch-name-during-a-pull-request-in-travis-ci/
@@ -23,11 +24,13 @@ script:
   - spectacle --target-dir docs-recharges --target-file api-recharges.html api-recharges.yml
   - spectacle --target-dir docs-bdp --target-file api-bdp.html api-bdp.yml
   - spectacle --target-dir docs-card-payments --target-file api-card-payments.html api-card-payments.yml
+  - redoc-cli bundle -o api-card-payments-redoc.html api-card-payments.yml
   - mv docs-prepaid/api-prepaid.html docs/
   - mv docs-paypal/api-paypal.html docs/
   - mv docs-recharges/api-recharges.html docs/
   - mv docs-bdp/api-bdp.html docs/
   - mv docs-card-payments/api-card-payments.html docs/
+  - mv api-card-payments-redoc.html docs/
   - cp README.md docs/
  
 deploy:
