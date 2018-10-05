@@ -26,6 +26,9 @@
           <!-- <li> -->
           <a href="#operation--charges-post"> Venta con tarjeta </a>
           <!-- </li> -->
+          <!-- <li> -->
+          <a href="#operation--charges-get"> Consulta de un cargo </a>
+          <!-- </li> -->
           <!-- </ul>
               </section> -->
           <!-- <section>
@@ -52,11 +55,14 @@
           <a href="#definition-charge_base"> charge_base </a>
           <a href="#definition-charge_new"> charge_new </a>
           <a href="#definition-charge"> charge </a>
+          <a href="#definition-charge_all"> charge_all </a>
           <a href="#definition-timestamps"> timestamps </a>
-          <a href="#definition-amount_and_currency_new"> amount_and_currency_new </a>
-          <a href="#definition-error_obj"> error_obj </a>
-          <a href="#definition-card_new"> card_new </a>
+          <a href="#definition-amount_and_currency"> amount_and_currency </a>
+          <a href="#definition-card"> card </a>
+          <a href="#definition-merchant"> merchant </a>
+          <a href="#definition-charge_type"> charge_type </a>
           <a href="#definition-addtitional_data"> addtitional_data </a>
+          <a href="#definition-error_obj"> error_obj </a>
         </nav>
       </div>
       <div id="docs" class="row collapse expanded drawer" data-drawer>
@@ -74,10 +80,11 @@
                 <h2 id="limitaciones">Limitaciones</h2>
                 <ul>
                   <li>Sólo tarjetas de crédito Mastercard</li>
-                  <li>Sin cuotas</li>
+                  <li>Con cuotas emisor</li>
                   <li>Sin captura diferida</li>
                   <li>Todos los montos deben estar en pesos chilenos (ISO 4217 = CLP)</li>
                   <li>La API no soporta CORS</li>
+                  <li>No está soportada la devolución ni reversa parcial.</li>
                 </ul>
                 <h2 id="reglas-de-la-api">Reglas de la API</h2>
                 <ul>
@@ -99,7 +106,7 @@
               <div class="doc-examples">
                 <section>
                   <h5>API Endpoint</h5>
-                  <!-- <div class="hljs"> --><pre><code>http://api.multicaja.cl/card-payments/v0.1/</code></pre>
+                  <!-- <div class="hljs"> --><pre><code>https://api.multicaja.cl/card-payments/v0.2/</code></pre>
                   <!-- </div> -->
                   <h5>Request Content-Types:
                     <span>application/json</span>
@@ -107,8 +114,11 @@
                   <h5>Response Content-Types:
                     <span>application/json</span>
                   </h5>
+                  <h5>Schemes:
+                    <span>https</span>
+                  </h5>
                   <h5>Version:
-                    <span>0.1</span>
+                    <span>0.2</span>
                   </h5>
                 </section>
               </div>
@@ -159,20 +169,29 @@
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;card&quot;</span>: {
-    <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;5144611670946763&quot;</span>,
-    <span class="hljs-attr">&quot;exp_month&quot;</span>: <span class="hljs-number">9</span>,
-    <span class="hljs-attr">&quot;exp_year&quot;</span>: <span class="hljs-number">2020</span>,
-    <span class="hljs-attr">&quot;cvc&quot;</span>: <span class="hljs-number">123</span>,
-    <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;Pedro Perez&quot;</span>
+    <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;FFDED408610A74DC0BCAFAD6448E8B4582673E87945DFFC1A0B97296C44CAB95&quot;</span>,
+    <span class="hljs-attr">&quot;exp_month&quot;</span>: <span class="hljs-string">&quot;966194C0DAD7136F2DF6AC8E9384CED5&quot;</span>,
+    <span class="hljs-attr">&quot;exp_year&quot;</span>: <span class="hljs-string">&quot;A5AF09B7648AC5A6EF25EF4290FAB884&quot;</span>,
+    <span class="hljs-attr">&quot;cvc&quot;</span>: <span class="hljs-string">&quot;FEAB8C72585BB4F78C0144FAC062D0662&quot;</span>,
+    <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;7181651E086CA2AABEDAA63F3806484C&quot;</span>
   },
-  <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
-  <span class="hljs-attr">&quot;soft_descriptor&quot;</span>: <span class="hljs-string">&quot;STORE-001&quot;</span>,
   <span class="hljs-attr">&quot;additional_data&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>,
   <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>,
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>
-  }
+  },
+  <span class="hljs-attr">&quot;installments&quot;</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">&quot;charge_type&quot;</span>: {
+    <span class="hljs-attr">&quot;card_on_file&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;recurring&quot;</span>: <span class="hljs-literal">false</span>
+  },
+  <span class="hljs-attr">&quot;merchant&quot;</span>: {
+    <span class="hljs-attr">&quot;local_tax_number&quot;</span>: <span class="hljs-string">&quot;96675670-5&quot;</span>,
+    <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
+    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>
+  },
+  <span class="hljs-attr">&quot;soft_descriptor&quot;</span>: <span class="hljs-string">&quot;STORE-001&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -207,7 +226,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado</p>
+                      <p>Alguno de los campos requeridos no viene o es inválido</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -270,7 +289,18 @@
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>
-  }
+  },
+  <span class="hljs-attr">&quot;installments&quot;</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">&quot;charge_type&quot;</span>: {
+    <span class="hljs-attr">&quot;card_on_file&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;recurring&quot;</span>: <span class="hljs-literal">false</span>
+  },
+  <span class="hljs-attr">&quot;merchant&quot;</span>: {
+    <span class="hljs-attr">&quot;local_tax_number&quot;</span>: <span class="hljs-string">&quot;96675670-5&quot;</span>,
+    <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
+    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>
+  },
+  <span class="hljs-attr">&quot;soft_descriptor&quot;</span>: <span class="hljs-string">&quot;STORE-001&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -315,6 +345,154 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INSUFFICIENT_FUNDS&quot;</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La tarjeta no tiene saldo&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--charges-get" class="operation panel" data-traverse-target="operation--charges-get">
+            <h2 class="operation-title">
+              <span class="operation-summary">Consulta de un cargo</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/charges</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Obtiene el objeto cargo</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/charge_new">charge_new</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Venta con tarjeta</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;card&quot;</span>: {
+    <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;FFDED408610A74DC0BCAFAD6448E8B4582673E87945DFFC1A0B97296C44CAB95&quot;</span>,
+    <span class="hljs-attr">&quot;exp_month&quot;</span>: <span class="hljs-string">&quot;966194C0DAD7136F2DF6AC8E9384CED5&quot;</span>,
+    <span class="hljs-attr">&quot;exp_year&quot;</span>: <span class="hljs-string">&quot;A5AF09B7648AC5A6EF25EF4290FAB884&quot;</span>,
+    <span class="hljs-attr">&quot;cvc&quot;</span>: <span class="hljs-string">&quot;FEAB8C72585BB4F78C0144FAC062D0662&quot;</span>,
+    <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;7181651E086CA2AABEDAA63F3806484C&quot;</span>
+  },
+  <span class="hljs-attr">&quot;additional_data&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>,
+  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>,
+  <span class="hljs-attr">&quot;amount&quot;</span>: {
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>
+  },
+  <span class="hljs-attr">&quot;installments&quot;</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">&quot;charge_type&quot;</span>: {
+    <span class="hljs-attr">&quot;card_on_file&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;recurring&quot;</span>: <span class="hljs-literal">false</span>
+  },
+  <span class="hljs-attr">&quot;merchant&quot;</span>: {
+    <span class="hljs-attr">&quot;local_tax_number&quot;</span>: <span class="hljs-string">&quot;96675670-5&quot;</span>,
+    <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
+    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>
+  },
+  <span class="hljs-attr">&quot;soft_descriptor&quot;</span>: <span class="hljs-string">&quot;STORE-001&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/charge_all">charge_all</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK - Venta exitosa</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;refunded&quot;</span>,
+  <span class="hljs-attr">&quot;failure_code&quot;</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">&quot;failure_message&quot;</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">&quot;amount_refunded&quot;</span>: {
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>
+  },
+  <span class="hljs-attr">&quot;refunds&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;xhGXSPKviU83lln_xc9lc&quot;</span>,
+      <span class="hljs-attr">&quot;amount&quot;</span>: {
+        <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+        <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>
+      },
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7654320</span>,
+      <span class="hljs-attr">&quot;external_authorization_code&quot;</span>: <span class="hljs-number">1231232</span>,
+      <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+        <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+        <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+      }
+    }
+  ],
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
+  <span class="hljs-attr">&quot;external_authorization_code&quot;</span>: <span class="hljs-number">1231232</span>,
+  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+  },
+  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>,
+  <span class="hljs-attr">&quot;amount&quot;</span>: {
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>
+  },
+  <span class="hljs-attr">&quot;installments&quot;</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">&quot;charge_type&quot;</span>: {
+    <span class="hljs-attr">&quot;card_on_file&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;recurring&quot;</span>: <span class="hljs-literal">false</span>
+  },
+  <span class="hljs-attr">&quot;merchant&quot;</span>: {
+    <span class="hljs-attr">&quot;local_tax_number&quot;</span>: <span class="hljs-string">&quot;96675670-5&quot;</span>,
+    <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
+    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>
+  },
+  <span class="hljs-attr">&quot;soft_descriptor&quot;</span>: <span class="hljs-string">&quot;STORE-001&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -506,7 +684,7 @@
                   <ul>
                     <li>El objeto <code>amount</code> es opcional. En caso que se envíe, el campo <code>value</code> debe corresponder al monto total del cargo.</li>
                   </ul>
-                  <h2 id="devoluci-n-parcial">Devolución parcial</h2>
+                  <h2 id="devoluci-n-parcial-not-implemented-">Devolución parcial (NOT IMPLEMENTED)</h2>
                   <ul>
                     <li>El objeto <code>amount</code> corresponde al monto que se quiere devolver. Debe ser mayor que cero y menor o igual al monto no devuelto de la venta.</li>
                     <li>Puedes realizar hasta
@@ -710,7 +888,7 @@
                       <span class="json-property-name">amount:</span>
                       <span class="json-property-type">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/amount_and_currency_new">amount_and_currency_new</a>
+                          <a class="json-schema-ref" href="#/definitions/amount_and_currency">amount_and_currency</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
@@ -776,7 +954,7 @@
                       <span class="json-property-name">amount:</span>
                       <span class="json-property-type">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/amount_and_currency_new">amount_and_currency_new</a>
+                          <a class="json-schema-ref" href="#/definitions/amount_and_currency">amount_and_currency</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
@@ -968,11 +1146,45 @@
                       <span class="json-property-name">amount:</span>
                       <span class="json-property-type">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/amount_and_currency_new">amount_and_currency_new</a>
+                          <a class="json-schema-ref" href="#/definitions/amount_and_currency">amount_and_currency</a>
                         </span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dt data-property-name="installments" class="has-description">
+                      <span class="json-property-name">installments:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>cantidad de cuotas (cuotas emisor)</p>
+                    </dd>
+                    <dt data-property-name="charge_type">
+                      <span class="json-property-name">charge_type:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/charge_type">charge_type</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="merchant">
+                      <span class="json-property-name">merchant:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/merchant">merchant</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="soft_descriptor" class="has-description">
+                      <span class="json-property-name">soft_descriptor:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Nombre del comercio, como se verá en el extracto bancario. Máximo 6 caracteres.</p>
+                    </dd>
                   </dl>
                 </section>
               </div>
@@ -984,7 +1196,18 @@
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>
-  }
+  },
+  <span class="hljs-attr">&quot;installments&quot;</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">&quot;charge_type&quot;</span>: {
+    <span class="hljs-attr">&quot;card_on_file&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;recurring&quot;</span>: <span class="hljs-literal">false</span>
+  },
+  <span class="hljs-attr">&quot;merchant&quot;</span>: {
+    <span class="hljs-attr">&quot;local_tax_number&quot;</span>: <span class="hljs-string">&quot;96675670-5&quot;</span>,
+    <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
+    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>
+  },
+  <span class="hljs-attr">&quot;soft_descriptor&quot;</span>: <span class="hljs-string">&quot;STORE-001&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1023,29 +1246,12 @@
                           <span class="json-property-name">card:</span>
                           <span class="json-property-type">
                             <span class="">
-                              <a class="json-schema-ref" href="#/definitions/card_new">card_new</a>
+                              <a class="json-schema-ref" href="#/definitions/card">card</a>
                             </span>
                           </span>
                           <span class="json-property-range" title="Value limits"></span>
                           <span class="json-property-required"></span>
                         </dt>
-                        <dt data-property-name="merchant_code" class="has-description">
-                          <span class="json-property-name">merchant_code:</span>
-                          <span class="json-property-type">string</span>
-                          <span class="json-property-range" title="Value limits"></span>
-                          <span class="json-property-required"></span>
-                        </dt>
-                        <dd>
-                          <p>Código de comercio asociado a la compra</p>
-                        </dd>
-                        <dt data-property-name="soft_descriptor" class="has-description">
-                          <span class="json-property-name">soft_descriptor:</span>
-                          <span class="json-property-type">string</span>
-                          <span class="json-property-range" title="Value limits"></span>
-                        </dt>
-                        <dd>
-                          <p>Nombre del comercio. Máximo 6 caracteres.</p>
-                        </dd>
                         <dt data-property-name="additional_data">
                           <span class="json-property-name">additional_data:</span>
                           <span class="json-property-type">
@@ -1065,20 +1271,29 @@
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;card&quot;</span>: {
-    <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;5144611670946763&quot;</span>,
-    <span class="hljs-attr">&quot;exp_month&quot;</span>: <span class="hljs-number">9</span>,
-    <span class="hljs-attr">&quot;exp_year&quot;</span>: <span class="hljs-number">2020</span>,
-    <span class="hljs-attr">&quot;cvc&quot;</span>: <span class="hljs-number">123</span>,
-    <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;Pedro Perez&quot;</span>
+    <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;FFDED408610A74DC0BCAFAD6448E8B4582673E87945DFFC1A0B97296C44CAB95&quot;</span>,
+    <span class="hljs-attr">&quot;exp_month&quot;</span>: <span class="hljs-string">&quot;966194C0DAD7136F2DF6AC8E9384CED5&quot;</span>,
+    <span class="hljs-attr">&quot;exp_year&quot;</span>: <span class="hljs-string">&quot;A5AF09B7648AC5A6EF25EF4290FAB884&quot;</span>,
+    <span class="hljs-attr">&quot;cvc&quot;</span>: <span class="hljs-string">&quot;FEAB8C72585BB4F78C0144FAC062D0662&quot;</span>,
+    <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;7181651E086CA2AABEDAA63F3806484C&quot;</span>
   },
-  <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
-  <span class="hljs-attr">&quot;soft_descriptor&quot;</span>: <span class="hljs-string">&quot;STORE-001&quot;</span>,
   <span class="hljs-attr">&quot;additional_data&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>,
   <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>,
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>
-  }
+  },
+  <span class="hljs-attr">&quot;installments&quot;</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">&quot;charge_type&quot;</span>: {
+    <span class="hljs-attr">&quot;card_on_file&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;recurring&quot;</span>: <span class="hljs-literal">false</span>
+  },
+  <span class="hljs-attr">&quot;merchant&quot;</span>: {
+    <span class="hljs-attr">&quot;local_tax_number&quot;</span>: <span class="hljs-string">&quot;96675670-5&quot;</span>,
+    <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
+    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>
+  },
+  <span class="hljs-attr">&quot;soft_descriptor&quot;</span>: <span class="hljs-string">&quot;STORE-001&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1160,7 +1375,158 @@
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>
-  }
+  },
+  <span class="hljs-attr">&quot;installments&quot;</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">&quot;charge_type&quot;</span>: {
+    <span class="hljs-attr">&quot;card_on_file&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;recurring&quot;</span>: <span class="hljs-literal">false</span>
+  },
+  <span class="hljs-attr">&quot;merchant&quot;</span>: {
+    <span class="hljs-attr">&quot;local_tax_number&quot;</span>: <span class="hljs-string">&quot;96675670-5&quot;</span>,
+    <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
+    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>
+  },
+  <span class="hljs-attr">&quot;soft_descriptor&quot;</span>: <span class="hljs-string">&quot;STORE-001&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-charge_all" class="definition panel" data-traverse-target="definition-charge_all">
+            <h2 class="panel-title">
+              <a name="/definitions/charge_all"></a>charge_all: object
+              <!-- <span class="json-property-type"><span class="json-property-type"></span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Respuesta a solicitud de venta
+                    <strong>(Response)</strong>
+                  </p>
+                </section>
+                <section class="json-schema-allOf">
+                  <section class="json-schema-allOf-inherited">
+                    <ul>
+                      <span class="">
+                        <a class="json-schema-ref" href="#/definitions/charge">charge</a>
+                      </span>
+                    </ul>
+                  </section>
+                  <section class="json-schema-allOf-additional">
+                    <section class="json-schema-properties">
+                      <dl>
+                        <dt data-property-name="status" class="has-description">
+                          <span class="json-property-name">status:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dd>
+                          <p>Estado del cargo</p>
+                        </dd>
+                        <dt data-property-name="failure_code" class="has-description">
+                          <span class="json-property-name">failure_code:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dd>
+                          <p>Código de error</p>
+                        </dd>
+                        <dt data-property-name="failure_message" class="has-description">
+                          <span class="json-property-name">failure_message:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dd>
+                          <p>Mensaje de error</p>
+                        </dd>
+                        <dt data-property-name="amount_refunded">
+                          <span class="json-property-name">amount_refunded:</span>
+                          <span class="json-property-type">
+                            <span class="">
+                              <a class="json-schema-ref" href="#/definitions/amount_and_currency">amount_and_currency</a>
+                            </span>
+                          </span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dt data-property-name="refunds">
+                          <span class="json-property-name">refunds:</span>
+                          <span class="json-property-type">
+                            <span class="json-schema-ref-array">
+                              <a class="json-schema-ref" href="#/definitions/refund">refund</a>
+                            </span>
+                          </span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dt class="json-inner-schema">
+                          <section class="json-schema-array-items">
+                            <span class="json-property-type">
+                              <span class="">
+                                <a class="json-schema-ref" href="#/definitions/refund">refund</a>
+                              </span>
+                            </span>
+                            <span class="json-property-range" title="Value limits"></span>
+                            <div class="json-inner-schema"> </div>
+                          </section>
+                        </dt>
+                      </dl>
+                    </section>
+                  </section>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;refunded&quot;</span>,
+  <span class="hljs-attr">&quot;failure_code&quot;</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">&quot;failure_message&quot;</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">&quot;amount_refunded&quot;</span>: {
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>
+  },
+  <span class="hljs-attr">&quot;refunds&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;xhGXSPKviU83lln_xc9lc&quot;</span>,
+      <span class="hljs-attr">&quot;amount&quot;</span>: {
+        <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+        <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>
+      },
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7654320</span>,
+      <span class="hljs-attr">&quot;external_authorization_code&quot;</span>: <span class="hljs-number">1231232</span>,
+      <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+        <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+        <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+      }
+    }
+  ],
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
+  <span class="hljs-attr">&quot;external_authorization_code&quot;</span>: <span class="hljs-number">1231232</span>,
+  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+  },
+  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>,
+  <span class="hljs-attr">&quot;amount&quot;</span>: {
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>
+  },
+  <span class="hljs-attr">&quot;installments&quot;</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">&quot;charge_type&quot;</span>: {
+    <span class="hljs-attr">&quot;card_on_file&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">&quot;recurring&quot;</span>: <span class="hljs-literal">false</span>
+  },
+  <span class="hljs-attr">&quot;merchant&quot;</span>: {
+    <span class="hljs-attr">&quot;local_tax_number&quot;</span>: <span class="hljs-string">&quot;96675670-5&quot;</span>,
+    <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
+    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>
+  },
+  <span class="hljs-attr">&quot;soft_descriptor&quot;</span>: <span class="hljs-string">&quot;STORE-001&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1214,9 +1580,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-amount_and_currency_new" class="definition panel" data-traverse-target="definition-amount_and_currency_new">
+          <div id="definition-amount_and_currency" class="definition panel" data-traverse-target="definition-amount_and_currency">
             <h2 class="panel-title">
-              <a name="/definitions/amount_and_currency_new"></a>amount_and_currency_new: object
+              <a name="/definitions/amount_and_currency"></a>amount_and_currency: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -1264,9 +1630,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-error_obj" class="definition panel" data-traverse-target="definition-error_obj">
+          <div id="definition-card" class="definition panel" data-traverse-target="definition-card">
             <h2 class="panel-title">
-              <a name="/definitions/error_obj"></a>error_obj: object
+              <a name="/definitions/card"></a>card: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -1276,56 +1642,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Error</p>
-                </section>
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="code" class="has-description">
-                      <span class="json-property-name">code:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                      <span class="json-property-required"></span>
-                    </dt>
-                    <dd>
-                      <p>Código que representa el error. No será igual al código HTTP.</p>
-                    </dd>
-                    <dt data-property-name="message" class="has-description">
-                      <span class="json-property-name">message:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Descripción corta del error</p>
-                    </dd>
-                  </dl>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INSUFFICIENT_FUNDS&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La tarjeta no tiene saldo&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="definition-card_new" class="definition panel" data-traverse-target="definition-card_new">
-            <h2 class="panel-title">
-              <a name="/definitions/card_new"></a>card_new: object
-              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-description">
-                  <p>Información de la tarjeta de crédito</p>
+                  <p>Información de la tarjeta de crédito. Los campos deben ir encriptados.</p>
                 </section>
                 <section class="json-schema-properties">
                   <dl>
@@ -1336,33 +1653,33 @@
                       <span class="json-property-required"></span>
                     </dt>
                     <dd>
-                      <p>PAN de la tarjeta</p>
+                      <p>PAN de la tarjeta encriptado</p>
                     </dd>
                     <dt data-property-name="exp_month" class="has-description">
                       <span class="json-property-name">exp_month:</span>
-                      <span class="json-property-type">integer</span>
+                      <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
                     </dt>
                     <dd>
-                      <p>mes de expiración</p>
+                      <p>mes de expiración encriptado</p>
                     </dd>
                     <dt data-property-name="exp_year" class="has-description">
                       <span class="json-property-name">exp_year:</span>
-                      <span class="json-property-type">integer</span>
+                      <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
                     </dt>
                     <dd>
-                      <p>año de expiración</p>
+                      <p>año de expiración encriptado</p>
                     </dd>
                     <dt data-property-name="cvc" class="has-description">
                       <span class="json-property-name">cvc:</span>
-                      <span class="json-property-type">integer</span>
+                      <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>código de seguridad</p>
+                      <p>código de seguridad encriptado</p>
                     </dd>
                     <dt data-property-name="name_on_card" class="has-description">
                       <span class="json-property-name">name_on_card:</span>
@@ -1370,7 +1687,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>Nombre impreso en la tarjeta</p>
+                      <p>Nombre impreso en la tarjeta encriptado</p>
                     </dd>
                   </dl>
                 </section>
@@ -1379,11 +1696,117 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;5144611670946763&quot;</span>,
-  <span class="hljs-attr">&quot;exp_month&quot;</span>: <span class="hljs-number">9</span>,
-  <span class="hljs-attr">&quot;exp_year&quot;</span>: <span class="hljs-number">2020</span>,
-  <span class="hljs-attr">&quot;cvc&quot;</span>: <span class="hljs-number">123</span>,
-  <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;Pedro Perez&quot;</span>
+  <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;FFDED408610A74DC0BCAFAD6448E8B4582673E87945DFFC1A0B97296C44CAB95&quot;</span>,
+  <span class="hljs-attr">&quot;exp_month&quot;</span>: <span class="hljs-string">&quot;966194C0DAD7136F2DF6AC8E9384CED5&quot;</span>,
+  <span class="hljs-attr">&quot;exp_year&quot;</span>: <span class="hljs-string">&quot;A5AF09B7648AC5A6EF25EF4290FAB884&quot;</span>,
+  <span class="hljs-attr">&quot;cvc&quot;</span>: <span class="hljs-string">&quot;FEAB8C72585BB4F78C0144FAC062D0662&quot;</span>,
+  <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;7181651E086CA2AABEDAA63F3806484C&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-merchant" class="definition panel" data-traverse-target="definition-merchant">
+            <h2 class="panel-title">
+              <a name="/definitions/merchant"></a>merchant: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Datos del comercio que origina el cargo</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="local_tax_number" class="has-description">
+                      <span class="json-property-name">local_tax_number:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Rol Único Tributario (RUT) del comercio</p>
+                    </dd>
+                    <dt data-property-name="merchant_code" class="has-description">
+                      <span class="json-property-name">merchant_code:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Código de comercio</p>
+                    </dd>
+                    <dt data-property-name="mcc" class="has-description">
+                      <span class="json-property-name">mcc:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Código ISO 18245 asignado por la bandera al comercio</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;local_tax_number&quot;</span>: <span class="hljs-string">&quot;96675670-5&quot;</span>,
+  <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
+  <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-charge_type" class="definition panel" data-traverse-target="definition-charge_type">
+            <h2 class="panel-title">
+              <a name="/definitions/charge_type"></a>charge_type: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Tipo de cargo que se realiza. Indica si el pago es recurrente o no y si los datos de la tarjeta fueron digitados por el tarjetahabiente o es card on file.</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="card_on_file" class="has-description">
+                      <span class="json-property-name">card_on_file:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Indica si card on file</p>
+                    </dd>
+                    <dt data-property-name="recurring" class="has-description">
+                      <span class="json-property-name">recurring:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Indica si el cargo es recurrente</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;card_on_file&quot;</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">&quot;recurring&quot;</span>: <span class="hljs-literal">false</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -1410,6 +1833,56 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;object&quot;</span>
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-error_obj" class="definition panel" data-traverse-target="definition-error_obj">
+            <h2 class="panel-title">
+              <a name="/definitions/error_obj"></a>error_obj: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Error</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="code" class="has-description">
+                      <span class="json-property-name">code:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Código que representa el error.</p>
+                    </dd>
+                    <dt data-property-name="message" class="has-description">
+                      <span class="json-property-name">message:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Descripción corta del error</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INSUFFICIENT_FUNDS&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La tarjeta no tiene saldo&quot;</span>
+}
 </code></pre>
                   <!-- </div> -->
                 </section>
