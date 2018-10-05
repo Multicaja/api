@@ -2,14 +2,14 @@
  
 ## API Multicaja
 
-| API        | Status        | Descripción |
-| ---------- |:-------------:|------------:|
-| [Users](https://multicaja.github.io/api/api-users.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-users.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-users.yml) | Usuarios, contacto, cuentas, direcciones |
-| [Prepaid](https://multicaja.github.io/api/api-prepaid.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-prepaid.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-prepaid.yml) | Tarjetas de prepago, saldo, emisión, transacciones |
-| [PayPal](https://multicaja.github.io/api/api-paypal.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-paypal.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-paypal.yml) | Multicaja/PayPal |
-| [Recharges](https://multicaja.github.io/api/api-recharges.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-recharges.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-recharges.yml) | Recargas en Switch Multicaja|
-| [BDP](https://multicaja.github.io/api/api-bdp.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-bdp.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-bdp.yml) | Api boton de pago Multicaja|
-| [Card-Payments](https://multicaja.github.io/api/api-card-payments.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-card-payments.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-card-payments.yml) | API Pagos con tarjeta|
+| API | Redoc        | Status        | Descripción |
+| ---------- |:-------------:|:-------------:|------------:|
+| [Users](https://multicaja.github.io/api/api-users.html) | [Users](https://multicaja.github.io/api/api-users-redoc.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-users.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-users.yml) | Usuarios, contacto, cuentas, direcciones |
+| [Prepaid](https://multicaja.github.io/api/api-prepaid.html) | [Prepaid](https://multicaja.github.io/api/api-prepaid-redoc.html)| [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-prepaid.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-prepaid.yml) | Tarjetas de prepago, saldo, emisión, transacciones |
+| [PayPal](https://multicaja.github.io/api/api-paypal.html) | [PayPal](https://multicaja.github.io/api/api-paypal-redoc.html)| [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-paypal.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-paypal.yml) | Multicaja/PayPal |
+| [Recharges](https://multicaja.github.io/api/api-recharges.html) | [Recharges](https://multicaja.github.io/api/api-recharges-redoc.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-recharges.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-recharges.yml) | Recargas en Switch Multicaja|
+| [BDP](https://multicaja.github.io/api/api-bdp.html) | [BDP](https://multicaja.github.io/api/api-bdp-redoc.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-bdp.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-bdp.yml) | Api boton de pago Multicaja|
+| [Card-Payments](https://multicaja.github.io/api/api-card-payments.html) | [Card-Payments](https://multicaja.github.io/api/api-card-payments-redoc.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-card-payments.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-card-payments.yml) | API Pagos con tarjeta|
 
 ### Buenas prácticas
 
