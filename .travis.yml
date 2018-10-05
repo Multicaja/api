@@ -25,7 +25,7 @@ script:
   - spectacle --target-dir docs-prepaid --target-file api-prepaid.html api-prepaid.yml
   - redoc-cli bundle -o api-prepaid-redoc.html api-prepaid.yml
   - spectacle --target-dir docs-paypal --target-file api-paypal.html api-paypal.yml
-  - redoc-cli bundle -o api-paypal-redoc.html api-paypal.yml
+
   - spectacle --target-dir docs-recharges --target-file api-recharges.html api-recharges.yml
   - redoc-cli bundle -o api-recharges-redoc.html api-recharges.yml
   - spectacle --target-dir docs-bdp --target-file api-bdp.html api-bdp.yml
@@ -35,7 +35,7 @@ script:
   - mv docs-prepaid/api-prepaid.html docs/
   - mv api-prepaid-redoc.html docs/
   - mv docs-paypal/api-paypal.html docs/
-  - mv api-paypal-redoc.html docs/
+
   - mv docs-recharges/api-recharges.html docs/
   - mv api-recharges-redoc.html docs/
   - mv docs-bdp/api-bdp.html docs/
