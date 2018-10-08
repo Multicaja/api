@@ -22,6 +22,7 @@ info:
     ## Reglas de la API
     - El campo `consumer_transaction_id` **debe** ser único (incluso en días y transacciones distintas).
     - Todos los requerimientos deben ser realizados sobre *HTTPS*. Los requerimientos sobre *HTTP* fallarán.
+    - Los campos del nodo `card`deben ser encriptados utilizando el algoritmo AES-256. El procedimiento para compartir la llave se acordará en otro documento.
     - Todos los requerimientos son autenticados. Debe incluir el encabezado `Api-Key: <key>`.
     
     ## Idempotencia
@@ -77,25 +78,107 @@ paths:
           examples:
             application/json:
               code: "BAD_GATEWAY"
-              message: "Cannot connect to a service endpoint"   
-    
+              message: "Cannot connect to a service endpoint"
+    get:
+      summary: Consulta de un cargo 
+      description: |
+        Obtiene el objeto cargo
+      parameters:
+        - in: query
+          name: consumer_transaction_id
+          description: Consulta de un cargo dado el consumer_transaction_id
+          required: true
+          type: string
+      responses:
+
+        200:  
+          description: |
+            OK - Venta exitosa
+          schema:
+            $ref: '#/definitions/charge_all'
+        400:
+          description: "Alguno de los campos requeridos no viene o es inválido"
+          schema:
+            $ref: '#/definitions/error_obj'
+          examples:
+            application/json:
+              code: "MISSING_PARAMETER"
+              message: "The parameter 'amount' is missing "
+        401:
+          description: API Key no autorizada
+          schema:
+            $ref: '#/definitions/error_obj'
+          examples:
+            application/json:
+              code: "UNAUTHORIZED"
+              message: "No valid API key provided."    
+        404:
+          description: El recurso requerido no existe.
+          schema:
+            $ref: '#/definitions/error_obj'
+          examples:
+            application/json:
+              code: "NOT_FOUND"
+              message: "The requested resource doesn't exist."  
+        500:
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'
+          examples:
+            application/json:
+              code: "BAD_GATEWAY"
+              message: "Cannot connect to a service endpoint"
+              
+  /charges/{id}:  
     get:
       summary: Consulta de un cargo
       description: |
         Obtiene el objeto cargo
       parameters:
-        - in: body
-          name: charge_req
-          description: Venta con tarjeta
+        - in: path
+          name: id
+          description: Consulta de un cargo
           required: true
-          schema:
-            $ref: '#/definitions/charge_new'
+          type: integer
       responses:
         200:  
           description: |
             OK - Venta exitosa
           schema:
             $ref: '#/definitions/charge_all'
+        400:
+          description: "Alguno de los campos requeridos no viene o es inválido"
+          schema:
+            $ref: '#/definitions/error_obj'
+          examples:
+            application/json:
+              code: "MISSING_PARAMETER"
+              message: "The parameter 'amount' is missing "
+        401:
+          description: API Key no autorizada
+          schema:
+            $ref: '#/definitions/error_obj'
+          examples:
+            application/json:
+              code: "UNAUTHORIZED"
+              message: "No valid API key provided."    
+        404:
+          description: El recurso requerido no existe.
+          schema:
+            $ref: '#/definitions/error_obj'
+          examples:
+            application/json:
+              code: "NOT_FOUND"
+              message: "The requested resource doesn't exist."  
+        500:
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'
+          examples:
+            application/json:
+              code: "BAD_GATEWAY"
+              message: "Cannot connect to a service endpoint"
+  
      
   /reversals:
     post:
@@ -128,6 +211,7 @@ paths:
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
+            
   /refunds:
     post:
       summary: Devolución de un cargo realizado a una tarjeta
@@ -166,8 +250,103 @@ paths:
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
-            
-  
+    get:
+      summary: Consulta de una devolución
+      description: |
+        Obtiene el objeto devolución
+      parameters:
+        - in: query
+          name: consumer_transaction_id
+          description: Consulta de una devolución dado el consumer_transaction_id
+          required: true
+          type: string
+      responses:
+
+        200:  
+          description: OK
+          schema:
+            $ref: '#/definitions/refund'
+        400:
+          description: "Alguno de los campos requeridos no viene o es inválido"
+          schema:
+            $ref: '#/definitions/error_obj'
+          examples:
+            application/json:
+              code: "MISSING_PARAMETER"
+              message: "The parameter 'amount' is missing "
+        401:
+          description: API Key no autorizada
+          schema:
+            $ref: '#/definitions/error_obj'
+          examples:
+            application/json:
+              code: "UNAUTHORIZED"
+              message: "No valid API key provided."    
+        404:
+          description: El recurso requerido no existe.
+          schema:
+            $ref: '#/definitions/error_obj'
+          examples:
+            application/json:
+              code: "NOT_FOUND"
+              message: "The requested resource doesn't exist."  
+        500:
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'
+          examples:
+            application/json:
+              code: "BAD_GATEWAY"
+              message: "Cannot connect to a service endpoint"
+              
+  /refunds/{id}:
+    get:
+      summary: Consulta de una devolución
+      description: |
+        Obtiene el objeto cargo
+      parameters:
+        - in: path
+          name: id
+          description: Consulta de una devolución
+          required: true
+          type: integer
+      responses:
+        200:  
+          description: OK
+          schema:
+            $ref: '#/definitions/refund'
+        400:
+          description: "Alguno de los campos requeridos no viene o es inválido"
+          schema:
+            $ref: '#/definitions/error_obj'
+          examples:
+            application/json:
+              code: "MISSING_PARAMETER"
+              message: "The parameter 'amount' is missing "
+        401:
+          description: API Key no autorizada
+          schema:
+            $ref: '#/definitions/error_obj'
+          examples:
+            application/json:
+              code: "UNAUTHORIZED"
+              message: "No valid API key provided."    
+        404:
+          description: El recurso requerido no existe.
+          schema:
+            $ref: '#/definitions/error_obj'
+          examples:
+            application/json:
+              code: "NOT_FOUND"
+              message: "The requested resource doesn't exist."  
+        500:
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'
+          examples:
+            application/json:
+              code: "BAD_GATEWAY"
+              message: "Cannot connect to a service endpoint"  
 definitions:
 
   refund_new:
@@ -451,4 +630,4 @@ definitions:
       message:
         type: string
         example: "La tarjeta no tiene saldo"
-        description: Descripción corta del error    
+        description: Descripción corta del error   
