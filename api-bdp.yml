@@ -54,7 +54,8 @@ paths:
             El campo item list contiene la siguiente lista de key/value los cuales son utiles en el caso de ocupar un webhook.
             
             * **{ 
-              string : string
+              key : string,
+              value : string
             } **
           
           * **urls** : Son las url de retorno en caso de que la operación se relice con éxito o error.
@@ -126,11 +127,12 @@ paths:
               quantity : string
             }** 
           
-          * **custom_values**  : 
+          * **customs**  : 
             El campo item list contiene la siguiente lista de key/value los cuales son utiles en el caso de ocupar un webhook.
             
             * **{ 
-              string : string
+              key : string,
+              value : string
             }** 
             
           
@@ -308,8 +310,13 @@ definitions:
     properties:
       key:
         type: string
-        example: "value"
+        example: "cardId"
         maximum: 500
+      value:
+        type: string
+        example: "1306374"
+        maximum: 500
+
 
   itemModel: 
     properties:
