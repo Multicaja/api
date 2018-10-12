@@ -147,7 +147,7 @@
                         <strong>customs</strong> : El campo item list contiene la siguiente lista de key/value los cuales son utiles en el caso de ocupar un webhook.</p>
                       <ul>
                         <li>
-                          <strong>{ string : string } </strong>
+                          <strong>{ key : string, value : string } </strong>
                         </li>
                       </ul>
                     </li>
@@ -214,7 +214,8 @@
   <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Esta es una orden&quot;</span>,
   <span class="hljs-attr">&quot;customs&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;value&quot;</span>
+      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;cardId&quot;</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1306374&quot;</span>
     }
   ],
   <span class="hljs-attr">&quot;urls&quot;</span>: {
@@ -301,7 +302,8 @@
   <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Esta es una orden&quot;</span>,
   <span class="hljs-attr">&quot;customs&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;value&quot;</span>
+      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;cardId&quot;</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1306374&quot;</span>
     }
   ],
   <span class="hljs-attr">&quot;urls&quot;</span>: {
@@ -457,7 +459,8 @@
   <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Esta es una orden&quot;</span>,
   <span class="hljs-attr">&quot;customs&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;value&quot;</span>
+      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;cardId&quot;</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1306374&quot;</span>
     }
   ],
   <span class="hljs-attr">&quot;urls&quot;</span>: {
@@ -523,10 +526,10 @@
                     </li>
                     <li>
                       <p>
-                        <strong>custom_values</strong> : El campo item list contiene la siguiente lista de key/value los cuales son utiles en el caso de ocupar un webhook.</p>
+                        <strong>customs</strong> : El campo item list contiene la siguiente lista de key/value los cuales son utiles en el caso de ocupar un webhook.</p>
                       <ul>
                         <li>
-                          <strong>{ string : string }</strong>
+                          <strong>{ key : string, value : string }</strong>
                         </li>
                       </ul>
                     </li>
@@ -612,7 +615,8 @@
   <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Esta es una orden&quot;</span>,
   <span class="hljs-attr">&quot;customs&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;value&quot;</span>
+      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;cardId&quot;</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1306374&quot;</span>
     }
   ],
   <span class="hljs-attr">&quot;urls&quot;</span>: {
@@ -699,7 +703,8 @@
   <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Esta es una orden&quot;</span>,
   <span class="hljs-attr">&quot;customs&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;value&quot;</span>
+      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;cardId&quot;</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1306374&quot;</span>
     }
   ],
   <span class="hljs-attr">&quot;urls&quot;</span>: {
@@ -1138,7 +1143,8 @@
   <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Esta es una orden&quot;</span>,
   <span class="hljs-attr">&quot;customs&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;value&quot;</span>
+      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;cardId&quot;</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1306374&quot;</span>
     }
   ],
   <span class="hljs-attr">&quot;urls&quot;</span>: {
@@ -1236,7 +1242,8 @@
   <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Esta es una orden&quot;</span>,
   <span class="hljs-attr">&quot;customs&quot;</span>: [
     {
-      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;value&quot;</span>
+      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;cardId&quot;</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1306374&quot;</span>
     }
   ],
   <span class="hljs-attr">&quot;urls&quot;</span>: {
@@ -1338,6 +1345,11 @@
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits">x ≤ 500</span>
                     </dt>
+                    <dt data-property-name="value">
+                      <span class="json-property-name">value:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits">x ≤ 500</span>
+                    </dt>
                   </dl>
                 </section>
               </div>
@@ -1345,7 +1357,8 @@
                 <section>
                   <h5>Example</h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;value&quot;</span>
+  <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;cardId&quot;</span>,
+  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1306374&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
