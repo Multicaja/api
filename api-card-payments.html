@@ -32,18 +32,18 @@
           <!-- </ul>
               </section> -->
           <!-- <section>
-                <a href="#path--charges--id-">/charges/{id}</a>
+                <a href="#path--charges-reversal">/charges/reversal</a>
                 <ul> -->
           <!-- <li> -->
-          <a href="#operation--charges--id--get"> Consulta de un cargo </a>
+          <a href="#operation--charges-reversal-post"> Reversa de una venta </a>
           <!-- </li> -->
           <!-- </ul>
               </section> -->
           <!-- <section>
-                <a href="#path--reversals">/reversals</a>
+                <a href="#path--charges--id-">/charges/{id}</a>
                 <ul> -->
           <!-- <li> -->
-          <a href="#operation--reversals-post"> Reversa de una venta o devolución </a>
+          <a href="#operation--charges--id--get"> Consulta de un cargo </a>
           <!-- </li> -->
           <!-- </ul>
               </section> -->
@@ -59,6 +59,14 @@
           <!-- </ul>
               </section> -->
           <!-- <section>
+                <a href="#path--refunds-reversal">/refunds/reversal</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--refunds-reversal-post"> Reversa de una devolución </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
                 <a href="#path--refunds--id-">/refunds/{id}</a>
                 <ul> -->
           <!-- <li> -->
@@ -66,7 +74,24 @@
           <!-- </li> -->
           <!-- </ul>
               </section> -->
+          <!-- <section>
+                <a href="#path--batch-refund">/batch-refund</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--batch-refund-post"> Devolución batch de un cargo realizado a una tarjeta </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--batch-refund-reversal">/batch-refund/reversal</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--batch-refund-reversal-post"> Reversa de una devolución batch </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
           <h5>Schema Definitions</h5>
+          <a href="#definition-refund_batch"> refund_batch </a>
           <a href="#definition-refund_new"> refund_new </a>
           <a href="#definition-refund"> refund </a>
           <a href="#definition-reversal_new"> reversal_new </a>
@@ -122,6 +147,8 @@
                   <li>NOTA: Si envías dos requerimientos con igual <code>consumer_transaction_id</code> y distinto <code>Idempotency-Key</code>, se entendrán como dos requerimientos
                     <strong>diferentes</strong> y uno de ellos fallará dado que el campo <code>consumer_transaction_id</code> debe ser único.</li>
                 </ul>
+                <h2 id="gesti-n-de-llaves">Gestión de llaves</h2>
+                <p>Los campos del nodo <code>card</code> se deben enviar encriptados por una llave simétrica utilizando el algoritmo AES-256. Para establecer la llave simétrica, el comsumidor de la API debe generar y enviar a Multicaja un componente de la llave con sus respectivos dígitos de chequeo. Multicaja generará y enviará otro componenente. Luego, ambos actores deberán cargar los componentes en sus HSMs, generando la llave final y verificando que los digitos de chequeo coincidan. Esta llave debe ser cambiada cada 3 años.</p>
               </div>
               <div class="doc-examples">
                 <section>
@@ -209,9 +236,11 @@
   <span class="hljs-attr">&quot;merchant&quot;</span>: {
     <span class="hljs-attr">&quot;local_tax_number&quot;</span>: <span class="hljs-string">&quot;96675670-5&quot;</span>,
     <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
-    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>
-  },
-  <span class="hljs-attr">&quot;soft_descriptor&quot;</span>: <span class="hljs-string">&quot;STORE-001&quot;</span>
+    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Store 1&quot;</span>,
+    <span class="hljs-attr">&quot;city&quot;</span>: <span class="hljs-string">&quot;Iquique&quot;</span>,
+    <span class="hljs-attr">&quot;country_code&quot;</span>: <span class="hljs-string">&quot;152&quot;</span>
+  }
 }
 </code></pre>
                   <!-- </div> -->
@@ -318,9 +347,11 @@
   <span class="hljs-attr">&quot;merchant&quot;</span>: {
     <span class="hljs-attr">&quot;local_tax_number&quot;</span>: <span class="hljs-string">&quot;96675670-5&quot;</span>,
     <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
-    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>
-  },
-  <span class="hljs-attr">&quot;soft_descriptor&quot;</span>: <span class="hljs-string">&quot;STORE-001&quot;</span>
+    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Store 1&quot;</span>,
+    <span class="hljs-attr">&quot;city&quot;</span>: <span class="hljs-string">&quot;Iquique&quot;</span>,
+    <span class="hljs-attr">&quot;country_code&quot;</span>: <span class="hljs-string">&quot;152&quot;</span>
+  }
 }
 </code></pre>
                   <!-- </div> -->
@@ -535,9 +566,11 @@
   <span class="hljs-attr">&quot;merchant&quot;</span>: {
     <span class="hljs-attr">&quot;local_tax_number&quot;</span>: <span class="hljs-string">&quot;96675670-5&quot;</span>,
     <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
-    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>
-  },
-  <span class="hljs-attr">&quot;soft_descriptor&quot;</span>: <span class="hljs-string">&quot;STORE-001&quot;</span>
+    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Store 1&quot;</span>,
+    <span class="hljs-attr">&quot;city&quot;</span>: <span class="hljs-string">&quot;Iquique&quot;</span>,
+    <span class="hljs-attr">&quot;country_code&quot;</span>: <span class="hljs-string">&quot;152&quot;</span>
+  }
 }
 </code></pre>
                   <!-- </div> -->
@@ -567,6 +600,169 @@
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INSUFFICIENT_FUNDS&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La tarjeta no tiene saldo&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INSUFFICIENT_FUNDS&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La tarjeta no tiene saldo&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <span id="path--charges-reversal"></span>
+          <div id="operation--charges-reversal-post" class="operation panel" data-traverse-target="operation--charges-reversal-post">
+            <h2 class="operation-title">
+              <span class="operation-summary">Reversa de una venta</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/charges/reversal</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Reversa en línea de una venta</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/reversal_new">reversal_new</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Reversa de venta con tarjeta</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/reversal">reversal</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK - Reversa exitosa</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>API Key no autorizada</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;approved&quot;</span>,
+  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+  },
+  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INSUFFICIENT_FUNDS&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La tarjeta no tiene saldo&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INSUFFICIENT_FUNDS&quot;</span>,
@@ -753,9 +949,11 @@
   <span class="hljs-attr">&quot;merchant&quot;</span>: {
     <span class="hljs-attr">&quot;local_tax_number&quot;</span>: <span class="hljs-string">&quot;96675670-5&quot;</span>,
     <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
-    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>
-  },
-  <span class="hljs-attr">&quot;soft_descriptor&quot;</span>: <span class="hljs-string">&quot;STORE-001&quot;</span>
+    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Store 1&quot;</span>,
+    <span class="hljs-attr">&quot;city&quot;</span>: <span class="hljs-string">&quot;Iquique&quot;</span>,
+    <span class="hljs-attr">&quot;country_code&quot;</span>: <span class="hljs-string">&quot;152&quot;</span>
+  }
 }
 </code></pre>
                   <!-- </div> -->
@@ -785,169 +983,6 @@
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INSUFFICIENT_FUNDS&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La tarjeta no tiene saldo&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-                <section>
-                  <h5>Response Example
-                    <span>(500 Internal Server Error)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INSUFFICIENT_FUNDS&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La tarjeta no tiene saldo&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <span id="path--reversals"></span>
-          <div id="operation--reversals-post" class="operation panel" data-traverse-target="operation--reversals-post">
-            <h2 class="operation-title">
-              <span class="operation-summary">Reversa de una venta o devoluci&#xF3;n</span>
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-path">
-                  <span class="operation-method">POST</span>
-                  <span class="operation-path">/reversals</span>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-operation-description">
-                  <p>Reversa una transacción previamente autorizada</p>
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-request-body">
-                  <div class="prop-row">
-                    <div class="prop-name">
-                      <div class="swagger-request-model">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/reversal_new">reversal_new</a>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="prop-value columns small-6">
-                      <!-- <div class="swagger-request-description"> -->
-                      <p>Reversa de venta con tarjeta</p>
-                      <!-- </div> -->
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="swagger-responses">
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">200 OK</div>
-                      <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/reversal">reversal</a>
-                        </span>
-                      </div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>OK - Reversa exitosa</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">400 Bad Request</div>
-                      <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
-                        </span>
-                      </div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
-                      <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
-                        </span>
-                      </div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>API Key no autorizada</p>
-                    </div>
-                  </div>
-                  <div class="prop-row prop-group">
-                    <div class="prop-name">
-                      <div class="prop-title">500 Internal Server Error</div>
-                      <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
-                        </span>
-                      </div>
-                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
-                    </div>
-                    <div class="prop-value">
-                      <p>Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Response Example
-                    <span>(200 OK)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;approved&quot;</span>,
-  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-  },
-  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-                <section>
-                  <h5>Response Example
-                    <span>(400 Bad Request)</span>
-                  </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
-  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INSUFFICIENT_FUNDS&quot;</span>,
-  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La tarjeta no tiene saldo&quot;</span>
-}
-</code></pre>
-                  <!-- </div> -->
-                </section>
-                <section>
-                  <h5>Response Example
-                    <span>(401 Unauthorized)</span>
                   </h5>
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INSUFFICIENT_FUNDS&quot;</span>,
@@ -1338,6 +1373,169 @@
               </div>
             </div>
           </div>
+          <span id="path--refunds-reversal"></span>
+          <div id="operation--refunds-reversal-post" class="operation panel" data-traverse-target="operation--refunds-reversal-post">
+            <h2 class="operation-title">
+              <span class="operation-summary">Reversa de una devoluci&#xF3;n</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/refunds/reversal</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Reversa en línea de una devolución (NOT IMPLEMENTED)</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/reversal_new">reversal_new</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Reversa de devolución</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/reversal">reversal</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK - Reversa exitosa</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>API Key no autorizada</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;approved&quot;</span>,
+  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+  },
+  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INSUFFICIENT_FUNDS&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La tarjeta no tiene saldo&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INSUFFICIENT_FUNDS&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La tarjeta no tiene saldo&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INSUFFICIENT_FUNDS&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La tarjeta no tiene saldo&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
           <span id="path--refunds--id-"></span>
           <div id="operation--refunds--id--get" class="operation panel" data-traverse-target="operation--refunds--id--get">
             <h2 class="operation-title">
@@ -1523,7 +1721,405 @@
               </div>
             </div>
           </div>
+          <span id="path--batch-refund"></span>
+          <div id="operation--batch-refund-post" class="operation panel" data-traverse-target="operation--batch-refund-post">
+            <h2 class="operation-title">
+              <span class="operation-summary">Devoluci&#xF3;n batch de un cargo realizado a una tarjeta</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/batch-refund</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Devuelve total o parcialmante un cargo realizado a una tarjeta de crédito.</p>
+                  <h2 id="devoluci-n-total">Devolución total</h2>
+                  <ul>
+                    <li>El objeto <code>amount</code> es opcional. En caso que se envíe, el campo <code>value</code> debe corresponder al monto total del cargo.</li>
+                  </ul>
+                  <h2 id="devoluci-n-parcial-not-implemented-">Devolución parcial (NOT IMPLEMENTED)</h2>
+                  <ul>
+                    <li>El objeto <code>amount</code> corresponde al monto que se quiere devolver. Debe ser mayor que cero y menor o igual al monto no devuelto de la venta.</li>
+                    <li>Puedes realizar hasta
+                      <strong>10 devoluciones parciales</strong> asociadas a la misma venta.</li>
+                  </ul>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/refund_new">refund_new</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Devolución de cargo</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;xhGXSPKviU83lln_xc9lc&quot;</span>,
+  <span class="hljs-attr">&quot;original_consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>,
+  <span class="hljs-attr">&quot;amount&quot;</span>: {
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>
+  },
+  <span class="hljs-attr">&quot;additional_data&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/refund_batch">refund_batch</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK - devolución exitosa</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>API Key no autorizada</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;xhGXSPKviU83lln_xc9lc&quot;</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;pending&quot;</span>,
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7654320</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INSUFFICIENT_FUNDS&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La tarjeta no tiene saldo&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INSUFFICIENT_FUNDS&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La tarjeta no tiene saldo&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INSUFFICIENT_FUNDS&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La tarjeta no tiene saldo&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <span id="path--batch-refund-reversal"></span>
+          <div id="operation--batch-refund-reversal-post" class="operation panel" data-traverse-target="operation--batch-refund-reversal-post">
+            <h2 class="operation-title">
+              <span class="operation-summary">Reversa de una devoluci&#xF3;n batch</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/batch-refund/reversal</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Reversa de una devolución</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/reversal_new">reversal_new</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Reversa de devolución</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/reversal">reversal</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK - Reversa exitosa</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>API Key no autorizada</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;approved&quot;</span>,
+  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+  },
+  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;crlfUYEBK14zotCTykezJkfg&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INSUFFICIENT_FUNDS&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La tarjeta no tiene saldo&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INSUFFICIENT_FUNDS&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La tarjeta no tiene saldo&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;INSUFFICIENT_FUNDS&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La tarjeta no tiene saldo&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
           <h1>Schema Definitions</h1>
+          <div id="definition-refund_batch" class="definition panel" data-traverse-target="definition-refund_batch">
+            <h2 class="panel-title">
+              <a name="/definitions/refund_batch"></a>refund_batch: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Solucitud de devolución batch
+                    <strong>(Response)</strong>
+                  </p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="consumer_transaction_id" class="has-description">
+                      <span class="json-property-name">consumer_transaction_id:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Identificador único de la transacción generado por el consumidor de la API</p>
+                    </dd>
+                    <dt data-property-name="status" class="has-description">
+                      <span class="json-property-name">status:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Estado de la solicitud. Al ser un procesamiento batch, la respuesta exitosa es ´pending´.</p>
+                    </dd>
+                    <dt data-property-name="id" class="has-description">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Identificador único de la solicitud generado por Multicaja</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;consumer_transaction_id&quot;</span>: <span class="hljs-string">&quot;xhGXSPKviU83lln_xc9lc&quot;</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;pending&quot;</span>,
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7654320</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
           <div id="definition-refund_new" class="definition panel" data-traverse-target="definition-refund_new">
             <h2 class="panel-title">
               <a name="/definitions/refund_new"></a>refund_new: object
@@ -1853,14 +2449,6 @@
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
-                    <dt data-property-name="soft_descriptor" class="has-description">
-                      <span class="json-property-name">soft_descriptor:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Nombre del comercio, como se verá en el extracto bancario. Máximo 6 caracteres.</p>
-                    </dd>
                   </dl>
                 </section>
               </div>
@@ -1881,9 +2469,11 @@
   <span class="hljs-attr">&quot;merchant&quot;</span>: {
     <span class="hljs-attr">&quot;local_tax_number&quot;</span>: <span class="hljs-string">&quot;96675670-5&quot;</span>,
     <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
-    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>
-  },
-  <span class="hljs-attr">&quot;soft_descriptor&quot;</span>: <span class="hljs-string">&quot;STORE-001&quot;</span>
+    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Store 1&quot;</span>,
+    <span class="hljs-attr">&quot;city&quot;</span>: <span class="hljs-string">&quot;Iquique&quot;</span>,
+    <span class="hljs-attr">&quot;country_code&quot;</span>: <span class="hljs-string">&quot;152&quot;</span>
+  }
 }
 </code></pre>
                   <!-- </div> -->
@@ -1967,9 +2557,11 @@
   <span class="hljs-attr">&quot;merchant&quot;</span>: {
     <span class="hljs-attr">&quot;local_tax_number&quot;</span>: <span class="hljs-string">&quot;96675670-5&quot;</span>,
     <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
-    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>
-  },
-  <span class="hljs-attr">&quot;soft_descriptor&quot;</span>: <span class="hljs-string">&quot;STORE-001&quot;</span>
+    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Store 1&quot;</span>,
+    <span class="hljs-attr">&quot;city&quot;</span>: <span class="hljs-string">&quot;Iquique&quot;</span>,
+    <span class="hljs-attr">&quot;country_code&quot;</span>: <span class="hljs-string">&quot;152&quot;</span>
+  }
 }
 </code></pre>
                   <!-- </div> -->
@@ -2060,9 +2652,11 @@
   <span class="hljs-attr">&quot;merchant&quot;</span>: {
     <span class="hljs-attr">&quot;local_tax_number&quot;</span>: <span class="hljs-string">&quot;96675670-5&quot;</span>,
     <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
-    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>
-  },
-  <span class="hljs-attr">&quot;soft_descriptor&quot;</span>: <span class="hljs-string">&quot;STORE-001&quot;</span>
+    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Store 1&quot;</span>,
+    <span class="hljs-attr">&quot;city&quot;</span>: <span class="hljs-string">&quot;Iquique&quot;</span>,
+    <span class="hljs-attr">&quot;country_code&quot;</span>: <span class="hljs-string">&quot;152&quot;</span>
+  }
 }
 </code></pre>
                   <!-- </div> -->
@@ -2200,9 +2794,11 @@
   <span class="hljs-attr">&quot;merchant&quot;</span>: {
     <span class="hljs-attr">&quot;local_tax_number&quot;</span>: <span class="hljs-string">&quot;96675670-5&quot;</span>,
     <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
-    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>
-  },
-  <span class="hljs-attr">&quot;soft_descriptor&quot;</span>: <span class="hljs-string">&quot;STORE-001&quot;</span>
+    <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Store 1&quot;</span>,
+    <span class="hljs-attr">&quot;city&quot;</span>: <span class="hljs-string">&quot;Iquique&quot;</span>,
+    <span class="hljs-attr">&quot;country_code&quot;</span>: <span class="hljs-string">&quot;152&quot;</span>
+  }
 }
 </code></pre>
                   <!-- </div> -->
@@ -2425,6 +3021,32 @@
                     <dd>
                       <p>Código ISO 18245 asignado por la bandera al comercio</p>
                     </dd>
+                    <dt data-property-name="name" class="has-description">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Nombre del comercio que aparece en extracto bancario</p>
+                    </dd>
+                    <dt data-property-name="city" class="has-description">
+                      <span class="json-property-name">city:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Ciudad en la que está ubicado el comercio</p>
+                    </dd>
+                    <dt data-property-name="country_code" class="has-description">
+                      <span class="json-property-name">country_code:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Código ISO 3166 del país. En conjunto con <code>name</code> y <code>city</code>, se uutilizan para formar el
+                        <em>soft descriptor</em>
+                      </p>
+                    </dd>
                   </dl>
                 </section>
               </div>
@@ -2434,7 +3056,10 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;local_tax_number&quot;</span>: <span class="hljs-string">&quot;96675670-5&quot;</span>,
   <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
-  <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>
+  <span class="hljs-attr">&quot;mcc&quot;</span>: <span class="hljs-string">&quot;5999&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Store 1&quot;</span>,
+  <span class="hljs-attr">&quot;city&quot;</span>: <span class="hljs-string">&quot;Iquique&quot;</span>,
+  <span class="hljs-attr">&quot;country_code&quot;</span>: <span class="hljs-string">&quot;152&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
