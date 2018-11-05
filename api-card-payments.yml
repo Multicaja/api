@@ -30,6 +30,9 @@ info:
     
     - NOTA: Si envías dos requerimientos con igual `consumer_transaction_id` y distinto `Idempotency-Key`, se entendrán como dos requerimientos **diferentes** y uno de ellos fallará dado que el campo `consumer_transaction_id` debe ser único.
   
+    ## Gestión de llaves
+    Los campos del nodo `card` se deben enviar encriptados por una llave simétrica utilizando el algoritmo AES-256. Para establecer la llave simétrica, el comsumidor de la API debe generar y enviar a Multicaja un componente de la llave con sus respectivos dígitos de chequeo. Multicaja generará y enviará otro componenente. Luego, ambos actores deberán cargar los componentes en sus HSMs, generando la llave final y verificando que los digitos de chequeo coincidan. Esta llave debe ser cambiada cada 3 años.
+    
 basePath: /card-payments/v0.2/
 paths:
 
@@ -127,7 +130,37 @@ paths:
           examples:
             application/json:
               code: "BAD_GATEWAY"
-              message: "Cannot connect to a service endpoint"
+              message: "Cannot connect to a service endpoint"            
+  /charges/reversal:
+    post:
+      summary: Reversa de una venta
+      description: |
+        Reversa en línea de una venta
+      parameters:
+        - in: body
+          name: reversal_new
+          description: Reversa de venta con tarjeta
+          required: true
+          schema:
+            $ref: '#/definitions/reversal_new'
+      responses:
+        '200':
+          description: |
+            OK - Reversa exitosa
+          schema:
+            $ref: '#/definitions/reversal'
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '401':
+          description: API Key no autorizada
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj' 
               
   /charges/{id}:  
     get:
@@ -180,37 +213,6 @@ paths:
               message: "Cannot connect to a service endpoint"
   
      
-  /reversals:
-    post:
-      summary: Reversa de una venta o devolución
-      description: |
-        Reversa una transacción previamente autorizada
-        
-      parameters:
-        - in: body
-          name: reversal_new
-          description: Reversa de venta con tarjeta
-          required: true
-          schema:
-            $ref: '#/definitions/reversal_new'
-      responses:
-        '200':
-          description: |
-            OK - Reversa exitosa
-          schema:
-            $ref: '#/definitions/reversal'
-        '400':
-          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
-          schema:
-            $ref: '#/definitions/error_obj'
-        '401':
-          description: API Key no autorizada
-          schema:
-            $ref: '#/definitions/error_obj'
-        '500':
-          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
-          schema:
-            $ref: '#/definitions/error_obj'
             
   /refunds:
     post:
@@ -298,7 +300,37 @@ paths:
             application/json:
               code: "BAD_GATEWAY"
               message: "Cannot connect to a service endpoint"
-              
+  
+  /refunds/reversal:
+    post:
+      summary: Reversa de una devolución
+      description: |
+        Reversa en línea de una devolución (NOT IMPLEMENTED)
+      parameters:
+        - in: body
+          name: reversal_new
+          description: Reversa de devolución
+          required: true
+          schema:
+            $ref: '#/definitions/reversal_new'
+      responses:
+        '200':
+          description: |
+            OK - Reversa exitosa
+          schema:
+            $ref: '#/definitions/reversal'
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '401':
+          description: API Key no autorizada
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'     
   /refunds/{id}:
     get:
       summary: Consulta de una devolución
@@ -346,9 +378,94 @@ paths:
           examples:
             application/json:
               code: "BAD_GATEWAY"
-              message: "Cannot connect to a service endpoint"  
+              message: "Cannot connect to a service endpoint"
+  /batch-refund:
+    post:
+      summary: Devolución batch de un cargo realizado a una tarjeta
+      description: |
+        Devuelve total o parcialmante un cargo realizado a una tarjeta de crédito.
+        
+        ## Devolución total
+        - El objeto `amount` es opcional. En caso que se envíe, el campo `value` debe corresponder al monto total del cargo.
+        
+        ## Devolución parcial (NOT IMPLEMENTED)
+        - El objeto `amount` corresponde al monto que se quiere devolver. Debe ser mayor que cero y menor o igual al monto no devuelto de la venta.
+        - Puedes realizar hasta **10 devoluciones parciales** asociadas a la misma venta.
+        
+      parameters:
+        - in: body
+          name: refund_new
+          description: Devolución de cargo
+          schema:
+            $ref: '#/definitions/refund_new'
+      responses:
+        '200':
+          description: |
+            OK - devolución exitosa
+          schema:
+            $ref: '#/definitions/refund_batch'
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '401':
+          description: API Key no autorizada
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'  
+  /batch-refund/reversal:
+    post:
+      summary: Reversa de una devolución batch
+      description: |
+        Reversa de una devolución
+      parameters:
+        - in: body
+          name: reversal_new
+          description: Reversa de devolución
+          required: true
+          schema:
+            $ref: '#/definitions/reversal_new'
+      responses:
+        '200':
+          description: |
+            OK - Reversa exitosa
+          schema:
+            $ref: '#/definitions/reversal'
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '401':
+          description: API Key no autorizada
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'       
+  
 definitions:
 
+  refund_batch:
+    type: object
+    description: Solucitud de devolución batch **(Response)**
+    properties:
+      consumer_transaction_id:
+        type: string
+        description: Identificador único de la transacción generado por el consumidor de la API
+        example: "xhGXSPKviU83lln_xc9lc"
+      status:
+        type: string
+        description: Estado de la solicitud. Al ser un procesamiento batch, la respuesta exitosa es ´pending´.
+        example: "pending"
+      id:
+        type: integer
+        description: Identificador único de la solicitud generado por Multicaja
+        example: 7654320  
+    
   refund_new:
     type: object
     description: |
@@ -443,11 +560,7 @@ definitions:
         $ref: "#/definitions/charge_type"
       merchant:
         $ref: "#/definitions/merchant"
-      soft_descriptor:
-        type: string
-        description: Nombre del comercio, como se verá en el extracto bancario. Máximo 6 caracteres.
-        example: "STORE-001"
-        
+
   charge_new:
     type: object
     description: |
@@ -595,6 +708,18 @@ definitions:
         type: string
         description: Código ISO 18245 asignado por la bandera al comercio
         example: "5999"
+      name: 
+        type: string
+        description: Nombre del comercio que aparece en extracto bancario
+        example: "Store 1"
+      city:
+        type: string
+        description: Ciudad en la que está ubicado el comercio
+        example: "Iquique"
+      country_code:
+        type: string
+        description: Código ISO 3166 del país. En conjunto con `name` y `city`, se uutilizan para formar el *soft descriptor*
+        example: "152"
   
   charge_type:
     type: object
