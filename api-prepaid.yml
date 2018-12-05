@@ -886,6 +886,52 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
+  /prepaid/Queue:         
+    post:
+      tags:
+        - prepaid
+      summary: Busca un  mensaje en la cola y lo reinjecta en la cola en la cual falló
+      description: |
+        Busca un  mensaje en la cola y lo reinjecta en la cola en la cual falló las colas son 
+
+        - TopUp (Carga)
+        - WithDrawal (Retiro)
+        - PendingCreateCard (Obtencion de Datos y Creacion)
+        - ReverseTopup (Reversa Carga)
+        - ReverseWithdrawal (Reversa de Retiro)
+        - SendMail(Envio mail Tarjeta)
+        - PendingEmision (Alta Cliente)
+        - IssuanceFee (Cobro de comision)
+
+         ### Responderá `400` en los siguientes casos:
+        * 101004: Si falta un parametro requerido.
+             
+      parameters:
+        - in: body
+          name: reproces_queue
+          description: Informacion de la cola
+          required: true
+          schema:
+            $ref: '#/definitions/reproces_queue'
+      responses:
+        '201':
+          description: OK - Respuesta exitosa
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado. Verificar detalle del error.
+          schema:
+            $ref: '#/definitions/error_obj'
+        '404':
+          description: Cliente no existe o no tiene prepago
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: Error en validación. Verificar detalle del error.
+          schema:
+            $ref: '#/definitions/error_obj'        
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'
   /prepaid/{user_id}/identity_verification:
     post:
       tags:
@@ -1558,6 +1604,20 @@ definitions:
       USER_SELFIE:
         $ref: "#/definitions/prepaid_identity_verification_file_new"
 
+  reproces_queue:
+    type: object
+    description: |
+      Objeto que permite reinjectar una mensaje de una cola
+    properties:
+      id_queue:
+        type: string
+        description: |
+          Id del mensaje de la cola a ser reinjectado
+        example: "xkfuqwofklasjf"
+      queues_name_type:
+        type: string
+        enum: ['TopUp', 'WithDrawal','PendingCreateCard','ReverseTopup','ReverseWithdrawal','SendMail','PendingEmision','IssuanceFee']
+  
   prepaid_identity_verification_new:
     type: object
     description: |
