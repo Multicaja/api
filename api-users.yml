@@ -534,12 +534,40 @@ paths:
             Accepted - cambio aplicado.
           schema:
             $ref: '#/definitions/user'
-        '401':
-          description: Usuario tiene clave y debe autenticarse para realizar esta operación
         '404':
           description: Cliente no existe.
         '422':
-          description: Error de validación en update_cellphone
+          description: Error de validación
+          schema:
+            $ref: '#/definitions/error_obj'
+  /users/{user_id}/finish_identity_validation:
+    put:
+      tags:
+        - clientes
+      description: |
+        Si el proceso de validación de identidad fue exitoso:
+          -  Actualiza el `name_status` del usuario a `VERIFIED`.
+          -  Actualiza el `rut.status` del usuario a `VERIFIED`.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: "integer"
+        - name: "success"
+          in: "query"
+          description: "flag"
+          type: boolean
+      responses:
+        '200':
+          description: |
+            Accepted - cambio aplicado.
+          schema:
+            $ref: '#/definitions/user'
+        '404':
+          description: Cliente no existe.
+        '422':
+          description: Error de validación
           schema:
             $ref: '#/definitions/error_obj'
   

@@ -506,7 +506,7 @@ paths:
             $ref: '#/definitions/simulation_topup_new'
       responses:
         '200':
-          description: OK - Respuesta exitosa
+          description: OK - Respuesta exitosa. 
           schema:
             $ref: '#/definitions/simulation_group'
         '400':
@@ -861,11 +861,11 @@ paths:
           required: true
           type: integer
         - in: body
-          name: prepaid_identity_verification_new
+          name: prepaid_identity_verification_files_new
           description: Informacion de fotos
           required: true
           schema:
-            $ref: '#/definitions/prepaid_identity_verification_new'
+            $ref: '#/definitions/prepaid_identity_verification_files_new'
       responses:
         '201':
           description: OK - Respuesta exitosa
@@ -932,6 +932,29 @@ paths:
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
+  /prepaid/{user_id}/identity_verification:
+    post:
+      tags:
+        - prepaid
+      summary: Procesa la validación de identidad realizada en Freshdesk
+      description: |
+        Procesa la validación de identidad realizada en Freshdesk
+
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: integer
+        - in: body
+          name: prepaid_identity_verification_new
+          description: Informacion de verificacion
+          required: true
+          schema:
+            $ref: '#/definitions/prepaid_identity_verification_new'
+      responses:
+        '201':
+          description: OK - Respuesta exitosa
 
 definitions:
 
@@ -1317,6 +1340,8 @@ definitions:
         $ref: "#/definitions/amount_and_currency_new"
       opening_fee:
         $ref: "#/definitions/amount_and_currency_new"
+      initial_amount:
+        $ref: "#/definitions/amount_and_currency_new"
 
   simulation_withdrawal:
     type: object
@@ -1567,7 +1592,7 @@ definitions:
           URL donde se encuentra el archivo
         example: "/path/to/image"
 
-  prepaid_identity_verification_new:
+  prepaid_identity_verification_files_new:
     type: object
     description: |
       Objeto que contiene la informacion de fotos para la verificacion de identidad
@@ -1592,3 +1617,44 @@ definitions:
       queues_name_type:
         type: string
         enum: ['TopUp', 'WithDrawal','PendingCreateCard','ReverseTopup','ReverseWithdrawal','SendMail','PendingEmision','IssuanceFee']
+  
+  prepaid_identity_verification_new:
+    type: object
+    description: |
+      Objeto que contiene la informacion de verificacion de identidad realizada en Freshdesk
+    properties:
+      is_ci_valid:
+        type: string
+        description: |
+          ¿Posee cédula vigente en Registro Civil?
+        example: "Si"
+      user_photo_matches_ci:
+        type: string
+        description: |
+          ¿Concuerda la foto de la persona con la persona de la cédula identidad?
+        example: "Si"
+      name_and_lastname_matches_ci:
+        type: string
+        description: |
+          ¿El nombre y primer apellido del cliente concuerda con los de la cédula de identidad?
+        example: "No"
+      new_name:
+        type: string
+        description: |
+          Sobreescribir Nombre
+        example: "Jose"
+      new_lastname:
+        type: string
+        description: |
+          Sobreescribir Apellido
+        example: "Perez"
+      is_gsintel_ok:
+        type: string
+        description: |
+          ¿Pasa la validación de Gesintel?
+        example: "Si"
+      rut_matches_ci:
+        type: string
+        description: |
+          ¿El RUT concuerda con el de la cédula de identidad?
+        example: "Si"
