@@ -506,7 +506,7 @@ paths:
             $ref: '#/definitions/simulation_topup_new'
       responses:
         '200':
-          description: OK - Respuesta exitosa
+          description: OK - Respuesta exitosa. 
           schema:
             $ref: '#/definitions/simulation_group'
         '400':
@@ -1293,6 +1293,8 @@ definitions:
       eed:
         $ref: "#/definitions/amount_and_currency_new"
       opening_fee:
+        $ref: "#/definitions/amount_and_currency_new"
+      initial_amount:
         $ref: "#/definitions/amount_and_currency_new"
 
   simulation_withdrawal:
