@@ -72,6 +72,9 @@
                 <a href="#operation--prepaid--user_id--identity-files-post"> Carga fotos de verificacion de identidad </a>
               </li>
               <li>
+                <a href="#operation--prepaid-Queue-post"> Busca un mensaje en la cola y lo reinjecta en la cola en la cual falló </a>
+              </li>
+              <li>
                 <a href="#operation--prepaid--user_id--identity_verification-post"> Procesa la validación de identidad realizada en Freshdesk </a>
               </li>
             </ul>
@@ -126,6 +129,7 @@
           <a href="#definition-prepaid_tac"> prepaid_tac </a>
           <a href="#definition-prepaid_identity_verification_file_new"> prepaid_identity_verification_file_new </a>
           <a href="#definition-prepaid_identity_verification_files_new"> prepaid_identity_verification_files_new </a>
+          <a href="#definition-reproces_queue"> reproces_queue </a>
           <a href="#definition-prepaid_identity_verification_new"> prepaid_identity_verification_new </a>
         </nav>
       </div>
@@ -3361,6 +3365,195 @@
               </div>
             </div>
           </div>
+          <div id="operation--prepaid-Queue-post" class="operation panel" data-traverse-target="operation--prepaid-Queue-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-prepaid">prepaid</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Busca un mensaje en la cola y lo reinjecta en la cola en la cual fall&#xF3;</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/prepaid/Queue</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Busca un mensaje en la cola y lo reinjecta en la cola en la cual falló las colas son </p>
+                  <ul>
+                    <li>TopUp (Carga)</li>
+                    <li>WithDrawal (Retiro)</li>
+                    <li>PendingCreateCard (Obtencion de Datos y Creacion)</li>
+                    <li>ReverseTopup (Reversa Carga)</li>
+                    <li>ReverseWithdrawal (Reversa de Retiro)</li>
+                    <li>SendMail(Envio mail Tarjeta)</li>
+                    <li>PendingEmision (Alta Cliente)</li>
+                    <li>
+                      <p>IssuanceFee (Cobro de comision)</p>
+                      <h3 id="responder-400-en-los-siguientes-casos-">Responderá <code>400</code> en los siguientes casos:</h3>
+                    </li>
+                    <li>101004: Si falta un parametro requerido.</li>
+                  </ul>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/reproces_queue">reproces_queue</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Informacion de la cola</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;id_queue&quot;</span>: <span class="hljs-string">&quot;xkfuqwofklasjf&quot;</span>,
+  <span class="hljs-attr">&quot;queues_name_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">201 Created</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK - Respuesta exitosa</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado. Verificar detalle del error.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Cliente no existe o no tiene prepago</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">422 Unprocessable Entity</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error en validación. Verificar detalle del error.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(422 Unprocessable Entity)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
           <div id="operation--prepaid--user_id--identity_verification-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--identity_verification-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -6330,6 +6523,61 @@
     <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;image/jpeg&quot;</span>,
     <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/path/to/image&quot;</span>
   }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-reproces_queue" class="definition panel" data-traverse-target="definition-reproces_queue">
+            <h2 class="panel-title">
+              <a name="/definitions/reproces_queue"></a>reproces_queue: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Objeto que permite reinjectar una mensaje de una cola</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="id_queue" class="has-description">
+                      <span class="json-property-name">id_queue:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Id del mensaje de la cola a ser reinjectado</p>
+                    </dd>
+                    <dt data-property-name="queues_name_type">
+                      <span class="json-property-name">queues_name_type:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">TopUp</span>,
+                        <span class="json-property-enum-item">WithDrawal</span>,
+                        <span class="json-property-enum-item">PendingCreateCard</span>,
+                        <span class="json-property-enum-item">ReverseTopup</span>,
+                        <span class="json-property-enum-item">ReverseWithdrawal</span>,
+                        <span class="json-property-enum-item">SendMail</span>,
+                        <span class="json-property-enum-item">PendingEmision</span>,
+                        <span class="json-property-enum-item">IssuanceFee</span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;id_queue&quot;</span>: <span class="hljs-string">&quot;xkfuqwofklasjf&quot;</span>,
+  <span class="hljs-attr">&quot;queues_name_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
