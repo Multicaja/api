@@ -71,6 +71,9 @@
               <li>
                 <a href="#operation--prepaid--user_id--identity-files-post"> Carga fotos de verificacion de identidad </a>
               </li>
+              <li>
+                <a href="#operation--prepaid--user_id--identity_verification-post"> Procesa la validación de identidad realizada en Freshdesk </a>
+              </li>
             </ul>
           </section>
           <section>
@@ -122,6 +125,7 @@
           <a href="#definition-prepaid_tac_new"> prepaid_tac_new </a>
           <a href="#definition-prepaid_tac"> prepaid_tac </a>
           <a href="#definition-prepaid_identity_verification_file_new"> prepaid_identity_verification_file_new </a>
+          <a href="#definition-prepaid_identity_verification_files_new"> prepaid_identity_verification_files_new </a>
           <a href="#definition-prepaid_identity_verification_new"> prepaid_identity_verification_new </a>
         </nav>
       </div>
@@ -3178,7 +3182,7 @@
                     <div class="prop-name">
                       <div class="swagger-request-model">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/prepaid_identity_verification_new">prepaid_identity_verification_new</a>
+                          <a class="json-schema-ref" href="#/definitions/prepaid_identity_verification_files_new">prepaid_identity_verification_files_new</a>
                         </span>
                       </div>
                     </div>
@@ -3347,6 +3351,102 @@
                   <!-- </div> -->
                 </section>
               </div>
+            </div>
+          </div>
+          <div id="operation--prepaid--user_id--identity_verification-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--identity_verification-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-prepaid">prepaid</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Procesa la validaci&#xF3;n de identidad realizada en Freshdesk</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/prepaid/{user_id}/identity_verification</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Procesa la validación de identidad realizada en Freshdesk</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/prepaid_identity_verification_new">prepaid_identity_verification_new</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Informacion de verificacion</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">user_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">integer</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID del Cliente</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;is_ci_valid&quot;</span>: <span class="hljs-string">&quot;Si&quot;</span>,
+  <span class="hljs-attr">&quot;user_photo_matches_ci&quot;</span>: <span class="hljs-string">&quot;Si&quot;</span>,
+  <span class="hljs-attr">&quot;name_and_lastname_matches_ci&quot;</span>: <span class="hljs-string">&quot;No&quot;</span>,
+  <span class="hljs-attr">&quot;new_name&quot;</span>: <span class="hljs-string">&quot;Jose&quot;</span>,
+  <span class="hljs-attr">&quot;new_lastname&quot;</span>: <span class="hljs-string">&quot;Perez&quot;</span>,
+  <span class="hljs-attr">&quot;is_gsintel_ok&quot;</span>: <span class="hljs-string">&quot;Si&quot;</span>,
+  <span class="hljs-attr">&quot;rut_matches_ci&quot;</span>: <span class="hljs-string">&quot;Si&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">201 Created</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK - Respuesta exitosa</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"> </div>
             </div>
           </div>
           <h1 id="tag-prepaid-signup" class="swagger-summary-tag" data-traverse-target="tag-prepaid-signup">prepaid-signup</h1>
@@ -6136,9 +6236,9 @@
               </div>
             </div>
           </div>
-          <div id="definition-prepaid_identity_verification_new" class="definition panel" data-traverse-target="definition-prepaid_identity_verification_new">
+          <div id="definition-prepaid_identity_verification_files_new" class="definition panel" data-traverse-target="definition-prepaid_identity_verification_files_new">
             <h2 class="panel-title">
-              <a name="/definitions/prepaid_identity_verification_new"></a>prepaid_identity_verification_new: object
+              <a name="/definitions/prepaid_identity_verification_files_new"></a>prepaid_identity_verification_files_new: object
               <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
@@ -6201,6 +6301,99 @@
     <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;image/jpeg&quot;</span>,
     <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/path/to/image&quot;</span>
   }
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-prepaid_identity_verification_new" class="definition panel" data-traverse-target="definition-prepaid_identity_verification_new">
+            <h2 class="panel-title">
+              <a name="/definitions/prepaid_identity_verification_new"></a>prepaid_identity_verification_new: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Objeto que contiene la informacion de verificacion de identidad realizada en Freshdesk</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="is_ci_valid" class="has-description">
+                      <span class="json-property-name">is_ci_valid:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>¿Posee cédula vigente en Registro Civil?</p>
+                    </dd>
+                    <dt data-property-name="user_photo_matches_ci" class="has-description">
+                      <span class="json-property-name">user_photo_matches_ci:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>¿Concuerda la foto de la persona con la persona de la cédula identidad?</p>
+                    </dd>
+                    <dt data-property-name="name_and_lastname_matches_ci" class="has-description">
+                      <span class="json-property-name">name_and_lastname_matches_ci:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>¿El nombre y primer apellido del cliente concuerda con los de la cédula de identidad?</p>
+                    </dd>
+                    <dt data-property-name="new_name" class="has-description">
+                      <span class="json-property-name">new_name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Sobreescribir Nombre</p>
+                    </dd>
+                    <dt data-property-name="new_lastname" class="has-description">
+                      <span class="json-property-name">new_lastname:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Sobreescribir Apellido</p>
+                    </dd>
+                    <dt data-property-name="is_gsintel_ok" class="has-description">
+                      <span class="json-property-name">is_gsintel_ok:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>¿Pasa la validación de Gesintel?</p>
+                    </dd>
+                    <dt data-property-name="rut_matches_ci" class="has-description">
+                      <span class="json-property-name">rut_matches_ci:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>¿El RUT concuerda con el de la cédula de identidad?</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;is_ci_valid&quot;</span>: <span class="hljs-string">&quot;Si&quot;</span>,
+  <span class="hljs-attr">&quot;user_photo_matches_ci&quot;</span>: <span class="hljs-string">&quot;Si&quot;</span>,
+  <span class="hljs-attr">&quot;name_and_lastname_matches_ci&quot;</span>: <span class="hljs-string">&quot;No&quot;</span>,
+  <span class="hljs-attr">&quot;new_name&quot;</span>: <span class="hljs-string">&quot;Jose&quot;</span>,
+  <span class="hljs-attr">&quot;new_lastname&quot;</span>: <span class="hljs-string">&quot;Perez&quot;</span>,
+  <span class="hljs-attr">&quot;is_gsintel_ok&quot;</span>: <span class="hljs-string">&quot;Si&quot;</span>,
+  <span class="hljs-attr">&quot;rut_matches_ci&quot;</span>: <span class="hljs-string">&quot;Si&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->

@@ -73,6 +73,9 @@
               <li>
                 <a href="#operation--users--user_id--init_identity_validation-put"> PUT /users/{user_id}/init_identity_validation </a>
               </li>
+              <li>
+                <a href="#operation--users--user_id--finish_identity_validation-put"> PUT /users/{user_id}/finish_identity_validation </a>
+              </li>
             </ul>
           </section>
           <section>
@@ -2869,10 +2872,176 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-title">404 Not Found</div>
                     </div>
                     <div class="prop-value">
-                      <p>Usuario tiene clave y debe autenticarse para realizar esta operación</p>
+                      <p>Cliente no existe.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">422 Unprocessable Entity</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error de validación</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
+  <span class="hljs-attr">&quot;rut&quot;</span>: {
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
+    <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;K&quot;</span>,
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+    }
+  },
+  <span class="hljs-attr">&quot;cellphone&quot;</span>: {
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;912345678&quot;</span>,
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+    }
+  },
+  <span class="hljs-attr">&quot;email&quot;</span>: {
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+    }
+  },
+  <span class="hljs-attr">&quot;company_data&quot;</span>: {
+    <span class="hljs-attr">&quot;business_name&quot;</span>: <span class="hljs-string">&quot;Reparaciones Joselito Ltda.&quot;</span>,
+    <span class="hljs-attr">&quot;commercial_activity&quot;</span>: <span class="hljs-number">772</span>,
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+    }
+  },
+  <span class="hljs-attr">&quot;global_status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;is_blacklisted&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;has_password&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+  },
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
+  <span class="hljs-attr">&quot;lastname_1&quot;</span>: <span class="hljs-string">&quot;L&#xF3;pez&quot;</span>,
+  <span class="hljs-attr">&quot;lastname_2&quot;</span>: <span class="hljs-string">&quot;Carrasco&quot;</span>,
+  <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(422 Unprocessable Entity)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--users--user_id--finish_identity_validation-put" class="operation panel" data-traverse-target="operation--users--user_id--finish_identity_validation-put">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-clientes">clientes</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-name">
+                <span class="operation-name">PUT</span>
+                <span class="operation-path">/users/{user_id}/finish_identity_validation</span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Si el proceso de validación de identidad fue exitoso:</p>
+                  <ul>
+                    <li>Actualiza el <code>name_status</code> del usuario a <code>VERIFIED</code>.</li>
+                    <li>Actualiza el <code>rut.status</code> del usuario a <code>VERIFIED</code>.</li>
+                  </ul>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">user_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">integer</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID del Cliente</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">success:
+                        <span class="prop-type">
+                          <span class="json-property-type">boolean</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <div class="prop-subtitle"> in query </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>flag</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/user">user</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Accepted - cambio aplicado.</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2894,7 +3063,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Error de validación en update_cellphone</p>
+                      <p>Error de validación</p>
                     </div>
                   </div>
                 </section>
