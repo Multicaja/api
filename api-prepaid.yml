@@ -932,6 +932,7 @@ paths:
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
+  
   /prepaid/{user_id}/identity_verification:
     post:
       tags:
@@ -955,6 +956,40 @@ paths:
       responses:
         '201':
           description: OK - Respuesta exitosa
+
+  /prepaid/{user_id}/mail:
+    post:
+      summary: Enviar correo al cliente
+      tags: 
+        - prepaid
+      description: |
+        Envía comunicacion al email del cliente.
+        ### Notas
+        * Si el template indicado es `Prepago/EnvioTarjeta`, entonces se envia la tarjeta como adjunto al mail cliente.
+
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: body
+          name: mail
+          description: Correo electrónico a enviar
+          required: true
+          schema:
+            $ref: '#/definitions/email_new'
+      responses:
+        '202':
+          description: Accepted
+        '404':
+          description: Cliente no existe
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: El mail contiene datos inválidos
+          schema:
+            $ref: '#/definitions/error_obj'
 
 definitions:
 
@@ -1658,3 +1693,49 @@ definitions:
         description: |
           ¿El RUT concuerda con el de la cédula de identidad?
         example: "Si"
+      
+  email_attachment_new:
+    type: object
+    description: Archivo a adjuntar en un email
+    required:
+      - file_name
+      - mime_type
+      - content
+    properties:
+      file_name:
+        type: string
+        description: Nombre del archivo
+        example: "Test.pdf"
+      mime_type:
+        type: string
+        description: MimeType del archivo
+        example: "application/pdf"
+      content_file:
+        type: string
+        description: |
+          El texto del contenido en base64 no debe contener `data:image/jpeg;base64`, Solo el cuerpo del archivo
+        example: "VGVzdA=="
+
+  email_new:
+    type: object
+    description: |
+      Email **(Request)**
+    required:
+      -  template
+    properties:
+      template:
+        type: string
+        description: Tipo de correo electrónico a enviar
+        example: "Prepago/ValidacionCorreo"
+      template_data:
+        type: string
+        description: JSON con tantos pares llave-valor como requiera el template del correo a enviar
+        example: "{'saludo': 'Estimado Pepito', 'despedida': 'Chao!'}"
+      address:
+        type: string
+        description: Correo electrónico al que se enviará este mensaje. Si no se incluye este campo, se usará el campo `email.value`  del Cliente.
+        example: "pepito@gmail.com"
+      attachments:
+        type: array
+        items:
+          $ref: '#/definitions/email_attachment_new'
