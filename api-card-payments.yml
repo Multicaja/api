@@ -10,7 +10,7 @@ info:
   title: API Pagos con tarjeta
   version: '0.2'
   description: |
-    
+
     ## Limitaciones
     - Sólo tarjetas de crédito Mastercard
     - Con cuotas emisor
@@ -18,21 +18,21 @@ info:
     - Todos los montos deben estar en pesos chilenos (ISO 4217 = CLP)
     - La API no soporta CORS
     - No está soportada la devolución ni reversa parcial.
-    
+
     ## Reglas de la API
     - El campo `consumer_transaction_id` **debe** ser único (incluso en días y transacciones distintas).
     - Todos los requerimientos deben ser realizados sobre *HTTPS*. Los requerimientos sobre *HTTP* fallarán.
     - Los campos del nodo `card`deben ser encriptados utilizando el algoritmo AES-256. El procedimiento para compartir la llave se acordará en otro documento.
     - Todos los requerimientos son autenticados. Debe incluir el encabezado `Api-Key: <key>`.
-    
+
     ## Idempotencia
     La API soporta *idempotencia*, por lo tanto puedes reintentar un requerimiento sin peligro de que el recurso se cree dos veces. Para esto debes incluir el encabezado `Idempotency-Key: <key>`, donde `key` es un identificador único de tu sistema o UUID. La clave tiene una validez de 24 horas.
-    
+
     - NOTA: Si envías dos requerimientos con igual `consumer_transaction_id` y distinto `Idempotency-Key`, se entendrán como dos requerimientos **diferentes** y uno de ellos fallará dado que el campo `consumer_transaction_id` debe ser único.
-  
+
     ## Gestión de llaves
     Los campos del nodo `card` se deben enviar encriptados por una llave simétrica utilizando el algoritmo AES-256. Para establecer la llave simétrica, el comsumidor de la API debe generar y enviar a Multicaja un componente de la llave con sus respectivos dígitos de chequeo. Multicaja generará y enviará otro componenente. Luego, ambos actores deberán cargar los componentes en sus HSMs, generando la llave final y verificando que los digitos de chequeo coincidan. Esta llave debe ser cambiada cada 3 años.
-    
+
 basePath: /card-payments/v0.2/
 paths:
 
@@ -47,13 +47,13 @@ paths:
           description: Venta con tarjeta
           required: true
           schema:
-            $ref: '#/definitions/charge_new'
+            $ref: '#/definitions/charge_req'
       responses:
         200:
           description: |
             OK - Venta exitosa
           schema:
-            $ref: '#/definitions/charge'
+            $ref: '#/definitions/charge_res'
         400:
           description: "Alguno de los campos requeridos no viene o es inválido"
           schema:
@@ -69,7 +69,7 @@ paths:
           examples:
             application/json:
               code: "UNAUTHORIZED"
-              message: "No valid API key provided."    
+              message: "No valid API key provided."
         402:
           description: Transacción se intentó, pero falló.
           schema:
@@ -83,7 +83,7 @@ paths:
               code: "BAD_GATEWAY"
               message: "Cannot connect to a service endpoint"
     get:
-      summary: Consulta de un cargo 
+      summary: Consulta de un cargo
       description: |
         Obtiene el objeto cargo
       parameters:
@@ -94,7 +94,7 @@ paths:
           type: string
       responses:
 
-        200:  
+        200:
           description: |
             OK - Venta exitosa
           schema:
@@ -114,7 +114,7 @@ paths:
           examples:
             application/json:
               code: "UNAUTHORIZED"
-              message: "No valid API key provided."    
+              message: "No valid API key provided."
         404:
           description: El recurso requerido no existe.
           schema:
@@ -122,7 +122,7 @@ paths:
           examples:
             application/json:
               code: "NOT_FOUND"
-              message: "The requested resource doesn't exist."  
+              message: "The requested resource doesn't exist."
         500:
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
@@ -130,7 +130,7 @@ paths:
           examples:
             application/json:
               code: "BAD_GATEWAY"
-              message: "Cannot connect to a service endpoint"            
+              message: "Cannot connect to a service endpoint"
   /charges/reversal:
     post:
       summary: Reversa de una venta
@@ -142,13 +142,13 @@ paths:
           description: Reversa de venta con tarjeta
           required: true
           schema:
-            $ref: '#/definitions/reversal_new'
+            $ref: '#/definitions/reversal_req'
       responses:
         '200':
           description: |
             OK - Reversa exitosa
           schema:
-            $ref: '#/definitions/reversal'
+            $ref: '#/definitions/reversal_res'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
           schema:
@@ -160,11 +160,11 @@ paths:
         '500':
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
-            $ref: '#/definitions/error_obj' 
-              
-  /charges/{id}:  
+            $ref: '#/definitions/error_obj'
+
+  /charges/{id}:
     get:
-      summary: Consulta de un cargo
+      summary: Consulta de un cargo (NOT IMPLEMENTED)
       description: |
         Obtiene el objeto cargo
       parameters:
@@ -174,7 +174,7 @@ paths:
           required: true
           type: integer
       responses:
-        200:  
+        200:
           description: |
             OK - Venta exitosa
           schema:
@@ -194,7 +194,7 @@ paths:
           examples:
             application/json:
               code: "UNAUTHORIZED"
-              message: "No valid API key provided."    
+              message: "No valid API key provided."
         404:
           description: El recurso requerido no existe.
           schema:
@@ -202,7 +202,7 @@ paths:
           examples:
             application/json:
               code: "NOT_FOUND"
-              message: "The requested resource doesn't exist."  
+              message: "The requested resource doesn't exist."
         500:
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
@@ -211,29 +211,29 @@ paths:
             application/json:
               code: "BAD_GATEWAY"
               message: "Cannot connect to a service endpoint"
-  
-     
-            
+
+
+
   /refunds:
     post:
-      summary: Devolución de un cargo realizado a una tarjeta
+      summary: Devolución de un cargo realizado a una tarjeta (NOT IMPLEMENTED)
       description: |
         Devuelve total o parcialmante un cargo realizado a una tarjeta de crédito.
-        
+
         ## Devolución total
         - El objeto `amount` es opcional. En caso que se envíe, el campo `value` debe corresponder al monto total del cargo.
-        
-        ## Devolución parcial (NOT IMPLEMENTED)
+
+        ## Devolución parcial
         - El objeto `amount` corresponde al monto que se quiere devolver. Debe ser mayor que cero y menor o igual al monto no devuelto de la venta.
         - Puedes realizar hasta **10 devoluciones parciales** asociadas a la misma venta.
-        
-        
+
+
       parameters:
         - in: body
-          name: refund_new
+          name: refund_req
           description: Devolución de cargo
           schema:
-            $ref: '#/definitions/refund_new'
+            $ref: '#/definitions/refund_req'
       responses:
         '200':
           description: |
@@ -253,7 +253,7 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
     get:
-      summary: Consulta de una devolución
+      summary: Consulta de una devolución (NOT IMPLEMENTED)
       description: |
         Obtiene el objeto devolución
       parameters:
@@ -264,7 +264,7 @@ paths:
           type: string
       responses:
 
-        200:  
+        200:
           description: OK
           schema:
             $ref: '#/definitions/refund'
@@ -283,7 +283,7 @@ paths:
           examples:
             application/json:
               code: "UNAUTHORIZED"
-              message: "No valid API key provided."    
+              message: "No valid API key provided."
         404:
           description: El recurso requerido no existe.
           schema:
@@ -291,7 +291,7 @@ paths:
           examples:
             application/json:
               code: "NOT_FOUND"
-              message: "The requested resource doesn't exist."  
+              message: "The requested resource doesn't exist."
         500:
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
@@ -300,25 +300,25 @@ paths:
             application/json:
               code: "BAD_GATEWAY"
               message: "Cannot connect to a service endpoint"
-  
+
   /refunds/reversal:
     post:
-      summary: Reversa de una devolución
+      summary: Reversa de una devolución (NOT IMPLEMENTED)
       description: |
-        Reversa en línea de una devolución (NOT IMPLEMENTED)
+        Reversa en línea de una devolución
       parameters:
         - in: body
           name: reversal_new
           description: Reversa de devolución
           required: true
           schema:
-            $ref: '#/definitions/reversal_new'
+            $ref: '#/definitions/reversal_req'
       responses:
         '200':
           description: |
             OK - Reversa exitosa
           schema:
-            $ref: '#/definitions/reversal'
+            $ref: '#/definitions/reversal_res'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
           schema:
@@ -330,10 +330,10 @@ paths:
         '500':
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
-            $ref: '#/definitions/error_obj'     
+            $ref: '#/definitions/error_obj'
   /refunds/{id}:
     get:
-      summary: Consulta de una devolución
+      summary: Consulta de una devolución (NOT IMPLEMENTED)
       description: |
         Obtiene el objeto cargo
       parameters:
@@ -343,7 +343,7 @@ paths:
           required: true
           type: integer
       responses:
-        200:  
+        200:
           description: OK
           schema:
             $ref: '#/definitions/refund'
@@ -362,7 +362,7 @@ paths:
           examples:
             application/json:
               code: "UNAUTHORIZED"
-              message: "No valid API key provided."    
+              message: "No valid API key provided."
         404:
           description: El recurso requerido no existe.
           schema:
@@ -370,7 +370,7 @@ paths:
           examples:
             application/json:
               code: "NOT_FOUND"
-              message: "The requested resource doesn't exist."  
+              message: "The requested resource doesn't exist."
         500:
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
@@ -384,26 +384,26 @@ paths:
       summary: Devolución batch de un cargo realizado a una tarjeta
       description: |
         Devuelve total o parcialmante un cargo realizado a una tarjeta de crédito.
-        
+
         ## Devolución total
         - El objeto `amount` es opcional. En caso que se envíe, el campo `value` debe corresponder al monto total del cargo.
-        
+
         ## Devolución parcial (NOT IMPLEMENTED)
         - El objeto `amount` corresponde al monto que se quiere devolver. Debe ser mayor que cero y menor o igual al monto no devuelto de la venta.
         - Puedes realizar hasta **10 devoluciones parciales** asociadas a la misma venta.
-        
+
       parameters:
         - in: body
-          name: refund_new
+          name: refund_req
           description: Devolución de cargo
           schema:
-            $ref: '#/definitions/refund_new'
+            $ref: '#/definitions/refund_req'
       responses:
         '200':
           description: |
             OK - devolución exitosa
           schema:
-            $ref: '#/definitions/refund_batch'
+            $ref: '#/definitions/refund_batch_res'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
           schema:
@@ -415,7 +415,7 @@ paths:
         '500':
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
-            $ref: '#/definitions/error_obj'  
+            $ref: '#/definitions/error_obj'
   /batch-refund/reversal:
     post:
       summary: Reversa de una devolución batch
@@ -423,17 +423,17 @@ paths:
         Reversa de una devolución
       parameters:
         - in: body
-          name: reversal_new
+          name: reversal_batch
           description: Reversa de devolución
           required: true
           schema:
-            $ref: '#/definitions/reversal_new'
+            $ref: '#/definitions/reversal_refund_batch_req'
       responses:
         '200':
           description: |
             OK - Reversa exitosa
           schema:
-            $ref: '#/definitions/reversal'
+            $ref: '#/definitions/reversal_refund_batch_res'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
           schema:
@@ -445,13 +445,53 @@ paths:
         '500':
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
-            $ref: '#/definitions/error_obj'       
-  
-definitions:
+            $ref: '#/definitions/error_obj'
 
-  refund_batch:
+definitions:
+  reversal_refund_batch_req:
+    type: object
+    description: |
+      Solicitud de devolución batch de una transacción **(Request)**
+    allOf:
+      - $ref: "#/definitions/reversal_req"
+      - type: object
+        required:
+          - status
+          - id
+          - amount
+        properties:
+          amount:
+            $ref: '#/definitions/amount_and_currency'
+
+  reversal_refund_batch_res:
+    type: object
+    description: |
+      Respuesta a devolucion batch de una transacción **(Response)**
+    allOf:
+      - $ref: "#/definitions/reversal_res"
+      - type: object
+        required:
+          - status
+          - id
+          - timestamps
+          - external_authorization_code
+        properties:
+          external_authorization_code:
+            type: integer
+            description: Identificador único de la transacción en el switch de la bandera
+            example: 1231232
+
+
+
+  refund_batch_res:
     type: object
     description: Solucitud de devolución batch **(Response)**
+    required:
+      - consumer_transaction_id
+      - status
+      - id
+      - external_authorization_code
+      - timestamps
     properties:
       consumer_transaction_id:
         type: string
@@ -464,35 +504,50 @@ definitions:
       id:
         type: integer
         description: Identificador único de la solicitud generado por Multicaja
-        example: 7654320  
-    
-  refund_new:
+        example: 7654320
+      external_authorization_code:
+        type: integer
+        description: Identificador único de la transacción en el switch de la bandera
+        example: 1231232
+      timestamps:
+        $ref: '#/definitions/timestamps'
+
+  refund_req:
     type: object
     description: |
       Solicitud de devolución **(Request)**
     required:
       - original_consumer_transaction_id
       - consumer_transaction_id
+      - amount
+      - additional_data
+      - merchant
     properties:
       consumer_transaction_id:
         type: string
         description: Identificador único de la transacción generado por el consumidor de la API
         example: "xhGXSPKviU83lln_xc9lc"
-      original_consumer_transaction_id:  
+      original_consumer_transaction_id:
         type: string
         description: Identificador de la venta original, sobre la que se realizará la devolución.
         example: "crlfUYEBK14zotCTykezJkfg"
       amount:
         $ref: "#/definitions/amount_and_currency"
       additional_data:
-        $ref: "#/definitions/addtitional_data"  
-    
+        $ref: "#/definitions/addtitional_data"
+      merchant:
+        $ref: "#/definitions/merchant_base"
+
   refund:
     type: object
     description: |
       Solicitud de devolución **(Response)**
     required:
       - consumer_transaction_id
+      - amount
+      - id
+      - external_authorization_code
+      - timestamps
     properties:
       consumer_transaction_id:
         type: string
@@ -510,8 +565,8 @@ definitions:
         example: 1231232
       timestamps:
         $ref: '#/definitions/timestamps'
-        
-  reversal_new:
+
+  reversal_base:
     type: object
     description: |
       Solicitud de reversa de una transacción **(Request)**
@@ -522,93 +577,123 @@ definitions:
         type: string
         description: Identificador único de la transacción que se quiere reversar.
         example: "crlfUYEBK14zotCTykezJkfg"
-        
-  reversal:
+
+  reversal_req:
+    type: object
+    description: |
+      Solicitud de reversa de una transacción **(Request)**
+    allOf:
+      - $ref: "#/definitions/reversal_base"
+      - type: object
+        required:
+          - consumer_transaction_id
+          - merchant
+        properties:
+          merchant:
+            $ref: '#/definitions/merchant_base'
+
+  reversal_res:
     type: object
     description: |
       Respuesta a solicitud de reversa de una transacción **(Response)**
     allOf:
-      - $ref: "#/definitions/reversal_new"
+      - $ref: "#/definitions/reversal_base"
       - type: object
         required:
           - status
-        properties:
-          status: 
-            type: string
-            description: Estado de la reversa.
-            example: "approved"      
-          timestamps:
-            $ref: '#/definitions/timestamps'
-
-
-  charge_base:
-    type: object
-    description: |
-      Contenido mínimo de una venta con tarjeta
-    properties:
-      consumer_transaction_id:
-        type: string
-        description: Identificador único de la transacción generado por el consumidor de la API
-        example: "crlfUYEBK14zotCTykezJkfg"
-      amount:
-        $ref: "#/definitions/amount_and_currency"
-      installments:
-        type: integer
-        description: cantidad de cuotas (cuotas emisor)
-        example: null
-      charge_type:
-        $ref: "#/definitions/charge_type"
-      merchant:
-        $ref: "#/definitions/merchant"
-
-  charge_new:
-    type: object
-    description: |
-      Solicitud de venta **(Request)**
-    allOf:
-      - $ref: "#/definitions/charge_base"
-      - type: object
-        required:
-          - card
-          - amount
-          - consumer_transaction_id
-          - merchant
-        properties:
-          card:
-            $ref: "#/definitions/card"
-          additional_data:
-            $ref: "#/definitions/addtitional_data"
-
-  charge:
-    type: object
-    description: |
-      Respuesta a solicitud de venta **(Response)**
-    allOf:
-      - $ref: "#/definitions/charge_base"
-      - type: object
-        required:
           - id
-          - external_authorization_code
           - timestamps
         properties:
           id:
             type: integer
             description: Código identificador de la compra en los sistemas de Multicaja
             example: 7783834
-          external_authorization_code:
-            type: integer
-            description: Identificador único de la transacción en el switch de la bandera
-            example: 1231232
+          status:
+            type: string
+            description: Estado de la reversa.
+            example: "approved"
           timestamps:
             $ref: '#/definitions/timestamps'
-  
+
+  charge_req:
+    type: object
+    description: |
+      Solicitud de venta **(Request)**
+    required:
+      - card
+      - additional_data
+      - amount
+      - consumer_transaction_id
+      - installments
+      - charge_type
+      - merchant
+    properties:
+      card:
+        type: string
+        description: Datos de tarjeta encriptados
+        example: "mOoT6vkSI7z0ahhF7kN32cXAshL26UYHw0yzEef0KnFDbhtQRv6b1hoMkmdOCQsg"
+      additional_data:
+        $ref: "#/definitions/addtitional_data"
+      consumer_transaction_id:
+        type: string
+        description: Identificador único de la transacción generado por el consumidor de la API
+        example: "crlfUYEBK14zotCTykezJkfg"
+      amount:
+        $ref: '#/definitions/amount_and_currency'
+      installments:
+        type: integer
+        description: cantidad de cuotas (cuotas emisor)
+        example: null
+      charge_type:
+        $ref: '#/definitions/charge_type'
+      merchant:
+        $ref: '#/definitions/merchant'
+
+
+  charge_res:
+    type: object
+    description: |
+      Respuesta a solicitud de venta **(Response)**
+    required:
+      - amount
+      - consumer_transaction_id
+      - external_authorization_code
+      - id
+      - timestamps
+    properties:
+      amount:
+        $ref: '#/definitions/amount_and_currency'
+      consumer_transaction_id:
+        type: string
+        description: Identificador único de la transacción generado por el consumidor de la API
+        example: "crlfUYEBK14zotCTykezJkfg"
+      external_authorization_code:
+        type: integer
+        description: Identificador único de la transacción en el switch de la bandera
+        example: 1231232
+      id:
+        type: integer
+        description: Código identificador de la compra en los sistemas de Multicaja
+        example: 7783834
+      timestamps:
+        $ref: '#/definitions/timestamps'
+
   charge_all:
     type: object
     description: |
       Respuesta a solicitud de venta **(Response)**
     allOf:
-    - $ref: "#/definitions/charge"
+    - $ref: "#/definitions/charge_res"
     - type: object
+      required:
+        - status
+        - failure_code
+        - failure_message
+        - amount_refunded
+        - refunds
+        - installments
+        - charge_type
+        - merchant
       properties:
         status:
           type: string
@@ -626,13 +711,25 @@ definitions:
           $ref: '#/definitions/amount_and_currency'
         refunds:
           type: array
-          items: 
+          items:
             $ref: "#/definitions/refund"
-          
+        installments:
+          type: integer
+          description: cantidad de cuotas (cuotas emisor)
+          example: null
+        charge_type:
+          $ref: '#/definitions/charge_type'
+        merchant:
+          $ref: '#/definitions/merchant'
+
+
   timestamps:
     type: object
     description: |
       Fecha de creación y de última modificación **(Response)**
+    required:
+      - created_at
+      - updated_at
     properties:
       created_at:
         type: string
@@ -659,72 +756,61 @@ definitions:
         description: Código ISO 4217 de la moneda
         example: "CLP"
 
-  card:
-    type: object
-    description: |
-      Información de la tarjeta de crédito. Los campos deben ir encriptados.
-    required:
-      - exp_month
-      - exp_year
-      - pan
-    properties:
-      pan:
-        type: string
-        description: PAN de la tarjeta encriptado
-        example: "FFDED408610A74DC0BCAFAD6448E8B4582673E87945DFFC1A0B97296C44CAB95"
-      exp_month:
-        type: string
-        description: mes de expiración encriptado
-        example: "966194C0DAD7136F2DF6AC8E9384CED5"
-      exp_year:
-        type: string
-        description: año de expiración encriptado
-        example: "A5AF09B7648AC5A6EF25EF4290FAB884"
-      cvc:
-        type: string
-        description: código de seguridad encriptado
-        example: "FEAB8C72585BB4F78C0144FAC062D0662"
-      name_on_card:
-        type: string
-        description: Nombre impreso en la tarjeta encriptado
-        example: "7181651E086CA2AABEDAA63F3806484C"
-  
   merchant:
     type: object
     description: |
       Datos del comercio que origina el cargo
+    allOf:
+      - $ref: "#/definitions/merchant_base"
+      - type: object
+        required:
+          - merchant_code
+          - local_tax_number
+          - mcc
+          - name
+          - city
+          - country_code
+        properties:
+          local_tax_number:
+            type: string
+            description: Rol Único Tributario (RUT) del comercio
+            example: "96675670-5"
+          mcc:
+            type: string
+            description: Código ISO 18245 asignado por la bandera al comercio
+            example: "5999"
+          name:
+            type: string
+            description: Nombre del comercio que aparece en extracto bancario
+            example: "Store 1"
+          city:
+            type: string
+            description: Ciudad en la que está ubicado el comercio
+            example: "Iquique"
+          country_code:
+            type: string
+            description: Código ISO 3166 del país. En conjunto con `name` y `city`, se uutilizan para formar el *soft descriptor*
+            example: "152"
+
+  merchant_base:
+    type: object
+    description: |
+      Datos del comercio que origina el cargo
     required:
-      - merchant_code      
+      - merchant_code
     properties:
-      local_tax_number:
-        type: string
-        description: Rol Único Tributario (RUT) del comercio
-        example: "96675670-5"
       merchant_code:
         type: string
         description: Código de comercio
         example: "0023434"
-      mcc: 
-        type: string
-        description: Código ISO 18245 asignado por la bandera al comercio
-        example: "5999"
-      name: 
-        type: string
-        description: Nombre del comercio que aparece en extracto bancario
-        example: "Store 1"
-      city:
-        type: string
-        description: Ciudad en la que está ubicado el comercio
-        example: "Iquique"
-      country_code:
-        type: string
-        description: Código ISO 3166 del país. En conjunto con `name` y `city`, se uutilizan para formar el *soft descriptor*
-        example: "152"
-  
+
   charge_type:
     type: object
     description: |
       Tipo de cargo que se realiza. Indica si el pago es recurrente o no y si los datos de la tarjeta fueron digitados por el tarjetahabiente o es card on file.
+    required:
+      - card_on_file
+      - recurring
     properties:
       card_on_file:
         type: boolean
@@ -734,13 +820,13 @@ definitions:
         type: boolean
         description: Indica si el cargo es recurrente
         example: false
-  
-  
+
+
   addtitional_data:
     type: object
     description: |
       Objeto JSON con atributos adicionales para la transacción.
-      
+
   error_obj:
     type: object
     description: "Error"
@@ -755,4 +841,4 @@ definitions:
       message:
         type: string
         example: "La tarjeta no tiene saldo"
-        description: Descripción corta del error   
+        description: Descripción corta del error
