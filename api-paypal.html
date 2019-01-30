@@ -56,9 +56,7 @@
               <div class="doc-copy">
                 <p>Bienvenido a la API de
                   <a href="https://www.multicaja.cl">Multicaja PayPal</a> (Alpha)</p>
-                <p>
-                  <strong> Este es un proyecto alpha y por lo tanto sufrirá muchos cambios </strong>
-                </p>
+                <p>** Este es un proyecto alpha y por lo tanto sufrirá muchos cambios **</p>
                 <p>Todos los requests son autenticados usando un <code>api-key</code>.</p>
               </div>
               <div class="doc-examples">
@@ -247,7 +245,10 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;country&quot;</span>: <span class="hljs-string">&quot;CL&quot;</span>,
   <span class="hljs-attr">&quot;account_id&quot;</span>: <span class="hljs-string">&quot;6FR8UB95HSZZU&quot;</span>,
   <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-05-14T14:34:07.824-07:00&quot;</span>,
@@ -257,40 +258,53 @@
   <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;PREMIER&quot;</span>,
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;UNVERIFIED/VERIFIED&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">200100</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Email no encontrado en PayPal&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">200101</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El email ingresado es invalido&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">200000</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Ha ocurrido un error al obtener la informaci&#xF3;n de PayPal&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -403,7 +417,10 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;correlation_id&quot;</span>: <span class="hljs-string">&quot;33308fedb33e3&quot;</span>,
   <span class="hljs-attr">&quot;ack&quot;</span>: <span class="hljs-string">&quot;SUCCESS&quot;</span>,
   <span class="hljs-attr">&quot;balance&quot;</span>: {
@@ -412,40 +429,53 @@
   },
   <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2018-05-14T14:34:07.824-07:00&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">200100</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Email no encontrado en PayPal&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">200101</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El email ingresado es invalido&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">200000</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Ha ocurrido un error al obtener la informaci&#xF3;n de PayPal&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>

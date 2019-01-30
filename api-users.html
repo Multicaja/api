@@ -119,6 +119,9 @@
                 <a href="#operation--users--user_id--bank_accounts-post"> Crear </a>
               </li>
               <li>
+                <a href="#operation--users--user_id--bank_accounts--acc_id--get"> Detalle </a>
+              </li>
+              <li>
                 <a href="#operation--users--user_id--bank_accounts--acc_id--delete"> Eliminar </a>
               </li>
             </ul>
@@ -226,9 +229,7 @@
               <div class="doc-copy">
                 <p>Bienvenido a la API de
                   <a href="https://www.multicaja.cl">Multicaja</a> (Alpha)</p>
-                <p>
-                  <strong> Este es un proyecto alpha y por lo tanto sufrirá muchos cambios </strong>
-                </p>
+                <p>** Este es un proyecto alpha y por lo tanto sufrirá muchos cambios **</p>
                 <p>Todos los requests son autenticados usando un <code>api-key</code>.</p>
                 <p>Existen dos ambientes: <code>qa</code> y <code>producción</code>. El <code>host</code> de <code>qa</code> es <code>apiqa.multicaja.cl</code>.</p>
               </div>
@@ -313,11 +314,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">15776844</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -376,7 +381,10 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">9012331</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
@@ -391,18 +399,23 @@
   <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">15776844</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(403 Forbidden)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -505,7 +518,10 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">9012331</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
@@ -523,7 +539,8 @@
   <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">15776844</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -592,11 +609,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">15776844</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -655,7 +676,10 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">9012331</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
@@ -673,18 +697,23 @@
   <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">15776844</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(403 Forbidden)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -787,7 +816,10 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">9012331</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
@@ -805,7 +837,8 @@
   <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">15776844</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -920,7 +953,10 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
@@ -969,18 +1005,23 @@
   <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1111,7 +1152,10 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
   {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
     <span class="hljs-attr">&quot;rut&quot;</span>: {
@@ -1162,7 +1206,8 @@
     <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>
   }
 ]
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1270,7 +1315,10 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
@@ -1319,18 +1367,23 @@
   <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(403 Forbidden)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1401,10 +1454,14 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1469,7 +1526,10 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
@@ -1518,29 +1578,38 @@
   <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(403 Forbidden)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1610,10 +1679,14 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1672,22 +1745,30 @@
                   <h5>Response Example
                     <span>(403 Forbidden)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1754,11 +1835,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
   <span class="hljs-attr">&quot;lastname_1&quot;</span>: <span class="hljs-string">&quot;L&#xF3;pez&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1831,7 +1916,10 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
@@ -1880,29 +1968,38 @@
   <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(403 Forbidden)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1969,10 +2066,14 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;serial_number&quot;</span>: <span class="hljs-string">&quot;A026588780&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -2059,7 +2160,10 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
@@ -2108,40 +2212,53 @@
   <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(403 Forbidden)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -2208,12 +2325,16 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;terms_and_conditions_list&quot;</span>: [
     <span class="hljs-string">&quot;https://multicaja.cl/tac/contract-v1.3.1.html&quot;</span>
   ]
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -2286,7 +2407,10 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
@@ -2335,29 +2459,38 @@
   <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(403 Forbidden)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -2424,11 +2557,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
   <span class="hljs-attr">&quot;validation_channel&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -2509,7 +2646,10 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
@@ -2558,29 +2698,38 @@
   <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(403 Forbidden)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -2647,11 +2796,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;cell_phone&quot;</span>: <span class="hljs-number">56912345678</span>,
   <span class="hljs-attr">&quot;validation_channel&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -2732,7 +2885,10 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
@@ -2781,29 +2937,38 @@
   <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(403 Forbidden)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -2899,7 +3064,10 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
@@ -2948,18 +3116,23 @@
   <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3073,7 +3246,10 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
@@ -3122,18 +3298,23 @@
   <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3218,7 +3399,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;template&quot;</span>: <span class="hljs-string">&quot;Prepago/ValidacionCorreo&quot;</span>,
   <span class="hljs-attr">&quot;template_data&quot;</span>: <span class="hljs-string">&quot;{&apos;saludo&apos;: &apos;Estimado Pepito&apos;, &apos;despedida&apos;: &apos;Chao!&apos;}&quot;</span>,
   <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
@@ -3230,7 +3414,8 @@
     }
   ]
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3281,22 +3466,30 @@
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3361,8 +3554,12 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;123456&quot;</span>
-</code></pre>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-string">&quot;123456&quot;</span>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3416,19 +3613,27 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;boolean&quot;</span>
-</code></pre>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-string">&quot;boolean&quot;</span>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3531,12 +3736,16 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;template&quot;</span>: <span class="hljs-string">&quot;Prepago/ValidacionCelular&quot;</span>,
   <span class="hljs-attr">&quot;gateway&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;cellphone&quot;</span>: <span class="hljs-string">&quot;912345678&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3590,19 +3799,27 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;boolean&quot;</span>
-</code></pre>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-string">&quot;boolean&quot;</span>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3667,8 +3884,12 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;123456&quot;</span>
-</code></pre>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-string">&quot;123456&quot;</span>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3722,19 +3943,27 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json"><span class="hljs-string">&quot;boolean&quot;</span>
-</code></pre>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-string">&quot;boolean&quot;</span>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3831,7 +4060,10 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
   {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">983</span>,
     <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;cliente.regulador.es_pep&quot;</span>,
@@ -3842,7 +4074,8 @@
     <span class="hljs-attr">&quot;attribute_code&quot;</span>: <span class="hljs-number">56</span>
   }
 ]
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3914,10 +4147,14 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;attribute_code&quot;</span>: <span class="hljs-number">56</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3988,7 +4225,10 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
   {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">983</span>,
     <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;cliente.regulador.es_pep&quot;</span>,
@@ -3999,18 +4239,23 @@
     <span class="hljs-attr">&quot;attribute_code&quot;</span>: <span class="hljs-number">56</span>
   }
 ]
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -4188,20 +4433,29 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
   {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
     <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">4</span>,
-    <span class="hljs-attr">&quot;acc_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;acc_number&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;bank_name&quot;</span>: <span class="hljs-string">&quot;Mi Banco&quot;</span>,
+    <span class="hljs-attr">&quot;account_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;account_number&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;rut&quot;</span>: {
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
+      <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;K&quot;</span>
+    },
     <span class="hljs-attr">&quot;timestamps&quot;</span>: {
       <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
       <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
     }
   }
 ]
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -4232,7 +4486,12 @@
                 <section class="swagger-operation-description">
                   <p>Crea una nueva cuenta bancaria para este cliente</p>
                   <ul>
-                    <li>La terna (<code>account.bank_id</code>, <code>account.acc_type</code>, <code>account.acc_number</code>) debe ser única para este usuario. De lo contrario, el servicio retornará <code>405</code></li>
+                    <li>
+                      <p>Solo incluir el campo <code>rut</code> si la cuenta a crear no pertenece al cliente.</p>
+                    </li>
+                    <li>
+                      <p>La terna (<code>account.bank_id</code>, <code>account.acc_type</code>, <code>account.acc_number</code>) debe ser única para este usuario. De lo contrario, el servicio retornará <code>405</code></p>
+                    </li>
                   </ul>
                 </section>
               </div>
@@ -4276,12 +4535,18 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">4</span>,
-  <span class="hljs-attr">&quot;acc_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;acc_number&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  <span class="hljs-attr">&quot;account_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;account_number&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;account_alias&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -4351,31 +4616,159 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
   {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
     <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">4</span>,
-    <span class="hljs-attr">&quot;acc_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-    <span class="hljs-attr">&quot;acc_number&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;bank_name&quot;</span>: <span class="hljs-string">&quot;Mi Banco&quot;</span>,
+    <span class="hljs-attr">&quot;account_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;account_number&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;rut&quot;</span>: {
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
+      <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;K&quot;</span>
+    },
     <span class="hljs-attr">&quot;timestamps&quot;</span>: {
       <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
       <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
     }
   }
 ]
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--users--user_id--bank_accounts--acc_id--get" class="operation panel" data-traverse-target="operation--users--user_id--bank_accounts--acc_id--get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-cuentas">cuentas</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Detalle</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/users/{user_id}/bank_accounts/{acc_id}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">user_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">integer</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID del usuario</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">acc_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">integer</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID de la cuenta</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/bank_account">bank_account</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Cliente o Cuenta no existen</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
+  <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">4</span>,
+  <span class="hljs-attr">&quot;bank_name&quot;</span>: <span class="hljs-string">&quot;Mi Banco&quot;</span>,
+  <span class="hljs-attr">&quot;account_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;account_number&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;rut&quot;</span>: {
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
+    <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;K&quot;</span>
+  },
+  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+  }
+}
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -4553,7 +4946,10 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
   {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
     <span class="hljs-attr">&quot;timestamps&quot;</span>: {
@@ -4568,7 +4964,8 @@
     <span class="hljs-attr">&quot;postal_code&quot;</span>: <span class="hljs-number">7710787</span>
   }
 ]
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -4643,7 +5040,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;alias&quot;</span>: <span class="hljs-string">&quot;Casa&quot;</span>,
   <span class="hljs-attr">&quot;line_1&quot;</span>: <span class="hljs-string">&quot;Suecia 1414&quot;</span>,
   <span class="hljs-attr">&quot;line_2&quot;</span>: <span class="hljs-string">&quot;Depto 502&quot;</span>,
@@ -4651,7 +5051,8 @@
   <span class="hljs-attr">&quot;commune_id&quot;</span>: <span class="hljs-number">230</span>,
   <span class="hljs-attr">&quot;postal_code&quot;</span>: <span class="hljs-number">7710787</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -4721,7 +5122,10 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
   {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
     <span class="hljs-attr">&quot;timestamps&quot;</span>: {
@@ -4736,18 +5140,23 @@
     <span class="hljs-attr">&quot;postal_code&quot;</span>: <span class="hljs-number">7710787</span>
   }
 ]
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -4980,7 +5389,10 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
   {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
     <span class="hljs-attr">&quot;app&quot;</span>: <span class="hljs-string">&quot;prepago&quot;</span>,
@@ -4991,18 +5403,23 @@
     <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/path/to/image&quot;</span>
   }
 ]
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5077,7 +5494,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;app&quot;</span>: <span class="hljs-string">&quot;prepago&quot;</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;USER_CI_FRONTAL&quot;</span>,
   <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;v1.0&quot;</span>,
@@ -5085,7 +5505,8 @@
   <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;image/jpeg&quot;</span>,
   <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/path/to/image&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5142,7 +5563,10 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;app&quot;</span>: <span class="hljs-string">&quot;prepago&quot;</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;USER_CI_FRONTAL&quot;</span>,
@@ -5151,29 +5575,38 @@
   <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;image/jpeg&quot;</span>,
   <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/path/to/image&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5281,7 +5714,10 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;app&quot;</span>: <span class="hljs-string">&quot;prepago&quot;</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;USER_CI_FRONTAL&quot;</span>,
@@ -5290,18 +5726,23 @@
   <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;image/jpeg&quot;</span>,
   <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/path/to/image&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5383,7 +5824,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;subject&quot;</span>: <span class="hljs-string">&quot;Verificaci&#xF3;n de identidad&quot;</span>,
   <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;priority&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -5391,7 +5835,8 @@
   <span class="hljs-attr">&quot;group_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
   <span class="hljs-attr">&quot;product_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5448,7 +5893,10 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;app&quot;</span>: <span class="hljs-string">&quot;prepago&quot;</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;USER_CI_FRONTAL&quot;</span>,
@@ -5457,29 +5905,38 @@
   <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;image/jpeg&quot;</span>,
   <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/path/to/image&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5550,14 +6007,18 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
   {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;desc&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
   }
 ]
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5639,14 +6100,18 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
   {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;desc&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
   }
 ]
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5711,14 +6176,18 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
   {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;desc&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
   }
 ]
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5783,14 +6252,18 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
   {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;desc&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
   }
 ]
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5855,14 +6328,18 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
   {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;desc&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
   }
 ]
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5909,11 +6386,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">15776844</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5949,11 +6430,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">15776844</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6059,7 +6544,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">9012331</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
@@ -6074,7 +6562,8 @@
   <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">15776844</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6196,7 +6685,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">9012331</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
@@ -6214,7 +6706,8 @@
   <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">15776844</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6260,11 +6753,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
   <span class="hljs-attr">&quot;lastname_1&quot;</span>: <span class="hljs-string">&quot;L&#xF3;pez&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6302,10 +6799,14 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6359,11 +6860,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
   <span class="hljs-attr">&quot;validation_channel&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6417,11 +6922,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;cell_phone&quot;</span>: <span class="hljs-number">56912345678</span>,
   <span class="hljs-attr">&quot;validation_channel&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6467,12 +6976,16 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;terms_and_conditions_list&quot;</span>: [
     <span class="hljs-string">&quot;https://multicaja.cl/tac/contract-v1.3.1.html&quot;</span>
   ]
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6510,10 +7023,14 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;serial_number&quot;</span>: <span class="hljs-string">&quot;A026588780&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6596,14 +7113,18 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
   <span class="hljs-attr">&quot;lastname_1&quot;</span>: <span class="hljs-string">&quot;L&#xF3;pez&quot;</span>,
   <span class="hljs-attr">&quot;lastname_2&quot;</span>: <span class="hljs-string">&quot;Carrasco&quot;</span>,
   <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6747,7 +7268,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: {
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
@@ -6796,7 +7320,8 @@
   <span class="hljs-attr">&quot;gender&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;birthday&quot;</span>: <span class="hljs-string">&quot;1977-1-14&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6871,7 +7396,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
   <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;K&quot;</span>,
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -6880,7 +7408,8 @@
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6948,7 +7477,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
@@ -6956,7 +7488,8 @@
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -7026,7 +7559,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;912345678&quot;</span>,
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
@@ -7034,7 +7570,8 @@
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -7110,7 +7647,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;business_name&quot;</span>: <span class="hljs-string">&quot;Reparaciones Joselito Ltda.&quot;</span>,
   <span class="hljs-attr">&quot;commercial_activity&quot;</span>: <span class="hljs-number">772</span>,
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -7119,7 +7659,8 @@
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -7159,10 +7700,14 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;attribute_code&quot;</span>: <span class="hljs-number">56</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -7231,7 +7776,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">983</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;cliente.regulador.es_pep&quot;</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
@@ -7240,7 +7788,8 @@
   },
   <span class="hljs-attr">&quot;attribute_code&quot;</span>: <span class="hljs-number">56</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -7284,11 +7833,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
   <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -7367,7 +7920,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;alias&quot;</span>: <span class="hljs-string">&quot;Casa&quot;</span>,
   <span class="hljs-attr">&quot;line_1&quot;</span>: <span class="hljs-string">&quot;Suecia 1414&quot;</span>,
   <span class="hljs-attr">&quot;line_2&quot;</span>: <span class="hljs-string">&quot;Depto 502&quot;</span>,
@@ -7375,7 +7931,8 @@
   <span class="hljs-attr">&quot;commune_id&quot;</span>: <span class="hljs-number">230</span>,
   <span class="hljs-attr">&quot;postal_code&quot;</span>: <span class="hljs-number">7710787</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -7435,7 +7992,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
@@ -7448,7 +8008,8 @@
   <span class="hljs-attr">&quot;commune_id&quot;</span>: <span class="hljs-number">230</span>,
   <span class="hljs-attr">&quot;postal_code&quot;</span>: <span class="hljs-number">7710787</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -7481,8 +8042,8 @@
                     <dd>
                       <p>ID del banco (revisar /params/banks)</p>
                     </dd>
-                    <dt data-property-name="acc_type" class="has-description">
-                      <span class="json-property-name">acc_type:</span>
+                    <dt data-property-name="account_type" class="has-description">
+                      <span class="json-property-name">account_type:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-enum" title="Possible values">
                         <span class="json-property-enum-item">vista</span>,
@@ -7495,8 +8056,8 @@
                     <dd>
                       <p>Tipo de cuenta</p>
                     </dd>
-                    <dt data-property-name="acc_number" class="has-description">
-                      <span class="json-property-name">acc_number:</span>
+                    <dt data-property-name="account_number" class="has-description">
+                      <span class="json-property-name">account_number:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
@@ -7504,18 +8065,41 @@
                     <dd>
                       <p>Número de cuenta sin puntos, guiones, ni ceros a la izquierda</p>
                     </dd>
+                    <dt data-property-name="account_alias" class="has-description">
+                      <span class="json-property-name">account_alias:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Alias de la cuenta</p>
+                    </dd>
+                    <dt data-property-name="rut" class="has-description">
+                      <span class="json-property-name">rut:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>El rut sin puntos, guión, ni dígito verificador</p>
+                    </dd>
                   </dl>
                 </section>
               </div>
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">4</span>,
-  <span class="hljs-attr">&quot;acc_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;acc_number&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  <span class="hljs-attr">&quot;account_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;account_number&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;account_alias&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -7524,7 +8108,7 @@
           <div id="definition-bank_account" class="definition panel" data-traverse-target="definition-bank_account">
             <h2 class="panel-title">
               <a name="/definitions/bank_account"></a>bank_account: object
-              <!-- <span class="json-property-type"><span class="json-property-type"></span>
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
               <span class="json-property-range" title="Value limits"></span>
               
               
@@ -7537,102 +8121,138 @@
                     <strong>(Response)</strong>
                   </p>
                 </section>
-                <section class="json-schema-allOf">
-                  <section class="json-schema-allOf-inherited">
-                    <ul>
-                      <span class="">
-                        <a class="json-schema-ref" href="#/definitions/bank_account_new">bank_account_new</a>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="id" class="has-description">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Identificador interno. Campo read-only.</p>
+                    </dd>
+                    <dt data-property-name="bank_id" class="has-description">
+                      <span class="json-property-name">bank_id:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>ID del banco (revisar /params/banks)</p>
+                    </dd>
+                    <dt data-property-name="bank_name" class="has-description">
+                      <span class="json-property-name">bank_name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Nombre del banco</p>
+                    </dd>
+                    <dt data-property-name="account_type" class="has-description">
+                      <span class="json-property-name">account_type:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">vista</span>,
+                        <span class="json-property-enum-item">corriente</span>,
+                        <span class="json-property-enum-item">ahorro</span>
                       </span>
-                    </ul>
-                  </section>
-                  <section class="json-schema-allOf-additional">
-                    <section class="json-schema-properties">
-                      <dl>
-                        <dt data-property-name="id" class="has-description">
-                          <span class="json-property-name">id:</span>
-                          <span class="json-property-type">integer</span>
-                          <span class="json-property-range" title="Value limits"></span>
-                          <span class="json-property-required"></span>
-                        </dt>
-                        <dd>
-                          <p>Identificador interno. Campo read-only.</p>
-                        </dd>
-                        <dt data-property-name="bank_id" class="has-description">
-                          <span class="json-property-name">bank_id:</span>
-                          <span class="json-property-type">integer</span>
-                          <span class="json-property-range" title="Value limits"></span>
-                        </dt>
-                        <dd>
-                          <p>ID del banco (revisar /params/banks)</p>
-                        </dd>
-                        <dt data-property-name="acc_type" class="has-description">
-                          <span class="json-property-name">acc_type:</span>
-                          <span class="json-property-type">string</span>
-                          <span class="json-property-enum" title="Possible values">
-                            <span class="json-property-enum-item">vista</span>,
-                            <span class="json-property-enum-item">corriente</span>,
-                            <span class="json-property-enum-item">ahorro</span>
-                          </span>
-                          <span class="json-property-range" title="Value limits"></span>
-                        </dt>
-                        <dd>
-                          <p>Tipo de cuenta</p>
-                        </dd>
-                        <dt data-property-name="acc_number" class="has-description">
-                          <span class="json-property-name">acc_number:</span>
-                          <span class="json-property-type">string</span>
-                          <span class="json-property-range" title="Value limits"></span>
-                        </dt>
-                        <dd>
-                          <p>Número de cuenta sin puntos, guiones, ni ceros a la izquierda</p>
-                        </dd>
-                        <dt data-property-name="status" class="has-description">
-                          <span class="json-property-name">status:</span>
-                          <span class="json-property-type">string</span>
-                          <span class="json-property-enum" title="Possible values">
-                            <span class="json-property-enum-item">no_validada</span>,
-                            <span class="json-property-enum-item">validada</span>
-                          </span>
-                          <span class="json-property-range" title="Value limits"></span>
-                          <span class="json-property-required"></span>
-                        </dt>
-                        <dd>
-                          <p>Estado de validación de la cuenta</p>
-                          <ul>
-                            <li>no_validada: estado por defecto</li>
-                            <li>validada: el usuario hizo una aviso de depósito seguido de una transferencia desde esta cuenta</li>
-                          </ul>
-                        </dd>
-                        <dt data-property-name="timestamps">
-                          <span class="json-property-name">timestamps:</span>
-                          <span class="json-property-type">
-                            <span class="">
-                              <a class="json-schema-ref" href="#/definitions/timestamps">timestamps</a>
-                            </span>
-                          </span>
-                          <span class="json-property-range" title="Value limits"></span>
-                          <span class="json-property-required"></span>
-                        </dt>
-                      </dl>
-                    </section>
-                  </section>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Tipo de cuenta</p>
+                    </dd>
+                    <dt data-property-name="account_number" class="has-description">
+                      <span class="json-property-name">account_number:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Número de cuenta sin puntos, guiones, ni ceros a la izquierda</p>
+                    </dd>
+                    <dt data-property-name="status" class="has-description">
+                      <span class="json-property-name">status:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">no_validada</span>,
+                        <span class="json-property-enum-item">validada</span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Estado de validación de la cuenta</p>
+                      <ul>
+                        <li>no_validada: estado por defecto</li>
+                        <li>validada: el usuario hizo una aviso de depósito seguido de una transferencia desde esta cuenta</li>
+                      </ul>
+                    </dd>
+                    <dt data-property-name="rut" class="has-description">
+                      <span class="json-property-name">rut:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Número de rut asociado a la cuenta</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="value" class="has-description">
+                            <span class="json-property-name">value:</span>
+                            <span class="json-property-type">integer</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>El rut sin puntos, guión, ni dígito verificador</p>
+                          </dd>
+                          <dt data-property-name="dv" class="has-description">
+                            <span class="json-property-name">dv:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>digito verificador</p>
+                          </dd>
+                        </dl>
+                      </section>
+                    </dt>
+                    <dt data-property-name="timestamps">
+                      <span class="json-property-name">timestamps:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/timestamps">timestamps</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                  </dl>
                 </section>
               </div>
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">4</span>,
-  <span class="hljs-attr">&quot;acc_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;acc_number&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;bank_name&quot;</span>: <span class="hljs-string">&quot;Mi Banco&quot;</span>,
+  <span class="hljs-attr">&quot;account_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;account_number&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;rut&quot;</span>: {
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">14569484</span>,
+    <span class="hljs-attr">&quot;dv&quot;</span>: <span class="hljs-string">&quot;K&quot;</span>
+  },
   <span class="hljs-attr">&quot;timestamps&quot;</span>: {
     <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -7688,12 +8308,16 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
   <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;desc&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -7741,11 +8365,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -7799,12 +8427,16 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;file_name&quot;</span>: <span class="hljs-string">&quot;Test.pdf&quot;</span>,
   <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;application/pdf&quot;</span>,
   <span class="hljs-attr">&quot;content_file&quot;</span>: <span class="hljs-string">&quot;VGVzdA==&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -7879,7 +8511,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;template&quot;</span>: <span class="hljs-string">&quot;Prepago/ValidacionCorreo&quot;</span>,
   <span class="hljs-attr">&quot;template_data&quot;</span>: <span class="hljs-string">&quot;{&apos;saludo&apos;: &apos;Estimado Pepito&apos;, &apos;despedida&apos;: &apos;Chao!&apos;}&quot;</span>,
   <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
@@ -7891,7 +8526,8 @@
     }
   ]
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -7974,7 +8610,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;app&quot;</span>: <span class="hljs-string">&quot;prepago&quot;</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;USER_CI_FRONTAL&quot;</span>,
   <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;v1.0&quot;</span>,
@@ -7982,7 +8621,8 @@
   <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;image/jpeg&quot;</span>,
   <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/path/to/image&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -8069,7 +8709,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;app&quot;</span>: <span class="hljs-string">&quot;prepago&quot;</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;USER_CI_FRONTAL&quot;</span>,
@@ -8078,7 +8721,8 @@
   <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;image/jpeg&quot;</span>,
   <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/path/to/image&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -8181,7 +8825,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;subject&quot;</span>: <span class="hljs-string">&quot;Verificaci&#xF3;n de identidad&quot;</span>,
   <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;priority&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -8189,7 +8836,8 @@
   <span class="hljs-attr">&quot;group_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
   <span class="hljs-attr">&quot;product_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>

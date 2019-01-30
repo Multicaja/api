@@ -151,9 +151,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <p>Prepago Multicaja - API Alpha</p>
-                <p>
-                  <strong> Este es una API en alpha y por lo tanto sufrirá muchos cambios </strong>
-                </p>
+                <p>** Este es una API en alpha y por lo tanto sufrirá muchos cambios **</p>
                 <p>Mientras está en modo alpha, no mantendremos versiones anteriores</p>
               </div>
               <div class="doc-examples">
@@ -235,7 +233,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">14569484</span>,
   <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
   <span class="hljs-attr">&quot;merchant_category&quot;</span>: <span class="hljs-number">112</span>,
@@ -246,7 +247,8 @@
   },
   <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;MC_12312309123&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -331,7 +333,10 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;mc_voucher_type&quot;</span>: <span class="hljs-string">&quot;A&quot;</span>,
   <span class="hljs-attr">&quot;mc_voucher_data&quot;</span>: [
@@ -351,51 +356,68 @@
   },
   <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;MC_12312309123&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -461,7 +483,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">14569484</span>,
   <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
   <span class="hljs-attr">&quot;merchant_category&quot;</span>: <span class="hljs-number">112</span>,
@@ -472,7 +497,8 @@
   },
   <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;MC_12312309123&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -551,44 +577,60 @@
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(410 Gone)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -649,7 +691,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-number">1324</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">14569484</span>,
   <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
@@ -661,7 +706,8 @@
   },
   <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;MC_12312309123&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -746,7 +792,10 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;mc_voucher_type&quot;</span>: <span class="hljs-string">&quot;A&quot;</span>,
   <span class="hljs-attr">&quot;mc_voucher_data&quot;</span>: [
@@ -766,51 +815,68 @@
   },
   <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;MC_12312309123&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -875,7 +941,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-number">1324</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">14569484</span>,
   <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
@@ -887,7 +956,8 @@
   },
   <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;MC_12312309123&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -966,44 +1036,60 @@
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(410 Gone)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1149,7 +1235,10 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
   {
     <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
     <span class="hljs-attr">&quot;mc_voucher_type&quot;</span>: <span class="hljs-string">&quot;A&quot;</span>,
@@ -1171,40 +1260,53 @@
     <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;MC_12312309123&quot;</span>
   }
 ]
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1277,7 +1379,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;header&quot;</span>: {
     <span class="hljs-attr">&quot;entidad&quot;</span>: <span class="hljs-string">&quot;9603&quot;</span>,
     <span class="hljs-attr">&quot;centro_alta&quot;</span>: <span class="hljs-string">&quot;0001&quot;</span>,
@@ -1302,7 +1407,8 @@
   },
   <span class="hljs-attr">&quot;base64_data&quot;</span>: <span class="hljs-string">&quot;TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvS4==&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1375,33 +1481,45 @@
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1549,7 +1667,10 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;balance&quot;</span>: {
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
@@ -1564,51 +1685,68 @@
   },
   <span class="hljs-attr">&quot;updated&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1694,13 +1832,17 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1785,7 +1927,10 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;simulation_topup_web&quot;</span>: {
     <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
     <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La carga supera el monto m&#xE1;ximo carga&quot;</span>,
@@ -1843,51 +1988,68 @@
     }
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1973,14 +2135,18 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   },
   <span class="hljs-attr">&quot;method&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -2065,7 +2231,10 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;fee&quot;</span>: {
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
@@ -2075,51 +2244,68 @@
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -2252,7 +2438,10 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;processor_user_id&quot;</span>: <span class="hljs-string">&quot;43438500955156352167&quot;</span>,
   <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;517608XXXXXX4840&quot;</span>,
   <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;Pedro Perez&quot;</span>,
@@ -2263,40 +2452,53 @@
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -2422,33 +2624,45 @@
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -2574,33 +2788,45 @@
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -2712,7 +2938,10 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">123456</span>,
   <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">654321</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">11111111</span>,
@@ -2723,29 +2952,38 @@
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -2857,7 +3095,10 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">123456</span>,
   <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">654321</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">11111111</span>,
@@ -2868,29 +3109,38 @@
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3078,7 +3328,10 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
   {
     <span class="hljs-attr">&quot;date&quot;</span>: <span class="hljs-string">&quot;2018-10-05&quot;</span>,
     <span class="hljs-attr">&quot;exchange_rate&quot;</span>: <span class="hljs-number">650</span>,
@@ -3107,40 +3360,53 @@
     }
   }
 ]
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3171,13 +3437,19 @@
                 <section class="swagger-operation-description">
                   <p>Carga la informacion de las fotos de verificacion de identidad</p>
                   <ul>
-                    <li>CI lado frontal</li>
-                    <li>CI lado posterior</li>
+                    <li>
+                      <p>CI lado frontal</p>
+                    </li>
+                    <li>
+                      <p>CI lado posterior</p>
+                    </li>
                     <li>
                       <p>Selfie con CI</p>
                       <h3 id="responder-400-en-los-siguientes-casos-">Responderá <code>400</code> en los siguientes casos:</h3>
                     </li>
-                    <li>101004: Si falta un parametro requerido.</li>
+                    <li>
+                      <p>101004: Si falta un parametro requerido.</p>
+                    </li>
                   </ul>
                   <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
                   <ul>
@@ -3231,7 +3503,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;USER_CI_FRONTAL&quot;</span>: {
     <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;USER_CI_FRONTAL&quot;</span>,
     <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;image/jpeg&quot;</span>,
@@ -3248,7 +3523,8 @@
     <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/path/to/image&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3327,44 +3603,60 @@
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3395,18 +3687,34 @@
                 <section class="swagger-operation-description">
                   <p>Busca un mensaje en la cola y lo reinjecta en la cola en la cual falló las colas son </p>
                   <ul>
-                    <li>TopUp (Carga)</li>
-                    <li>WithDrawal (Retiro)</li>
-                    <li>PendingCreateCard (Obtencion de Datos y Creacion)</li>
-                    <li>ReverseTopup (Reversa Carga)</li>
-                    <li>ReverseWithdrawal (Reversa de Retiro)</li>
-                    <li>SendMail(Envio mail Tarjeta)</li>
-                    <li>PendingEmision (Alta Cliente)</li>
+                    <li>
+                      <p>TopUp (Carga)</p>
+                    </li>
+                    <li>
+                      <p>WithDrawal (Retiro)</p>
+                    </li>
+                    <li>
+                      <p>PendingCreateCard (Obtencion de Datos y Creacion)</p>
+                    </li>
+                    <li>
+                      <p>ReverseTopup (Reversa Carga)</p>
+                    </li>
+                    <li>
+                      <p>ReverseWithdrawal (Reversa de Retiro)</p>
+                    </li>
+                    <li>
+                      <p>SendMail(Envio mail Tarjeta)</p>
+                    </li>
+                    <li>
+                      <p>PendingEmision (Alta Cliente)</p>
+                    </li>
                     <li>
                       <p>IssuanceFee (Cobro de comision)</p>
                       <h3 id="responder-400-en-los-siguientes-casos-">Responderá <code>400</code> en los siguientes casos:</h3>
                     </li>
-                    <li>101004: Si falta un parametro requerido.</li>
+                    <li>
+                      <p>101004: Si falta un parametro requerido.</p>
+                    </li>
                   </ul>
                 </section>
               </div>
@@ -3433,11 +3741,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id_queue&quot;</span>: <span class="hljs-string">&quot;xkfuqwofklasjf&quot;</span>,
   <span class="hljs-attr">&quot;queues_name_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3516,44 +3828,60 @@
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3625,7 +3953,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;is_ci_valid&quot;</span>: <span class="hljs-string">&quot;Si&quot;</span>,
   <span class="hljs-attr">&quot;user_photo_matches_ci&quot;</span>: <span class="hljs-string">&quot;Si&quot;</span>,
   <span class="hljs-attr">&quot;name_and_lastname_matches_ci&quot;</span>: <span class="hljs-string">&quot;No&quot;</span>,
@@ -3634,7 +3965,8 @@
   <span class="hljs-attr">&quot;is_gsintel_ok&quot;</span>: <span class="hljs-string">&quot;Si&quot;</span>,
   <span class="hljs-attr">&quot;rut_matches_ci&quot;</span>: <span class="hljs-string">&quot;Si&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3725,7 +4057,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;template&quot;</span>: <span class="hljs-string">&quot;Prepago/ValidacionCorreo&quot;</span>,
   <span class="hljs-attr">&quot;template_data&quot;</span>: <span class="hljs-string">&quot;{&apos;saludo&apos;: &apos;Estimado Pepito&apos;, &apos;despedida&apos;: &apos;Chao!&apos;}&quot;</span>,
   <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
@@ -3737,7 +4072,8 @@
     }
   ]
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3788,22 +4124,30 @@
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -3944,7 +4288,10 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">123456</span>,
   <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">654321</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">11111111</span>,
@@ -3955,40 +4302,53 @@
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -4095,33 +4455,45 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;v1.0&quot;</span>,
   <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/prepaid/terms_and_conditions_v10&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -4193,11 +4565,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;v1.0&quot;</span>,
   <span class="hljs-attr">&quot;benefits_accepted&quot;</span>: <span class="hljs-literal">false</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -4276,44 +4652,60 @@
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -4435,7 +4827,10 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">123456</span>,
   <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">654321</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">11111111</span>,
@@ -4446,40 +4841,53 @@
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -4531,14 +4939,18 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   },
   <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;MC_12312309123&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -4611,7 +5023,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">14569484</span>,
   <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
   <span class="hljs-attr">&quot;merchant_category&quot;</span>: <span class="hljs-number">112</span>,
@@ -4622,7 +5037,8 @@
   },
   <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;MC_12312309123&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -4671,7 +5087,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;password&quot;</span>: <span class="hljs-number">1324</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">14569484</span>,
   <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
@@ -4683,7 +5102,8 @@
   },
   <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;MC_12312309123&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -4729,11 +5149,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;amount_paid&quot;</span>,
   <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;10.500&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -4838,7 +5262,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;mc_voucher_type&quot;</span>: <span class="hljs-string">&quot;A&quot;</span>,
   <span class="hljs-attr">&quot;mc_voucher_data&quot;</span>: [
@@ -4858,7 +5285,8 @@
   },
   <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;MC_12312309123&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -4894,7 +5322,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;mc_voucher_type&quot;</span>: <span class="hljs-string">&quot;A&quot;</span>,
   <span class="hljs-attr">&quot;mc_voucher_data&quot;</span>: [
@@ -4914,7 +5345,8 @@
   },
   <span class="hljs-attr">&quot;transaction_id&quot;</span>: <span class="hljs-string">&quot;MC_12312309123&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -4960,11 +5392,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">15776844</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5102,7 +5538,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
   <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">9012331</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Juan Carlos&quot;</span>,
@@ -5122,7 +5561,8 @@
   <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">15776844</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5164,11 +5604,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
   <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5230,13 +5674,17 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;entidad&quot;</span>: <span class="hljs-string">&quot;9603&quot;</span>,
   <span class="hljs-attr">&quot;centro_alta&quot;</span>: <span class="hljs-string">&quot;0001&quot;</span>,
   <span class="hljs-attr">&quot;cuenta&quot;</span>: <span class="hljs-string">&quot;000000012345&quot;</span>,
   <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;411111******1111&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5378,7 +5826,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;sd_currency_code&quot;</span>: <span class="hljs-number">152</span>,
   <span class="hljs-attr">&quot;sd_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
   <span class="hljs-attr">&quot;il_currency_code&quot;</span>: <span class="hljs-number">152</span>,
@@ -5394,7 +5845,8 @@
   <span class="hljs-attr">&quot;place_name&quot;</span>: <span class="hljs-string">&quot;Santiago&quot;</span>,
   <span class="hljs-attr">&quot;resolucion_tx&quot;</span>: <span class="hljs-number">100</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5450,7 +5902,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;header&quot;</span>: {
     <span class="hljs-attr">&quot;entidad&quot;</span>: <span class="hljs-string">&quot;9603&quot;</span>,
     <span class="hljs-attr">&quot;centro_alta&quot;</span>: <span class="hljs-string">&quot;0001&quot;</span>,
@@ -5475,7 +5930,8 @@
   },
   <span class="hljs-attr">&quot;base64_data&quot;</span>: <span class="hljs-string">&quot;TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvS4==&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5521,11 +5977,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
   <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5588,7 +6048,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;balance&quot;</span>: {
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
@@ -5603,7 +6066,8 @@
   },
   <span class="hljs-attr">&quot;updated&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5640,13 +6104,17 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5692,14 +6160,18 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;amount&quot;</span>: {
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   },
   <span class="hljs-attr">&quot;method&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5745,7 +6217,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;simulation_topup_web&quot;</span>: {
     <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
     <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La carga supera el monto m&#xE1;ximo carga&quot;</span>,
@@ -5803,7 +6278,8 @@
     }
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5902,7 +6378,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;La carga supera el monto m&#xE1;ximo carga&quot;</span>,
   <span class="hljs-attr">&quot;fee&quot;</span>: {
@@ -5930,7 +6409,8 @@
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -5976,7 +6456,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;fee&quot;</span>: {
     <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
@@ -5986,7 +6469,8 @@
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6034,11 +6518,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6133,7 +6621,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;processor_user_id&quot;</span>: <span class="hljs-string">&quot;43438500955156352167&quot;</span>,
   <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;517608XXXXXX4840&quot;</span>,
   <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;Pedro Perez&quot;</span>,
@@ -6144,7 +6635,8 @@
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6237,7 +6729,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">123456</span>,
   <span class="hljs-attr">&quot;user_id&quot;</span>: <span class="hljs-number">654321</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-number">11111111</span>,
@@ -6248,7 +6743,8 @@
     <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6431,7 +6927,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;date&quot;</span>: <span class="hljs-string">&quot;2018-10-05&quot;</span>,
   <span class="hljs-attr">&quot;exchange_rate&quot;</span>: <span class="hljs-number">650</span>,
   <span class="hljs-attr">&quot;commerce_code&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -6458,7 +6957,8 @@
     <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6502,11 +7002,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;v1.0&quot;</span>,
   <span class="hljs-attr">&quot;benefits_accepted&quot;</span>: <span class="hljs-literal">false</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6550,11 +7054,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;v1.0&quot;</span>,
   <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/prepaid/terms_and_conditions_v10&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6606,12 +7114,16 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;USER_CI_FRONTAL&quot;</span>,
   <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;image/jpeg&quot;</span>,
   <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/path/to/image&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6666,7 +7178,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;USER_CI_FRONTAL&quot;</span>: {
     <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;USER_CI_FRONTAL&quot;</span>,
     <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;image/jpeg&quot;</span>,
@@ -6683,7 +7198,8 @@
     <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/path/to/image&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6734,11 +7250,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id_queue&quot;</span>: <span class="hljs-string">&quot;xkfuqwofklasjf&quot;</span>,
   <span class="hljs-attr">&quot;queues_name_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6822,7 +7342,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;is_ci_valid&quot;</span>: <span class="hljs-string">&quot;Si&quot;</span>,
   <span class="hljs-attr">&quot;user_photo_matches_ci&quot;</span>: <span class="hljs-string">&quot;Si&quot;</span>,
   <span class="hljs-attr">&quot;name_and_lastname_matches_ci&quot;</span>: <span class="hljs-string">&quot;No&quot;</span>,
@@ -6831,7 +7354,8 @@
   <span class="hljs-attr">&quot;is_gsintel_ok&quot;</span>: <span class="hljs-string">&quot;Si&quot;</span>,
   <span class="hljs-attr">&quot;rut_matches_ci&quot;</span>: <span class="hljs-string">&quot;Si&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6885,12 +7409,16 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;file_name&quot;</span>: <span class="hljs-string">&quot;Test.pdf&quot;</span>,
   <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;application/pdf&quot;</span>,
   <span class="hljs-attr">&quot;content_file&quot;</span>: <span class="hljs-string">&quot;VGVzdA==&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -6965,7 +7493,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;template&quot;</span>: <span class="hljs-string">&quot;Prepago/ValidacionCorreo&quot;</span>,
   <span class="hljs-attr">&quot;template_data&quot;</span>: <span class="hljs-string">&quot;{&apos;saludo&apos;: &apos;Estimado Pepito&apos;, &apos;despedida&apos;: &apos;Chao!&apos;}&quot;</span>,
   <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
@@ -6977,7 +7508,8 @@
     }
   ]
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>

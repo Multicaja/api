@@ -122,19 +122,30 @@
                   <p>Servicio para poder crear una intención de pago. Los campos obligatorios son : </p>
                   <ul>
                     <li>
-                      <strong>reference_id</strong> : Es el
-                      <strong>ID</strong> interno del comercio.</li>
+                      <p>
+                        <strong>reference_id</strong> : Es el
+                        <strong>ID</strong> interno del comercio.</p>
+                    </li>
                     <li>
-                      <strong>user</strong> :: Se pueden enviar los datos de usuario como el correo. </li>
+                      <p>
+                        <strong>user</strong> :: Se pueden enviar los datos de usuario como el correo. </p>
+                    </li>
                     <li>
-                      <strong>amount</strong> : Datos del monto.</li>
+                      <p>
+                        <strong>amount</strong> : Datos del monto.</p>
+                    </li>
                     <li>
-                      <strong>description</strong> : Descripción de orden.</li>
+                      <p>
+                        <strong>description</strong> : Descripción de orden.</p>
+                    </li>
                     <li>
-                      <strong>urls</strong> : Url de redirección para los casos de éxito y error.</li>
+                      <p>
+                        <strong>urls</strong> : Url de redirección para los casos de éxito y error.</p>
+                    </li>
                     <li>
-                      <strong>methods</strong> : Lista de medios de pago habilitados ´[&quot;paypal&quot;,&quot;tarjetas&quot;]´ Nota: se puede usar
-                      <em> para utilizar todos los medios de pago, quedando el primer valor del arreglo como asterisco [&#39;</em>&#39;].</li>
+                      <p>
+                        <strong>methods</strong> : Lista de medios de pago habilitados ´[&quot;paypal&quot;,&quot;tarjetas&quot;]´ Nota: se puede usar * para utilizar todos los medios de pago, quedando el primer valor del arreglo como asterisco [&#39;*&#39;].</p>
+                    </li>
                     <li>
                       <p>
                         <strong>items</strong> : El campo item list contiene la siguiente lista de objetos los cuales pertenecen al detalle de la operación.</p>
@@ -146,8 +157,8 @@
                       <p>
                         <strong>customs</strong> : El campo item list contiene la siguiente lista de key/value los cuales son utiles en el caso de ocupar un webhook.</p>
                       <ul>
-                        <li>
-                          <strong>{ key : string, value : string } </strong>
+                        <li>*
+                          <em>{ key : string, value : string } *</em>
                         </li>
                       </ul>
                     </li>
@@ -184,7 +195,10 @@
                     <span>application/json</span>
                   </h5>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;reference_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
   <span class="hljs-attr">&quot;user&quot;</span>: {
     <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;example@multicaja.cl&quot;</span>
@@ -223,7 +237,8 @@
     <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -269,7 +284,10 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;pending&quot;</span>,
   <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-number">645646</span>,
   <span class="hljs-attr">&quot;redirect_url&quot;</span>: <span class="hljs-string">&quot;http://pagos.multicaja.cl/url_retorno&quot;</span>,
@@ -311,18 +329,23 @@
     <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;ERROR_CODE&quot;</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;{error_message}&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -426,7 +449,10 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;pending&quot;</span>,
   <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-number">645646</span>,
   <span class="hljs-attr">&quot;redirect_url&quot;</span>: <span class="hljs-string">&quot;http://pagos.multicaja.cl/url_retorno&quot;</span>,
@@ -468,18 +494,23 @@
     <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;ERROR_CODE&quot;</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;{error_message}&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -511,10 +542,14 @@
                   <p>Servicio para actualizar orden, permite actualizar los siguientes campos : </p>
                   <ul>
                     <li>
-                      <strong>reference_id</strong> : Es el
-                      <strong>ID</strong> interno del comercio.</li>
+                      <p>
+                        <strong>reference_id</strong> : Es el
+                        <strong>ID</strong> interno del comercio.</p>
+                    </li>
                     <li>
-                      <strong>description</strong> : Descripción de orden.</li>
+                      <p>
+                        <strong>description</strong> : Descripción de orden.</p>
+                    </li>
                     <li>
                       <p>
                         <strong>items</strong> : El campo item list contiene la siguiente lista de objetos los cuales pertenecen al detalle de la operación.</p>
@@ -585,7 +620,10 @@
                     <span>application/json</span>
                   </h5>
                   <h5>Request Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;reference_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
   <span class="hljs-attr">&quot;user&quot;</span>: {
     <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;example@multicaja.cl&quot;</span>
@@ -624,7 +662,8 @@
     <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -670,7 +709,10 @@
                   <h5>Response Example
                     <span>(201 Created)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;pending&quot;</span>,
   <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-number">645646</span>,
   <span class="hljs-attr">&quot;redirect_url&quot;</span>: <span class="hljs-string">&quot;http://pagos.multicaja.cl/url_retorno&quot;</span>,
@@ -712,18 +754,23 @@
     <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;ERROR_CODE&quot;</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;{error_message}&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -835,22 +882,30 @@
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;ERROR_CODE&quot;</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;{error_message}&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(410 Gone)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;ERROR_CODE&quot;</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;{error_message}&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -945,24 +1000,32 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
   {
     <span class="hljs-attr">&quot;payment_method&quot;</span>: <span class="hljs-string">&quot;paypal&quot;</span>,
     <span class="hljs-attr">&quot;payment_max_amount&quot;</span>: <span class="hljs-number">40000</span>
   }
 ]
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
                 <section>
                   <h5>Response Example
                     <span>(410 Gone)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;ERROR_CODE&quot;</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;{error_message}&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -993,10 +1056,14 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;example@multicaja.cl&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1113,7 +1180,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;reference_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
   <span class="hljs-attr">&quot;user&quot;</span>: {
     <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;example@multicaja.cl&quot;</span>
@@ -1152,7 +1222,8 @@
     <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1209,7 +1280,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;pending&quot;</span>,
   <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-number">645646</span>,
   <span class="hljs-attr">&quot;redirect_url&quot;</span>: <span class="hljs-string">&quot;http://pagos.multicaja.cl/url_retorno&quot;</span>,
@@ -1251,7 +1325,8 @@
     <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1312,7 +1387,10 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;currency&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
   <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">41000</span>,
   <span class="hljs-attr">&quot;details&quot;</span>: {
@@ -1321,7 +1399,8 @@
     <span class="hljs-attr">&quot;tax&quot;</span>: <span class="hljs-number">1000</span>
   }
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1356,11 +1435,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;cardId&quot;</span>,
   <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1306374&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1410,14 +1493,18 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;code&quot;</span>,
   <span class="hljs-attr">&quot;price&quot;</span>: <span class="hljs-number">39000</span>,
   <span class="hljs-attr">&quot;unit_price&quot;</span>: <span class="hljs-number">13000</span>,
   <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-number">3</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1454,11 +1541,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;return_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/return_url&quot;</span>,
   <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1493,11 +1584,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;payment_method&quot;</span>: <span class="hljs-string">&quot;paypal&quot;</span>,
   <span class="hljs-attr">&quot;payment_max_amount&quot;</span>: <span class="hljs-number">40000</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
@@ -1538,11 +1633,15 @@
               <div class="doc-examples">
                 <section>
                   <h5>Example</h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;ERROR_CODE&quot;</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;{error_message}&quot;</span>
 }
-</code></pre>
+</code></pre> </body>
+                  </html>
                   <!-- </div> -->
                 </section>
               </div>
