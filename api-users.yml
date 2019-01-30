@@ -758,6 +758,8 @@ paths:
       description: |
         Crea una nueva cuenta bancaria para este cliente
         
+        * Solo incluir el campo `rut` si la cuenta a crear no pertenece al cliente.
+        
         * La terna (`account.bank_id`, `account.acc_type`, `account.acc_number`) debe ser única para este usuario. De lo contrario, el servicio retornará `405`
       parameters:
         - in: path
@@ -787,6 +789,28 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
   /users/{user_id}/bank_accounts/{acc_id}:
+    get:
+      summary: Detalle
+      tags: 
+        - cuentas
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del usuario
+          required: true
+          type: "integer"
+        - in: path
+          name: acc_id
+          description: ID de la cuenta
+          required: true
+          type: "integer"
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/bank_account'
+        '404':
+          description: Cliente o Cuenta no existen
     delete:
       summary: Eliminar
       tags: 
@@ -1640,63 +1664,83 @@ definitions:
     description: Cuenta bancaria personal **(Request)**
     required:
       - bank_id
-      - acc_type
-      - acc_number
+      - account_type
+      - account_number
+      - account_alias
     properties:
       bank_id:
         type: integer
         description: ID del banco (revisar /params/banks)
         example: 4
-      acc_type:
+      account_type:
         type: string
         description: Tipo de cuenta
         enum:
           - vista
           - corriente
           - ahorro
-      acc_number:
+      account_number:
         type: string
         description: Número de cuenta sin puntos, guiones, ni ceros a la izquierda
+      account_alias:
+        type: string
+        description: Alias de la cuenta
+      rut:
+        type: integer
+        description: El rut sin puntos, guión, ni dígito verificador
   bank_account:
     type: object
     description: Cuenta bancaria personal **(Response)**
-    allOf:
-      - $ref: "#/definitions/bank_account_new"
-      - type: object
-        required:
-          - id
-          - status
-          - timestamps
+    required:
+      - id
+      - status
+      - timestamps
+    properties:
+      id:
+        type: integer
+        description: Identificador interno. Campo read-only.
+        example: 7783834
+      bank_id:
+        type: integer
+        description: ID del banco (revisar /params/banks)
+        example: 4
+      bank_name:
+        type: string
+        description: Nombre del banco
+        example: Mi Banco
+      account_type:
+        type: string
+        description: Tipo de cuenta
+        enum:
+          - vista
+          - corriente
+          - ahorro
+      account_number:
+        type: string
+        description: Número de cuenta sin puntos, guiones, ni ceros a la izquierda
+      status:
+        type: string
+        enum:
+          - no_validada
+          - validada
+        description: |
+          Estado de validación de la cuenta
+          * no_validada: estado por defecto
+          * validada: el usuario hizo una aviso de depósito seguido de una transferencia desde esta cuenta
+      rut:
+        type: object
+        description: Número de rut asociado a la cuenta
         properties:
-          id:
+          value:
             type: integer
-            description: Identificador interno. Campo read-only.
-            example: 7783834
-          bank_id:
-            type: integer
-            description: ID del banco (revisar /params/banks)
-            example: 4
-          acc_type:
+            description: El rut sin puntos, guión, ni dígito verificador
+            example: 14569484
+          dv:
             type: string
-            description: Tipo de cuenta
-            enum:
-              - vista
-              - corriente
-              - ahorro
-          acc_number:
-            type: string
-            description: Número de cuenta sin puntos, guiones, ni ceros a la izquierda
-          status:
-            type: string
-            enum:
-              - no_validada
-              - validada
-            description: |
-              Estado de validación de la cuenta
-              * no_validada: estado por defecto
-              * validada: el usuario hizo una aviso de depósito seguido de una transferencia desde esta cuenta
-          timestamps:
-            $ref: '#/definitions/timestamps'
+            description: digito verificador
+            example: "K"
+      timestamps:
+        $ref: '#/definitions/timestamps'
   parameter:
     type: object
     required:
