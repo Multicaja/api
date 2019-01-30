@@ -77,6 +77,9 @@
               <li>
                 <a href="#operation--prepaid--user_id--identity_verification-post"> Procesa la validación de identidad realizada en Freshdesk </a>
               </li>
+              <li>
+                <a href="#operation--prepaid--user_id--mail-post"> Enviar correo al cliente </a>
+              </li>
             </ul>
           </section>
           <section>
@@ -131,6 +134,8 @@
           <a href="#definition-prepaid_identity_verification_files_new"> prepaid_identity_verification_files_new </a>
           <a href="#definition-reproces_queue"> reproces_queue </a>
           <a href="#definition-prepaid_identity_verification_new"> prepaid_identity_verification_new </a>
+          <a href="#definition-email_attachment_new"> email_attachment_new </a>
+          <a href="#definition-email_new"> email_new </a>
         </nav>
       </div>
       <div id="docs" class="row collapse expanded drawer" data-drawer>
@@ -3650,6 +3655,160 @@
               <div class="doc-examples"> </div>
             </div>
           </div>
+          <div id="operation--prepaid--user_id--mail-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--mail-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-prepaid">prepaid</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Enviar correo al cliente</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/prepaid/{user_id}/mail</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Envía comunicacion al email del cliente.</p>
+                  <h3 id="notas">Notas</h3>
+                  <ul>
+                    <li>Si el template indicado es <code>Prepago/EnvioTarjeta</code>, entonces se envia la tarjeta como adjunto al mail cliente.</li>
+                  </ul>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/email_new">email_new</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Correo electrónico a enviar</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">user_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">integer</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID del usuario</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;template&quot;</span>: <span class="hljs-string">&quot;Prepago/ValidacionCorreo&quot;</span>,
+  <span class="hljs-attr">&quot;template_data&quot;</span>: <span class="hljs-string">&quot;{&apos;saludo&apos;: &apos;Estimado Pepito&apos;, &apos;despedida&apos;: &apos;Chao!&apos;}&quot;</span>,
+  <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
+  <span class="hljs-attr">&quot;attachments&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;file_name&quot;</span>: <span class="hljs-string">&quot;Test.pdf&quot;</span>,
+      <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;application/pdf&quot;</span>,
+      <span class="hljs-attr">&quot;content_file&quot;</span>: <span class="hljs-string">&quot;VGVzdA==&quot;</span>
+    }
+  ]
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">202 Accepted</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Accepted</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Cliente no existe</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">422 Unprocessable Entity</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>El mail contiene datos inválidos</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(422 Unprocessable Entity)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
           <h1 id="tag-prepaid-signup" class="swagger-summary-tag" data-traverse-target="tag-prepaid-signup">prepaid-signup</h1>
           <div class="tag-description doc-row">
             <div class="doc-copy">
@@ -6671,6 +6830,152 @@
   <span class="hljs-attr">&quot;new_lastname&quot;</span>: <span class="hljs-string">&quot;Perez&quot;</span>,
   <span class="hljs-attr">&quot;is_gsintel_ok&quot;</span>: <span class="hljs-string">&quot;Si&quot;</span>,
   <span class="hljs-attr">&quot;rut_matches_ci&quot;</span>: <span class="hljs-string">&quot;Si&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-email_attachment_new" class="definition panel" data-traverse-target="definition-email_attachment_new">
+            <h2 class="panel-title">
+              <a name="/definitions/email_attachment_new"></a>email_attachment_new: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Archivo a adjuntar en un email</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="file_name" class="has-description">
+                      <span class="json-property-name">file_name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Nombre del archivo</p>
+                    </dd>
+                    <dt data-property-name="mime_type" class="has-description">
+                      <span class="json-property-name">mime_type:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>MimeType del archivo</p>
+                    </dd>
+                    <dt data-property-name="content_file" class="has-description">
+                      <span class="json-property-name">content_file:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>El texto del contenido en base64 no debe contener <code>data:image/jpeg;base64</code>, Solo el cuerpo del archivo</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;file_name&quot;</span>: <span class="hljs-string">&quot;Test.pdf&quot;</span>,
+  <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;application/pdf&quot;</span>,
+  <span class="hljs-attr">&quot;content_file&quot;</span>: <span class="hljs-string">&quot;VGVzdA==&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-email_new" class="definition panel" data-traverse-target="definition-email_new">
+            <h2 class="panel-title">
+              <a name="/definitions/email_new"></a>email_new: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Email
+                    <strong>(Request)</strong>
+                  </p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="template" class="has-description">
+                      <span class="json-property-name">template:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Tipo de correo electrónico a enviar</p>
+                    </dd>
+                    <dt data-property-name="template_data" class="has-description">
+                      <span class="json-property-name">template_data:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>JSON con tantos pares llave-valor como requiera el template del correo a enviar</p>
+                    </dd>
+                    <dt data-property-name="address" class="has-description">
+                      <span class="json-property-name">address:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Correo electrónico al que se enviará este mensaje. Si no se incluye este campo, se usará el campo <code>email.value</code> del Cliente.</p>
+                    </dd>
+                    <dt data-property-name="attachments">
+                      <span class="json-property-name">attachments:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/email_attachment_new">email_attachment_new</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/email_attachment_new">email_attachment_new</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;template&quot;</span>: <span class="hljs-string">&quot;Prepago/ValidacionCorreo&quot;</span>,
+  <span class="hljs-attr">&quot;template_data&quot;</span>: <span class="hljs-string">&quot;{&apos;saludo&apos;: &apos;Estimado Pepito&apos;, &apos;despedida&apos;: &apos;Chao!&apos;}&quot;</span>,
+  <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;pepito@gmail.com&quot;</span>,
+  <span class="hljs-attr">&quot;attachments&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;file_name&quot;</span>: <span class="hljs-string">&quot;Test.pdf&quot;</span>,
+      <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;application/pdf&quot;</span>,
+      <span class="hljs-attr">&quot;content_file&quot;</span>: <span class="hljs-string">&quot;VGVzdA==&quot;</span>
+    }
+  ]
 }
 </code></pre>
                   <!-- </div> -->
