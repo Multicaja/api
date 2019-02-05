@@ -8,7 +8,7 @@ info:
   title: API de Pagos de Multicaja
   # put the contact info for your development or API team
   contact:
-    email: matias.salinas@multicaja.cl
+    email: mario.gonzales@multicaja.cl
     
 
 consumes:
@@ -32,34 +32,33 @@ paths:
       description: |
         Servicio para poder crear una intención de pago.
         Los campos obligatorios son : 
-        
-          * **reference_id** : Es el **ID** interno del comercio.
-          * **user** :: Se pueden enviar los datos de usuario como el correo. 
-          * **amount** : Datos del monto.
-          * **description** : Descripción de orden.
-          * **urls** : Url de redirección para los casos de éxito y error.
-          * **methods** : Lista de medios de pago habilitados ´["paypal","tarjetas"]´ 
-          Nota: se puede usar * para utilizar todos los medios de pago, quedando el primer valor del arreglo como asterisco ['*'].
-          * **items** : El campo item list contiene la siguiente lista de objetos los cuales pertenecen al detalle de la operación.
-          
-            { 
-              name : string,
-              code : string,
-              price : number,
-              quantity : number
-            }
-          
-          **Son opcionales y dependen del negocio**: 
-          * **customs**  : 
-            El campo item list contiene la siguiente lista de key/value los cuales son utiles en el caso de ocupar un webhook.
-            
-            * **{ 
-              key : string,
-              value : string
-            } **
-          
-          * **urls** : Son las url de retorno en caso de que la operación se relice con éxito o error.
-          
+        * **reference_id**: **ID** interno del comercio.
+        * **user**: Lista con propiedades del usuario (ej. `"email": "example@multicaja.cl"`).
+        * **amount** : Lista con propiedades de montos a pagar.
+          * **currency**: Tipo de modeda (ej.: `CLP`)
+          * **total**: Total a pagar incluyendo impuestos.
+          * **details**: Lista con propiedades de detalles de montos de pago.
+            * **subtotal**: Suma total monto de items antes de impuestos.
+            * **fee**: Comisión aplicado al subtotal.
+            * **tax**: Impuesto aplicado al subtotal.
+        * **methods** : Lista con textos de medios de pago habilitados, utilizando caracter asterisco para considerar todos los medios de pago. (ej.: ´["paypal","tarjetas"]´, `['*']`).
+        * **items**: Lista con propiedades de productos/servicios a adquirir. Son opcionales y dependen del negocio.
+          * **name**: Nombre.
+          * **code**: Codigo.
+          * **price**: Suma del precio total de unidades del producto.
+          * **unitPrice**: Precio unitario.
+          * **quantity**: Cantidad de productos.
+        * **description**: Descripción de orden.
+        * **customs**: lista de propiedades llave/valor necesarios para ejecutar un webhook (ej. `"key": "cardId", "value": "123456"`).
+          * **key**: Identificador de propiedad.
+          * **value**: Valor de propidad.
+        * **urls** : Url de redirección para los casos de éxito y error.
+          * **return_url**: URL de retorno a página de e-commerce en caso de una compra exitosa.
+          * **cancel_url**: URL de retorno a página de e-commerce en caso de una compra fallida.
+        * **webhooks** : APIs REST requeridas dentro del flujo de creación de una orden, las cuales en su ausencia, son obtenidas desde DB.
+          * **webhook_request_process** : Utilizado en etapa de solicitud de creación de una orden.
+          * **webhook_confirm** : Ejecutado en etapa de confirmación/notificación de orden.
+          * **webhook_reject** : Usado cuando orden ha sido rechazada en cualquiera de sus etapas.
       parameters:
       - in: body
         required: true
@@ -80,12 +79,24 @@ paths:
           description: Parametros de entrada incorrectos
           schema:
             $ref: '#/definitions/ErrorModel'
+        403: 
+          description: Prohibido continuar
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        500: 
+          description: Error interno en procesamiento
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        502: 
+          description: Error en respuesta de servicio
+          schema:
+            $ref: '#/definitions/ErrorModel'
   /payments/v1.0/orders/{order_id}:
     get:
       tags:
       - transaccional
       description: |
-        Servicio para poder obtener detalles de la orden y su estado actual
+        Servicio para poder obtener detalles de la orden y su estado actual.
       summary: Obtener el estado de la orden
       operationId: addInventory
       consumes:
@@ -107,40 +118,40 @@ paths:
           description: Parametros de entrada incorrectos
           schema:
             $ref: '#/definitions/ErrorModel'
+        403: 
+          description: Prohibido continuar
+          schema:
+            $ref: '#/definitions/ErrorModel'
         404:
-          description: error obtención de datos
+          description: Error obtención de datos
+        500: 
+          description: Error interno en procesamiento
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        502: 
+          description: Error en respuesta de servicio
+          schema:
+            $ref: '#/definitions/ErrorModel'
     put:
       tags:
       - transaccional
       summary: Actualizar la orden
       description: |
-        Servicio para actualizar orden, permite actualizar los siguientes campos :  
-        
-          * **reference_id** : Es el **ID** interno del comercio.
-          * **description** : Descripción de orden.
-          * **items** : El campo item list contiene la siguiente lista de objetos los cuales pertenecen al detalle de la operación.
-          
-            * **{ 
-              name : string,
-              code : string,
-              price : string,
-              quantity : string
-            }** 
-          
-          * **customs**  : 
-            El campo item list contiene la siguiente lista de key/value los cuales son utiles en el caso de ocupar un webhook.
-            
-            * **{ 
-              key : string,
-              value : string
-            }** 
-            
-          
-          * **urls** : Son las url de retorno en caso de que la operación se relice con éxito o error.
-          
-          
-          **NOTA:** Esta operación solo esta permitida con ordenes pendientes de pago.
-          
+        Servicio para actualizar ordenes pendientes de pago, permitiendo actualizar los siguientes campos:
+        * **reference_id**: **ID** interno del comercio.
+        * **items**: Lista con propiedades de productos/servicios a adquirir. Son opcionales y dependen del negocio.
+          * **name**: Nombre.
+          * **code**: Codigo.
+          * **price**: Suma del precio total de unidades del producto.
+          * **unitPrice**: Precio unitario.
+          * **quantity**: Cantidad de productos.
+        * **description**: Descripción de orden.
+        * **customs**: lista de propiedades llave/valor necesarios para ejecutar un webhook (ej. `"key": "cardId", "value": "123456"`).
+          * **key**: Identificador de propiedad.
+          * **value**: Valor de propidad.
+        * **urls** : Url de redirección para los casos de éxito y error.
+          * **return_url**: URL de retorno a página de e-commerce en caso de una compra exitosa.
+          * **cancel_url**: URL de retorno a página de e-commerce en caso de una compra fallida.
       parameters:
         - in: path
           name: order_id
@@ -166,7 +177,6 @@ paths:
           description: Parametros de entrada incorrectos
           schema:
             $ref: '#/definitions/ErrorModel'
-      
     delete:
       tags:
       - transaccional
@@ -219,8 +229,7 @@ paths:
           description: La orden fue anulada.
           schema:
             $ref: '#/definitions/ErrorModel' 
-        
-  
+
 definitions:
 
   userModel:
@@ -229,7 +238,7 @@ definitions:
       email:
         type: string
         example: "example@multicaja.cl"
-      
+  
   ordersModel:
     type: object
     required:
@@ -266,6 +275,8 @@ definitions:
           $ref: '#/definitions/customModel'
       urls:
         $ref: '#/definitions/urlModel'
+      webhooks:
+        $ref: '#/definitions/webhookModel'
 
   orderModelResponse:
     allOf:
@@ -352,6 +363,24 @@ definitions:
       cancel_url:
           type: string
           example: "http://multicaja.cl/cancel_url"
+          maximum: 300
+          
+  webhookModel:
+    required:
+      - webhook_request_process 
+      - webhook_confirm
+    properties:
+      webhook_request_process:
+          type: string
+          example: "http://multicaja.cl/request_url"
+          maximum: 300
+      webhook_confirm:
+          type: string
+          example: "http://multicaja.cl/confirm_url"
+          maximum: 300
+      webhook_reject:
+          type: string
+          example: "http://multicaja.cl/reject_url"
           maximum: 300
           
   paymentMethodItemObject:
