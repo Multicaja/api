@@ -20,8 +20,6 @@ produces:
 tags:
 - name: transaccional
   description: Opciones de la  Orden
-- name: general
-  description: Información transversal de todos los medios de pago
 
 paths:
   /payments/v1.0/orders:
@@ -132,51 +130,6 @@ paths:
           description: Error en respuesta de servicio
           schema:
             $ref: '#/definitions/ErrorModel'
-    put:
-      tags:
-      - transaccional
-      summary: Actualizar la orden
-      description: |
-        Servicio para actualizar ordenes pendientes de pago, permitiendo actualizar los siguientes campos:
-        * **reference_id**: **ID** interno del comercio.
-        * **items**: Lista con propiedades de productos/servicios a adquirir. Son opcionales y dependen del negocio.
-          * **name**: Nombre.
-          * **code**: Codigo.
-          * **price**: Suma del precio total de unidades del producto.
-          * **unitPrice**: Precio unitario.
-          * **quantity**: Cantidad de productos.
-        * **description**: Descripción de orden.
-        * **customs**: lista de propiedades llave/valor necesarios para ejecutar un webhook (ej. `"key": "cardId", "value": "123456"`).
-          * **key**: Identificador de propiedad.
-          * **value**: Valor de propidad.
-        * **urls** : Url de redirección para los casos de éxito y error.
-          * **return_url**: URL de retorno a página de e-commerce en caso de una compra exitosa.
-          * **cancel_url**: URL de retorno a página de e-commerce en caso de una compra fallida.
-      parameters:
-        - in: path
-          name: order_id
-          description: ID de orden
-          required: true
-          type: number
-        - in: body
-          required: true
-          name: body
-          description: Parametros de entrada para el comercio
-          schema:
-            $ref: '#/definitions/ordersModel'
-      consumes:
-      - application/json    
-      produces:
-      - application/json
-      responses:
-        201:
-          description: Orden creada con éxito
-          schema:
-            $ref: '#/definitions/orderModelResponse'
-        400:
-          description: Parametros de entrada incorrectos
-          schema:
-            $ref: '#/definitions/ErrorModel'
     delete:
       tags:
       - transaccional
@@ -206,29 +159,6 @@ paths:
             $ref: '#/definitions/ErrorModel'
         404:
           description: error orden no existe
- 
-  /payments/v1.0/general/paymentmethods:
-    get:
-      tags:
-      - general
-      summary: Obtener lista de medios de pago
-      description: |
-        Muestra una lista de medios de pago.
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      responses:
-        200:
-          description: ok
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/paymentMethodItemObject'  
-        410:
-          description: La orden fue anulada.
-          schema:
-            $ref: '#/definitions/ErrorModel' 
 
 definitions:
 
