@@ -1222,7 +1222,8 @@ definitions:
           Saldo disponible: Código ISO 4217 (numeric) de la moneda
         example: 152
       sd_value:
-        type: double
+        type: number
+        format: double
         description: |
           Saldo disponible: Monto en formato decimal
         example: 1000.01
@@ -1233,7 +1234,8 @@ definitions:
           Importe local: Código ISO 4217 (numeric) de la moneda
         example: 152
       il_value:
-        type: double
+        type: number
+        format: double
         description: |
           Importe local: Monto en formato decimal
         example: 1000.01
@@ -1244,7 +1246,8 @@ definitions:
           Importe divisa: Código ISO 4217 (numeric) de la moneda
         example: 152
       id_value:
-        type: double
+        type: number
+        format: double
         description: |
           Importe divisa: Monto en formato decimal
         example: 1000.01
