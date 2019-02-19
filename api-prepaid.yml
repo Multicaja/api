@@ -1192,22 +1192,23 @@ definitions:
     properties:
       entidad:
         type: string
-        description: Código de entidad en el procesador
+        description: |
+          Código de entidad en el procesador. (máx. 4 dígitos)
         example: "9603"
         maxLength: 4
       centro_alta:
         type: string
-        description: Sucursal donde se dio de alta al cliente. 4 dígitos.
+        description: Sucursal donde se dio de alta al cliente. (máx. 4 dígitos)
         example: "0001"
         maxLength: 4
       cuenta:
         type: string
-        description: Identificador del cliente. 12 dígitos.
+        description: Identificador del cliente. (máx. 12 dígitos)
         example: "000000012345"
         maxLength: 12
       pan:
         type: string
-        description: PAN truncado.
+        description: PAN truncado. (máx. 22 dígitos)
         example: "411111******1111"
         maxLength: 22
   raw_transaction_body_new:
@@ -1262,13 +1263,13 @@ definitions:
       # CODFUC
       merchant_code:
         type: string
-        description: Código único que identifica al comercio
+        description: Código único que identifica al comercio. (máx. 15 dígitos)
         example: "0008902131"
         maxLength: 15
       # LIT-NOMBRE
       merchant_name:
         type: string
-        description: Nombre del comercio
+        description: Nombre del comercio. (máx. 30 caracteres)
         example: "AMAZON UK"
         maxLength: 30
       # LIT-CD-PAIS
@@ -1278,13 +1279,13 @@ definitions:
         example: 152
       country_description:
         type: string
-        description: Nombre del país en español
+        description: Nombre del país en español. (máx. 30 caracteres)
         example: "República de Chile"
         maxLength: 30
       # LIT-CIUDAD
       place_name:
         type: string
-        description: Nombre del lugar donde ocurrió el movimiento
+        description: Nombre del lugar donde ocurrió el movimiento. (máx. 26 caracteres)
         example: "Santiago"
         maxLength: 26
       resolucion_tx: # RSL-SIA-CD
