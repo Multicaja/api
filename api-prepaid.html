@@ -1336,7 +1336,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-description">
                   <p>
-                    <strong>Mensaje invocado por el procesador emisor</strong>
+                    <strong>Mensaje invocado por el procesador/emisor</strong>
                   </p>
                   <p>Notifica una transacción ocurrida en una tarjeta de prepago</p>
                   <p>Para invocar este servicio se debe incluir el API Key en el header
@@ -1391,11 +1391,11 @@
   },
   <span class="hljs-attr">&quot;body&quot;</span>: {
     <span class="hljs-attr">&quot;sd_currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;sd_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+    <span class="hljs-attr">&quot;sd_value&quot;</span>: <span class="hljs-number">1000.01</span>,
     <span class="hljs-attr">&quot;il_currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;il_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+    <span class="hljs-attr">&quot;il_value&quot;</span>: <span class="hljs-number">1000.01</span>,
     <span class="hljs-attr">&quot;id_currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;id_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+    <span class="hljs-attr">&quot;id_value&quot;</span>: <span class="hljs-number">1000.01</span>,
     <span class="hljs-attr">&quot;tipo_tx&quot;</span>: <span class="hljs-number">100</span>,
     <span class="hljs-attr">&quot;id_mensaje&quot;</span>: <span class="hljs-number">1200</span>,
     <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0008902131&quot;</span>,
@@ -5640,6 +5640,7 @@
                       <span class="json-property-name">entidad:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 4 chars) </span>
                     </dt>
                     <dd>
                       <p>Código de entidad en el procesador</p>
@@ -5648,6 +5649,7 @@
                       <span class="json-property-name">centro_alta:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 4 chars) </span>
                     </dt>
                     <dd>
                       <p>Sucursal donde se dio de alta al cliente. 4 dígitos.</p>
@@ -5656,6 +5658,7 @@
                       <span class="json-property-name">cuenta:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 12 chars) </span>
                     </dt>
                     <dd>
                       <p>Identificador del cliente. 12 dígitos.</p>
@@ -5664,6 +5667,7 @@
                       <span class="json-property-name">pan:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 22 chars) </span>
                     </dt>
                     <dd>
                       <p>PAN truncado.</p>
@@ -5718,7 +5722,8 @@
                     </dd>
                     <dt data-property-name="sd_value" class="has-description">
                       <span class="json-property-name">sd_value:</span>
-                      <span class="json-property-type">string</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-format">(double)</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
@@ -5734,7 +5739,8 @@
                     </dd>
                     <dt data-property-name="il_value" class="has-description">
                       <span class="json-property-name">il_value:</span>
-                      <span class="json-property-type">string</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-format">(double)</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
@@ -5750,7 +5756,8 @@
                     </dd>
                     <dt data-property-name="id_value" class="has-description">
                       <span class="json-property-name">id_value:</span>
-                      <span class="json-property-type">string</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-format">(double)</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
@@ -5776,6 +5783,7 @@
                       <span class="json-property-name">merchant_code:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 15 chars) </span>
                     </dt>
                     <dd>
                       <p>Código único que identifica al comercio</p>
@@ -5784,6 +5792,7 @@
                       <span class="json-property-name">merchant_name:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 30 chars) </span>
                     </dt>
                     <dd>
                       <p>Nombre del comercio</p>
@@ -5800,6 +5809,7 @@
                       <span class="json-property-name">country_description:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 30 chars) </span>
                     </dt>
                     <dd>
                       <p>Nombre del país en español</p>
@@ -5808,6 +5818,7 @@
                       <span class="json-property-name">place_name:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 26 chars) </span>
                     </dt>
                     <dd>
                       <p>Nombre del lugar donde ocurrió el movimiento</p>
@@ -5831,11 +5842,11 @@
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;sd_currency_code&quot;</span>: <span class="hljs-number">152</span>,
-  <span class="hljs-attr">&quot;sd_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+  <span class="hljs-attr">&quot;sd_value&quot;</span>: <span class="hljs-number">1000.01</span>,
   <span class="hljs-attr">&quot;il_currency_code&quot;</span>: <span class="hljs-number">152</span>,
-  <span class="hljs-attr">&quot;il_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+  <span class="hljs-attr">&quot;il_value&quot;</span>: <span class="hljs-number">1000.01</span>,
   <span class="hljs-attr">&quot;id_currency_code&quot;</span>: <span class="hljs-number">152</span>,
-  <span class="hljs-attr">&quot;id_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+  <span class="hljs-attr">&quot;id_value&quot;</span>: <span class="hljs-number">1000.01</span>,
   <span class="hljs-attr">&quot;tipo_tx&quot;</span>: <span class="hljs-number">100</span>,
   <span class="hljs-attr">&quot;id_mensaje&quot;</span>: <span class="hljs-number">1200</span>,
   <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0008902131&quot;</span>,
@@ -5914,11 +5925,11 @@
   },
   <span class="hljs-attr">&quot;body&quot;</span>: {
     <span class="hljs-attr">&quot;sd_currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;sd_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+    <span class="hljs-attr">&quot;sd_value&quot;</span>: <span class="hljs-number">1000.01</span>,
     <span class="hljs-attr">&quot;il_currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;il_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+    <span class="hljs-attr">&quot;il_value&quot;</span>: <span class="hljs-number">1000.01</span>,
     <span class="hljs-attr">&quot;id_currency_code&quot;</span>: <span class="hljs-number">152</span>,
-    <span class="hljs-attr">&quot;id_value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>,
+    <span class="hljs-attr">&quot;id_value&quot;</span>: <span class="hljs-number">1000.01</span>,
     <span class="hljs-attr">&quot;tipo_tx&quot;</span>: <span class="hljs-number">100</span>,
     <span class="hljs-attr">&quot;id_mensaje&quot;</span>: <span class="hljs-number">1200</span>,
     <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0008902131&quot;</span>,
