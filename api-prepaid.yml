@@ -382,7 +382,7 @@ paths:
       tags: 
         - prepaid
       description: |
-        **Mensaje invocado por el procesador emisor**
+        **Mensaje invocado por el procesador/emisor**
 
         Notifica una transacción ocurrida en una tarjeta de prepago
 
@@ -1194,19 +1194,22 @@ definitions:
         type: string
         description: Código de entidad en el procesador
         example: "9603"
+        maxLength: 4
       centro_alta:
         type: string
         description: Sucursal donde se dio de alta al cliente. 4 dígitos.
         example: "0001"
+        maxLength: 4
       cuenta:
         type: string
         description: Identificador del cliente. 12 dígitos.
         example: "000000012345"
+        maxLength: 12
       pan:
         type: string
         description: PAN truncado.
         example: "411111******1111"
-
+        maxLength: 22
   raw_transaction_body_new:
     type: object
     description: |
@@ -1219,10 +1222,11 @@ definitions:
           Saldo disponible: Código ISO 4217 (numeric) de la moneda
         example: 152
       sd_value:
-        type: string
+        type: number
+        format: double
         description: |
           Saldo disponible: Monto en formato decimal
-        example: "1000.00"
+        example: 1000.01
       # il: Importe local. OPE-SIA-IM + COD-MONEDA
       il_currency_code:
         type: integer
@@ -1230,10 +1234,11 @@ definitions:
           Importe local: Código ISO 4217 (numeric) de la moneda
         example: 152
       il_value:
-        type: string
+        type: number
+        format: double
         description: |
           Importe local: Monto en formato decimal
-        example: "1000.00"
+        example: 1000.01
       # id: Importe divisa. OPE-DIV-IM + COD-MONEDA-DIV
       id_currency_code:
         type: integer
@@ -1241,10 +1246,11 @@ definitions:
           Importe divisa: Código ISO 4217 (numeric) de la moneda
         example: 152
       id_value:
-        type: string
+        type: number
+        format: double
         description: |
           Importe divisa: Monto en formato decimal
-        example: "1000.00"
+        example: 1000.01
       tipo_tx: # OPE-SIA-CD
         type: integer
         description: Código que identifica el tipo de transacción
@@ -1258,11 +1264,13 @@ definitions:
         type: string
         description: Código único que identifica al comercio
         example: "0008902131"
+        maxLength: 15
       # LIT-NOMBRE
       merchant_name:
         type: string
         description: Nombre del comercio
         example: "AMAZON UK"
+        maxLength: 30
       # LIT-CD-PAIS
       country_iso_3266_code:
         type: integer
@@ -1272,11 +1280,13 @@ definitions:
         type: string
         description: Nombre del país en español
         example: "República de Chile"
+        maxLength: 30
       # LIT-CIUDAD
       place_name:
         type: string
         description: Nombre del lugar donde ocurrió el movimiento
         example: "Santiago"
+        maxLength: 26
       resolucion_tx: # RSL-SIA-CD
         type: integer
         description: Código que identifica el resultado de la transacción
