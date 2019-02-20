@@ -208,6 +208,10 @@
                     <li>Valida que la carga no exceda los límites</li>
                     <li>Abona a la Cuenta de Traspaso Personal (CTP) y gatilla un proceso asíncrono que debita la CTP para abonar a la Tarjeta de Prepago.</li>
                   </ul>
+                  <h3 id="responder-422-en-los-siguientes-casos-">Responderá <code>422</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>130005: Si es que se recibio una reversa para la carga previamente.</li>
+                  </ul>
                 </section>
               </div>
             </div>
@@ -729,6 +733,10 @@
                     <li>Valida que el usuario esté habilitado para retirar. </li>
                     <li>Valida que el retiro no exceda los límites</li>
                     <li>Debita la Tarjeta de Prepago y abona a la Cuenta de Traspaso Personal (CTP), luego debita la CTP y abona a la cuenta de destino.</li>
+                  </ul>
+                  <h3 id="responder-422-en-los-siguientes-casos-">Responderá <code>422</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>130005: Si es que se recibio una reversa para el retiro previamente.</li>
                   </ul>
                 </section>
               </div>
