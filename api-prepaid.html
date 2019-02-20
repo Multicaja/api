@@ -447,16 +447,22 @@
               <div class="doc-copy">
                 <section class="swagger-operation-description">
                   <p>Reversa una carga que a) coincida en todos los campos de prepaid_topup_new y b) se haya recibido en las últimas 24 horas.</p>
-                  <h3 id="responder-201-xito-en-todos-los-siguientes-casos-">Responderá <code>201</code> (éxito) en todos los siguientes casos:</h3>
+                  <h3 id="responder-201-en-los-siguientes-casos-">Responderá <code>201</code> en los siguientes casos:</h3>
                   <ul>
-                    <li>Si la carga ya fue reversada, en cuyo caso no hará nada</li>
-                    <li>Si la carga nunca se recibió, en cuyo caso no hará nada</li>
-                    <li>Si la carga se recibió, y el saldo todavía no se gasta, en cuyo caso reversará el aumento de saldo</li>
-                    <li>Si la carga se recibió, y el saldo ya se gastó, en cuyo caso generará un cargo forzado en la tarjeta y enviará una notificación al Cliente para que pague</li>
+                    <li>Si la carga se recibió, en cuyo caso iniciara el proceso de reversa.</li>
                   </ul>
-                  <h3 id="responder-error-en-los-siguientes-casos-">Responderá error en los siguientes casos:</h3>
+                  <h3 id="responder-202-en-los-siguientes-casos-">Responderá <code>202</code> en los siguientes casos:</h3>
                   <ul>
-                    <li>Si es que la carga fue recibida y no está reversada, pero el plazo para reversarla ya expiró. En este caso, no hará nada y responderá <code>410</code></li>
+                    <li>130001: Si la carga nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibir la carga mas adelante.</li>
+                    <li>130003: Si la reversa fue recibida previamente para su procesamiento.</li>
+                  </ul>
+                  <h3 id="responder-410-en-los-siguientes-casos-">Responderá <code>410</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>130004: Si es que la carga fue recibida y no está reversada, pero el plazo para reversarla ya expiró.</li>
+                  </ul>
+                  <h3 id="responder-422-en-los-siguientes-casos-">Responderá <code>422</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>130002: Si es que la carga fue recibida y la información de la reversa no concuerda.</li>
                   </ul>
                 </section>
               </div>
@@ -511,7 +517,21 @@
                       <div class="prop-title">201 Created</div>
                     </div>
                     <div class="prop-value">
-                      <p>OK - Reversa exitosa</p>
+                      <p>OK - Proceso de reversa iniciado</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">202 Accepted</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK - Reversa recibida previamente</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -558,6 +578,20 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
+                      <div class="prop-title">422 Unprocessable Entity</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Información de reversa no concuerda con la carga</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
                       <div class="prop-title">500 Internal Server Error</div>
                       <div class="prop-ref">
                         <span class="">
@@ -573,6 +607,21 @@
                 </section>
               </div>
               <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(202 Accepted)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
                 <section>
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
@@ -606,6 +655,21 @@
                 <section>
                   <h5>Response Example
                     <span>(410 Gone)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(422 Unprocessable Entity)</span>
                   </h5>
                   <!-- <div class="hljs"> -->
                   <html>
@@ -906,15 +970,22 @@
               <div class="doc-copy">
                 <section class="swagger-operation-description">
                   <p>Reversa un retiro que a) coincida en todos los campos de prepaid_withdrawal_new y b) se haya recibido en las últimas 24 horas.</p>
-                  <h3 id="responder-201-xito-en-todos-los-siguientes-casos-">Responderá <code>201</code> (éxito) en todos los siguientes casos:</h3>
+                  <h3 id="responder-201-xito-en-los-siguientes-casos-">Responderá <code>201</code> (éxito) en los siguientes casos:</h3>
                   <ul>
-                    <li>Si el retiro ya fue reversado, en cuyo caso no hará nada</li>
-                    <li>Si el retiro nunca se recibió, en cuyo caso no hará nada</li>
-                    <li>Si el retiro se recibió, y fue procesado, en cuyo caso reintegrará el importe a la tarjeta</li>
+                    <li>Si el retiro se recibió, en cuyo caso iniciara el proceso de reversa.</li>
                   </ul>
-                  <h3 id="responder-error-en-los-siguientes-casos-">Responderá error en los siguientes casos:</h3>
+                  <h3 id="responder-202-en-los-siguientes-casos-">Responderá <code>202</code> en los siguientes casos:</h3>
                   <ul>
-                    <li>Si es que el retiro fue recibido y no está reversado, pero el plazo para reversarlo ya expiró. En este caso, no hará nada y responderá <code>410</code></li>
+                    <li>130001: Si el retiro nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibir el retiro mas adelante.</li>
+                    <li>130003: Si la reversa fue recibida previamente para su procesamiento.</li>
+                  </ul>
+                  <h3 id="responder-410-en-los-siguientes-casos-">Responderá <code>410</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>130004: Si es que el retiro fue recibido y no está reversado, pero el plazo para reversarlo ya expiró.</li>
+                  </ul>
+                  <h3 id="responder-422-en-los-siguientes-casos-">Responderá <code>422</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>130002: Si es que el retiro fue recibido la información de la reversa no concuerda.</li>
                   </ul>
                 </section>
               </div>
@@ -970,7 +1041,21 @@
                       <div class="prop-title">201 Created</div>
                     </div>
                     <div class="prop-value">
-                      <p>OK - Reversa exitosa</p>
+                      <p>OK - Proceso de reversa iniciado</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">202 Accepted</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK - Reversa recibida previamente</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -1017,6 +1102,20 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
+                      <div class="prop-title">422 Unprocessable Entity</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Información de reversa no concuerda con el retiro</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
                       <div class="prop-title">500 Internal Server Error</div>
                       <div class="prop-ref">
                         <span class="">
@@ -1032,6 +1131,21 @@
                 </section>
               </div>
               <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(202 Accepted)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
                 <section>
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
@@ -1065,6 +1179,21 @@
                 <section>
                   <h5>Response Example
                     <span>(410 Gone)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(422 Unprocessable Entity)</span>
                   </h5>
                   <!-- <div class="hljs"> -->
                   <html>
