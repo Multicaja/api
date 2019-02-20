@@ -219,14 +219,18 @@ paths:
       description: |
         Reversa una carga que a) coincida en todos los campos de prepaid_topup_new y b) se haya recibido en las últimas 24 horas.
         
-        ### Responderá `201` (éxito) en todos los siguientes casos:
-        * Si la carga ya fue reversada, en cuyo caso no hará nada
-        * Si la carga nunca se recibió, en cuyo caso no hará nada
-        * Si la carga se recibió, y el saldo todavía no se gasta, en cuyo caso reversará el aumento de saldo
-        * Si la carga se recibió, y el saldo ya se gastó, en cuyo caso generará un cargo forzado en la tarjeta y enviará una notificación al Cliente para que pague
+        ### Responderá `201` en los siguientes casos:
+        * Si la carga se recibió, en cuyo caso iniciara el proceso de reversa.
 
-        ### Responderá error en los siguientes casos:
-        * Si es que la carga fue recibida y no está reversada, pero el plazo para reversarla ya expiró. En este caso, no hará nada y responderá `410`
+        ### Responderá `202` en los siguientes casos:
+        * 130001: Si la carga nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibir la carga mas adelante.
+        * 130003: Si la reversa fue recibida previamente para su procesamiento.
+
+        ### Responderá `410` en los siguientes casos:
+        * 130004: Si es que la carga fue recibida y no está reversada, pero el plazo para reversarla ya expiró.
+
+        ### Responderá `422` en los siguientes casos:
+        * 130002: Si es que la carga fue recibida y la información de la reversa no concuerda.
       parameters:
         - in: body
           name: new_topup
@@ -236,7 +240,11 @@ paths:
             $ref: '#/definitions/prepaid_topup_new'
       responses:
         '201':
-          description: OK - Reversa exitosa
+          description: OK - Proceso de reversa iniciado
+        '202':
+          description: OK - Reversa recibida previamente
+          schema:
+            $ref: '#/definitions/error_obj'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
           schema:
@@ -248,7 +256,11 @@ paths:
         '410':
           description: Plazo para reversar expirado
           schema:
-            $ref: '#/definitions/error_obj'        
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: Información de reversa no concuerda con la carga
+          schema:
+            $ref: '#/definitions/error_obj'
         '500':
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
@@ -304,13 +316,18 @@ paths:
       description: |
         Reversa un retiro que a) coincida en todos los campos de prepaid_withdrawal_new y b) se haya recibido en las últimas 24 horas.
         
-        ### Responderá `201` (éxito) en todos los siguientes casos:
-        * Si el retiro ya fue reversado, en cuyo caso no hará nada
-        * Si el retiro nunca se recibió, en cuyo caso no hará nada
-        * Si el retiro se recibió, y fue procesado, en cuyo caso reintegrará el importe a la tarjeta
+        ### Responderá `201` (éxito) en los siguientes casos:
+        * Si el retiro se recibió, en cuyo caso iniciara el proceso de reversa.
 
-        ### Responderá error en los siguientes casos:
-        * Si es que el retiro fue recibido y no está reversado, pero el plazo para reversarlo ya expiró. En este caso, no hará nada y responderá `410`
+        ### Responderá `202` en los siguientes casos:
+        * 130001: Si el retiro nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibir el retiro mas adelante.
+        * 130003: Si la reversa fue recibida previamente para su procesamiento.
+
+        ### Responderá `410` en los siguientes casos:
+        * 130004: Si es que el retiro fue recibido y no está reversado, pero el plazo para reversarlo ya expiró.
+
+        ### Responderá `422` en los siguientes casos:
+        * 130002: Si es que el retiro fue recibido la información de la reversa no concuerda.
       parameters:
         - in: body
           name: new_withdrawal
@@ -320,7 +337,11 @@ paths:
             $ref: '#/definitions/prepaid_withdrawal_new'
       responses:
         '201':
-          description: OK - Reversa exitosa
+          description: OK - Proceso de reversa iniciado
+        '202':
+          description: OK - Reversa recibida previamente
+          schema:
+            $ref: '#/definitions/error_obj'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
           schema:
@@ -331,6 +352,10 @@ paths:
             $ref: '#/definitions/error_obj'
         '410':
           description: Plazo para reversar expirado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: Información de reversa no concuerda con el retiro
           schema:
             $ref: '#/definitions/error_obj'
         '500':
