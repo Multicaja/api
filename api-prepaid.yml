@@ -181,6 +181,9 @@ paths:
         * Valida que el usuario esté habilitado para cargar. Esto significa que el usuario debe estar validado hasta nivel 1 o nivel 2.
         * Valida que la carga no exceda los límites
         * Abona a la Cuenta de Traspaso Personal (CTP) y gatilla un proceso asíncrono que debita la CTP para abonar a la Tarjeta de Prepago.
+
+        ### Responderá `422` en los siguientes casos:
+        * 130005: Si es que se recibio una reversa para la carga previamente.
       parameters:
         - in: body
           name: new_topup
@@ -278,6 +281,9 @@ paths:
         * Valida que el usuario esté habilitado para retirar. 
         * Valida que el retiro no exceda los límites
         * Debita la Tarjeta de Prepago y abona a la Cuenta de Traspaso Personal (CTP), luego debita la CTP y abona a la cuenta de destino.
+
+        ### Responderá `422` en los siguientes casos:
+        * 130005: Si es que se recibio una reversa para el retiro previamente.
       parameters:
         - in: body
           name: new_withdrawal
