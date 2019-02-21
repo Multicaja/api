@@ -304,8 +304,31 @@ paths:
         * Valida que el retiro no exceda los límites
         * Debita la Tarjeta de Prepago y abona a la Cuenta de Traspaso Personal (CTP), luego debita la CTP y abona a la cuenta de destino.
 
+        ### Responderá `400` en los siguientes casos:
+        * 101004: Si un parámetro es requerido y no se ha enviado.
+
+        ### Responderá `404` en los siguientes casos:
+        * 102001: Si el cliente no existe.
+        * 102003: Si el cliente no tiene prepago.
+
         ### Responderá `422` en los siguientes casos:
-        * 130005: Si es que se recibio una reversa para el retiro previamente.
+        
+        * 102002: Si el cliente está bloqueado o borrado.
+        * 102004: Si el cliente está bloqueado o borrado de prepago.
+        * 102053: Si la clave ingresada no coincide.
+        * 102015: Si el cliente está en una lista negra, por lo tanto no puede realizar la carga.
+        * 103001: Si la cuenta bancaria seleccionada no está asociada al cliente.
+        * 106000: Si la tarjeta está expirada o tiene un bloqueo duro.
+        * 106001: La procesadora rechazó el retiro, verificar mensaje.
+        * 108000: Error indetermiando al validar transacción.
+        * 108301: El retiro supera el monto máximo de un retiro web.
+        * 108302: El retiro supera el monto máximo de un retiro pos.
+        * 108303: El monto de retiro es menor al monto mínimo de retiros.
+        * 108203: La carga es menor al mínimo de carga.
+        * 108304: El retiro supera el monto máximo de retiros mensuales.
+        
+        ### Responderá `500` en los siguientes casos:
+        * Error imprevisto de sistema
       parameters:
         - in: body
           name: new_withdrawal
