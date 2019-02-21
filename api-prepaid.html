@@ -208,9 +208,34 @@
                     <li>Valida que la carga no exceda los límites</li>
                     <li>Abona a la Cuenta de Traspaso Personal (CTP) y gatilla un proceso asíncrono que debita la CTP para abonar a la Tarjeta de Prepago.</li>
                   </ul>
+                  <h3 id="responder-400-en-los-siguientes-casos-">Responderá <code>400</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>101004: Si un parámetro es requerido y no se ha enviado.</li>
+                  </ul>
+                  <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>102001: Si el cliente no existe.</li>
+                    <li>102003: Si el cliente no tiene prepago.</li>
+                  </ul>
                   <h3 id="responder-422-en-los-siguientes-casos-">Responderá <code>422</code> en los siguientes casos:</h3>
                   <ul>
+                    <li>102002: Si el cliente está bloqueado o borrado.</li>
+                    <li>102004: Si el cliente está bloqueado o borrado de prepago.</li>
+                    <li>102015: Si el cliente está en una lista negra, por lo tanto no puede realizar la carga.</li>
+                    <li>106000: Si la tarjeta está expirada o tiene un bloqueo duro.</li>
+                    <li>106001: La procesadora rechazó la carga, verificar mensaje.</li>
+                    <li>108000: Error indetermiando al validar transacción.</li>
+                    <li>108001: El usuario en nivel 1 solo puede realizar 1 carga.</li>
+                    <li>108201: La carga supera el monto máximo de carga web.</li>
+                    <li>108202: La carga supera el monto máximo de carga pos.</li>
+                    <li>108203: La carga es menor al mínimo de carga.</li>
+                    <li>108204: La carga supera el monto máximo de cargas mensuales.</li>
+                    <li>108205 y 108206: La carga supera el monto máximo de primera carga.</li>
                     <li>130005: Si es que se recibio una reversa para la carga previamente.</li>
+                  </ul>
+                  <h3 id="responder-500-en-los-siguientes-casos-">Responderá <code>500</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>Error imprevisto de sistema</li>
                   </ul>
                 </section>
               </div>
@@ -734,9 +759,34 @@
                     <li>Valida que el retiro no exceda los límites</li>
                     <li>Debita la Tarjeta de Prepago y abona a la Cuenta de Traspaso Personal (CTP), luego debita la CTP y abona a la cuenta de destino.</li>
                   </ul>
+                  <h3 id="responder-400-en-los-siguientes-casos-">Responderá <code>400</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>101004: Si un parámetro es requerido y no se ha enviado.</li>
+                  </ul>
+                  <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>102001: Si el cliente no existe.</li>
+                    <li>102003: Si el cliente no tiene prepago.</li>
+                  </ul>
                   <h3 id="responder-422-en-los-siguientes-casos-">Responderá <code>422</code> en los siguientes casos:</h3>
                   <ul>
-                    <li>130005: Si es que se recibio una reversa para el retiro previamente.</li>
+                    <li>102002: Si el cliente está bloqueado o borrado.</li>
+                    <li>102004: Si el cliente está bloqueado o borrado de prepago.</li>
+                    <li>102053: Si la clave ingresada no coincide.</li>
+                    <li>102015: Si el cliente está en una lista negra, por lo tanto no puede realizar la carga.</li>
+                    <li>103001: Si la cuenta bancaria seleccionada no está asociada al cliente.</li>
+                    <li>106000: Si la tarjeta está expirada o tiene un bloqueo duro.</li>
+                    <li>106001: La procesadora rechazó el retiro, verificar mensaje.</li>
+                    <li>108000: Error indetermiando al validar transacción.</li>
+                    <li>108301: El retiro supera el monto máximo de un retiro web.</li>
+                    <li>108302: El retiro supera el monto máximo de un retiro pos.</li>
+                    <li>108303: El monto de retiro es menor al monto mínimo de retiros.</li>
+                    <li>108203: La carga es menor al mínimo de carga.</li>
+                    <li>108304: El retiro supera el monto máximo de retiros mensuales.</li>
+                  </ul>
+                  <h3 id="responder-500-en-los-siguientes-casos-">Responderá <code>500</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>Error imprevisto de sistema</li>
                   </ul>
                 </section>
               </div>
