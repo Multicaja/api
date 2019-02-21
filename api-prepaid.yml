@@ -182,8 +182,30 @@ paths:
         * Valida que la carga no exceda los límites
         * Abona a la Cuenta de Traspaso Personal (CTP) y gatilla un proceso asíncrono que debita la CTP para abonar a la Tarjeta de Prepago.
 
+        ### Responderá `400` en los siguientes casos:
+        * 101004: Si un parámetro es requerido y no se ha enviado.
+
+        ### Responderá `404` en los siguientes casos:
+        * 102001: Si el cliente no existe.
+        * 102003: Si el cliente no tiene prepago.
+
         ### Responderá `422` en los siguientes casos:
+        * 102002: Si el cliente está bloqueado o borrado.
+        * 102004: Si el cliente está bloqueado o borrado de prepago.
+        * 102015: Si el cliente está en una lista negra, por lo tanto no puede realizar la carga.
+        * 106000: Si la tarjeta está expirada o tiene un bloqueo duro.
+        * 106001: La procesadora rechazó la carga, verificar mensaje.
+        * 108000: Error indetermiando al validar transacción.
+        * 108001: El usuario en nivel 1 solo puede realizar 1 carga.
+        * 108201: La carga supera el monto máximo de carga web.
+        * 108202: La carga supera el monto máximo de carga pos.
+        * 108203: La carga es menor al mínimo de carga.
+        * 108204: La carga supera el monto máximo de cargas mensuales.
+        * 108205 y 108206: La carga supera el monto máximo de primera carga.
         * 130005: Si es que se recibio una reversa para la carga previamente.
+
+        ### Responderá `500` en los siguientes casos:
+        * Error imprevisto de sistema
       parameters:
         - in: body
           name: new_topup
