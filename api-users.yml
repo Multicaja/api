@@ -1081,6 +1081,7 @@ paths:
           description: Cliente o archivo no existe
           schema:
             $ref: '#/definitions/error_obj'
+  
   /users/{user_id}/backoffice/ticket:
     post:
       summary: Crear
@@ -1107,9 +1108,53 @@ paths:
         '201':
           description: OK
           schema:
-            $ref: '#/definitions/user_file'
+            $ref: '#/definitions/user_backoffice_ticket_new'
         '404':
           description: Cliente no existe
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: No paso validación
+          schema:
+            $ref: '#/definitions/error_obj'
+  /users/backoffice/tickets:
+    get:
+      summary: Obtener tickets en Freshdesk segun tipo y rango de fecha de creacion
+      tags: 
+        - backoffice
+      description: |
+        Obtener tickets en Freshdesk segun tipo y rango de fecha de creacion
+        
+        Notas:
+        * El rango de fechas debe estar en formato __`yyyy-MM-ddTHH:mm:ss`__ UTC
+      parameters:
+        - in: query
+          name: page
+          description: Numero de pagina (1-10).
+          required: true
+          type: "integer"
+        - in: query
+          name: type
+          description: Tipo de ticket
+          required: true
+          type: "string"
+        - in: query
+          name: from
+          description: Fecha desde en formato `yyyy-MM-ddTHH:mm:ss` UTC
+          required: true
+          type: "string"
+        - in: query
+          name: to
+          description: Fecha hasta en formato `yyyy-MM-ddTHH:mm:ss` UTC
+          required: true
+          type: "string"
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/user_backoffice_tickets_response'
+        '400':
+          description: Error en parametros
           schema:
             $ref: '#/definitions/error_obj'
         '422':
@@ -1904,7 +1949,7 @@ definitions:
   user_backoffice_ticket_new:
     type: object
     description: |
-      Archivo de cliente **(Request)**
+      Ticket Freshdesk **(Creacion)**
     required:
       - subject
       - type
@@ -1921,7 +1966,7 @@ definitions:
         type: string
         description: |
           Tipo de ticket
-        enum: ["VALIDACION_IDENTIDAD", "SOPORTE_GENERAL"]
+        enum: ["VALIDACION_IDENTIDAD", "SOPORTE_GENERAL", "EMERGENCIA"]
       priority:
         type: string
         description: |
@@ -1942,3 +1987,82 @@ definitions:
         enum: [999, 888, 777]
         description: |
           Producto al que esta asociado el ticket
+  user_backoffice_ticket:
+    type: object
+    description: |
+      Ticket Freshdesk
+    allOf:
+      - $ref: "#/definitions/user_backoffice_ticket_new"
+      - type: object
+        properties:
+          id:
+            type: integer
+            description: Id del ticket
+            example: 2345 
+          status:
+            type: integer
+            enum: [2,3,4,5]
+            description: Estado del ticket. (2)Abierto, (3)Pendiente, (4)Cerrado, (5)Resuelto
+            example: 7783834
+          created_at:
+            type: string
+            format: date-time
+            description: Fecha de creacion.
+            example: "2019-02-22T15:05:13Z"
+          updated_at:
+            type: string
+            format: date-time
+            description: Fecha de actualizacion.
+            example: "2019-02-22T15:05:13Z"
+          custom_fields:
+            type: object
+            description: Campos custom del ticket
+            properties:
+              cf_selfie_check:
+                type: string
+              cf_id_information_rutn_serie:
+                type: string
+              cf_va_de_ingreso:
+                type: string
+              cf_validacin_gesintel:
+                type: string
+              cf_pasa_la_validacin_de_gesintel:
+                type: string
+              cf_sobreescribir_nombre:
+                type: string
+              cf_sobreescribir_apellido:
+                type: string
+              cf_posee_cdula_vigente_en_registro_civil:
+                type: string
+              cf_clasificacin:
+                type: string
+              cf_reintentar_automaticamente:
+                type: boolean
+              cf_id_cola:
+                type: string
+              cf_id_movimiento:
+                type: integer
+              cf_rut_usuario:
+                type: string
+              cf_nombre_cola:
+                type: string
+              cf_num_reintentos:
+                type: integer
+              cf_tipo_devolucin_manual:
+                type: string
+              cf_usuario_indica_cuenta_para_transferencia:
+                type: string
+  user_backoffice_tickets_response:
+    type: object
+    description: |
+      Respuesta de busqueda de tickets
+    properties:
+      results:
+        type: array
+        items:
+          $ref: '#/definitions/user_backoffice_ticket'
+      total:
+        type: integer
+        description: |
+          Cantidad de tickets
+        example: 150
