@@ -160,6 +160,9 @@
               <li>
                 <a href="#operation--users--user_id--backoffice-ticket-post"> Crear </a>
               </li>
+              <li>
+                <a href="#operation--users-backoffice-tickets-get"> Obtener tickets en Freshdesk segun tipo y rango de fecha de creacion </a>
+              </li>
             </ul>
           </section>
           <section>
@@ -213,6 +216,8 @@
           <a href="#definition-user_file_new"> user_file_new </a>
           <a href="#definition-user_file"> user_file </a>
           <a href="#definition-user_backoffice_ticket_new"> user_backoffice_ticket_new </a>
+          <a href="#definition-user_backoffice_ticket"> user_backoffice_ticket </a>
+          <a href="#definition-user_backoffice_tickets_response"> user_backoffice_tickets_response </a>
         </nav>
       </div>
       <div id="docs" class="row collapse expanded drawer" data-drawer>
@@ -5849,7 +5854,7 @@
                       <div class="prop-title">201 Created</div>
                       <div class="prop-ref">
                         <span class="">
-                          <a class="json-schema-ref" href="#/definitions/user_file">user_file</a>
+                          <a class="json-schema-ref" href="#/definitions/user_backoffice_ticket_new">user_backoffice_ticket_new</a>
                         </span>
                       </div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
@@ -5897,13 +5902,12 @@
                   <html>
                   <head></head>
                   <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">7783834</span>,
-  <span class="hljs-attr">&quot;app&quot;</span>: <span class="hljs-string">&quot;prepago&quot;</span>,
-  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;USER_CI_FRONTAL&quot;</span>,
-  <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;v1.0&quot;</span>,
-  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Foto frontal de CI del cliente&quot;</span>,
-  <span class="hljs-attr">&quot;mime_type&quot;</span>: <span class="hljs-string">&quot;image/jpeg&quot;</span>,
-  <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;/path/to/image&quot;</span>
+  <span class="hljs-attr">&quot;subject&quot;</span>: <span class="hljs-string">&quot;Verificaci&#xF3;n de identidad&quot;</span>,
+  <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;priority&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Realizar verificaci&#xF3;n de identidad al cliente Pepito Perez, rut: XX.XXX.XXX-X&quot;</span>,
+  <span class="hljs-attr">&quot;group_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+  <span class="hljs-attr">&quot;product_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
 }
 </code></pre> </body>
                   </html>
@@ -5912,6 +5916,233 @@
                 <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(422 Unprocessable Entity)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--users-backoffice-tickets-get" class="operation panel" data-traverse-target="operation--users-backoffice-tickets-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-backoffice">backoffice</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Obtener tickets en Freshdesk segun tipo y rango de fecha de creacion</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/users/backoffice/tickets</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Obtener tickets en Freshdesk segun tipo y rango de fecha de creacion</p>
+                  <p>Notas:</p>
+                  <ul>
+                    <li>El rango de fechas debe estar en formato
+                      <strong><code>yyyy-MM-ddTHH:mm:ss</code></strong> UTC</li>
+                  </ul>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">page:
+                        <span class="prop-type">
+                          <span class="json-property-type">integer</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in query </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Numero de pagina (1-10).</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">type:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in query </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Tipo de ticket</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">from:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in query </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Fecha desde en formato <code>yyyy-MM-ddTHH:mm:ss</code> UTC</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">to:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in query </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Fecha hasta en formato <code>yyyy-MM-ddTHH:mm:ss</code> UTC</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/user_backoffice_tickets_response">user_backoffice_tickets_response</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error en parametros</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">422 Unprocessable Entity</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>No paso validación</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;results&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">2345</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">7783834</span>,
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2019-02-22T15:05:13Z&quot;</span>,
+      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2019-02-22T15:05:13Z&quot;</span>,
+      <span class="hljs-attr">&quot;custom_fields&quot;</span>: {
+        <span class="hljs-attr">&quot;cf_selfie_check&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_id_information_rutn_serie&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_va_de_ingreso&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_validacin_gesintel&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_pasa_la_validacin_de_gesintel&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_sobreescribir_nombre&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_sobreescribir_apellido&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_posee_cdula_vigente_en_registro_civil&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_clasificacin&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_reintentar_automaticamente&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;cf_id_cola&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_id_movimiento&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;cf_rut_usuario&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_nombre_cola&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_num_reintentos&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;cf_tipo_devolucin_manual&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_usuario_indica_cuenta_para_transferencia&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+      },
+      <span class="hljs-attr">&quot;subject&quot;</span>: <span class="hljs-string">&quot;Verificaci&#xF3;n de identidad&quot;</span>,
+      <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;priority&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Realizar verificaci&#xF3;n de identidad al cliente Pepito Perez, rut: XX.XXX.XXX-X&quot;</span>,
+      <span class="hljs-attr">&quot;group_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+      <span class="hljs-attr">&quot;product_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">150</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
                   </h5>
                   <!-- <div class="hljs"> -->
                   <html>
@@ -8740,8 +8971,8 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="json-schema-description">
-                  <p>Archivo de cliente
-                    <strong>(Request)</strong>
+                  <p>Ticket Freshdesk
+                    <strong>(Creacion)</strong>
                   </p>
                 </section>
                 <section class="json-schema-properties">
@@ -8760,7 +8991,8 @@
                       <span class="json-property-type">string</span>
                       <span class="json-property-enum" title="Possible values">
                         <span class="json-property-enum-item">VALIDACION_IDENTIDAD</span>,
-                        <span class="json-property-enum-item">SOPORTE_GENERAL</span>
+                        <span class="json-property-enum-item">SOPORTE_GENERAL</span>,
+                        <span class="json-property-enum-item">EMERGENCIA</span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
@@ -8835,6 +9067,315 @@
   <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Realizar verificaci&#xF3;n de identidad al cliente Pepito Perez, rut: XX.XXX.XXX-X&quot;</span>,
   <span class="hljs-attr">&quot;group_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
   <span class="hljs-attr">&quot;product_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-user_backoffice_ticket" class="definition panel" data-traverse-target="definition-user_backoffice_ticket">
+            <h2 class="panel-title">
+              <a name="/definitions/user_backoffice_ticket"></a>user_backoffice_ticket: object
+              <!-- <span class="json-property-type"><span class="json-property-type"></span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Ticket Freshdesk</p>
+                </section>
+                <section class="json-schema-allOf">
+                  <section class="json-schema-allOf-inherited">
+                    <ul>
+                      <span class="">
+                        <a class="json-schema-ref" href="#/definitions/user_backoffice_ticket_new">user_backoffice_ticket_new</a>
+                      </span>
+                    </ul>
+                  </section>
+                  <section class="json-schema-allOf-additional">
+                    <section class="json-schema-properties">
+                      <dl>
+                        <dt data-property-name="id" class="has-description">
+                          <span class="json-property-name">id:</span>
+                          <span class="json-property-type">integer</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dd>
+                          <p>Id del ticket</p>
+                        </dd>
+                        <dt data-property-name="status" class="has-description">
+                          <span class="json-property-name">status:</span>
+                          <span class="json-property-type">integer</span>
+                          <span class="json-property-enum" title="Possible values">
+                            <span class="json-property-enum-item">2</span>,
+                            <span class="json-property-enum-item">3</span>,
+                            <span class="json-property-enum-item">4</span>,
+                            <span class="json-property-enum-item">5</span>
+                          </span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dd>
+                          <p>Estado del ticket. (2)Abierto, (3)Pendiente, (4)Cerrado, (5)Resuelto</p>
+                        </dd>
+                        <dt data-property-name="created_at" class="has-description">
+                          <span class="json-property-name">created_at:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-format">(date-time)</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dd>
+                          <p>Fecha de creacion.</p>
+                        </dd>
+                        <dt data-property-name="updated_at" class="has-description">
+                          <span class="json-property-name">updated_at:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-format">(date-time)</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dd>
+                          <p>Fecha de actualizacion.</p>
+                        </dd>
+                        <dt data-property-name="custom_fields" class="has-description">
+                          <span class="json-property-name">custom_fields:</span>
+                          <span class="json-property-type">object</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dd>
+                          <p>Campos custom del ticket</p>
+                        </dd>
+                        <dt class="json-inner-schema">
+                          <section class="json-schema-properties">
+                            <dl>
+                              <dt data-property-name="cf_selfie_check">
+                                <span class="json-property-name">cf_selfie_check:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dt data-property-name="cf_id_information_rutn_serie">
+                                <span class="json-property-name">cf_id_information_rutn_serie:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dt data-property-name="cf_va_de_ingreso">
+                                <span class="json-property-name">cf_va_de_ingreso:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dt data-property-name="cf_validacin_gesintel">
+                                <span class="json-property-name">cf_validacin_gesintel:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dt data-property-name="cf_pasa_la_validacin_de_gesintel">
+                                <span class="json-property-name">cf_pasa_la_validacin_de_gesintel:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dt data-property-name="cf_sobreescribir_nombre">
+                                <span class="json-property-name">cf_sobreescribir_nombre:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dt data-property-name="cf_sobreescribir_apellido">
+                                <span class="json-property-name">cf_sobreescribir_apellido:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dt data-property-name="cf_posee_cdula_vigente_en_registro_civil">
+                                <span class="json-property-name">cf_posee_cdula_vigente_en_registro_civil:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dt data-property-name="cf_clasificacin">
+                                <span class="json-property-name">cf_clasificacin:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dt data-property-name="cf_reintentar_automaticamente">
+                                <span class="json-property-name">cf_reintentar_automaticamente:</span>
+                                <span class="json-property-type">boolean</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dt data-property-name="cf_id_cola">
+                                <span class="json-property-name">cf_id_cola:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dt data-property-name="cf_id_movimiento">
+                                <span class="json-property-name">cf_id_movimiento:</span>
+                                <span class="json-property-type">integer</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dt data-property-name="cf_rut_usuario">
+                                <span class="json-property-name">cf_rut_usuario:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dt data-property-name="cf_nombre_cola">
+                                <span class="json-property-name">cf_nombre_cola:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dt data-property-name="cf_num_reintentos">
+                                <span class="json-property-name">cf_num_reintentos:</span>
+                                <span class="json-property-type">integer</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dt data-property-name="cf_tipo_devolucin_manual">
+                                <span class="json-property-name">cf_tipo_devolucin_manual:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dt data-property-name="cf_usuario_indica_cuenta_para_transferencia">
+                                <span class="json-property-name">cf_usuario_indica_cuenta_para_transferencia:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                            </dl>
+                          </section>
+                        </dt>
+                      </dl>
+                    </section>
+                  </section>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">2345</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">7783834</span>,
+  <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2019-02-22T15:05:13Z&quot;</span>,
+  <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2019-02-22T15:05:13Z&quot;</span>,
+  <span class="hljs-attr">&quot;custom_fields&quot;</span>: {
+    <span class="hljs-attr">&quot;cf_selfie_check&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;cf_id_information_rutn_serie&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;cf_va_de_ingreso&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;cf_validacin_gesintel&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;cf_pasa_la_validacin_de_gesintel&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;cf_sobreescribir_nombre&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;cf_sobreescribir_apellido&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;cf_posee_cdula_vigente_en_registro_civil&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;cf_clasificacin&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;cf_reintentar_automaticamente&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+    <span class="hljs-attr">&quot;cf_id_cola&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;cf_id_movimiento&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+    <span class="hljs-attr">&quot;cf_rut_usuario&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;cf_nombre_cola&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;cf_num_reintentos&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+    <span class="hljs-attr">&quot;cf_tipo_devolucin_manual&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;cf_usuario_indica_cuenta_para_transferencia&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  },
+  <span class="hljs-attr">&quot;subject&quot;</span>: <span class="hljs-string">&quot;Verificaci&#xF3;n de identidad&quot;</span>,
+  <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;priority&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Realizar verificaci&#xF3;n de identidad al cliente Pepito Perez, rut: XX.XXX.XXX-X&quot;</span>,
+  <span class="hljs-attr">&quot;group_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+  <span class="hljs-attr">&quot;product_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-user_backoffice_tickets_response" class="definition panel" data-traverse-target="definition-user_backoffice_tickets_response">
+            <h2 class="panel-title">
+              <a name="/definitions/user_backoffice_tickets_response"></a>user_backoffice_tickets_response: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Respuesta de busqueda de tickets</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="results">
+                      <span class="json-property-name">results:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/user_backoffice_ticket">user_backoffice_ticket</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/user_backoffice_ticket">user_backoffice_ticket</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                    <dt data-property-name="total" class="has-description">
+                      <span class="json-property-name">total:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Cantidad de tickets</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;results&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-number">2345</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-number">7783834</span>,
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2019-02-22T15:05:13Z&quot;</span>,
+      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2019-02-22T15:05:13Z&quot;</span>,
+      <span class="hljs-attr">&quot;custom_fields&quot;</span>: {
+        <span class="hljs-attr">&quot;cf_selfie_check&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_id_information_rutn_serie&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_va_de_ingreso&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_validacin_gesintel&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_pasa_la_validacin_de_gesintel&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_sobreescribir_nombre&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_sobreescribir_apellido&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_posee_cdula_vigente_en_registro_civil&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_clasificacin&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_reintentar_automaticamente&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>,
+        <span class="hljs-attr">&quot;cf_id_cola&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_id_movimiento&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;cf_rut_usuario&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_nombre_cola&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_num_reintentos&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;cf_tipo_devolucin_manual&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;cf_usuario_indica_cuenta_para_transferencia&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+      },
+      <span class="hljs-attr">&quot;subject&quot;</span>: <span class="hljs-string">&quot;Verificaci&#xF3;n de identidad&quot;</span>,
+      <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;priority&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Realizar verificaci&#xF3;n de identidad al cliente Pepito Perez, rut: XX.XXX.XXX-X&quot;</span>,
+      <span class="hljs-attr">&quot;group_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+      <span class="hljs-attr">&quot;product_id&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">150</span>
 }
 </code></pre> </body>
                   </html>
