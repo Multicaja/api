@@ -184,6 +184,7 @@ paths:
 
         ### Responderá `400` en los siguientes casos:
         * 101004: Si un parámetro es requerido y no se ha enviado.
+        * 101007: Si un parámetro no cumple formato.
 
         ### Responderá `404` en los siguientes casos:
         * 102001: Si el cliente no existe.
@@ -220,7 +221,7 @@ paths:
           schema:
             $ref: '#/definitions/prepaid_topup'
         '400':
-          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado ó no cumple formato
           schema:
             $ref: '#/definitions/error_obj'
         '404':
@@ -306,6 +307,7 @@ paths:
 
         ### Responderá `400` en los siguientes casos:
         * 101004: Si un parámetro es requerido y no se ha enviado.
+        * 101007: Si un parámetro no cumple formato.
 
         ### Responderá `404` en los siguientes casos:
         * 102001: Si el cliente no existe.
@@ -343,7 +345,7 @@ paths:
           schema:
             $ref: '#/definitions/prepaid_withdrawal'
         '400':
-          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado ó no cumple formato
           schema:
             $ref: '#/definitions/error_obj'
         '404':
