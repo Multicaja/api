@@ -224,7 +224,7 @@
                     <li>102015: Si el cliente está en una lista negra, por lo tanto no puede realizar la carga.</li>
                     <li>106000: Si la tarjeta está expirada o tiene un bloqueo duro.</li>
                     <li>106001: La procesadora rechazó la carga, verificar mensaje.</li>
-                    <li>108000: Error indetermiando al validar transacción.</li>
+                    <li>108000: Error al validar transacción.</li>
                     <li>108001: El usuario en nivel 1 solo puede realizar 1 carga.</li>
                     <li>108201: La carga supera el monto máximo de carga web.</li>
                     <li>108202: La carga supera el monto máximo de carga pos.</li>
@@ -777,7 +777,7 @@
                     <li>103001: Si la cuenta bancaria seleccionada no está asociada al cliente.</li>
                     <li>106000: Si la tarjeta está expirada o tiene un bloqueo duro.</li>
                     <li>106001: La procesadora rechazó el retiro, verificar mensaje.</li>
-                    <li>108000: Error indetermiando al validar transacción.</li>
+                    <li>108000: Error al validar transacción.</li>
                     <li>108301: El retiro supera el monto máximo de un retiro web.</li>
                     <li>108302: El retiro supera el monto máximo de un retiro pos.</li>
                     <li>108303: El monto de retiro es menor al monto mínimo de retiros.</li>
@@ -5182,9 +5182,10 @@
                           <span class="json-property-name">merchant_code:</span>
                           <span class="json-property-type">string</span>
                           <span class="json-property-range" title="Value limits"></span>
+                          <span class="json-property-range" title="String length limits"> (up to 15 chars) </span>
                         </dt>
                         <dd>
-                          <p>Código de comercio MC</p>
+                          <p>Código de comercio MC. (máx. 15 dígitos)</p>
                         </dd>
                         <dt data-property-name="merchant_category" class="has-description">
                           <span class="json-property-name">merchant_category:</span>
