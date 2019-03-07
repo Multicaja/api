@@ -195,7 +195,7 @@ paths:
         * 102015: Si el cliente está en una lista negra, por lo tanto no puede realizar la carga.
         * 106000: Si la tarjeta está expirada o tiene un bloqueo duro.
         * 106001: La procesadora rechazó la carga, verificar mensaje.
-        * 108000: Error indetermiando al validar transacción.
+        * 108000: Error al validar transacción.
         * 108001: El usuario en nivel 1 solo puede realizar 1 carga.
         * 108201: La carga supera el monto máximo de carga web.
         * 108202: La carga supera el monto máximo de carga pos.
@@ -320,7 +320,7 @@ paths:
         * 103001: Si la cuenta bancaria seleccionada no está asociada al cliente.
         * 106000: Si la tarjeta está expirada o tiene un bloqueo duro.
         * 106001: La procesadora rechazó el retiro, verificar mensaje.
-        * 108000: Error indetermiando al validar transacción.
+        * 108000: Error al validar transacción.
         * 108301: El retiro supera el monto máximo de un retiro web.
         * 108302: El retiro supera el monto máximo de un retiro pos.
         * 108303: El monto de retiro es menor al monto mínimo de retiros.
@@ -1101,7 +1101,8 @@ definitions:
             example: 14569484
           merchant_code:
             type: string
-            description: Código de comercio MC
+            maxLength: 15
+            description: Código de comercio MC. (máx. 15 dígitos)
             example: "0023434"
           merchant_category:
             type: integer
