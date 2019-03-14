@@ -86,7 +86,6 @@
           <a href="#definition-prepaid_user"> prepaid_user </a>
           <a href="#definition-prepaid_transaction"> prepaid_transaction </a>
           <a href="#definition-reproces_queue"> reproces_queue </a>
-          <a href="#definition-account_card"> account_card </a>
         </nav>
       </div>
       <div id="docs" class="row collapse expanded drawer" data-drawer>
@@ -2133,6 +2132,36 @@
                       <p>ID del Cliente</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">account_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID Contrato o Cuenta</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">card_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID Tarjeta</p>
+                    </div>
+                  </div>
                 </section>
               </div>
               <div class="doc-examples"></div>
@@ -2359,6 +2388,36 @@
                       <p>ID del Cliente</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">account_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID Contrato o Cuenta</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">card_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID Tarjeta</p>
+                    </div>
+                  </div>
                 </section>
               </div>
               <div class="doc-examples"></div>
@@ -2530,22 +2589,6 @@
             </div>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-request-body">
-                  <div class="prop-row">
-                    <div class="prop-name">
-                      <div class="swagger-request-model">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/account_card">account_card</a>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="prop-value columns small-6">
-                      <!-- <div class="swagger-request-description"> -->
-                      <p>Se requiere el contrato y la tarjeta</p>
-                      <!-- </div> -->
-                    </div>
-                  </div>
-                </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
@@ -2562,23 +2605,39 @@
                       <p>ID del Cliente</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">account_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID Contrato o Cuenta</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">card_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID Tarjeta</p>
+                    </div>
+                  </div>
                 </section>
               </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Request Example</h5>
-                  <!-- <div class="hljs"> -->
-                  <html>
-                  <head></head>
-                  <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">&quot;account_id&quot;</span>: <span class="hljs-string">&quot;5ef40073-c4fe-4399-bedf-c0886f966fd2&quot;</span>,
-  <span class="hljs-attr">&quot;card_id&quot;</span>: <span class="hljs-string">&quot;5ef40073-c4fe-4399-bedf-c0886f966fd2&quot;</span>
-}
-</code></pre> </body>
-                  </html>
-                  <!-- </div> -->
-                </section>
-              </div>
+              <div class="doc-examples"></div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
@@ -2690,22 +2749,6 @@
             </div>
             <div class="doc-row">
               <div class="doc-copy">
-                <section class="swagger-request-body">
-                  <div class="prop-row">
-                    <div class="prop-name">
-                      <div class="swagger-request-model">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/account_card">account_card</a>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="prop-value columns small-6">
-                      <!-- <div class="swagger-request-description"> -->
-                      <p>Se requiere el contrato y la tarjeta</p>
-                      <!-- </div> -->
-                    </div>
-                  </div>
-                </section>
                 <section class="swagger-request-params">
                   <div class="prop-row prop-group">
                     <div class="prop-name">
@@ -2722,23 +2765,39 @@
                       <p>ID del Cliente</p>
                     </div>
                   </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">account_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID Contrato o Cuenta</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">card_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID Tarjeta</p>
+                    </div>
+                  </div>
                 </section>
               </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Request Example</h5>
-                  <!-- <div class="hljs"> -->
-                  <html>
-                  <head></head>
-                  <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">&quot;account_id&quot;</span>: <span class="hljs-string">&quot;5ef40073-c4fe-4399-bedf-c0886f966fd2&quot;</span>,
-  <span class="hljs-attr">&quot;card_id&quot;</span>: <span class="hljs-string">&quot;5ef40073-c4fe-4399-bedf-c0886f966fd2&quot;</span>
-}
-</code></pre> </body>
-                  </html>
-                  <!-- </div> -->
-                </section>
-              </div>
+              <div class="doc-examples"></div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
@@ -4793,58 +4852,6 @@
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id_queue&quot;</span>: <span class="hljs-string">&quot;xkfuqwofklasjf&quot;</span>,
   <span class="hljs-attr">&quot;queues_name_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
-}
-</code></pre> </body>
-                  </html>
-                  <!-- </div> -->
-                </section>
-              </div>
-            </div>
-          </div>
-          <div id="definition-account_card" class="definition panel" data-traverse-target="definition-account_card">
-            <h2 class="panel-title">
-              <a name="/definitions/account_card"></a>account_card: object
-              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
-              <span class="json-property-range" title="Value limits"></span>
-              
-              
-              </span> -->
-            </h2>
-            <div class="doc-row">
-              <div class="doc-copy">
-                <section class="json-schema-description">
-                  <p>Objeto que permite enviar contrato o cuenta y tarjeta. </p>
-                </section>
-                <section class="json-schema-properties">
-                  <dl>
-                    <dt data-property-name="account_id" class="has-description">
-                      <span class="json-property-name">account_id:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Identificador de cuenta o contrato (UUID)</p>
-                    </dd>
-                    <dt data-property-name="card_id" class="has-description">
-                      <span class="json-property-name">card_id:</span>
-                      <span class="json-property-type">string</span>
-                      <span class="json-property-range" title="Value limits"></span>
-                    </dt>
-                    <dd>
-                      <p>Identificador de la tarjeta (UUID)</p>
-                    </dd>
-                  </dl>
-                </section>
-              </div>
-              <div class="doc-examples">
-                <section>
-                  <h5>Example</h5>
-                  <!-- <div class="hljs"> -->
-                  <html>
-                  <head></head>
-                  <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">&quot;account_id&quot;</span>: <span class="hljs-string">&quot;5ef40073-c4fe-4399-bedf-c0886f966fd2&quot;</span>,
-  <span class="hljs-attr">&quot;card_id&quot;</span>: <span class="hljs-string">&quot;5ef40073-c4fe-4399-bedf-c0886f966fd2&quot;</span>
 }
 </code></pre> </body>
                   </html>
