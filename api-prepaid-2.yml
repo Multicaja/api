@@ -467,6 +467,16 @@ paths:
           description: ID del Cliente
           required: true
           type: integer
+        - in: path
+          name: account_id
+          description: ID Contrato o Cuenta
+          required: true
+          type: string
+        - in: path
+          name: card_id
+          description: ID Tarjeta
+          required: true
+          type: string
       responses:
         '200':
           description: |
@@ -514,6 +524,16 @@ paths:
           description: ID del Cliente
           required: true
           type: integer
+        - in: path
+          name: account_id
+          description: ID Contrato o Cuenta
+          required: true
+          type: string
+        - in: path
+          name: card_id
+          description: ID Tarjeta
+          required: true
+          type: string
       responses:
         '200':
           description: |
@@ -553,12 +573,16 @@ paths:
           description: ID del Cliente
           required: true
           type: string
-        - in: body
-          name: account_card
-          description: Se requiere el contrato y la tarjeta
+        - in: path
+          name: account_id
+          description: ID Contrato o Cuenta
           required: true
-          schema:
-            $ref: '#/definitions/account_card'
+          type: string
+        - in: path
+          name: card_id
+          description: ID Tarjeta
+          required: true
+          type: string
       responses:
         '204':
           description: |
@@ -592,13 +616,16 @@ paths:
           description: ID del Cliente
           required: true
           type: string
-        - in: body
-          name: account_card
-          description: Se requiere el contrato y la tarjeta
+        - in: path
+          name: account_id
+          description: ID Contrato o Cuenta
           required: true
-          schema:
-            $ref: '#/definitions/account_card'
-
+          type: string
+        - in: path
+          name: card_id
+          description: ID Tarjeta
+          required: true
+          type: string
       responses:
         '204':
           description: |
@@ -1195,17 +1222,4 @@ definitions:
       queues_name_type:
         type: string
         enum: ['TopUp', 'WithDrawal','PendingCreateCard','ReverseTopup','ReverseWithdrawal','SendMail','PendingEmision','IssuanceFee']
-  
-  account_card:
-    type: object
-    description: |
-      Objeto que permite enviar contrato o cuenta y tarjeta. 
-    properties:
-      account_id:
-        type: string
-        description: Identificador de cuenta o contrato (UUID)
-        example: "5ef40073-c4fe-4399-bedf-c0886f966fd2"
-      card_id:
-        type: string
-        description: Identificador de la tarjeta (UUID)
-        example: "5ef40073-c4fe-4399-bedf-c0886f966fd2"
+        
