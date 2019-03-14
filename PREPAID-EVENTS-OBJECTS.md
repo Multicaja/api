@@ -1,7 +1,7 @@
 # Prepaid Event Objects
 ## Objetos correspondientes a los eventos emitidos por `api-prepaid` y `batch-prepaid`.
 
-### 1. Eventos de cuenta
+## 1. Eventos de cuenta
 * __ACCOUNT_CREATED__
 
     Se gatilla cuando se emite exitosamente una tarjeta en la primera carga del Cliente.
@@ -12,7 +12,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605"
     }
     ```
-### 2. Eventos de tarjeta
+## 2. Eventos de tarjeta
 * __CARD_CREATED__
 
     Se gatilla cuando se emite exitosamente una tarjeta en la primera carga del Cliente, o para la tarjeta nueva cuando se realiza un cambio de producto.
@@ -25,9 +25,10 @@
             "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
             "pan": "517608XXXXXX4840",
             "status": "ACTIVE", 
-            "timestamps":
-                "created_at": "2018-01-14T15:27:42.669Z"
+            "timestamps": {
+                "created_at": "2018-01-14T15:27:42.669Z",
                 "updated_at": "2018-03-02T10:03:12.123Z"
+            }
         }
     }
     ```
@@ -43,9 +44,10 @@
             "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
             "pan": "517608XXXXXX4840",
             "status": "LOCKED", 
-            "timestamps":
-                "created_at": "2018-01-14T15:27:42.669Z"
+            "timestamps": {
+                "created_at": "2018-01-14T15:27:42.669Z",
                 "updated_at": "2018-03-02T10:03:12.123Z"
+            }
         }
     }
     ```
@@ -61,9 +63,10 @@
             "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
             "pan": "517608XXXXXX4840",
             "status": "ACTIVE", 
-            "timestamps":
-                "created_at": "2018-01-14T15:27:42.669Z"
+            "timestamps": {
+                "created_at": "2018-01-14T15:27:42.669Z",
                 "updated_at": "2018-03-02T10:03:12.123Z"
+            }
         }
     }
     ```
@@ -79,9 +82,11 @@
             "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
             "pan": "517608XXXXXX4840",
             "status": "CLOSED", 
-            "timestamps":
-                "created_at": "2018-01-14T15:27:42.669Z"
+            "timestamps": {
+                "created_at": "2018-01-14T15:27:42.669Z",
                 "updated_at": "2018-03-02T10:03:12.123Z"
+            }
         }
     }
     ```
+## 3. Eventos de cuenta
