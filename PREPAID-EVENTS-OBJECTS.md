@@ -366,4 +366,140 @@
     }
     ```
 ## 5. Eventos de transacción (Cash-out Multicaja)
+* __TRANSACTION_AUTHORIZED__
+
+    Se gatilla cuando se registra exitosamente la aprobación de Tecnocom de una transacción de cash-out.
+
+    ```json
+    {
+        "user_id": "",
+        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "transaction": {
+            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "remote_transaction_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "auth_code": "123456",
+            "primary_amount": {
+                "currency_code": 152,
+                "value": "1000"
+            },
+            "secondary_amount": {
+                "currency_code": 840,
+                "value": "10.99"
+            },
+            "fees": [
+                {
+                    "amount": {
+                        "currency_code": 152,
+                        "value": "119"
+                    },
+                    "type": "CL_IVA"
+                }
+            ],
+            "status": "AUTHORIZED",
+            "merchant": {
+                "code": "123456789012345",
+                "category": 1234,
+                "name": "El Comercio"
+            },
+            "type": "CASH_OUT_MULTICAJA",
+            "country_code": 152,
+            "timestamps": {
+                "created_at": "2018-01-14T15:27:42.669Z",
+                "updated_at": "2018-03-02T10:03:12.123Z"
+            }
+        }
+    }
+    ```
+* __TRANSACTION_REVERSED__
+
+    Se puede gatillar en los siguientes momentos:
+
+    - __Online__: Cuando API-Prepago recibe la notificación de que debe reversar un cash-out. API-Prepago hará lo posible por reintegrar el dinero a la cuenta del cliente cuanto antes. 
+    - __Conciliación con Multicaja__: Cuando API-Prepago se entera por la conciliación de que Multicaja no procesó el cash-out. Esto cambiará el estado de una Transacción de `Autorizado` a `Reversado`. API-Prepago hará lo posible por reintegrar el dinero a la cuenta del cliente cuanto antes.
+
+    ```json
+    {
+        "user_id": "",
+        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "transaction": {
+            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "remote_transaction_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "auth_code": "123456",
+            "primary_amount": {
+                "currency_code": 152,
+                "value": "1000"
+            },
+            "secondary_amount": {
+                "currency_code": 840,
+                "value": "10.99"
+            },
+            "fees": [
+                {
+                    "amount": {
+                        "currency_code": 152,
+                        "value": "119"
+                    },
+                    "type": "CL_IVA"
+                }
+            ],
+            "status": "REVERSED",
+            "merchant": {
+                "code": "123456789012345",
+                "category": 1234,
+                "name": "El Comercio"
+            },
+            "type": "CASH_OUT_MULTICAJA",
+            "country_code": 152,
+            "timestamps": {
+                "created_at": "2018-01-14T15:27:42.669Z",
+                "updated_at": "2018-03-02T10:03:12.123Z"
+            }
+        }
+    }
+    ```
+* __TRANSACTION_REJECTED__
+
+    Se gatilla cuando API-Prepago no puede procesar un cash-out, porque Tecnocom lo rechaza, o porque Tecnocom no responde. En este último caso, API-Prepago hará lo posible por evitar que la carga original se haya procesado.
+
+    ```json
+    {
+        "user_id": "",
+        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "transaction": {
+            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "remote_transaction_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "auth_code": "123456",
+            "primary_amount": {
+                "currency_code": 152,
+                "value": "1000"
+            },
+            "secondary_amount": {
+                "currency_code": 840,
+                "value": "10.99"
+            },
+            "fees": [
+                {
+                    "amount": {
+                        "currency_code": 152,
+                        "value": "119"
+                    },
+                    "type": "CL_IVA"
+                }
+            ],
+            "status": "REJECTED",
+            "merchant": {
+                "code": "123456789012345",
+                "category": 1234,
+                "name": "El Comercio"
+            },
+            "type": "CASH_IN_MULTICAJA",
+            "country_code": 152,
+            "timestamps": {
+                "created_at": "2018-01-14T15:27:42.669Z",
+                "updated_at": "2018-03-02T10:03:12.123Z"
+            }
+        }
+    }
+    ```
+
 ## 6. Eventos de transacción (Cash-out diferido Multicaja)
