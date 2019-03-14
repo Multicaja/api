@@ -12,6 +12,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605"
     }
     ```
+
 ## 2. Eventos de tarjeta
 * __CARD_CREATED__
 
@@ -89,6 +90,7 @@
         }
     }
     ```
+
 ## 3. Eventos de transacción (Compras)
 * __TRANSACTION_AUTHORIZED__
 
@@ -365,6 +367,7 @@
         }
     }
     ```
+
 ## 5. Eventos de transacción (Cash-out Multicaja)
 * __TRANSACTION_AUTHORIZED__
 
@@ -503,3 +506,182 @@
     ```
 
 ## 6. Eventos de transacción (Cash-out diferido Multicaja)
+* __TRANSACTION_AUTHORIZED__
+
+    Se gatilla cuando se registra exitosamente la aprobación de Tecnocom de una transacción de cash-out diferido. Esto ocurre en el momento en que el Cliente solicita el retiro.
+
+    ```json
+    {
+        "user_id": "",
+        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "transaction": {
+            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "remote_transaction_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "auth_code": "123456",
+            "primary_amount": {
+                "currency_code": 152,
+                "value": "1000"
+            },
+            "secondary_amount": {
+                "currency_code": 840,
+                "value": "10.99"
+            },
+            "fees": [
+                {
+                    "amount": {
+                        "currency_code": 152,
+                        "value": "119"
+                    },
+                    "type": "CL_IVA"
+                }
+            ],
+            "status": "AUTHORIZED",
+            "merchant": {
+                "code": "123456789012345",
+                "category": 1234,
+                "name": "El Comercio"
+            },
+            "type": "DEFERRED_CASH_OUT_MULTICAJA",
+            "country_code": 152,
+            "timestamps": {
+                "created_at": "2018-01-14T15:27:42.669Z",
+                "updated_at": "2018-03-02T10:03:12.123Z"
+            }
+        }
+    }
+    ```
+* __TRANSACTION_REVERSED__
+
+    Se puede gatillar en los siguientes momentos:
+
+    - __Online__: Cuando API-Prepago recibe la notificación de que debe reversar el cash-out diferido en línea. API-Prepago hará lo posible por eliminar el cargo de la cuenta del cliente cuanto antes. 
+    - __Conciliación con Multicaja__: Cuando el banco de destino no acepta el dinero, el cargo a la tarjeta será reversado automáticamente.
+
+    ```json
+    {
+        "user_id": "",
+        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "transaction": {
+            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "remote_transaction_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "auth_code": "123456",
+            "primary_amount": {
+                "currency_code": 152,
+                "value": "1000"
+            },
+            "secondary_amount": {
+                "currency_code": 840,
+                "value": "10.99"
+            },
+            "fees": [
+                {
+                    "amount": {
+                        "currency_code": 152,
+                        "value": "119"
+                    },
+                    "type": "CL_IVA"
+                }
+            ],
+            "status": "REVERSED",
+            "merchant": {
+                "code": "123456789012345",
+                "category": 1234,
+                "name": "El Comercio"
+            },
+            "type": "DEFERRED_CASH_OUT_MULTICAJA",
+            "country_code": 152,
+            "timestamps": {
+                "created_at": "2018-01-14T15:27:42.669Z",
+                "updated_at": "2018-03-02T10:03:12.123Z"
+            }
+        }
+    }
+    ```
+* __TRANSACTION_REJECTED__
+
+    Se gatilla cuando API-Prepago no puede procesar un cash-out diferido, porque Tecnocom lo rechaza, o porque Tecnocom no responde. En este último caso, API-Prepago hará lo posible por evitar que la carga original se haya procesado.
+
+    ```json
+    {
+        "user_id": "",
+        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "transaction": {
+            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "remote_transaction_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "auth_code": "123456",
+            "primary_amount": {
+                "currency_code": 152,
+                "value": "1000"
+            },
+            "secondary_amount": {
+                "currency_code": 840,
+                "value": "10.99"
+            },
+            "fees": [
+                {
+                    "amount": {
+                        "currency_code": 152,
+                        "value": "119"
+                    },
+                    "type": "CL_IVA"
+                }
+            ],
+            "status": "REJECTED",
+            "merchant": {
+                "code": "123456789012345",
+                "category": 1234,
+                "name": "El Comercio"
+            },
+            "type": "DEFERRED_CASH_OUT_MULTICAJA",
+            "country_code": 152,
+            "timestamps": {
+                "created_at": "2018-01-14T15:27:42.669Z",
+                "updated_at": "2018-03-02T10:03:12.123Z"
+            }
+        }
+    }
+    ```
+* __TRANSACTION_PAID__
+
+    Este evento se gatilla cuando el banco de destino acepte el depósito.
+
+    ```json
+    {
+        "user_id": "",
+        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "transaction": {
+            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "remote_transaction_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "auth_code": "123456",
+            "primary_amount": {
+                "currency_code": 152,
+                "value": "1000"
+            },
+            "secondary_amount": {
+                "currency_code": 840,
+                "value": "10.99"
+            },
+            "fees": [
+                {
+                    "amount": {
+                        "currency_code": 152,
+                        "value": "119"
+                    },
+                    "type": "CL_IVA"
+                }
+            ],
+            "status": "PAID",
+            "merchant": {
+                "code": "123456789012345",
+                "category": 1234,
+                "name": "El Comercio"
+            },
+            "type": "DEFERRED_CASH_OUT_MULTICAJA",
+            "country_code": 152,
+            "timestamps": {
+                "created_at": "2018-01-14T15:27:42.669Z",
+                "updated_at": "2018-03-02T10:03:12.123Z"
+            }
+        }
+    }
+    ```
