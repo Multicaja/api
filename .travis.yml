@@ -32,11 +32,6 @@ script:
   - redoc-cli bundle -o api-bdp-redoc.html api-bdp.yml
   - spectacle --target-dir docs-card-payments --target-file api-card-payments.html api-card-payments.yml
   - redoc-cli bundle -o api-card-payments-redoc.html api-card-payments.yml
-  - spectacle --target-dir docs-api-coupon-payments --target-file api-coupon-payments.html api-coupon-payments.yml
-  - redoc-cli bundle -o api-coupon-payments-redoc.html api-coupon-payments.yml
-  - spectacle --target-dir docs-api-prepaid-2 --target-file api-prepaid-2.html api-prepaid-2.yml
-  - redoc-cli bundle -o api-prepaid-2-redoc.html api-prepaid-2.yml
-
   - mv docs-prepaid/api-prepaid.html docs/
   - mv api-prepaid-redoc.html docs/
   - mv docs-paypal/api-paypal.html docs/
@@ -47,12 +42,6 @@ script:
   - mv api-bdp-redoc.html docs/
   - mv docs-card-payments/api-card-payments.html docs/
   - mv api-card-payments-redoc.html docs/
-  - mv docs-api-coupon-payments/api-coupon-payments.html docs/
-  - mv api-coupon-payments-redoc.html docs/
-  - mv docs-api-prepaid-2/api-prepaid-2.html docs/
-  - mv api-prepaid-2-redoc.html docs/
-
-  
   - cp README.md docs/
  
 deploy:
