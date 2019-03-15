@@ -454,6 +454,36 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
+  /prepaid/{user_id}/account/{account_id}/card:
+    get:
+      tags:
+        - prepaid
+      summary: Listado de tarjetas de una cuenta
+      description: Retorna la lista de tarjetas de una cuenta
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: integer
+        - in: path
+          name: account_id
+          description: ID Contrato o Cuenta
+          required: true
+          type: string
+      responses:
+        '200':
+          description: |
+            OK - Lista de tarjetas prepago
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/truncated_prepaid_card'
+        '500':
+          description: Error indeterminado
+          schema:
+            $ref: '#/definitions/error_obj'
+
   /prepaid/{user_id}/account/{account_id}/card/{card_id}:
     get:
       tags:
