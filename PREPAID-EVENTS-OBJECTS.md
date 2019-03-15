@@ -23,7 +23,7 @@
         "user_id": "",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card": {
-            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "id": "6f78a2fa-989c-4317-8447-3f119d949c83",
             "pan": "517608XXXXXX4840",
             "status": "ACTIVE", 
             "timestamps": {
@@ -42,7 +42,7 @@
         "user_id": "",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card": {
-            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "id": "6f78a2fa-989c-4317-8447-3f119d949c83",
             "pan": "517608XXXXXX4840",
             "status": "LOCKED", 
             "timestamps": {
@@ -61,7 +61,7 @@
         "user_id": "",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card": {
-            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "id": "6f78a2fa-989c-4317-8447-3f119d949c83",
             "pan": "517608XXXXXX4840",
             "status": "ACTIVE", 
             "timestamps": {
@@ -80,7 +80,7 @@
         "user_id": "",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card": {
-            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "id": "6f78a2fa-989c-4317-8447-3f119d949c83",
             "pan": "517608XXXXXX4840",
             "status": "CLOSED", 
             "timestamps": {
@@ -103,9 +103,10 @@
     {
         "user_id": "",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
         "transaction": {
-            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
-            "remote_transaction_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "id": "",
+            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -150,9 +151,10 @@
     {
         "user_id": "",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
         "transaction": {
-            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
-            "remote_transaction_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "id": "",
+            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -194,9 +196,10 @@
     {
         "user_id": "",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
         "transaction": {
-            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
-            "remote_transaction_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "id": "",
+            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -240,9 +243,10 @@
     {
         "user_id": "",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
         "transaction": {
-            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
-            "remote_transaction_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "id": "",
+            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -287,9 +291,10 @@
     {
         "user_id": "",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
         "transaction": {
-            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
-            "remote_transaction_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "id": "",
+            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -331,9 +336,10 @@
     {
         "user_id": "",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
         "transaction": {
-            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
-            "remote_transaction_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "id": "",
+            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -377,9 +383,10 @@
     {
         "user_id": "",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
         "transaction": {
-            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
-            "remote_transaction_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "id": "",
+            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -424,9 +431,10 @@
     {
         "user_id": "",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
         "transaction": {
-            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
-            "remote_transaction_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "id": "",
+            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -468,9 +476,10 @@
     {
         "user_id": "",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
         "transaction": {
-            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
-            "remote_transaction_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "id": "",
+            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -514,9 +523,10 @@
     {
         "user_id": "",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
         "transaction": {
-            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
-            "remote_transaction_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "id": "",
+            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -561,9 +571,10 @@
     {
         "user_id": "",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
         "transaction": {
-            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
-            "remote_transaction_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "id": "",
+            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -605,9 +616,10 @@
     {
         "user_id": "",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
         "transaction": {
-            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
-            "remote_transaction_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "id": "",
+            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -649,9 +661,10 @@
     {
         "user_id": "",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
         "transaction": {
-            "id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
-            "remote_transaction_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+            "id": "",
+            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -678,6 +691,55 @@
             },
             "type": "DEFERRED_CASH_OUT_MULTICAJA",
             "country_code": 152,
+            "timestamps": {
+                "created_at": "2018-01-14T15:27:42.669Z",
+                "updated_at": "2018-03-02T10:03:12.123Z"
+            }
+        }
+    }
+    ```
+
+## 7. Eventos de transacción (Boleta de comision)
+* __TRANSACTION_INVOICE_ISSUED__
+
+    Este evento se gatilla cuando se genera una boleta por las comisiones de una transacción.
+
+    ```json
+    {
+        "user_id": "",
+        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+        "transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+        "invoice" : {
+            "id" : "82423a17-0d47-4f3e-9028-e0bb7dd97ce3",
+            "folio": "",
+            "status": "ISSUED",
+            "url": "",
+            "timestamps": {
+                "created_at": "2018-01-14T15:27:42.669Z",
+                "updated_at": "2018-03-02T10:03:12.123Z"
+            }
+        }
+    }
+    ```
+* __TRANSACTION_INVOICE_REVERSED__
+
+    Se puede gatillar en los siguientes momentos:
+
+    - __Online__: Cuando API-Prepago recibe la notificación desde Tecnocom al webservice de callback y la boleta ya estaba emitida. __(Por validar)__.
+    - __Conciliación con Tecnocom__: Si el archivo de Operaciones Diarias no cuenta con la Autorización o Movimiento de la compra, ésta ha sido recibido y notificada en línea y la boleta ya estaba emitida. __(Por validar)__.
+
+    ```json
+    {
+        "user_id": "",
+        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+        "transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+        "invoice" : {
+            "id" : "82423a17-0d47-4f3e-9028-e0bb7dd97ce3",
+            "folio": "",
+            "status": "REVERSED",
+            "url": "",
             "timestamps": {
                 "created_at": "2018-01-14T15:27:42.669Z",
                 "updated_at": "2018-03-02T10:03:12.123Z"
