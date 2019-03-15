@@ -12,7 +12,11 @@ before_script:
   - curl -L "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/shunit2/shunit2-2.1.6.tgz" | tar zx
   - npm install -g spectacle-docs
   - npm install -g redoc-cli
-  - npm install
+  - npm install -g base64-js
+  - npm install -g builtin-status-codes
+  - npm install -g ieee754
+  - npm install -g to-arraybuffer
+  - npm install -g xtend
 
 script:
   # Get proper branch name based on http://graysonkoonce.com/getting-the-current-branch-name-during-a-pull-request-in-travis-ci/
