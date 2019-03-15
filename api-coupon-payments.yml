@@ -1,0 +1,117 @@
+ 
+swagger: '2.0'
+info:
+  description:  |
+    Bienvenido a la API de [Multicaja](https://www.multicaja.cl)
+    Todos los requests son autenticados usando un `api-key`.
+  version: "1.0.0"
+  title: API de Pagos de Multicaja
+
+consumes:
+  - application/json
+produces:
+  - application/json
+  
+# tags are used for organizing operations
+tags:
+- name: Creación de cupón
+
+paths:
+  /payments/v1/coupon:
+    post:
+      summary: Generar un cupón
+      description: |
+        Servicio para crear un cupón de pago en efectivo
+        Los campos obligatorios son : 
+        * **order_id**: Id de la orden
+        * **email**: Email donde se envirará el cupón.
+        * **amount**: Monto del pago
+        * **request_duration**: Duración de este requerimiento medido en segundos. Pasado este tiempo, el usuario no podrá realizar el pago de este pedido. En los reportes aparecerá con estado EXPIRED. El E-Commerce puede enviar -1, en ese caso se asume que utilizará el valor default (que en este momento es de 86400 segundos, es decir 24 horas). Además se definirá el tiempo mínimo de duración, el cual será revisado en las pruebas de integración.
+        * **notify_user**: Indica si el E-Commerce necesita que Multicaja envíe un correo con el cupón al usuario final. Puede tomar dos valores (**true**: Multicaja enviará correo, **false**: Multicaja no enviará correo)
+      parameters:
+      - in: body
+        required: true
+        name: body
+        description: Parametros de entrada para el comercio
+        schema:
+          $ref: '#/definitions/CuponModel'
+      consumes:
+      - application/json    
+      produces:
+      - application/json
+      responses:
+        201:
+          description: Cupón creado con éxito
+          schema:
+            $ref: '#/definitions/CuponModelResponse'
+        400:
+          description: Parametros de entrada incorrectos
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        403: 
+          description: Prohibido continuar
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        500: 
+          description: Error interno en procesamiento
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+definitions:
+
+  CuponModel:
+    type: object
+    required:
+    - order_id
+    - email
+    - amount
+    - request_duration
+    - notify_user
+    properties:
+      order_id:
+        type: string
+        example: "1"
+        maximum: 30
+      email:
+        type: string
+        example: "usuario@mail.com"
+        maximum: 200
+      amount:
+        type: number
+        example: 1000
+      request_duration:
+        type: number
+        example: -1
+        maximum: 200
+      notify_user:
+        type: boolean
+        example: false
+
+  CuponModelResponse:
+    type: object
+    properties:
+      order_id:
+        type: string
+        example: "1"
+      mc_order_id:
+        type: number
+        example: 2
+      expiration_date:
+        type: string
+        format: date-time
+        example: "2019-02-27T16:21:04.299-03:00"
+      coupon_code:
+        type: string
+        example: "123456789"
+        
+  ErrorModel:
+    type: object
+    properties:
+      code: 
+        type: string
+        example: ERROR_CODE
+        description: Variable de error
+      message:
+        type: string
+        example: '{error_message}'
+        description: Descripción del error
