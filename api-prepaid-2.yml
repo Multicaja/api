@@ -506,7 +506,55 @@ paths:
           description: Error indeterminado
           schema:
             $ref: '#/definitions/error_obj'
-  
+
+  /prepaid/{user_id}/account/{account_id}/card/{card_id}/reissue:
+    post:
+      tags:
+          - prepaid
+      summary: Reemisión de tarjeta
+      description: |
+        Reemite una tarjeta
+
+        ### Responderá `404` en los siguientes casos:
+        * 102001: Si el cliente no existe
+
+        ### Responderá `422` en los siguientes casos:
+        * 102003: Si la tarjeta no es de Nivel 2
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: integer
+        - in: path
+          name: account_id
+          description: ID Contrato o Cuenta
+          required: true
+          type: string
+        - in: path
+          name: card_id
+          description: ID Tarjeta
+          required: true
+          type: string
+      responses:
+        '200':
+          description: |
+            OK - Información de la tarjeta prepago
+          schema:
+            $ref: '#/definitions/truncated_prepaid_card'
+        '404':
+          description: Tarjeta no existe
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: Si la tarjeta no es de Nivel 2
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado
+          schema:
+            $ref: '#/definitions/error_obj'
+
   /prepaid/{user_id}/account/{account_id}/card/{card_id}/lock:
     put:
       tags:
@@ -1044,13 +1092,13 @@ definitions:
       id:
         type: string
         description: |
-          Id de usuario en el procesador externo.
-        example: "43438500955156352167"
+          Id de la tarjeta
+        example: "a4579ad7-e016-4118-afbe-ea939e6c616b"
       pan:
         type: string
         description: |
-          Número de pan de la tarjeta
-        example: "517608XXXXXX4840"
+          Número de pan
+        example: "5176081234564840"
       name_on_card:
         type: string
         description: |
@@ -1074,7 +1122,39 @@ definitions:
         description: |
           Estatus de la tarjeta
 
-          * 'PENDING': Pendiente
+          * 'ACTIVE': Activa
+          * 'LOCKED': Bloqueada
+          * 'CLOSED': Cerrada
+          * 'EXPIRED': Expirada
+      timestamps:
+        $ref: '#/definitions/timestamps'
+
+  truncated_prepaid_card:
+    type: object
+    description: |
+      Información de la tarjeta prepago
+    properties:
+      id:
+        type: string
+        description: |
+          Id de la tarjeta
+        example: "a4579ad7-e016-4118-afbe-ea939e6c616b"
+      pan:
+        type: string
+        description: |
+          Número de pan truncado
+        example: "517608XXXXXX4840"
+      name_on_card:
+        type: string
+        description: |
+          Nombre impreso en la tarjeta
+        example: "Pedro Perez"
+      status:
+        type: string
+        enum: ["ACTIVE", "LOCKED", "CLOSED", "EXPIRED"]
+        description: |
+          Estatus de la tarjeta
+
           * 'ACTIVE': Activa
           * 'LOCKED': Bloqueada
           * 'CLOSED': Cerrada
