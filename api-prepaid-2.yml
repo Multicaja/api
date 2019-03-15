@@ -396,52 +396,6 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
-  /prepaid/processor/notification:
-    post:
-      summary: Notificación (Callback)
-      tags: 
-        - prepaid
-      description: |
-        **Mensaje invocado por el procesador/emisor**
-
-        Notifica una transacción ocurrida en una tarjeta de prepago
-
-        Para invocar este servicio se debe incluir el API Key en el header __`X-API-KEY`__
-
-        ### Responderá `401` en los siguientes casos:
-        * API Key faltante o invalido.
-
-        ### Responderá `400` en los siguientes casos:
-        * 101004: Si faltan parametros en el header o body. Ver información del error para mas detalle.
-
-        ### Responderá `422` en los siguientes casos:
-        * 101007: Si el atributo `base64_data` no es un Base64 valido.
-
-      parameters:
-        - in: body
-          name: transaction
-          description: Transacción
-          required: true
-          schema:
-            $ref: '#/definitions/raw_transaction_new'
-      responses:
-        '202':
-          description: OK
-        '401':
-          description: Unauthorized
-        '400':
-          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
-          schema:
-            $ref: '#/definitions/error_obj'
-        '422':
-          description: El mensaje `raw_transaction_new` tiene un error
-          schema:
-            $ref: '#/definitions/error_obj'        
-        '500':
-          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
-          schema:
-            $ref: '#/definitions/error_obj'
-
   /prepaid/{user_id}/account/{account_id}/balance:
     get:
       tags:
@@ -508,15 +462,15 @@ paths:
       description: |
         Retorna la información de la tarjeta prepago
 
+        __Nota__: Este servicio solo retornara informacion si el cliente posee tarjeta de Nivel 2
+
         ### Responderá `404` en los siguientes casos:
         * 102001: Si el cliente no existe
-        * 102003: Si el cliente no está registrado en prepago
+        * 102003: Si la tarjeta no es de Nivel 2
         
         ### Responderá `422` en los siguientes casos:
         * 102002: Cliente bloqueado o borrado
         * 102004: Cliente prepago bloqueado o borrado
-        * 106007: Si el cliente está registrado en prepago, pero no ha realizado la primera carga
-        * 106008: Si cliente está registrado en prepago, ya realizo la primera carga y la misma esta en proceso  
 
       parameters:
         - in: path
@@ -552,7 +506,55 @@ paths:
           description: Error indeterminado
           schema:
             $ref: '#/definitions/error_obj'
-  
+
+  /prepaid/{user_id}/account/{account_id}/card/{card_id}/reissue:
+    post:
+      tags:
+          - prepaid
+      summary: Reemisión de tarjeta
+      description: |
+        Reemite una tarjeta
+
+        ### Responderá `404` en los siguientes casos:
+        * 102001: Si el cliente no existe
+
+        ### Responderá `422` en los siguientes casos:
+        * 102003: Si la tarjeta no es de Nivel 2
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: integer
+        - in: path
+          name: account_id
+          description: ID Contrato o Cuenta
+          required: true
+          type: string
+        - in: path
+          name: card_id
+          description: ID Tarjeta
+          required: true
+          type: string
+      responses:
+        '200':
+          description: |
+            OK - Información de la tarjeta prepago
+          schema:
+            $ref: '#/definitions/truncated_prepaid_card'
+        '404':
+          description: Tarjeta no existe
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: Si la tarjeta no es de Nivel 2
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado
+          schema:
+            $ref: '#/definitions/error_obj'
+
   /prepaid/{user_id}/account/{account_id}/card/{card_id}/lock:
     put:
       tags:
@@ -639,7 +641,53 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
-  /prepaid/Queue:         
+  /prepaid/processor/notification:
+    post:
+      summary: Notificación (Callback)
+      tags: 
+        - prepaid
+      description: |
+        **Mensaje invocado por el procesador/emisor**
+
+        Notifica una transacción ocurrida en una tarjeta de prepago
+
+        Para invocar este servicio se debe incluir el API Key en el header __`X-API-KEY`__
+
+        ### Responderá `401` en los siguientes casos:
+        * API Key faltante o invalido.
+
+        ### Responderá `400` en los siguientes casos:
+        * 101004: Si faltan parametros en el header o body. Ver información del error para mas detalle.
+
+        ### Responderá `422` en los siguientes casos:
+        * 101007: Si el atributo `base64_data` no es un Base64 valido.
+
+      parameters:
+        - in: body
+          name: transaction
+          description: Transacción
+          required: true
+          schema:
+            $ref: '#/definitions/raw_transaction_new'
+      responses:
+        '202':
+          description: OK
+        '401':
+          description: Unauthorized
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: El mensaje `raw_transaction_new` tiene un error
+          schema:
+            $ref: '#/definitions/error_obj'        
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'
+
+  /prepaid/Queue:
     post:
       tags:
         - prepaid
@@ -656,9 +704,9 @@ paths:
         - PendingEmision (Alta Cliente)
         - IssuanceFee (Cobro de comision)
 
-         ### Responderá `400` en los siguientes casos:
+        ### Responderá `400` en los siguientes casos:
         * 101004: Si falta un parametro requerido.
-             
+
       parameters:
         - in: body
           name: reproces_queue
@@ -685,7 +733,7 @@ paths:
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
           schema:
             $ref: '#/definitions/error_obj'
-  
+
 definitions:
 
   prepaid_topup_base:
@@ -705,7 +753,6 @@ definitions:
           * Cargas con este dato repetido dentro del día serán rechazadas
           * Cuando quiera reversar la carga, se le pedirá este dato
         example: "12312309123"
-
 
   prepaid_topup_new:
     type: object
@@ -730,16 +777,14 @@ definitions:
             type: string
             description: Nombre del comercio
             example: "Carnicería el tajo"
-          
-  
+
   prepaid_withdrawal_new:
     type: object
     description: |
       Solicitud de retiro **(Request)**
     allOf:
       - $ref: "#/definitions/prepaid_topup_new"
-      
-            
+
   variable_data:
     type: object
     description: Dato de tipo llave=valor **(Response)**
@@ -783,14 +828,14 @@ definitions:
               $ref: '#/definitions/variable_data'
           timestamps:
             $ref: '#/definitions/timestamps'
-  
+
   prepaid_withdrawal:
     type: object
     description: |
       Solicitud de retiro **(Response)**
     allOf:
       - $ref: "#/definitions/prepaid_topup"
-  
+
   prepaid_defered_cashout_new:
     type: object
     description: |
@@ -816,7 +861,7 @@ definitions:
           rut:
             type: integer
             description: El rut destinatario sin puntos, guión, ni dígito verificador
-            
+
   prepaid_defered_cashout:
     type: object
     description: |
@@ -845,7 +890,7 @@ definitions:
               $ref: '#/definitions/variable_data'
           timestamps:
             $ref: '#/definitions/timestamps'
-            
+
   timestamps:
     type: object
     description: |
@@ -869,7 +914,7 @@ definitions:
       category:
         type: string
         enum: ['FX', 'CL_IVA','CL_COMISION']
-      
+
   raw_transaction_header_new:
     type: object
     description: |
@@ -1047,13 +1092,13 @@ definitions:
       id:
         type: string
         description: |
-          Id de usuario en el procesador externo.
-        example: "43438500955156352167"
+          Id de la tarjeta
+        example: "a4579ad7-e016-4118-afbe-ea939e6c616b"
       pan:
         type: string
         description: |
-          Número de pan de la tarjeta
-        example: "517608XXXXXX4840"
+          Número de pan
+        example: "5176081234564840"
       name_on_card:
         type: string
         description: |
@@ -1066,20 +1111,57 @@ definitions:
           ### Consideraciones
           * Esta en formato `YYYYMM`
         example: 202301
+      security_code:
+        type: integer
+        description: |
+          Código de seguridad de la tarjeta. (CVC/CVV)
+        example: 123
       status:
         type: string
-        enum: ["ACTIVE", "PENDING", "LOCKED", "LOCKED_HARD", "EXPIRED"]
+        enum: ["ACTIVE", "LOCKED", "CLOSED", "EXPIRED"]
         description: |
           Estatus de la tarjeta
 
-          * 'PENDING': Pendiente
           * 'ACTIVE': Activa
           * 'LOCKED': Bloqueada
-          * 'LOCKED_HARD': Bloqueada por emisor
+          * 'CLOSED': Cerrada
           * 'EXPIRED': Expirada
       timestamps:
         $ref: '#/definitions/timestamps'
-  
+
+  truncated_prepaid_card:
+    type: object
+    description: |
+      Información de la tarjeta prepago
+    properties:
+      id:
+        type: string
+        description: |
+          Id de la tarjeta
+        example: "a4579ad7-e016-4118-afbe-ea939e6c616b"
+      pan:
+        type: string
+        description: |
+          Número de pan truncado
+        example: "517608XXXXXX4840"
+      name_on_card:
+        type: string
+        description: |
+          Nombre impreso en la tarjeta
+        example: "Pedro Perez"
+      status:
+        type: string
+        enum: ["ACTIVE", "LOCKED", "CLOSED", "EXPIRED"]
+        description: |
+          Estatus de la tarjeta
+
+          * 'ACTIVE': Activa
+          * 'LOCKED': Bloqueada
+          * 'CLOSED': Cerrada
+          * 'EXPIRED': Expirada
+      timestamps:
+        $ref: '#/definitions/timestamps'
+
   prepaid_user:
     type: object
     description: |
@@ -1118,7 +1200,7 @@ definitions:
           * 'LEVEL_2': Cuando el `status` del rut y nombre esta verificado
       timestamps:
         $ref: '#/definitions/timestamps'
-  
+
   prepaid_transaction:
     type: object
     description: |
@@ -1222,4 +1304,3 @@ definitions:
       queues_name_type:
         type: string
         enum: ['TopUp', 'WithDrawal','PendingCreateCard','ReverseTopup','ReverseWithdrawal','SendMail','PendingEmision','IssuanceFee']
-        
