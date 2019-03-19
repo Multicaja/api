@@ -19,55 +19,119 @@
         <nav id="nav" role="navigation">
           <h5>Topics</h5>
           <a href="#introduction">Introduction</a>
-          <h5>Operations</h5>
-          <section>
-            <a href="#tag-prepaid">prepaid</a>
-            <ul> </ul>
-          </section>
-          <section>
-            <a href="#tag-prepaid">prepaid</a>
-            <ul>
-              <li>
-                <a href="#operation--prepaid--user_id--cashin-post"> Cash-in y emite tarjeta </a>
-              </li>
-              <li>
-                <a href="#operation--prepaid--user_id--cashin-reverse-post"> Reversa un Cash-in </a>
-              </li>
-              <li>
-                <a href="#operation--prepaid--user_id--cashout-post"> Cash-out de dinero </a>
-              </li>
-              <li>
-                <a href="#operation--prepaid--user_id--cashout-reverse-post"> Reversa un Cash-out </a>
-              </li>
-              <li>
-                <a href="#operation--prepaid-cl--user_id--defered_cashout-post"> Retira dinero de una tarjeta a una cuenta bancaria </a>
-              </li>
-              <li>
-                <a href="#operation--prepaid-cl--user_id--defered_cashout-reverse-post"> Reversa un Cash-out </a>
-              </li>
-              <li>
-                <a href="#operation--prepaid--user_id--account--account_id--balance-get"> Retorna el saldo de un cliente prepago </a>
-              </li>
-              <li>
-                <a href="#operation--prepaid--user_id--account--account_id--card--card_id--get"> Información de la tarjeta prepago </a>
-              </li>
-              <li>
-                <a href="#operation--prepaid--user_id--account--account_id--card--card_id--reissue-post"> Reemisión de tarjeta </a>
-              </li>
-              <li>
-                <a href="#operation--prepaid--user_id--account--account_id--card--card_id--lock-put"> Bloquea la tarjeta prepago </a>
-              </li>
-              <li>
-                <a href="#operation--prepaid--user_id--account--account_id--card--card_id--unlock-put"> Desbloquea la tarjeta prepago </a>
-              </li>
-              <li>
-                <a href="#operation--prepaid-processor-notification-post"> Notificación (Callback) </a>
-              </li>
-              <li>
-                <a href="#operation--prepaid-Queue-post"> Busca un mensaje en la cola y lo reinjecta en la cola en la cual falló </a>
-              </li>
-            </ul>
-          </section>
+          <h5>Paths</h5>
+          <!-- <section>
+                <a href="#path--prepaid--user_id--cash_in">/prepaid/{user_id}/cash_in</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--prepaid--user_id--cash_in-post"> Cash-in y emite tarjeta </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--prepaid--user_id--cash_in-reverse">/prepaid/{user_id}/cash_in/reverse</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--prepaid--user_id--cash_in-reverse-post"> Reversa un Cash-in </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--prepaid--user_id--cash_out">/prepaid/{user_id}/cash_out</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--prepaid--user_id--cash_out-post"> Cash-out de dinero </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--prepaid--user_id--cash_out-reverse">/prepaid/{user_id}/cash_out/reverse</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--prepaid--user_id--cash_out-reverse-post"> Reversa un Cash-out </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--prepaid-cl--user_id--defered_cash_out">/prepaid/cl/{user_id}/defered_cash_out</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--prepaid-cl--user_id--defered_cash_out-post"> Retira dinero de una tarjeta a una cuenta bancaria </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--prepaid-cl--user_id--defered_cash_out-reverse">/prepaid/cl/{user_id}/defered_cash_out/reverse</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--prepaid-cl--user_id--defered_cash_out-reverse-post"> Reversa un Cash-out </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--prepaid--user_id--account--account_id--balance">/prepaid/{user_id}/account/{account_id}/balance</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--prepaid--user_id--account--account_id--balance-get"> Retorna el saldo de un cliente prepago </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--prepaid--user_id--account--account_id--card">/prepaid/{user_id}/account/{account_id}/card</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--prepaid--user_id--account--account_id--card-get"> Listado de tarjetas de una cuenta </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--prepaid--user_id--account--account_id--card--card_id-">/prepaid/{user_id}/account/{account_id}/card/{card_id}</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--prepaid--user_id--account--account_id--card--card_id--get"> Información de la tarjeta prepago </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--prepaid--user_id--account--account_id--card--card_id--reissue">/prepaid/{user_id}/account/{account_id}/card/{card_id}/reissue</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--prepaid--user_id--account--account_id--card--card_id--reissue-post"> Reemisión de tarjeta </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--prepaid--user_id--account--account_id--card--card_id--lock">/prepaid/{user_id}/account/{account_id}/card/{card_id}/lock</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--prepaid--user_id--account--account_id--card--card_id--lock-put"> Bloquea la tarjeta prepago </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--prepaid--user_id--account--account_id--card--card_id--unlock">/prepaid/{user_id}/account/{account_id}/card/{card_id}/unlock</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--prepaid--user_id--account--account_id--card--card_id--unlock-put"> Desbloquea la tarjeta prepago </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--prepaid-processor-notification">/prepaid/processor/notification</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--prepaid-processor-notification-post"> Notificación de transacción (Callback del Procesador) </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--prepaid-Queue">/prepaid/Queue</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--prepaid-Queue-post"> Busca un mensaje en la cola y lo reinjecta en la cola en la cual falló </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
           <h5>Schema Definitions</h5>
           <a href="#definition-prepaid_topup_base"> prepaid_topup_base </a>
           <a href="#definition-prepaid_topup_new"> prepaid_topup_new </a>
@@ -126,19 +190,9 @@
               </div>
             </div>
           </div>
-          <h1 id="tag-prepaid" class="swagger-summary-tag" data-traverse-target="tag-prepaid">prepaid</h1>
-          <div class="tag-description doc-row">
-            <div class="doc-copy">
-              <p>Métodos públicos de la API de prepago.</p>
-            </div>
-          </div>
-          <h1 id="tag-prepaid" class="swagger-summary-tag" data-traverse-target="tag-prepaid">prepaid</h1>
-          <div class="tag-description doc-row">
-            <div class="doc-copy">
-              <p>Operaciones contra contratos y tarjetas.</p>
-            </div>
-          </div>
-          <div id="operation--prepaid--user_id--cashin-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--cashin-post">
+          <h1>Paths</h1>
+          <span id="path--prepaid--user_id--cash_in"></span>
+          <div id="operation--prepaid--user_id--cash_in-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--cash_in-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -154,7 +208,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/prepaid/{user_id}/cashin</span>
+                  <span class="operation-path">/prepaid/{user_id}/cash_in</span>
                 </section>
               </div>
             </div>
@@ -422,7 +476,8 @@
               </div>
             </div>
           </div>
-          <div id="operation--prepaid--user_id--cashin-reverse-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--cashin-reverse-post">
+          <span id="path--prepaid--user_id--cash_in-reverse"></span>
+          <div id="operation--prepaid--user_id--cash_in-reverse-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--cash_in-reverse-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -438,26 +493,30 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/prepaid/{user_id}/cashin/reverse</span>
+                  <span class="operation-path">/prepaid/{user_id}/cash_in/reverse</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Reversa un Cash-in que a) coincida en todos los campos de prepaid_topup_new y b) se haya recibido en las últimas 24 horas.</p>
+                  <p>Reversa un Cash-in que:</p>
+                  <ol>
+                    <li>Coincida en todos los campos de prepaid_topup_new.</li>
+                    <li>Se haya recibido en las últimas 24 horas.</li>
+                  </ol>
                   <h3 id="responder-201-en-los-siguientes-casos-">Responderá <code>201</code> en los siguientes casos:</h3>
                   <ul>
                     <li>Si el Cash-in se recibió, en cuyo caso iniciara el proceso de reversa.</li>
                   </ul>
                   <h3 id="responder-202-en-los-siguientes-casos-">Responderá <code>202</code> en los siguientes casos:</h3>
                   <ul>
-                    <li>130001: Si el Cash-in nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibir la carga mas adelante.</li>
+                    <li>130001: Si el Cash-in nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibirlo más adelante.</li>
                     <li>130003: Si la reversa fue recibida previamente para su procesamiento.</li>
                   </ul>
                   <h3 id="responder-410-en-los-siguientes-casos-">Responderá <code>410</code> en los siguientes casos:</h3>
                   <ul>
-                    <li>130004: Si es que el Cash-in fue recibido y no está reversado, pero el plazo para reversarla ya expiró.</li>
+                    <li>130004: Si es que el Cash-in fue recibido y no está reversado, pero el plazo para reversarlo ya expiró.</li>
                   </ul>
                   <h3 id="responder-422-en-los-siguientes-casos-">Responderá <code>422</code> en los siguientes casos:</h3>
                   <ul>
@@ -715,7 +774,8 @@
               </div>
             </div>
           </div>
-          <div id="operation--prepaid--user_id--cashout-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--cashout-post">
+          <span id="path--prepaid--user_id--cash_out"></span>
+          <div id="operation--prepaid--user_id--cash_out-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--cash_out-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -731,7 +791,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/prepaid/{user_id}/cashout</span>
+                  <span class="operation-path">/prepaid/{user_id}/cash_out</span>
                 </section>
               </div>
             </div>
@@ -993,7 +1053,8 @@
               </div>
             </div>
           </div>
-          <div id="operation--prepaid--user_id--cashout-reverse-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--cashout-reverse-post">
+          <span id="path--prepaid--user_id--cash_out-reverse"></span>
+          <div id="operation--prepaid--user_id--cash_out-reverse-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--cash_out-reverse-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -1009,21 +1070,25 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/prepaid/{user_id}/cashout/reverse</span>
+                  <span class="operation-path">/prepaid/{user_id}/cash_out/reverse</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Reversa un Cash-out que a) coincida en todos los campos de prepaid_withdrawal_new y b) se haya recibido en las últimas 24 horas.</p>
+                  <p>Reversa un Cash-out que:</p>
+                  <ol>
+                    <li>Coincida en todos los campos de prepaid_withdrawal_new.</li>
+                    <li>Se haya recibido en las últimas 24 horas.</li>
+                  </ol>
                   <h3 id="responder-201-xito-en-los-siguientes-casos-">Responderá <code>201</code> (éxito) en los siguientes casos:</h3>
                   <ul>
                     <li>Si el Cash-out se recibió, en cuyo caso iniciara el proceso de reversa.</li>
                   </ul>
                   <h3 id="responder-202-en-los-siguientes-casos-">Responderá <code>202</code> en los siguientes casos:</h3>
                   <ul>
-                    <li>130001: Si el Cash-out nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibir el retiro mas adelante.</li>
+                    <li>130001: Si el Cash-out nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibirlo más adelante.</li>
                     <li>130003: Si la reversa fue recibida previamente para su procesamiento.</li>
                   </ul>
                   <h3 id="responder-410-en-los-siguientes-casos-">Responderá <code>410</code> en los siguientes casos:</h3>
@@ -1032,7 +1097,7 @@
                   </ul>
                   <h3 id="responder-422-en-los-siguientes-casos-">Responderá <code>422</code> en los siguientes casos:</h3>
                   <ul>
-                    <li>130002: Si es que el Cash-out fue recibido la información de la reversa no concuerda.</li>
+                    <li>130002: Si es que el Cash-out fue recibido y el monto y moneda no concuerda.</li>
                   </ul>
                 </section>
               </div>
@@ -1286,7 +1351,8 @@
               </div>
             </div>
           </div>
-          <div id="operation--prepaid-cl--user_id--defered_cashout-post" class="operation panel" data-traverse-target="operation--prepaid-cl--user_id--defered_cashout-post">
+          <span id="path--prepaid-cl--user_id--defered_cash_out"></span>
+          <div id="operation--prepaid-cl--user_id--defered_cash_out-post" class="operation panel" data-traverse-target="operation--prepaid-cl--user_id--defered_cash_out-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -1302,7 +1368,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/prepaid/cl/{user_id}/defered_cashout</span>
+                  <span class="operation-path">/prepaid/cl/{user_id}/defered_cash_out</span>
                 </section>
               </div>
             </div>
@@ -1568,7 +1634,8 @@
               </div>
             </div>
           </div>
-          <div id="operation--prepaid-cl--user_id--defered_cashout-reverse-post" class="operation panel" data-traverse-target="operation--prepaid-cl--user_id--defered_cashout-reverse-post">
+          <span id="path--prepaid-cl--user_id--defered_cash_out-reverse"></span>
+          <div id="operation--prepaid-cl--user_id--defered_cash_out-reverse-post" class="operation panel" data-traverse-target="operation--prepaid-cl--user_id--defered_cash_out-reverse-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -1584,21 +1651,25 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/prepaid/cl/{user_id}/defered_cashout/reverse</span>
+                  <span class="operation-path">/prepaid/cl/{user_id}/defered_cash_out/reverse</span>
                 </section>
               </div>
             </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Reversa un retiCash-outro que a) coincida en todos los campos de prepaid_withdrawal_new y b) se haya recibido en las últimas 24 horas.</p>
+                  <p>Reversa un retiCash-outro que:</p>
+                  <ol>
+                    <li>Coincida en todos los campos de prepaid_withdrawal_new.</li>
+                    <li>Se haya recibido en las últimas 24 horas.</li>
+                  </ol>
                   <h3 id="responder-201-xito-en-los-siguientes-casos-">Responderá <code>201</code> (éxito) en los siguientes casos:</h3>
                   <ul>
                     <li>Si el Cash-out se recibió, en cuyo caso iniciara el proceso de reversa.</li>
                   </ul>
                   <h3 id="responder-202-en-los-siguientes-casos-">Responderá <code>202</code> en los siguientes casos:</h3>
                   <ul>
-                    <li>130001: Si el Cash-out nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibir el retiro mas adelante.</li>
+                    <li>130001: Si el Cash-out nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibirlo más adelante.</li>
                     <li>130003: Si la reversa fue recibida previamente para su procesamiento.</li>
                   </ul>
                   <h3 id="responder-410-en-los-siguientes-casos-">Responderá <code>410</code> en los siguientes casos:</h3>
@@ -1607,7 +1678,7 @@
                   </ul>
                   <h3 id="responder-422-en-los-siguientes-casos-">Responderá <code>422</code> en los siguientes casos:</h3>
                   <ul>
-                    <li>130002: Si es que el Cash-out fue recibido la información de la reversa no concuerda.</li>
+                    <li>130002: Si es que el Cash-out fue recibido y el monto y moneda no concuerda.</li>
                   </ul>
                 </section>
               </div>
@@ -1865,6 +1936,7 @@
               </div>
             </div>
           </div>
+          <span id="path--prepaid--user_id--account--account_id--balance"></span>
           <div id="operation--prepaid--user_id--account--account_id--balance-get" class="operation panel" data-traverse-target="operation--prepaid--user_id--account--account_id--balance-get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -2122,6 +2194,158 @@
               </div>
             </div>
           </div>
+          <span id="path--prepaid--user_id--account--account_id--card"></span>
+          <div id="operation--prepaid--user_id--account--account_id--card-get" class="operation panel" data-traverse-target="operation--prepaid--user_id--account--account_id--card-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-prepaid">prepaid</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Listado de tarjetas de una cuenta</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/prepaid/{user_id}/account/{account_id}/card</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Retorna la lista de tarjetas de una cuenta</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">user_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">integer</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID del Cliente</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">account_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID Contrato o Cuenta</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/truncated_prepaid_card">truncated_prepaid_card</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK - Lista de tarjetas prepago</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/truncated_prepaid_card">truncated_prepaid_card</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error indeterminado</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
+  {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;a4579ad7-e016-4118-afbe-ea939e6c616b&quot;</span>,
+    <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;517608XXXXXX4840&quot;</span>,
+    <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;Pedro Perez&quot;</span>,
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+      <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+    }
+  }
+]
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <span id="path--prepaid--user_id--account--account_id--card--card_id-"></span>
           <div id="operation--prepaid--user_id--account--account_id--card--card_id--get" class="operation panel" data-traverse-target="operation--prepaid--user_id--account--account_id--card--card_id--get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -2346,6 +2570,7 @@
               </div>
             </div>
           </div>
+          <span id="path--prepaid--user_id--account--account_id--card--card_id--reissue"></span>
           <div id="operation--prepaid--user_id--account--account_id--card--card_id--reissue-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--account--account_id--card--card_id--reissue-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -2369,7 +2594,7 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Reemite una tarjeta</p>
+                  <p>Esta llamada cierra la tarjeta informada con <code>card_id</code> y emite una nueva.</p>
                   <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
                   <ul>
                     <li>102001: Si el cliente no existe</li>
@@ -2461,7 +2686,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>Tarjeta no existe</p>
+                      <p>Cliente o Tarjeta no existe</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2564,6 +2789,7 @@
               </div>
             </div>
           </div>
+          <span id="path--prepaid--user_id--account--account_id--card--card_id--lock"></span>
           <div id="operation--prepaid--user_id--account--account_id--card--card_id--lock-put" class="operation panel" data-traverse-target="operation--prepaid--user_id--account--account_id--card--card_id--lock-put">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -2587,12 +2813,10 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Bloquea la tarjeta prepago.</p>
-                  <p>Si la tarjeta ya esta bloqueada este metodo no hace nada</p>
+                  <p>Bloquea la tarjeta prepago. Si la tarjeta ya esta bloqueada este metodo no hace nada.</p>
                   <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
                   <ul>
-                    <li>Si el cliente no existe</li>
-                    <li>Si el cliente no está registrado en prepago</li>
+                    <li>Si el cliente o la tarjeta no existe.</li>
                   </ul>
                 </section>
               </div>
@@ -2655,6 +2879,12 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">204 No Content</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/truncated_prepaid_card">truncated_prepaid_card</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
                       <p>OK</p>
@@ -2693,6 +2923,27 @@
               <div class="doc-examples">
                 <section>
                   <h5>Response Example
+                    <span>(204 No Content)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;a4579ad7-e016-4118-afbe-ea939e6c616b&quot;</span>,
+  <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;517608XXXXXX4840&quot;</span>,
+  <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;Pedro Perez&quot;</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+  }
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
                   <!-- <div class="hljs"> -->
@@ -2724,6 +2975,7 @@
               </div>
             </div>
           </div>
+          <span id="path--prepaid--user_id--account--account_id--card--card_id--unlock"></span>
           <div id="operation--prepaid--user_id--account--account_id--card--card_id--unlock-put" class="operation panel" data-traverse-target="operation--prepaid--user_id--account--account_id--card--card_id--unlock-put">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -2747,12 +2999,10 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Desbloquea la tarjeta prepago</p>
-                  <p>Si la tarjeta esta activa este metodo no hace nada</p>
+                  <p>Desbloquea la tarjeta prepago. Si la tarjeta esta activa este metodo no hace nada.</p>
                   <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
                   <ul>
-                    <li>Si el cliente no existe</li>
-                    <li>Si el cliente no está registrado en prepago</li>
+                    <li>Si el cliente o la tarjeta no existe.</li>
                   </ul>
                 </section>
               </div>
@@ -2815,6 +3065,12 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">204 No Content</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/truncated_prepaid_card">truncated_prepaid_card</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
                       <p>OK</p>
@@ -2853,6 +3109,27 @@
               <div class="doc-examples">
                 <section>
                   <h5>Response Example
+                    <span>(204 No Content)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;a4579ad7-e016-4118-afbe-ea939e6c616b&quot;</span>,
+  <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;517608XXXXXX4840&quot;</span>,
+  <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;Pedro Perez&quot;</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+  }
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
                   <!-- <div class="hljs"> -->
@@ -2884,6 +3161,7 @@
               </div>
             </div>
           </div>
+          <span id="path--prepaid-processor-notification"></span>
           <div id="operation--prepaid-processor-notification-post" class="operation panel" data-traverse-target="operation--prepaid-processor-notification-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -2894,7 +3172,7 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-summary">Notificaci&#xF3;n (Callback)</span>
+              <span class="operation-summary">Notificaci&#xF3;n de transacci&#xF3;n (Callback del Procesador)</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -3097,6 +3375,7 @@
               </div>
             </div>
           </div>
+          <span id="path--prepaid-Queue"></span>
           <div id="operation--prepaid-Queue-post" class="operation panel" data-traverse-target="operation--prepaid-Queue-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -3127,9 +3406,8 @@
                     <li>PendingCreateCard (Obtencion de Datos y Creacion)</li>
                     <li>Reverse_Cash_in </li>
                     <li>ReverseCash-out </li>
-                    <li>SendMail(Envio mail Tarjeta)</li>
                     <li>PendingEmision (Alta Cliente)</li>
-                    <li>IssuanceFee (Cobro de comision)</li>
+                    <li>IssuanceFee (Cobro de emisión)</li>
                   </ul>
                   <h3 id="responder-400-en-los-siguientes-casos-">Responderá <code>400</code> en los siguientes casos:</h3>
                   <ul>
@@ -4027,7 +4305,7 @@
                       <span class="json-property-enum" title="Possible values">
                         <span class="json-property-enum-item">FX</span>,
                         <span class="json-property-enum-item">CL_IVA</span>,
-                        <span class="json-property-enum-item">CL_COMISION</span>
+                        <span class="json-property-enum-item">CL_FEE</span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
