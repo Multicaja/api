@@ -16,12 +16,10 @@ produces:
   - application/json
 tags:
   - name: prepaid
-    description: Métodos públicos de la API de prepago.
-  - name: prepaid
     description: Operaciones contra contratos y tarjetas.
 paths:
 
-  /prepaid/{user_id}/cashin:
+  /prepaid/{user_id}/cash_in:
     post:
       tags:
         - prepaid 
@@ -88,23 +86,25 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
-  /prepaid/{user_id}/cashin/reverse:
+  /prepaid/{user_id}/cash_in/reverse:
     post:
       tags:
         - prepaid
       summary: Reversa un Cash-in
       description: |
-        Reversa un Cash-in que a) coincida en todos los campos de prepaid_topup_new y b) se haya recibido en las últimas 24 horas.
+        Reversa un Cash-in que:
+          1. Coincida en todos los campos de prepaid_topup_new.
+          2. Se haya recibido en las últimas 24 horas.
         
         ### Responderá `201` en los siguientes casos:
         * Si el Cash-in se recibió, en cuyo caso iniciara el proceso de reversa.
 
         ### Responderá `202` en los siguientes casos:
-        * 130001: Si el Cash-in nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibir la carga mas adelante.
+        * 130001: Si el Cash-in nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibirlo más adelante.
         * 130003: Si la reversa fue recibida previamente para su procesamiento.
 
         ### Responderá `410` en los siguientes casos:
-        * 130004: Si es que el Cash-in fue recibido y no está reversado, pero el plazo para reversarla ya expiró.
+        * 130004: Si es que el Cash-in fue recibido y no está reversado, pero el plazo para reversarlo ya expiró.
 
         ### Responderá `422` en los siguientes casos:
         * 130002: Si es que el Cash-in fue recibido y el monto y moneda no concuerda.
@@ -148,7 +148,7 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
-  /prepaid/{user_id}/cashout:
+  /prepaid/{user_id}/cash_out:
     post:
       tags:
         - prepaid
@@ -212,26 +212,28 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
-  /prepaid/{user_id}/cashout/reverse:
+  /prepaid/{user_id}/cash_out/reverse:
     post:
       tags:
         - prepaid
       summary: Reversa un Cash-out
       description: |
-        Reversa un Cash-out que a) coincida en todos los campos de prepaid_withdrawal_new y b) se haya recibido en las últimas 24 horas.
+        Reversa un Cash-out que:
+          1. Coincida en todos los campos de prepaid_withdrawal_new.
+          2. Se haya recibido en las últimas 24 horas.
         
         ### Responderá `201` (éxito) en los siguientes casos:
         * Si el Cash-out se recibió, en cuyo caso iniciara el proceso de reversa.
 
         ### Responderá `202` en los siguientes casos:
-        * 130001: Si el Cash-out nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibir el retiro mas adelante.
+        * 130001: Si el Cash-out nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibirlo más adelante.
         * 130003: Si la reversa fue recibida previamente para su procesamiento.
 
         ### Responderá `410` en los siguientes casos:
         * 130004: Si es que el Cash-out fue recibido y no está reversado, pero el plazo para reversarlo ya expiró.
 
         ### Responderá `422` en los siguientes casos:
-        * 130002: Si es que el Cash-out fue recibido la información de la reversa no concuerda.
+        * 130002: Si es que el Cash-out fue recibido y el monto y moneda no concuerda.
       parameters:
         - in: path
           name: user_id
@@ -272,7 +274,7 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
-  /prepaid/cl/{user_id}/defered_cashout:
+  /prepaid/cl/{user_id}/defered_cash_out:
     post:
       tags:
         - prepaid
@@ -336,26 +338,28 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
-  /prepaid/cl/{user_id}/defered_cashout/reverse:
+  /prepaid/cl/{user_id}/defered_cash_out/reverse:
     post:
       tags:
         - prepaid
       summary: Reversa un Cash-out
       description: |
-        Reversa un retiCash-outro que a) coincida en todos los campos de prepaid_withdrawal_new y b) se haya recibido en las últimas 24 horas.
+        Reversa un retiCash-outro que:
+        1. Coincida en todos los campos de prepaid_withdrawal_new.
+        2. Se haya recibido en las últimas 24 horas.
         
         ### Responderá `201` (éxito) en los siguientes casos:
         * Si el Cash-out se recibió, en cuyo caso iniciara el proceso de reversa.
 
         ### Responderá `202` en los siguientes casos:
-        * 130001: Si el Cash-out nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibir el retiro mas adelante.
+        * 130001: Si el Cash-out nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibirlo más adelante.
         * 130003: Si la reversa fue recibida previamente para su procesamiento.
 
         ### Responderá `410` en los siguientes casos:
         * 130004: Si es que el Cash-out fue recibido y no está reversado, pero el plazo para reversarlo ya expiró.
 
         ### Responderá `422` en los siguientes casos:
-        * 130002: Si es que el Cash-out fue recibido la información de la reversa no concuerda.
+        * 130002: Si es que el Cash-out fue recibido  y el monto y moneda no concuerda.
       parameters:
         - in: path
           name: user_id
@@ -454,6 +458,36 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
+  /prepaid/{user_id}/account/{account_id}/card:
+    get:
+      tags:
+        - prepaid
+      summary: Listado de tarjetas de una cuenta
+      description: Retorna la lista de tarjetas de una cuenta
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: integer
+        - in: path
+          name: account_id
+          description: ID Contrato o Cuenta
+          required: true
+          type: string
+      responses:
+        '200':
+          description: |
+            OK - Lista de tarjetas prepago
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/truncated_prepaid_card'
+        '500':
+          description: Error indeterminado
+          schema:
+            $ref: '#/definitions/error_obj'
+
   /prepaid/{user_id}/account/{account_id}/card/{card_id}:
     get:
       tags:
@@ -513,7 +547,7 @@ paths:
           - prepaid
       summary: Reemisión de tarjeta
       description: |
-        Reemite una tarjeta
+        Esta llamada cierra la tarjeta informada con `card_id` y emite una nueva.
 
         ### Responderá `404` en los siguientes casos:
         * 102001: Si el cliente no existe
@@ -543,7 +577,7 @@ paths:
           schema:
             $ref: '#/definitions/truncated_prepaid_card'
         '404':
-          description: Tarjeta no existe
+          description: Cliente o Tarjeta no existe
           schema:
             $ref: '#/definitions/error_obj'
         '422':
@@ -561,13 +595,10 @@ paths:
         - prepaid
       summary: Bloquea la tarjeta prepago
       description: |
-        Bloquea la tarjeta prepago.
-
-        Si la tarjeta ya esta bloqueada este metodo no hace nada
+        Bloquea la tarjeta prepago. Si la tarjeta ya esta bloqueada este metodo no hace nada.
 
         ### Responderá `404` en los siguientes casos:
-        * Si el cliente no existe
-        * Si el cliente no está registrado en prepago
+        * Si el cliente o la tarjeta no existe.
 
       parameters:
         - in: path
@@ -589,6 +620,8 @@ paths:
         '204':
           description: |
             OK
+          schema:
+            $ref: '#/definitions/truncated_prepaid_card'
         '404':
           description: Cliente no existe o no tiene tarjeta prepago
           schema:
@@ -604,13 +637,10 @@ paths:
         - prepaid
       summary: Desbloquea la tarjeta prepago
       description: |
-        Desbloquea la tarjeta prepago
-
-        Si la tarjeta esta activa este metodo no hace nada
+        Desbloquea la tarjeta prepago. Si la tarjeta esta activa este metodo no hace nada.
 
         ### Responderá `404` en los siguientes casos:
-        * Si el cliente no existe
-        * Si el cliente no está registrado en prepago
+        * Si el cliente o la tarjeta no existe.
         
       parameters:
         - in: path
@@ -632,6 +662,8 @@ paths:
         '204':
           description: |
             OK
+          schema:
+            $ref: '#/definitions/truncated_prepaid_card'
         '404':
           description: Cliente no existe o no tiene tarjeta prepago
           schema:
@@ -643,7 +675,7 @@ paths:
 
   /prepaid/processor/notification:
     post:
-      summary: Notificación (Callback)
+      summary: Notificación de transacción (Callback del Procesador)
       tags: 
         - prepaid
       description: |
@@ -700,9 +732,8 @@ paths:
         - PendingCreateCard (Obtencion de Datos y Creacion)
         - Reverse_Cash_in 
         - ReverseCash-out 
-        - SendMail(Envio mail Tarjeta)
         - PendingEmision (Alta Cliente)
-        - IssuanceFee (Cobro de comision)
+        - IssuanceFee (Cobro de emisión)
 
         ### Responderá `400` en los siguientes casos:
         * 101004: Si falta un parametro requerido.
@@ -913,7 +944,7 @@ definitions:
         $ref: "#/definitions/amount_and_currency_new"
       category:
         type: string
-        enum: ['FX', 'CL_IVA','CL_COMISION']
+        enum: ['FX', 'CL_IVA','CL_FEE']
 
   raw_transaction_header_new:
     type: object
