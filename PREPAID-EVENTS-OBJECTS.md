@@ -9,11 +9,13 @@
     ```json
     {
         "user_id": "",
-        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
-        "status": "ACTIVE", 
-        "timestamps": {
-            "created_at": "2018-01-14T15:27:42.669Z",
-            "updated_at": "2018-03-02T10:03:12.123Z"
+        "account": {
+            "id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+            "status": "ACTIVE", 
+            "timestamps": {
+                "created_at": "2018-01-14T15:27:42.669Z",
+                "updated_at": "2018-03-02T10:03:12.123Z"
+            }
         }
     }
     ```
