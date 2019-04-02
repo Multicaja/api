@@ -126,12 +126,20 @@
                       <strong>reference_id</strong>:
                       <strong>ID</strong> interno del comercio.</li>
                     <li>
-                      <strong>user</strong>: Lista con propiedades del usuario (ej. <code>&quot;email&quot;: &quot;example@multicaja.cl&quot;</code>).</li>
+                      <strong>user</strong>: Lista con propiedades del usuario.
+                      <ul>
+                        <li>Ejemplo: <code>{ &quot;email&quot;: &quot;example@multicaja.cl }&quot;</code></li>
+                      </ul>
+                    </li>
                     <li>
                       <strong>amount</strong> : Lista con propiedades de montos a pagar.
                       <ul>
                         <li>
-                          <strong>currency</strong>: Tipo de modeda (ej.: <code>CLP</code>)</li>
+                          <strong>currency</strong>: Tipo de modeda.
+                          <ul>
+                            <li>Ejemplo: <code>&quot;CLP&quot;</code></li>
+                          </ul>
+                        </li>
                         <li>
                           <strong>total</strong>: Total a pagar incluyendo impuestos.</li>
                         <li>
@@ -148,7 +156,16 @@
                       </ul>
                     </li>
                     <li>
-                      <strong>methods</strong> : Lista con textos de medios de pago habilitados, utilizando caracter asterisco para considerar todos los medios de pago. (ej.: ´[&quot;paypal&quot;,&quot;tarjetas&quot;]´, <code>[&#39;*&#39;]</code>).</li>
+                      <strong>methods</strong> : Lista con textos de medios de pago habilitados, utilizando caracter asterisco para considerar todos los medios de pago.
+                      <ul>
+                        <li>Ejemplos:
+                          <ul>
+                            <li>01: <code>[ &quot;paypal&quot;, &quot;tarjetas&quot;, &quot;efectivo&quot; ]</code></li>
+                            <li>02: <code>[ &quot;*&quot; ]</code></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
                     <li>
                       <strong>items</strong>: Lista con propiedades de productos/servicios a adquirir. Son opcionales y dependen del negocio.
                       <ul>
@@ -167,12 +184,18 @@
                     <li>
                       <strong>description</strong>: Descripción de orden.</li>
                     <li>
-                      <strong>customs</strong>: lista de propiedades llave/valor necesarios para ejecutar un webhook (ej. <code>&quot;key&quot;: &quot;cardId&quot;, &quot;value&quot;: &quot;123456&quot;</code>).
+                      <strong>customs</strong>: lista de propiedades llave/valor necesarios para ejecutar un webhook.
                       <ul>
                         <li>
                           <strong>key</strong>: Identificador de propiedad.</li>
                         <li>
                           <strong>value</strong>: Valor de propidad.</li>
+                        <li>Ejemplos:
+                          <ul>
+                            <li>01: <code>[ { &quot;key&quot;: &quot;cardId&quot;, &quot;value&quot;: &quot;123456&quot; }, { &quot;key&quot;: &quot;validationType&quot;, &quot;value&quot;: &quot;1&quot; } ]</code></li>
+                            <li>02: <code>[ { &quot;key&quot;: &quot;request_duration&quot;, &quot;value&quot;: &quot;60&quot; }, {&quot;key&quot;: &quot;notify_user&quot;, { &quot;value&quot;: &quot;true&quot; } ]</code></li>
+                          </ul>
+                        </li>
                       </ul>
                     </li>
                     <li>
@@ -243,7 +266,9 @@
   },
   <span class="hljs-attr">&quot;methods&quot;</span>: [
     <span class="hljs-string">&quot;paypal&quot;</span>,
-    <span class="hljs-string">&quot;tarjetas&quot;</span>
+    <span class="hljs-string">&quot;tarjetas&quot;</span>,
+    <span class="hljs-string">&quot;efectivo&quot;</span>,
+    <span class="hljs-string">&quot;efectivo_api&quot;</span>
   ],
   <span class="hljs-attr">&quot;items&quot;</span>: [
     {
@@ -367,6 +392,16 @@
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;pending&quot;</span>,
   <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-number">645646</span>,
   <span class="hljs-attr">&quot;redirect_url&quot;</span>: <span class="hljs-string">&quot;http://pagos.multicaja.cl/url_retorno&quot;</span>,
+  <span class="hljs-attr">&quot;merchant&quot;</span>: {
+    <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>,
+    <span class="hljs-attr">&quot;business_name&quot;</span>: <span class="hljs-string">&quot;Company LLC.&quot;</span>,
+    <span class="hljs-attr">&quot;brand_name&quot;</span>: <span class="hljs-string">&quot;Pop Company&quot;</span>
+  },
+  <span class="hljs-attr">&quot;payment_details&quot;</span>: {
+    <span class="hljs-attr">&quot;coupon_code&quot;</span>: <span class="hljs-number">123456789</span>,
+    <span class="hljs-attr">&quot;expiration_date&quot;</span>: <span class="hljs-string">&quot;2019-02-27T16:21:04.299-03:00&quot;</span>,
+    <span class="hljs-attr">&quot;map_url&quot;</span>: <span class="hljs-string">&quot;http://www.domain.com/map&quot;</span>
+  },
   <span class="hljs-attr">&quot;reference_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
   <span class="hljs-attr">&quot;user&quot;</span>: {
     <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;example@multicaja.cl&quot;</span>
@@ -382,7 +417,9 @@
   },
   <span class="hljs-attr">&quot;methods&quot;</span>: [
     <span class="hljs-string">&quot;paypal&quot;</span>,
-    <span class="hljs-string">&quot;tarjetas&quot;</span>
+    <span class="hljs-string">&quot;tarjetas&quot;</span>,
+    <span class="hljs-string">&quot;efectivo&quot;</span>,
+    <span class="hljs-string">&quot;efectivo_api&quot;</span>
   ],
   <span class="hljs-attr">&quot;items&quot;</span>: [
     {
@@ -624,6 +661,16 @@
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;pending&quot;</span>,
   <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-number">645646</span>,
   <span class="hljs-attr">&quot;redirect_url&quot;</span>: <span class="hljs-string">&quot;http://pagos.multicaja.cl/url_retorno&quot;</span>,
+  <span class="hljs-attr">&quot;merchant&quot;</span>: {
+    <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>,
+    <span class="hljs-attr">&quot;business_name&quot;</span>: <span class="hljs-string">&quot;Company LLC.&quot;</span>,
+    <span class="hljs-attr">&quot;brand_name&quot;</span>: <span class="hljs-string">&quot;Pop Company&quot;</span>
+  },
+  <span class="hljs-attr">&quot;payment_details&quot;</span>: {
+    <span class="hljs-attr">&quot;coupon_code&quot;</span>: <span class="hljs-number">123456789</span>,
+    <span class="hljs-attr">&quot;expiration_date&quot;</span>: <span class="hljs-string">&quot;2019-02-27T16:21:04.299-03:00&quot;</span>,
+    <span class="hljs-attr">&quot;map_url&quot;</span>: <span class="hljs-string">&quot;http://www.domain.com/map&quot;</span>
+  },
   <span class="hljs-attr">&quot;reference_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
   <span class="hljs-attr">&quot;user&quot;</span>: {
     <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;example@multicaja.cl&quot;</span>
@@ -639,7 +686,9 @@
   },
   <span class="hljs-attr">&quot;methods&quot;</span>: [
     <span class="hljs-string">&quot;paypal&quot;</span>,
-    <span class="hljs-string">&quot;tarjetas&quot;</span>
+    <span class="hljs-string">&quot;tarjetas&quot;</span>,
+    <span class="hljs-string">&quot;efectivo&quot;</span>,
+    <span class="hljs-string">&quot;efectivo_api&quot;</span>
   ],
   <span class="hljs-attr">&quot;items&quot;</span>: [
     {
@@ -780,12 +829,13 @@
                     <li>
                       <strong>description</strong>: Descripción de orden.</li>
                     <li>
-                      <strong>customs</strong>: lista de propiedades llave/valor necesarios para ejecutar un webhook (ej. <code>&quot;key&quot;: &quot;cardId&quot;, &quot;value&quot;: &quot;123456&quot;</code>).
+                      <strong>customs</strong>: lista de propiedades llave/valor necesarios para ejecutar un webhook.
                       <ul>
                         <li>
                           <strong>key</strong>: Identificador de propiedad.</li>
                         <li>
                           <strong>value</strong>: Valor de propidad.</li>
+                        <li>Ejemplo: <code>[ { &quot;key&quot;: &quot;cardId&quot;, &quot;value&quot;: &quot;123456&quot; }, { &quot;key&quot;: &quot;validationType&quot;, &quot;value&quot;: &quot;1&quot; } ]</code></li>
                       </ul>
                     </li>
                     <li>
@@ -862,7 +912,9 @@
   },
   <span class="hljs-attr">&quot;methods&quot;</span>: [
     <span class="hljs-string">&quot;paypal&quot;</span>,
-    <span class="hljs-string">&quot;tarjetas&quot;</span>
+    <span class="hljs-string">&quot;tarjetas&quot;</span>,
+    <span class="hljs-string">&quot;efectivo&quot;</span>,
+    <span class="hljs-string">&quot;efectivo_api&quot;</span>
   ],
   <span class="hljs-attr">&quot;items&quot;</span>: [
     {
@@ -944,6 +996,16 @@
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;pending&quot;</span>,
   <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-number">645646</span>,
   <span class="hljs-attr">&quot;redirect_url&quot;</span>: <span class="hljs-string">&quot;http://pagos.multicaja.cl/url_retorno&quot;</span>,
+  <span class="hljs-attr">&quot;merchant&quot;</span>: {
+    <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>,
+    <span class="hljs-attr">&quot;business_name&quot;</span>: <span class="hljs-string">&quot;Company LLC.&quot;</span>,
+    <span class="hljs-attr">&quot;brand_name&quot;</span>: <span class="hljs-string">&quot;Pop Company&quot;</span>
+  },
+  <span class="hljs-attr">&quot;payment_details&quot;</span>: {
+    <span class="hljs-attr">&quot;coupon_code&quot;</span>: <span class="hljs-number">123456789</span>,
+    <span class="hljs-attr">&quot;expiration_date&quot;</span>: <span class="hljs-string">&quot;2019-02-27T16:21:04.299-03:00&quot;</span>,
+    <span class="hljs-attr">&quot;map_url&quot;</span>: <span class="hljs-string">&quot;http://www.domain.com/map&quot;</span>
+  },
   <span class="hljs-attr">&quot;reference_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
   <span class="hljs-attr">&quot;user&quot;</span>: {
     <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;example@multicaja.cl&quot;</span>
@@ -959,7 +1021,9 @@
   },
   <span class="hljs-attr">&quot;methods&quot;</span>: [
     <span class="hljs-string">&quot;paypal&quot;</span>,
-    <span class="hljs-string">&quot;tarjetas&quot;</span>
+    <span class="hljs-string">&quot;tarjetas&quot;</span>,
+    <span class="hljs-string">&quot;efectivo&quot;</span>,
+    <span class="hljs-string">&quot;efectivo_api&quot;</span>
   ],
   <span class="hljs-attr">&quot;items&quot;</span>: [
     {
@@ -1441,7 +1505,9 @@
   },
   <span class="hljs-attr">&quot;methods&quot;</span>: [
     <span class="hljs-string">&quot;paypal&quot;</span>,
-    <span class="hljs-string">&quot;tarjetas&quot;</span>
+    <span class="hljs-string">&quot;tarjetas&quot;</span>,
+    <span class="hljs-string">&quot;efectivo&quot;</span>,
+    <span class="hljs-string">&quot;efectivo_api&quot;</span>
   ],
   <span class="hljs-attr">&quot;items&quot;</span>: [
     {
@@ -1519,6 +1585,59 @@
                           <span class="json-property-type">string</span>
                           <span class="json-property-range" title="Value limits">x ≤ 300</span>
                         </dt>
+                        <dt data-property-name="merchant">
+                          <span class="json-property-name">merchant:</span>
+                          <span class="json-property-type">object</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dt class="json-inner-schema">
+                          <section class="json-schema-properties">
+                            <dl>
+                              <dt data-property-name="rut">
+                                <span class="json-property-name">rut:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dt data-property-name="business_name">
+                                <span class="json-property-name">business_name:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dt data-property-name="brand_name">
+                                <span class="json-property-name">brand_name:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                            </dl>
+                          </section>
+                        </dt>
+                        <dt data-property-name="payment_details">
+                          <span class="json-property-name">payment_details:</span>
+                          <span class="json-property-type">object</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dt class="json-inner-schema">
+                          <section class="json-schema-properties">
+                            <dl>
+                              <dt data-property-name="coupon_code">
+                                <span class="json-property-name">coupon_code:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dt data-property-name="expiration_date">
+                                <span class="json-property-name">expiration_date:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-format">(date-time)</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dt data-property-name="map_url">
+                                <span class="json-property-name">map_url:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                            </dl>
+                          </section>
+                        </dt>
                       </dl>
                     </section>
                   </section>
@@ -1534,6 +1653,16 @@
   <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;pending&quot;</span>,
   <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-number">645646</span>,
   <span class="hljs-attr">&quot;redirect_url&quot;</span>: <span class="hljs-string">&quot;http://pagos.multicaja.cl/url_retorno&quot;</span>,
+  <span class="hljs-attr">&quot;merchant&quot;</span>: {
+    <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;1-9&quot;</span>,
+    <span class="hljs-attr">&quot;business_name&quot;</span>: <span class="hljs-string">&quot;Company LLC.&quot;</span>,
+    <span class="hljs-attr">&quot;brand_name&quot;</span>: <span class="hljs-string">&quot;Pop Company&quot;</span>
+  },
+  <span class="hljs-attr">&quot;payment_details&quot;</span>: {
+    <span class="hljs-attr">&quot;coupon_code&quot;</span>: <span class="hljs-number">123456789</span>,
+    <span class="hljs-attr">&quot;expiration_date&quot;</span>: <span class="hljs-string">&quot;2019-02-27T16:21:04.299-03:00&quot;</span>,
+    <span class="hljs-attr">&quot;map_url&quot;</span>: <span class="hljs-string">&quot;http://www.domain.com/map&quot;</span>
+  },
   <span class="hljs-attr">&quot;reference_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
   <span class="hljs-attr">&quot;user&quot;</span>: {
     <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;example@multicaja.cl&quot;</span>
@@ -1549,7 +1678,9 @@
   },
   <span class="hljs-attr">&quot;methods&quot;</span>: [
     <span class="hljs-string">&quot;paypal&quot;</span>,
-    <span class="hljs-string">&quot;tarjetas&quot;</span>
+    <span class="hljs-string">&quot;tarjetas&quot;</span>,
+    <span class="hljs-string">&quot;efectivo&quot;</span>,
+    <span class="hljs-string">&quot;efectivo_api&quot;</span>
   ],
   <span class="hljs-attr">&quot;items&quot;</span>: [
     {
