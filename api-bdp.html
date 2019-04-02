@@ -19,26 +19,32 @@
         <nav id="nav" role="navigation">
           <h5>Topics</h5>
           <a href="#introduction">Introduction</a>
-          <h5>Paths</h5>
-          <!-- <section>
-                <a href="#path--payments-v1.0-orders">/payments/v1.0/orders</a>
-                <ul> -->
-          <!-- <li> -->
-          <a href="#operation--payments-v1.0-orders-post"> Generar una order (Intención de pago) </a>
-          <!-- </li> -->
-          <!-- </ul>
-              </section> -->
-          <!-- <section>
-                <a href="#path--payments-v1.0-orders--order_id-">/payments/v1.0/orders/{order_id}</a>
-                <ul> -->
-          <!-- <li> -->
-          <a href="#operation--payments-v1.0-orders--order_id--get"> Obtener el estado de la orden </a>
-          <!-- </li> -->
-          <!-- <li> -->
-          <a href="#operation--payments-v1.0-orders--order_id--delete"> Cancelar la orden </a>
-          <!-- </li> -->
-          <!-- </ul>
-              </section> -->
+          <h5>Operations</h5>
+          <section>
+            <a href="#tag-transaccional">transaccional</a>
+            <ul>
+              <li>
+                <a href="#operation--payments-v1.0-orders-post"> Generar una order (Intención de pago) </a>
+              </li>
+              <li>
+                <a href="#operation--payments-v1.0-orders--order_id--get"> Obtener el estado de la orden </a>
+              </li>
+              <li>
+                <a href="#operation--payments-v1.0-orders--order_id--put"> Actualizar la orden </a>
+              </li>
+              <li>
+                <a href="#operation--payments-v1.0-orders--order_id--delete"> Cancelar la orden </a>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <a href="#tag-general">general</a>
+            <ul>
+              <li>
+                <a href="#operation--payments-v1.0-general-paymentmethods-get"> Obtener lista de medios de pago </a>
+              </li>
+            </ul>
+          </section>
           <h5>Schema Definitions</h5>
           <a href="#definition-userModel"> userModel </a>
           <a href="#definition-ordersModel"> ordersModel </a>
@@ -85,8 +91,12 @@
               </div>
             </div>
           </div>
-          <h1>Paths</h1>
-          <span id="path--payments-v1.0-orders"></span>
+          <h1 id="tag-transaccional" class="swagger-summary-tag" data-traverse-target="tag-transaccional">transaccional</h1>
+          <div class="tag-description doc-row">
+            <div class="doc-copy">
+              <p>Opciones de la Orden</p>
+            </div>
+          </div>
           <div id="operation--payments-v1.0-orders-post" class="operation panel" data-traverse-target="operation--payments-v1.0-orders-post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -467,7 +477,6 @@
               </div>
             </div>
           </div>
-          <span id="path--payments-v1.0-orders--order_id-"></span>
           <div id="operation--payments-v1.0-orders--order_id--get" class="operation panel" data-traverse-target="operation--payments-v1.0-orders--order_id--get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -725,6 +734,281 @@
               </div>
             </div>
           </div>
+          <div id="operation--payments-v1.0-orders--order_id--put" class="operation panel" data-traverse-target="operation--payments-v1.0-orders--order_id--put">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-transaccional">transaccional</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Actualizar la orden</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">PUT</span>
+                  <span class="operation-path">/payments/v1.0/orders/{order_id}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Servicio para actualizar ordenes pendientes de pago, permitiendo actualizar los siguientes campos:</p>
+                  <ul>
+                    <li>
+                      <strong>reference_id</strong>:
+                      <strong>ID</strong> interno del comercio.</li>
+                    <li>
+                      <strong>items</strong>: Lista con propiedades de productos/servicios a adquirir. Son opcionales y dependen del negocio.
+                      <ul>
+                        <li>
+                          <strong>name</strong>: Nombre.</li>
+                        <li>
+                          <strong>code</strong>: Codigo.</li>
+                        <li>
+                          <strong>price</strong>: Suma del precio total de unidades del producto.</li>
+                        <li>
+                          <strong>unitPrice</strong>: Precio unitario.</li>
+                        <li>
+                          <strong>quantity</strong>: Cantidad de productos.</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>description</strong>: Descripción de orden.</li>
+                    <li>
+                      <strong>customs</strong>: lista de propiedades llave/valor necesarios para ejecutar un webhook (ej. <code>&quot;key&quot;: &quot;cardId&quot;, &quot;value&quot;: &quot;123456&quot;</code>).
+                      <ul>
+                        <li>
+                          <strong>key</strong>: Identificador de propiedad.</li>
+                        <li>
+                          <strong>value</strong>: Valor de propidad.</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>urls</strong> : Url de redirección para los casos de éxito y error.
+                      <ul>
+                        <li>
+                          <strong>return_url</strong>: URL de retorno a página de e-commerce en caso de una compra exitosa.</li>
+                        <li>
+                          <strong>cancel_url</strong>: URL de retorno a página de e-commerce en caso de una compra fallida.</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ordersModel">ordersModel</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Parametros de entrada para el comercio</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">order_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">number</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID de orden</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;reference_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
+  <span class="hljs-attr">&quot;user&quot;</span>: {
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;example@multicaja.cl&quot;</span>
+  },
+  <span class="hljs-attr">&quot;amount&quot;</span>: {
+    <span class="hljs-attr">&quot;currency&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
+    <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">41000</span>,
+    <span class="hljs-attr">&quot;details&quot;</span>: {
+      <span class="hljs-attr">&quot;subtotal&quot;</span>: <span class="hljs-number">39000</span>,
+      <span class="hljs-attr">&quot;fee&quot;</span>: <span class="hljs-number">1000</span>,
+      <span class="hljs-attr">&quot;tax&quot;</span>: <span class="hljs-number">1000</span>
+    }
+  },
+  <span class="hljs-attr">&quot;methods&quot;</span>: [
+    <span class="hljs-string">&quot;paypal&quot;</span>,
+    <span class="hljs-string">&quot;tarjetas&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;items&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
+      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;code&quot;</span>,
+      <span class="hljs-attr">&quot;price&quot;</span>: <span class="hljs-number">39000</span>,
+      <span class="hljs-attr">&quot;unit_price&quot;</span>: <span class="hljs-number">13000</span>,
+      <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-number">3</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Esta es una orden&quot;</span>,
+  <span class="hljs-attr">&quot;customs&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;cardId&quot;</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1306374&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;urls&quot;</span>: {
+    <span class="hljs-attr">&quot;return_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/return_url&quot;</span>,
+    <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
+  },
+  <span class="hljs-attr">&quot;webhooks&quot;</span>: {
+    <span class="hljs-attr">&quot;webhook_request_process&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/request_url&quot;</span>,
+    <span class="hljs-attr">&quot;webhook_confirm&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/confirm_url&quot;</span>,
+    <span class="hljs-attr">&quot;webhook_reject&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/reject_url&quot;</span>
+  }
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">201 Created</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/orderModelResponse">orderModelResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Orden creada con éxito</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorModel">ErrorModel</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Parametros de entrada incorrectos</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(201 Created)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;pending&quot;</span>,
+  <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-number">645646</span>,
+  <span class="hljs-attr">&quot;redirect_url&quot;</span>: <span class="hljs-string">&quot;http://pagos.multicaja.cl/url_retorno&quot;</span>,
+  <span class="hljs-attr">&quot;reference_id&quot;</span>: <span class="hljs-string">&quot;ERWER213&quot;</span>,
+  <span class="hljs-attr">&quot;user&quot;</span>: {
+    <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;example@multicaja.cl&quot;</span>
+  },
+  <span class="hljs-attr">&quot;amount&quot;</span>: {
+    <span class="hljs-attr">&quot;currency&quot;</span>: <span class="hljs-string">&quot;CLP&quot;</span>,
+    <span class="hljs-attr">&quot;total&quot;</span>: <span class="hljs-number">41000</span>,
+    <span class="hljs-attr">&quot;details&quot;</span>: {
+      <span class="hljs-attr">&quot;subtotal&quot;</span>: <span class="hljs-number">39000</span>,
+      <span class="hljs-attr">&quot;fee&quot;</span>: <span class="hljs-number">1000</span>,
+      <span class="hljs-attr">&quot;tax&quot;</span>: <span class="hljs-number">1000</span>
+    }
+  },
+  <span class="hljs-attr">&quot;methods&quot;</span>: [
+    <span class="hljs-string">&quot;paypal&quot;</span>,
+    <span class="hljs-string">&quot;tarjetas&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;items&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;name&quot;</span>,
+      <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;code&quot;</span>,
+      <span class="hljs-attr">&quot;price&quot;</span>: <span class="hljs-number">39000</span>,
+      <span class="hljs-attr">&quot;unit_price&quot;</span>: <span class="hljs-number">13000</span>,
+      <span class="hljs-attr">&quot;quantity&quot;</span>: <span class="hljs-number">3</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Esta es una orden&quot;</span>,
+  <span class="hljs-attr">&quot;customs&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;key&quot;</span>: <span class="hljs-string">&quot;cardId&quot;</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1306374&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;urls&quot;</span>: {
+    <span class="hljs-attr">&quot;return_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/return_url&quot;</span>,
+    <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
+  },
+  <span class="hljs-attr">&quot;webhooks&quot;</span>: {
+    <span class="hljs-attr">&quot;webhook_request_process&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/request_url&quot;</span>,
+    <span class="hljs-attr">&quot;webhook_confirm&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/confirm_url&quot;</span>,
+    <span class="hljs-attr">&quot;webhook_reject&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/reject_url&quot;</span>
+  }
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;ERROR_CODE&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;{error_message}&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
           <div id="operation--payments-v1.0-orders--order_id--delete" class="operation panel" data-traverse-target="operation--payments-v1.0-orders--order_id--delete">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -838,6 +1122,126 @@
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;ERROR_CODE&quot;</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;{error_message}&quot;</span>
 }
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(410 Gone)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;ERROR_CODE&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;{error_message}&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1 id="tag-general" class="swagger-summary-tag" data-traverse-target="tag-general">general</h1>
+          <div class="tag-description doc-row">
+            <div class="doc-copy">
+              <p>Información transversal de todos los medios de pago</p>
+            </div>
+          </div>
+          <div id="operation--payments-v1.0-general-paymentmethods-get" class="operation panel" data-traverse-target="operation--payments-v1.0-general-paymentmethods-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-general">general</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Obtener lista de medios de pago</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/payments/v1.0/general/paymentmethods</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Muestra una lista de medios de pago.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/paymentMethodItemObject">paymentMethodItemObject</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>ok</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/paymentMethodItemObject">paymentMethodItemObject</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">410 Gone</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorModel">ErrorModel</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>La orden fue anulada.</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
+  {
+    <span class="hljs-attr">&quot;payment_method&quot;</span>: <span class="hljs-string">&quot;paypal&quot;</span>,
+    <span class="hljs-attr">&quot;payment_max_amount&quot;</span>: <span class="hljs-number">40000</span>
+  }
+]
 </code></pre> </body>
                   </html>
                   <!-- </div> -->
