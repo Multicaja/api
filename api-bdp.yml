@@ -33,15 +33,20 @@ paths:
         Servicio para poder crear una intención de pago.
         Los campos obligatorios son : 
         * **reference_id**: **ID** interno del comercio.
-        * **user**: Lista con propiedades del usuario (ej. `"email": "example@multicaja.cl"`).
+        * **user**: Lista con propiedades del usuario.
+          * Ejemplo: `{ "email": "example@multicaja.cl }"`
         * **amount** : Lista con propiedades de montos a pagar.
-          * **currency**: Tipo de modeda (ej.: `CLP`)
+          * **currency**: Tipo de modeda.
+            * Ejemplo: `"CLP"`
           * **total**: Total a pagar incluyendo impuestos.
           * **details**: Lista con propiedades de detalles de montos de pago.
             * **subtotal**: Suma total monto de items antes de impuestos.
             * **fee**: Comisión aplicado al subtotal.
             * **tax**: Impuesto aplicado al subtotal.
-        * **methods** : Lista con textos de medios de pago habilitados, utilizando caracter asterisco para considerar todos los medios de pago. (ej.: ´["paypal","tarjetas"]´, `['*']`).
+        * **methods** : Lista con textos de medios de pago habilitados, utilizando caracter asterisco para considerar todos los medios de pago.
+          * Ejemplos:
+            * 01: `[ "paypal", "tarjetas", "efectivo" ]`
+            * 02: `[ "*" ]`
         * **items**: Lista con propiedades de productos/servicios a adquirir. Son opcionales y dependen del negocio.
           * **name**: Nombre.
           * **code**: Codigo.
@@ -49,9 +54,12 @@ paths:
           * **unitPrice**: Precio unitario.
           * **quantity**: Cantidad de productos.
         * **description**: Descripción de orden.
-        * **customs**: lista de propiedades llave/valor necesarios para ejecutar un webhook (ej. `"key": "cardId", "value": "123456"`).
+        * **customs**: lista de propiedades llave/valor necesarios para ejecutar un webhook.
           * **key**: Identificador de propiedad.
           * **value**: Valor de propidad.
+          * Ejemplos:
+            * 01: `[ { "key": "cardId", "value": "123456" }, { "key": "validationType", "value": "1" } ]`
+            * 02: `[ { "key": "request_duration", "value": "60" }, {"key": "notify_user", { "value": "true" } ]`
         * **urls** : Url de redirección para los casos de éxito y error.
           * **return_url**: URL de retorno a página de e-commerce en caso de una compra exitosa.
           * **cancel_url**: URL de retorno a página de e-commerce en caso de una compra fallida.
@@ -146,9 +154,10 @@ paths:
           * **unitPrice**: Precio unitario.
           * **quantity**: Cantidad de productos.
         * **description**: Descripción de orden.
-        * **customs**: lista de propiedades llave/valor necesarios para ejecutar un webhook (ej. `"key": "cardId", "value": "123456"`).
+        * **customs**: lista de propiedades llave/valor necesarios para ejecutar un webhook.
           * **key**: Identificador de propiedad.
           * **value**: Valor de propidad.
+          * Ejemplo: `[ { "key": "cardId", "value": "123456" }, { "key": "validationType", "value": "1" } ]`
         * **urls** : Url de redirección para los casos de éxito y error.
           * **return_url**: URL de retorno a página de e-commerce en caso de una compra exitosa.
           * **cancel_url**: URL de retorno a página de e-commerce en caso de una compra fallida.
@@ -257,7 +266,7 @@ definitions:
         $ref: '#/definitions/amountModel'
       methods:
         type: array
-        example: ['paypal', 'tarjetas']
+        example: ['paypal', 'tarjetas', 'efectivo', 'efectivo_api']
         items:
           type: string
           example: "paypal"
@@ -293,6 +302,32 @@ definitions:
             type: string
             example: 'http://pagos.multicaja.cl/url_retorno'
             maximum: 300
+          merchant:
+            type: object
+            properties:
+              rut:
+                type: string
+                example: "1-9"
+              business_name:
+                type: string
+                example: "Company LLC."
+              brand_name:
+                type: string
+                example: "Pop Company"
+          payment_details:
+            type: object
+            properties:
+              coupon_code:
+                type: string
+                example: 123456789
+              expiration_date:
+                type: string
+                format: date-time
+                example: "2019-02-27T16:21:04.299-03:00"
+              map_url:
+                type: string
+                example: "http://www.domain.com/map"
+              
             
   amountModel:
     type: object
