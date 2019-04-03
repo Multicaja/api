@@ -17,7 +17,7 @@ tags:
 - name: Creación de cupón
 
 paths:
-  /payments/v1/coupon:
+  /payment-cash/v1/coupon:
     post:
       summary: Generar un cupón
       description: |
@@ -55,6 +55,32 @@ paths:
           description: Prohibido continuar
           schema:
             $ref: '#/definitions/ErrorModel'
+        500: 
+          description: Error interno en procesamiento
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  
+  /payment-cash/v1/coupon/pay/{order_id}:
+    post:
+      summary: Pagar un cupón
+      description: |
+        Servicio para pagar un cupón de pago en efectivo (Solamente disponible en ambientes de prueba como testing o staging)
+        Los campos obligatorios son : 
+        * **order_id**: Id de la orden
+      parameters:
+        - in: path
+          name: order_id
+          type: string
+          required: true
+      consumes:
+      - application/json    
+      produces:
+      - application/json
+      responses:
+        201:
+          description: Cupón pagado con éxito
+          schema:
+            $ref: '#/definitions/SuccessModelResponse'
         500: 
           description: Error interno en procesamiento
           schema:
@@ -122,6 +148,13 @@ definitions:
         type: string
         example: "https://www.multicaja.cl/puntos-de-pago-efectivo/?monto=menor"
         
+  SuccessModelResponse:
+    type: object
+    properties:
+      success:
+        type: boolean
+        example: true
+  
   ErrorModel:
     type: object
     properties:
