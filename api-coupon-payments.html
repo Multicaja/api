@@ -28,13 +28,17 @@
             <a href="#tag-default">default</a>
             <ul>
               <li>
-                <a href="#operation--payments-v1-coupon-post"> Generar un cupón </a>
+                <a href="#operation--payment-cash-v1-coupon-post"> Generar un cupón </a>
+              </li>
+              <li>
+                <a href="#operation--payment-cash-v1-coupon-pay--order_id--post"> Pagar un cupón </a>
               </li>
             </ul>
           </section>
           <h5>Schema Definitions</h5>
           <a href="#definition-CuponModel"> CuponModel </a>
           <a href="#definition-CuponModelResponse"> CuponModelResponse </a>
+          <a href="#definition-SuccessModelResponse"> SuccessModelResponse </a>
           <a href="#definition-ErrorModel"> ErrorModel </a>
         </nav>
       </div>
@@ -70,7 +74,7 @@
           </div>
           <h1 id="tag-Creaci-n-de-cup-n" class="swagger-summary-tag" data-traverse-target="tag-Creaci-n-de-cup-n">Creación de cupón</h1>
           <h1 id="tag-default" class="swagger-summary-tag" data-traverse-target="tag-default">default</h1>
-          <div id="operation--payments-v1-coupon-post" class="operation panel" data-traverse-target="operation--payments-v1-coupon-post">
+          <div id="operation--payment-cash-v1-coupon-post" class="operation panel" data-traverse-target="operation--payment-cash-v1-coupon-post">
             <h2 class="operation-title">
               <span class="operation-summary">Generar un cup&#xF3;n</span>
             </h2>
@@ -78,7 +82,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/payments/v1/coupon</span>
+                  <span class="operation-path">/payment-cash/v1/coupon</span>
                 </section>
               </div>
             </div>
@@ -284,6 +288,120 @@
               </div>
             </div>
           </div>
+          <div id="operation--payment-cash-v1-coupon-pay--order_id--post" class="operation panel" data-traverse-target="operation--payment-cash-v1-coupon-pay--order_id--post">
+            <h2 class="operation-title">
+              <span class="operation-summary">Pagar un cup&#xF3;n</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/payment-cash/v1/coupon/pay/{order_id}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Servicio para pagar un cupón de pago en efectivo (Solamente disponible en ambientes de prueba como testing o staging) Los campos obligatorios son : </p>
+                  <ul>
+                    <li>
+                      <strong>order_id</strong>: Id de la orden</li>
+                  </ul>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">order_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p class="no-description">(no description)</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">201 Created</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/SuccessModelResponse">SuccessModelResponse</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Cupón pagado con éxito</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/ErrorModel">ErrorModel</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error interno en procesamiento</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(201 Created)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-literal">true</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;ERROR_CODE&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;{error_message}&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
           <h1>Schema Definitions</h1>
           <div id="definition-CuponModel" class="definition panel" data-traverse-target="definition-CuponModel">
             <h2 class="panel-title">
@@ -426,6 +544,43 @@
   <span class="hljs-attr">&quot;expiration_date&quot;</span>: <span class="hljs-string">&quot;2019-02-27T16:21:04.299-03:00&quot;</span>,
   <span class="hljs-attr">&quot;coupon_code&quot;</span>: <span class="hljs-string">&quot;123456789&quot;</span>,
   <span class="hljs-attr">&quot;nearest_branch_url&quot;</span>: <span class="hljs-string">&quot;https://www.multicaja.cl/puntos-de-pago-efectivo/?monto=menor&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-SuccessModelResponse" class="definition panel" data-traverse-target="definition-SuccessModelResponse">
+            <h2 class="panel-title">
+              <a name="/definitions/SuccessModelResponse"></a>SuccessModelResponse: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="success">
+                      <span class="json-property-name">success:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-literal">true</span>
 }
 </code></pre> </body>
                   </html>
