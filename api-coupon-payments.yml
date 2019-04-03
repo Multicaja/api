@@ -27,7 +27,10 @@ paths:
         * **email**: Email donde se envirará el cupón.
         * **amount**: Monto del pago
         * **request_duration**: Duración de este requerimiento medido en segundos. Pasado este tiempo, el usuario no podrá realizar el pago de este pedido. En los reportes aparecerá con estado EXPIRED. El E-Commerce puede enviar -1, en ese caso se asume que utilizará el valor default (que en este momento es de 86400 segundos, es decir 24 horas). Además se definirá el tiempo mínimo de duración, el cual será revisado en las pruebas de integración.
-        * **notify_user**: Indica si el E-Commerce necesita que Multicaja envíe un correo con el cupón al usuario final. Puede tomar dos valores (**true**: Multicaja enviará correo, **false**: Multicaja no enviará correo)
+        * **notify_user**: Indica si el E-Commerce necesita que Multicaja envíe un correo con el cupón al usuario final. Puede tomar dos valores (**true**: Multicaja enviará correo, **false**: Multicaja no enviará correo)        
+        * **commerce_id**: Id unico del E-Commerce
+        * **branch_id**: Id de la sucursal del E-Commerce
+        * **description**: Descripción de la compra
       parameters:
       - in: body
         required: true
@@ -67,6 +70,9 @@ definitions:
     - amount
     - request_duration
     - notify_user
+    - commerce_id
+    - branch_id
+    - description
     properties:
       order_id:
         type: string
@@ -86,6 +92,15 @@ definitions:
       notify_user:
         type: boolean
         example: false
+      commerce_id:
+        type: string
+        example: "12345678"
+      branch_id:
+        type: string
+        example: "1234"
+      description:
+        type: string
+        example: "Compra de..."
 
   CuponModelResponse:
     type: object
@@ -103,6 +118,9 @@ definitions:
       coupon_code:
         type: string
         example: "123456789"
+      nearest_branch_url:
+        type: string
+        example: "https://www.multicaja.cl/puntos-de-pago-efectivo/?monto=menor"
         
   ErrorModel:
     type: object
