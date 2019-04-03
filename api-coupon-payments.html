@@ -98,7 +98,13 @@
                     <li>
                       <strong>notify_user</strong>: Indica si el E-Commerce necesita que Multicaja envíe un correo con el cupón al usuario final. Puede tomar dos valores (
                       <strong>true</strong>: Multicaja enviará correo,
-                      <strong>false</strong>: Multicaja no enviará correo)</li>
+                      <strong>false</strong>: Multicaja no enviará correo) </li>
+                    <li>
+                      <strong>commerce_id</strong>: Id unico del E-Commerce</li>
+                    <li>
+                      <strong>branch_id</strong>: Id de la sucursal del E-Commerce</li>
+                    <li>
+                      <strong>description</strong>: Descripción de la compra</li>
                   </ul>
                 </section>
               </div>
@@ -136,7 +142,10 @@
   <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;usuario@mail.com&quot;</span>,
   <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-number">1000</span>,
   <span class="hljs-attr">&quot;request_duration&quot;</span>: <span class="hljs-number">-1</span>,
-  <span class="hljs-attr">&quot;notify_user&quot;</span>: <span class="hljs-literal">false</span>
+  <span class="hljs-attr">&quot;notify_user&quot;</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">&quot;commerce_id&quot;</span>: <span class="hljs-string">&quot;12345678&quot;</span>,
+  <span class="hljs-attr">&quot;branch_id&quot;</span>: <span class="hljs-string">&quot;1234&quot;</span>,
+  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Compra de...&quot;</span>
 }
 </code></pre> </body>
                   </html>
@@ -220,7 +229,8 @@
   <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-string">&quot;1&quot;</span>,
   <span class="hljs-attr">&quot;mc_order_id&quot;</span>: <span class="hljs-number">2</span>,
   <span class="hljs-attr">&quot;expiration_date&quot;</span>: <span class="hljs-string">&quot;2019-02-27T16:21:04.299-03:00&quot;</span>,
-  <span class="hljs-attr">&quot;coupon_code&quot;</span>: <span class="hljs-string">&quot;123456789&quot;</span>
+  <span class="hljs-attr">&quot;coupon_code&quot;</span>: <span class="hljs-string">&quot;123456789&quot;</span>,
+  <span class="hljs-attr">&quot;nearest_branch_url&quot;</span>: <span class="hljs-string">&quot;https://www.multicaja.cl/puntos-de-pago-efectivo/?monto=menor&quot;</span>
 }
 </code></pre> </body>
                   </html>
@@ -318,6 +328,24 @@
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
                     </dt>
+                    <dt data-property-name="commerce_id">
+                      <span class="json-property-name">commerce_id:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="branch_id">
+                      <span class="json-property-name">branch_id:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="description">
+                      <span class="json-property-name">description:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
                   </dl>
                 </section>
               </div>
@@ -332,7 +360,10 @@
   <span class="hljs-attr">&quot;email&quot;</span>: <span class="hljs-string">&quot;usuario@mail.com&quot;</span>,
   <span class="hljs-attr">&quot;amount&quot;</span>: <span class="hljs-number">1000</span>,
   <span class="hljs-attr">&quot;request_duration&quot;</span>: <span class="hljs-number">-1</span>,
-  <span class="hljs-attr">&quot;notify_user&quot;</span>: <span class="hljs-literal">false</span>
+  <span class="hljs-attr">&quot;notify_user&quot;</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">&quot;commerce_id&quot;</span>: <span class="hljs-string">&quot;12345678&quot;</span>,
+  <span class="hljs-attr">&quot;branch_id&quot;</span>: <span class="hljs-string">&quot;1234&quot;</span>,
+  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Compra de...&quot;</span>
 }
 </code></pre> </body>
                   </html>
@@ -375,6 +406,11 @@
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dt data-property-name="nearest_branch_url">
+                      <span class="json-property-name">nearest_branch_url:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
                   </dl>
                 </section>
               </div>
@@ -388,7 +424,8 @@
   <span class="hljs-attr">&quot;order_id&quot;</span>: <span class="hljs-string">&quot;1&quot;</span>,
   <span class="hljs-attr">&quot;mc_order_id&quot;</span>: <span class="hljs-number">2</span>,
   <span class="hljs-attr">&quot;expiration_date&quot;</span>: <span class="hljs-string">&quot;2019-02-27T16:21:04.299-03:00&quot;</span>,
-  <span class="hljs-attr">&quot;coupon_code&quot;</span>: <span class="hljs-string">&quot;123456789&quot;</span>
+  <span class="hljs-attr">&quot;coupon_code&quot;</span>: <span class="hljs-string">&quot;123456789&quot;</span>,
+  <span class="hljs-attr">&quot;nearest_branch_url&quot;</span>: <span class="hljs-string">&quot;https://www.multicaja.cl/puntos-de-pago-efectivo/?monto=menor&quot;</span>
 }
 </code></pre> </body>
                   </html>
