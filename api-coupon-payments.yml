@@ -3,7 +3,7 @@ swagger: '2.0'
 info:
   description:  |
     Bienvenido a la API de [Multicaja](https://www.multicaja.cl)
-    Todos los requests son autenticados usando un `api-key`.
+    Todos los requests son autenticados usando un `apikey`.
   version: "1.0.0"
   title: API de Pagos de Multicaja
 
@@ -14,12 +14,12 @@ produces:
   
 # tags are used for organizing operations
 tags:
-- name: Creación de cupón
+- name: Api de efectivo cupón
 
 paths:
   /payment-cash/v1/coupon:
     post:
-      summary: Generar un cupón
+      summary: Crear un cupón
       description: |
         Servicio para crear un cupón de pago en efectivo
         Los campos obligatorios son : 
@@ -55,6 +55,32 @@ paths:
           description: Prohibido continuar
           schema:
             $ref: '#/definitions/ErrorModel'
+        500: 
+          description: Error interno en procesamiento
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+  /payment-cash/v1/coupon/{order_id}:
+    get:
+      summary: Obtener un cupón
+      description: |
+        Servicio para obtener un cupón de pago en efectivo asociado a una orden
+        Los campos obligatorios son : 
+        * **order_id**: Id de la orden
+      parameters:
+        - in: path
+          name: order_id
+          type: string
+          required: true
+      consumes:
+      - application/json    
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Cupón obtenido con éxito
+          schema:
+            $ref: '#/definitions/CuponModelResponse'
         500: 
           description: Error interno en procesamiento
           schema:
@@ -144,6 +170,9 @@ definitions:
       coupon_code:
         type: string
         example: "123456789"
+      amount:
+        type: number
+        example: 1000
       nearest_branch_url:
         type: string
         example: "https://www.multicaja.cl/puntos-de-pago-efectivo/?monto=menor"
