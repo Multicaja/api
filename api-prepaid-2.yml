@@ -415,15 +415,13 @@ paths:
         Retorna el saldo del cliente prepago
 
         ### Responderá `404` con código de error en los siguientes casos:
-        * 102001: Si el cliente no existe
         * 102003: Si el cliente no está registrado en prepago
         
         ### Responderá `422` con código de error en los siguientes casos:
-        * 102002: Cliente bloqueado o borrado
-        * 102004: Cliente prepago bloqueado o borrado
-        * 106007: Si cliente no tiene saldo o tiene saldo expirado y además tiene una carga pendiente
-        * 106008: Si cliente no tiene saldo o tiene saldo expirado y además tiene una carga en proceso
-        * 109002: Saldo no disponible (significa que no tenia saldo en cache o su saldo estaba expirado y fallo al consultar el nuevo saldo a tecnocom)
+        * 109002: Saldo no disponible, significa que:
+          - La cuenta no existe.
+          - La cuenta no pertenece al usuario indicado.
+          - No tenia saldo en cache o su saldo estaba expirado y fallo al consultar el nuevo saldo a tecnocom.
 
       parameters:
         - in: path
