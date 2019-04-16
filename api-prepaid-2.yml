@@ -629,7 +629,7 @@ paths:
           type: string
           format: uuid
       responses:
-        '204':
+        '200':
           description: |
             OK
           schema:
@@ -674,7 +674,7 @@ paths:
           type: string
           format: uuid
       responses:
-        '204':
+        '200':
           description: |
             OK
           schema:
