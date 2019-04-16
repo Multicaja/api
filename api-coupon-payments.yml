@@ -1,20 +1,17 @@
- 
 swagger: '2.0'
 info:
   description:  |
     Bienvenido a la API de [Multicaja](https://www.multicaja.cl)
-    Todos los requests son autenticados usando un `apikey`.
+    Todos los requests son autenticados usando el header http `apikey`.
   version: "1.0.0"
-  title: API de Pagos de Multicaja
+  title: API de Pago con cupón
+
+host: api.staging.multicajapagosdigitales.cloud
 
 consumes:
   - application/json
 produces:
   - application/json
-  
-# tags are used for organizing operations
-tags:
-- name: Api de efectivo cupón
 
 paths:
   /payment-cash/v1/coupon:
@@ -32,16 +29,16 @@ paths:
         * **branch_id**: Id de la sucursal del E-Commerce
         * **description**: Descripción de la compra
       parameters:
+      - in: header
+        name: apikey
+        type: string
+        required: true
       - in: body
         required: true
         name: body
         description: Parametros de entrada para el comercio
         schema:
           $ref: '#/definitions/CuponModel'
-      consumes:
-      - application/json    
-      produces:
-      - application/json
       responses:
         201:
           description: Cupón creado con éxito
@@ -68,14 +65,14 @@ paths:
         Los campos obligatorios son : 
         * **order_id**: Id de la orden
       parameters:
+        - in: header
+          name: apikey
+          type: string
+          required: true
         - in: path
           name: order_id
           type: string
           required: true
-      consumes:
-      - application/json    
-      produces:
-      - application/json
       responses:
         200:
           description: Cupón obtenido con éxito
@@ -86,7 +83,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorModel'
   
-  /payment-cash/v1/coupon/pay/{order_id}:
+  /payment-cash/v1/pay/{order_id}:
     post:
       summary: Pagar un cupón
       description: |
@@ -94,14 +91,14 @@ paths:
         Los campos obligatorios son : 
         * **order_id**: Id de la orden
       parameters:
+        - in: header
+          name: apikey
+          type: string
+          required: true
         - in: path
           name: order_id
           type: string
           required: true
-      consumes:
-      - application/json    
-      produces:
-      - application/json
       responses:
         201:
           description: Cupón pagado con éxito
