@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API de Pagos de Multicaja | API Reference</title>
+    <title>API de Pago con cupón | API Reference</title>
     <link rel="stylesheet" href="stylesheets/foundation.min.css" />
     <link rel="stylesheet" href="stylesheets/spectacle.min.css" />
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -19,25 +19,31 @@
         <nav id="nav" role="navigation">
           <h5>Topics</h5>
           <a href="#introduction">Introduction</a>
-          <h5>Operations</h5>
-          <section>
-            <a href="#tag-Api-de-efectivo-cup-n">Api de efectivo cupón</a>
-            <ul> </ul>
-          </section>
-          <section>
-            <a href="#tag-default">default</a>
-            <ul>
-              <li>
-                <a href="#operation--payment-cash-v1-coupon-post"> Crear un cupón </a>
-              </li>
-              <li>
-                <a href="#operation--payment-cash-v1-coupon--order_id--get"> Obtener un cupón </a>
-              </li>
-              <li>
-                <a href="#operation--payment-cash-v1-coupon-pay--order_id--post"> Pagar un cupón </a>
-              </li>
-            </ul>
-          </section>
+          <h5>Paths</h5>
+          <!-- <section>
+                <a href="#path--payment-cash-v1-coupon">/payment-cash/v1/coupon</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--payment-cash-v1-coupon-post"> Crear un cupón </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--payment-cash-v1-coupon--order_id-">/payment-cash/v1/coupon/{order_id}</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--payment-cash-v1-coupon--order_id--get"> Obtener un cupón </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--payment-cash-v1-pay--order_id-">/payment-cash/v1/pay/{order_id}</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--payment-cash-v1-pay--order_id--post"> Pagar un cupón </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
           <h5>Schema Definitions</h5>
           <a href="#definition-CuponModel"> CuponModel </a>
           <a href="#definition-CuponModelResponse"> CuponModelResponse </a>
@@ -51,17 +57,20 @@
         </button>
         <div class="example-box doc-content"></div>
         <article>
-          <h1 class="doc-title">API de Pagos de Multicaja
+          <h1 class="doc-title">API de Pago con cupón
             <span>API Reference</span>
           </h1>
           <div id="introduction" data-traverse-target="introduction">
             <div class="doc-row">
               <div class="doc-copy">
                 <p>Bienvenido a la API de
-                  <a href="https://www.multicaja.cl">Multicaja</a> Todos los requests son autenticados usando un <code>apikey</code>.</p>
+                  <a href="https://www.multicaja.cl">Multicaja</a> Todos los requests son autenticados usando el header http <code>apikey</code>.</p>
               </div>
               <div class="doc-examples">
                 <section>
+                  <h5>API Endpoint</h5>
+                  <!-- <div class="hljs"> --><pre><code>http://api.staging.multicajapagosdigitales.cloud</code></pre>
+                  <!-- </div> -->
                   <h5>Request Content-Types:
                     <span>application/json</span>
                   </h5>
@@ -75,8 +84,8 @@
               </div>
             </div>
           </div>
-          <h1 id="tag-Api-de-efectivo-cup-n" class="swagger-summary-tag" data-traverse-target="tag-Api-de-efectivo-cup-n">Api de efectivo cupón</h1>
-          <h1 id="tag-default" class="swagger-summary-tag" data-traverse-target="tag-default">default</h1>
+          <h1>Paths</h1>
+          <span id="path--payment-cash-v1-coupon"></span>
           <div id="operation--payment-cash-v1-coupon-post" class="operation panel" data-traverse-target="operation--payment-cash-v1-coupon-post">
             <h2 class="operation-title">
               <span class="operation-summary">Crear un cup&#xF3;n</span>
@@ -134,12 +143,26 @@
                     </div>
                   </div>
                 </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">apikey:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p class="no-description">(no description)</p>
+                    </div>
+                  </div>
+                </section>
               </div>
               <div class="doc-examples">
                 <section>
-                  <h5>Request Content-Types:
-                    <span>application/json</span>
-                  </h5>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> -->
                   <html>
@@ -222,9 +245,6 @@
                 </section>
               </div>
               <div class="doc-examples">
-                <h5>Response Content-Types:
-                  <span>application/json</span>
-                </h5>
                 <section>
                   <h5>Response Example
                     <span>(201 Created)</span>
@@ -292,6 +312,7 @@
               </div>
             </div>
           </div>
+          <span id="path--payment-cash-v1-coupon--order_id-"></span>
           <div id="operation--payment-cash-v1-coupon--order_id--get" class="operation panel" data-traverse-target="operation--payment-cash-v1-coupon--order_id--get">
             <h2 class="operation-title">
               <span class="operation-summary">Obtener un cup&#xF3;n</span>
@@ -318,6 +339,21 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">apikey:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p class="no-description">(no description)</p>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">order_id:
@@ -371,9 +407,6 @@
                 </section>
               </div>
               <div class="doc-examples">
-                <h5>Response Content-Types:
-                  <span>application/json</span>
-                </h5>
                 <section>
                   <h5>Response Example
                     <span>(200 OK)</span>
@@ -411,7 +444,8 @@
               </div>
             </div>
           </div>
-          <div id="operation--payment-cash-v1-coupon-pay--order_id--post" class="operation panel" data-traverse-target="operation--payment-cash-v1-coupon-pay--order_id--post">
+          <span id="path--payment-cash-v1-pay--order_id-"></span>
+          <div id="operation--payment-cash-v1-pay--order_id--post" class="operation panel" data-traverse-target="operation--payment-cash-v1-pay--order_id--post">
             <h2 class="operation-title">
               <span class="operation-summary">Pagar un cup&#xF3;n</span>
             </h2>
@@ -419,7 +453,7 @@
               <div class="doc-copy">
                 <section class="swagger-operation-path">
                   <span class="operation-method">POST</span>
-                  <span class="operation-path">/payment-cash/v1/coupon/pay/{order_id}</span>
+                  <span class="operation-path">/payment-cash/v1/pay/{order_id}</span>
                 </section>
               </div>
             </div>
@@ -437,6 +471,21 @@
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">apikey:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p class="no-description">(no description)</p>
+                    </div>
+                  </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">order_id:
@@ -490,9 +539,6 @@
                 </section>
               </div>
               <div class="doc-examples">
-                <h5>Response Content-Types:
-                  <span>application/json</span>
-                </h5>
                 <section>
                   <h5>Response Example
                     <span>(201 Created)</span>
