@@ -941,6 +941,7 @@ definitions:
     type: object
     description: |
       Fecha de creación y de última modificación **(Response)**
+      La fecha devuelta esta en UTC con formato ISO-8601.
     properties:
       created_at:
         type: string
