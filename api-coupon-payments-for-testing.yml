@@ -1,0 +1,62 @@
+swagger: '2.0'
+info:
+  description:  |
+    Bienvenido a la API de [Multicaja](https://www.multicaja.cl)
+    Todos los requests son autenticados usando el header http `apikey`.
+  version: "1.0.0"
+  title: API de Pago con cupón para pruebas
+
+host: api.staging.multicajapagosdigitales.cloud
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+paths:
+  /payment-cash/v1/pay/{order_id}:
+    post:
+      summary: Pagar un cupón
+      description: |
+        Servicio para pagar un cupón de pago en efectivo (Solamente disponible en ambientes de prueba como testing o staging)
+        Los campos obligatorios son : 
+        * **order_id**: Id de la orden
+      parameters:
+        - in: header
+          name: apikey
+          type: string
+          required: true
+        - in: path
+          name: order_id
+          type: string
+          required: true
+      responses:
+        201:
+          description: Cupón pagado con éxito
+          schema:
+            $ref: '#/definitions/SuccessModelResponse'
+        500: 
+          description: Error interno en procesamiento
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+definitions:
+
+  SuccessModelResponse:
+    type: object
+    properties:
+      success:
+        type: boolean
+        example: true
+  
+  ErrorModel:
+    type: object
+    properties:
+      code: 
+        type: string
+        example: ERROR_CODE
+        description: Variable de error
+      message:
+        type: string
+        example: '{error_message}'
+        description: Descripción del error
