@@ -211,7 +211,7 @@
                       <strong>webhooks</strong> : APIs REST requeridas dentro del flujo de creación de una orden, las cuales en su ausencia, son obtenidas desde DB.
                       <ul>
                         <li>
-                          <strong>webhook_request_process</strong> : Utilizado en etapa de solicitud de creación de una orden.</li>
+                          <strong>webhook_validation</strong> : Utilizado en etapa de solicitud de creación de una orden.</li>
                         <li>
                           <strong>webhook_confirm</strong> : Ejecutado en etapa de confirmación/notificación de orden.</li>
                         <li>
@@ -291,7 +291,7 @@
     <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
   },
   <span class="hljs-attr">&quot;webhooks&quot;</span>: {
-    <span class="hljs-attr">&quot;webhook_request_process&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/request_url&quot;</span>,
+    <span class="hljs-attr">&quot;webhook_validation&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/request_url&quot;</span>,
     <span class="hljs-attr">&quot;webhook_confirm&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/confirm_url&quot;</span>,
     <span class="hljs-attr">&quot;webhook_reject&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/reject_url&quot;</span>
   }
@@ -442,7 +442,7 @@
     <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
   },
   <span class="hljs-attr">&quot;webhooks&quot;</span>: {
-    <span class="hljs-attr">&quot;webhook_request_process&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/request_url&quot;</span>,
+    <span class="hljs-attr">&quot;webhook_validation&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/request_url&quot;</span>,
     <span class="hljs-attr">&quot;webhook_confirm&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/confirm_url&quot;</span>,
     <span class="hljs-attr">&quot;webhook_reject&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/reject_url&quot;</span>
   }
@@ -711,7 +711,7 @@
     <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
   },
   <span class="hljs-attr">&quot;webhooks&quot;</span>: {
-    <span class="hljs-attr">&quot;webhook_request_process&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/request_url&quot;</span>,
+    <span class="hljs-attr">&quot;webhook_validation&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/request_url&quot;</span>,
     <span class="hljs-attr">&quot;webhook_confirm&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/confirm_url&quot;</span>,
     <span class="hljs-attr">&quot;webhook_reject&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/reject_url&quot;</span>
   }
@@ -937,7 +937,7 @@
     <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
   },
   <span class="hljs-attr">&quot;webhooks&quot;</span>: {
-    <span class="hljs-attr">&quot;webhook_request_process&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/request_url&quot;</span>,
+    <span class="hljs-attr">&quot;webhook_validation&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/request_url&quot;</span>,
     <span class="hljs-attr">&quot;webhook_confirm&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/confirm_url&quot;</span>,
     <span class="hljs-attr">&quot;webhook_reject&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/reject_url&quot;</span>
   }
@@ -1046,7 +1046,7 @@
     <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
   },
   <span class="hljs-attr">&quot;webhooks&quot;</span>: {
-    <span class="hljs-attr">&quot;webhook_request_process&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/request_url&quot;</span>,
+    <span class="hljs-attr">&quot;webhook_validation&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/request_url&quot;</span>,
     <span class="hljs-attr">&quot;webhook_confirm&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/confirm_url&quot;</span>,
     <span class="hljs-attr">&quot;webhook_reject&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/reject_url&quot;</span>
   }
@@ -1530,7 +1530,7 @@
     <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
   },
   <span class="hljs-attr">&quot;webhooks&quot;</span>: {
-    <span class="hljs-attr">&quot;webhook_request_process&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/request_url&quot;</span>,
+    <span class="hljs-attr">&quot;webhook_validation&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/request_url&quot;</span>,
     <span class="hljs-attr">&quot;webhook_confirm&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/confirm_url&quot;</span>,
     <span class="hljs-attr">&quot;webhook_reject&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/reject_url&quot;</span>
   }
@@ -1703,7 +1703,7 @@
     <span class="hljs-attr">&quot;cancel_url&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/cancel_url&quot;</span>
   },
   <span class="hljs-attr">&quot;webhooks&quot;</span>: {
-    <span class="hljs-attr">&quot;webhook_request_process&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/request_url&quot;</span>,
+    <span class="hljs-attr">&quot;webhook_validation&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/request_url&quot;</span>,
     <span class="hljs-attr">&quot;webhook_confirm&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/confirm_url&quot;</span>,
     <span class="hljs-attr">&quot;webhook_reject&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/reject_url&quot;</span>
   }
@@ -1951,8 +1951,8 @@
               <div class="doc-copy">
                 <section class="json-schema-properties">
                   <dl>
-                    <dt data-property-name="webhook_request_process">
-                      <span class="json-property-name">webhook_request_process:</span>
+                    <dt data-property-name="webhook_validation">
+                      <span class="json-property-name">webhook_validation:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits">x ≤ 300</span>
                       <span class="json-property-required"></span>
@@ -1967,6 +1967,7 @@
                       <span class="json-property-name">webhook_reject:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits">x ≤ 300</span>
+                      <span class="json-property-required"></span>
                     </dt>
                   </dl>
                 </section>
@@ -1978,7 +1979,7 @@
                   <html>
                   <head></head>
                   <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">&quot;webhook_request_process&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/request_url&quot;</span>,
+  <span class="hljs-attr">&quot;webhook_validation&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/request_url&quot;</span>,
   <span class="hljs-attr">&quot;webhook_confirm&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/confirm_url&quot;</span>,
   <span class="hljs-attr">&quot;webhook_reject&quot;</span>: <span class="hljs-string">&quot;http://multicaja.cl/reject_url&quot;</span>
 }
