@@ -16,12 +16,8 @@ setUp()
      'api-prepaid-2.yml'
      'api-paypal.yml'
      'api-recharges.yml'
-     'api-bdp.yml'
      'api-card-payments.yml'
-   )
-  
-
-  
+  )
   echo "Executing tests... ^_^"
 }
 
