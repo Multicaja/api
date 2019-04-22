@@ -688,6 +688,54 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
+  /prepaid/{user_id}/account/{account_id}/upgrade_card:
+    put:
+      tags:
+        - prepaid
+      summary: Sube un usuario a nivel 2.
+      description: |
+        Sube a nivel 2 al usuario, permitiendole utilizar la tarjeta Mastercard. Si el usuario ya tiene nivel 2 retorna error.
+
+        ### Responderá `404` en los siguientes casos:
+        * 102003: Si el cliente no existe.
+        * 140002: Si la cuenta no existe.
+        * 106002: Si el usuario no tiene tarjeta activa.
+
+        ### Responderá `422` en los siguientes casos:
+        * 102017: Si el cliente ya tiene nivel 2.
+
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: string
+          format: uuid
+        - in: path
+          name: account_id
+          description: ID Contrato o Cuenta
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: |
+            OK
+          schema:
+            $ref: '#/definitions/truncated_prepaid_card'
+        '404':
+          description: Cliente no existe, cuenta no existe o no tiene tarjeta prepago
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: Cliente ya tiene nivel 2.
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado
+          schema:
+            $ref: '#/definitions/error_obj'
+
   /prepaid/processor/notification:
     post:
       summary: Notificación de transacción (Callback del Procesador)
