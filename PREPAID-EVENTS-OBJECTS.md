@@ -40,44 +40,7 @@
         }
     }
     ```
-* __CARD_LOCKED__
-    
-    Se gatilla cuando se bloquea exitosamente una tarjeta mediante el webservice de bloqueo.
 
-    ```json
-    {
-        "user_id": "",
-        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
-        "card": {
-            "id": "6f78a2fa-989c-4317-8447-3f119d949c83",
-            "pan": "517608XXXXXX4840",
-            "status": "LOCKED", 
-            "timestamps": {
-                "created_at": "2018-01-14T15:27:42.669Z",
-                "updated_at": "2018-03-02T10:03:12.123Z"
-            }
-        }
-    }
-    ```
-* __CARD_UNLOCKED__
-    
-    Se gatilla cuando se desbloquea exitosamente una tarjeta mediante el webservice de bloqueo.
-
-    ```json
-    {
-        "user_id": "",
-        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
-        "card": {
-            "id": "6f78a2fa-989c-4317-8447-3f119d949c83",
-            "pan": "517608XXXXXX4840",
-            "status": "ACTIVE", 
-            "timestamps": {
-                "created_at": "2018-01-14T15:27:42.669Z",
-                "updated_at": "2018-03-02T10:03:12.123Z"
-            }
-        }
-    }
-    ```
 * __CARD_CLOSED__
     
     Se gatilla para la tarjeta antigua cuando se realiza un cambio de producto.
