@@ -8,10 +8,10 @@
 
     ```json
     {
-        "user_id": "",
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
         "account": {
             "id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
-            "status": "ACTIVE", 
+            "status": "ACTIVE",
             "timestamps": {
                 "created_at": "2018-01-14T15:27:42.669Z",
                 "updated_at": "2018-03-02T10:03:12.123Z"
@@ -27,12 +27,12 @@
 
     ```json
     {
-        "user_id": "",
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card": {
             "id": "6f78a2fa-989c-4317-8447-3f119d949c83",
             "pan": "517608XXXXXX4840",
-            "status": "ACTIVE", 
+            "status": "ACTIVE",
             "timestamps": {
                 "created_at": "2018-01-14T15:27:42.669Z",
                 "updated_at": "2018-03-02T10:03:12.123Z"
@@ -47,12 +47,12 @@
 
     ```json
     {
-        "user_id": "",
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card": {
             "id": "6f78a2fa-989c-4317-8447-3f119d949c83",
             "pan": "517608XXXXXX4840",
-            "status": "CLOSED", 
+            "status": "CLOSED",
             "timestamps": {
                 "created_at": "2018-01-14T15:27:42.669Z",
                 "updated_at": "2018-03-02T10:03:12.123Z"
@@ -69,47 +69,182 @@
     - __Online__: Cuando API-Prepago recibe la notificación desde Tecnocom al webservice de callback.
     - __Conciliación con Tecnocom__: Si el archivo de Operaciones Diarias cuenta con la Autorización o Movimiento de la compra y no ha sido recibido en línea.
 
+    a. __Compra en pesos__
     ```json
     {
-        "user_id": "",
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
-        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+        "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
             "id": "",
-            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+            "remote_transaction_id": "173200",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
-                "value": "1000"
+                "value": 500.0
             },
             "secondary_amount": {
-                "currency_code": 840,
-                "value": "10.99"
+                "currency_code": 152,
+                "value": 500.0
             },
-            "fees": [
+            "fees": [{
+                    "amount": {
+                        "currency_code": 152,
+                        "value": 2
+                    },
+                    "type": "IVA"
+                },
                 {
                     "amount": {
                         "currency_code": 152,
-                        "value": "119"
+                        "value": 8
                     },
-                    "type": "CL_IVA"
+                    "type": "COMMISSION"
                 }
             ],
-            "status": "AUTHORIZED",
+            "status": "APPROVED",
             "merchant": {
-                "code": "123456789012345",
-                "category": 1234,
-                "name": "El Comercio"
+                "code": "ABC123TESTMTF19",
+                "name": "Moneysend Inter"
             },
-            "type": "SUSCRIPTION",
+            "type": "PURCHASE",
             "country_code": 152,
             "timestamps": {
-                "created_at": "2018-01-14T15:27:42.669Z",
-                "updated_at": "2018-03-02T10:03:12.123Z"
+                "created_at": "2019-05-07T13:48:01.786",
+                "updated_at": "2019-05-07T13:48:01.786"
             }
         }
     }
     ```
+
+    b. __Compra en otra moneda__
+    ```json
+    {
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
+        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+        "transaction": {
+            "id": "",
+            "remote_transaction_id": "173200",
+            "auth_code": "123456",
+            "primary_amount": {
+                "currency_code": 152,
+                "value": 500.0
+            },
+            "secondary_amount": {
+                "currency_code": 840,
+                "value": 1.0
+            },
+            "fees": [{
+                "amount": {
+                    "currency_code": 152,
+                    "value": 10
+                },
+                "type": "COMMISSION"
+            }],
+            "status": "APPROVED",
+            "merchant": {
+                "code": "ABC123TESTMTF19",
+                "name": "Moneysend Inter"
+            },
+            "type": "PURCHASE",
+            "country_code": 152,
+            "timestamps": {
+                "created_at": "2019-05-07T13:49:38.480",
+                "updated_at": "2019-05-07T13:49:38.480"
+            }
+        }
+    } 
+    ```
+
+    c. __Suscripción en pesos__
+    ```json
+    {
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
+        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+        "transaction": {
+            "id": "",
+            "remote_transaction_id": "173200",
+            "auth_code": "123456",
+            "primary_amount": {
+                "currency_code": 152,
+                "value": 500.0
+            },
+            "secondary_amount": {
+                "currency_code": 152,
+                "value": 500.0
+            },
+            "fees": [{
+                    "amount": {
+                        "currency_code": 152,
+                        "value": 2
+                    },
+                    "type": "IVA"
+                },
+                {
+                    "amount": {
+                        "currency_code": 152,
+                        "value": 8
+                    },
+                    "type": "COMMISSION"
+                }
+            ],
+            "status": "APPROVED",
+            "merchant": {
+                "code": "ABC123TESTMTF19",
+                "name": "Moneysend Inter"
+            },
+            "type": "SUSCRIPTION",
+            "country_code": 152,
+            "timestamps": {
+                "created_at": "2019-05-07T13:48:01.786",
+                "updated_at": "2019-05-07T13:48:01.786"
+            }
+        }
+    }
+    ```
+
+    d. __Suscripción en otra moenda__
+    ```json
+    {
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
+        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+        "transaction": {
+            "id": "",
+            "remote_transaction_id": "173200",
+            "auth_code": "123456",
+            "primary_amount": {
+                "currency_code": 152,
+                "value": 500.0
+            },
+            "secondary_amount": {
+                "currency_code": 840,
+                "value": 1.0
+            },
+            "fees": [{
+                "amount": {
+                    "currency_code": 152,
+                    "value": 10
+                },
+                "type": "COMMISSION"
+            }],
+            "status": "APPROVED",
+            "merchant": {
+                "code": "ABC123TESTMTF19",
+                "name": "Moneysend Inter"
+            },
+            "type": "SUSCRIPTION",
+            "country_code": 152,
+            "timestamps": {
+                "created_at": "2019-05-07T13:49:38.480",
+                "updated_at": "2019-05-07T13:49:38.480"
+            }
+        }
+    }
+    ```
+
 * __TRANSACTION_REVERSED__
 
     Se puede gatillar en los siguientes momentos:
@@ -117,103 +252,265 @@
     - __Online__: Cuando API-Prepago recibe la notificación desde Tecnocom al webservice de callback. __(Por validar)__.
     - __Conciliación con Tecnocom__: Si el archivo de Operaciones Diarias no cuenta con la Autorización o Movimiento de la compra y ésta ha sido recibido y notificada en línea. __(Por validar)__.
 
+    a. __Compra en pesos__
+
     ```json
     {
-        "user_id": "",
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
-        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+        "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
             "id": "",
-            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+            "remote_transaction_id": "173200",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
-                "value": "1000"
+                "value": 500.0
             },
             "secondary_amount": {
-                "currency_code": 840,
-                "value": "10.99"
+                "currency_code": 152,
+                "value": 500.0
             },
-            "fees": [
+            "fees": [{
+                    "amount": {
+                        "currency_code": 152,
+                        "value": 2
+                    },
+                    "type": "IVA"
+                },
                 {
                     "amount": {
                         "currency_code": 152,
-                        "value": "119"
+                        "value": 8
                     },
-                    "type": "CL_IVA"
+                    "type": "COMMISSION"
                 }
             ],
             "status": "REVERSED",
             "merchant": {
-                "code": "123456789012345",
-                "category": 1234,
-                "name": "El Comercio"
+                "code": "ABC123TESTMTF19",
+                "name": "Moneysend Inter"
             },
-            "type": "SUSCRIPTION",
+            "type": "PURCHASE",
             "country_code": 152,
             "timestamps": {
-                "created_at": "2018-01-14T15:27:42.669Z",
-                "updated_at": "2018-03-02T10:03:12.123Z"
+                "created_at": "2019-05-07T13:48:01.786",
+                "updated_at": "2019-05-07T13:48:01.786"
             }
         }
     }
     ```
-* __TRANSACTION_REJECTED__
 
-    Se notifica cuando API-Prepago recibe la notificación. __(Por validar)__.
+    b. __Compra en otra moneda__
 
     ```json
     {
-        "user_id": "",
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
-        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+        "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
             "id": "",
-            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+            "remote_transaction_id": "173200",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
-                "value": "1000"
+                "value": 500.0
             },
             "secondary_amount": {
                 "currency_code": 840,
-                "value": "10.99"
+                "value": 1.0
             },
-            "fees": [
-                {
-                    "amount": {
-                        "currency_code": 152,
-                        "value": "119"
-                    },
-                    "type": "CL_IVA"
-                }
-            ],
-            "status": "REJECTED",
+            "fees": [{
+                "amount": {
+                    "currency_code": 152,
+                    "value": 10
+                },
+                "type": "COMMISSION"
+            }],
+            "status": "REVERSED",
             "merchant": {
-                "code": "123456789012345",
-                "category": 1234,
-                "name": "El Comercio"
+                "code": "ABC123TESTMTF19",
+                "name": "Moneysend Inter"
             },
-            "type": "SUSCRIPTION",
+            "type": "PURCHASE",
             "country_code": 152,
             "timestamps": {
-                "created_at": "2018-01-14T15:27:42.669Z",
-                "updated_at": "2018-03-02T10:03:12.123Z"
+                "created_at": "2019-05-07T13:49:38.480",
+                "updated_at": "2019-05-07T13:49:38.480"
             }
         }
     }
     ```
 
-## 4. Eventos de transacción (Cash-in Multicaja)
+    c. __Suscripción en pesos__
+
+    ```json
+    {
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
+        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+        "transaction": {
+            "id": "",
+            "remote_transaction_id": "173200",
+            "auth_code": "123456",
+            "primary_amount": {
+                "currency_code": 152,
+                "value": 500.0
+            },
+            "secondary_amount": {
+                "currency_code": 152,
+                "value": 500.0
+            },
+            "fees": [{
+                    "amount": {
+                        "currency_code": 152,
+                        "value": 2
+                    },
+                    "type": "IVA"
+                },
+                {
+                    "amount": {
+                        "currency_code": 152,
+                        "value": 8
+                    },
+                    "type": "COMMISSION"
+                }
+            ],
+            "status": "REVERSED",
+            "merchant": {
+                "code": "ABC123TESTMTF19",
+                "name": "Moneysend Inter"
+            },
+            "type": "SUSCRIPTION",
+            "country_code": 152,
+            "timestamps": {
+                "created_at": "2019-05-07T13:48:01.786",
+                "updated_at": "2019-05-07T13:48:01.786"
+            }
+        }
+    }
+    ```
+
+    d. __Suscripción en otra moenda__
+
+    ```json
+    {
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
+        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+        "transaction": {
+            "id": "",
+            "remote_transaction_id": "173200",
+            "auth_code": "123456",
+            "primary_amount": {
+                "currency_code": 152,
+                "value": 500.0
+            },
+            "secondary_amount": {
+                "currency_code": 840,
+                "value": 1.0
+            },
+            "fees": [{
+                "amount": {
+                    "currency_code": 152,
+                    "value": 10
+                },
+                "type": "COMMISSION"
+            }],
+            "status": "REVERSED",
+            "merchant": {
+                "code": "ABC123TESTMTF19",
+                "name": "Moneysend Inter"
+            },
+            "type": "SUSCRIPTION",
+            "country_code": 152,
+            "timestamps": {
+                "created_at": "2019-05-07T13:49:38.480",
+                "updated_at": "2019-05-07T13:49:38.480"
+            }
+        }
+    } 
+    ```
+
+## 4. Eventos de transacción (Devolución)
+* __TRANSACTION_AUTHORIZED__
+
+    ```json
+    {
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
+        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+        "transaction": {
+            "id": "",
+            "remote_transaction_id": "173200",
+            "auth_code": "173200",
+            "primary_amount": {
+                "currency_code": 152,
+                "value": 500.0
+            },
+            "secondary_amount": {
+                "currency_code": 152,
+                "value": 500.0
+            },
+            "status": "APPROVED",
+            "merchant": {
+                "code": "ABC123TESTMTF19",
+                "name": "Moneysend Inter"
+            },
+            "type": "REFUND",
+            "country_code": 152,
+            "timestamps": {
+                "created_at": "2019-05-07T13:48:01.786",
+                "updated_at": "2019-05-07T13:48:01.786"
+            }
+        }
+    }
+    ```
+
+* __TRANSACTION_AUTHORIZED__
+
+    ```json
+    {
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
+        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
+        "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+        "transaction": {
+            "id": "",
+            "remote_transaction_id": "173200",
+            "auth_code": "173200",
+            "primary_amount": {
+                "currency_code": 152,
+                "value": 500.0
+            },
+            "secondary_amount": {
+                "currency_code": 152,
+                "value": 500.0
+            },
+            "status": "REVERSED",
+            "merchant": {
+                "code": "ABC123TESTMTF19",
+                "name": "Moneysend Inter"
+            },
+            "type": "REFUND",
+            "country_code": 152,
+            "timestamps": {
+                "created_at": "2019-05-07T13:48:01.786",
+                "updated_at": "2019-05-07T13:48:01.786"
+            }
+        }
+    }
+    ```
+
+## 5. Eventos de transacción (Cash-in Multicaja)
 * __TRANSACTION_AUTHORIZED__
 
     Se gatilla cuando se registra exitosamente la aprobación de Tecnocom de una transacción de cash-in.
 
     ```json
     {
-        "user_id": "",
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
-        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+        "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
             "id": "",
             "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
@@ -226,15 +523,13 @@
                 "currency_code": 840,
                 "value": "10.99"
             },
-            "fees": [
-                {
-                    "amount": {
-                        "currency_code": 152,
-                        "value": "119"
-                    },
-                    "type": "CL_IVA"
-                }
-            ],
+            "fees": [{
+                "amount": {
+                    "currency_code": 152,
+                    "value": "119"
+                },
+                "type": "CL_IVA"
+            }],
             "status": "AUTHORIZED",
             "merchant": {
                 "code": "123456789012345",
@@ -259,9 +554,9 @@
 
     ```json
     {
-        "user_id": "",
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
-        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+        "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
             "id": "",
             "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
@@ -274,15 +569,13 @@
                 "currency_code": 840,
                 "value": "10.99"
             },
-            "fees": [
-                {
-                    "amount": {
-                        "currency_code": 152,
-                        "value": "119"
-                    },
-                    "type": "CL_IVA"
-                }
-            ],
+            "fees": [{
+                "amount": {
+                    "currency_code": 152,
+                    "value": "119"
+                },
+                "type": "CL_IVA"
+            }],
             "status": "REVERSED",
             "merchant": {
                 "code": "123456789012345",
@@ -304,9 +597,9 @@
 
     ```json
     {
-        "user_id": "",
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
-        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+        "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
             "id": "",
             "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
@@ -319,15 +612,13 @@
                 "currency_code": 840,
                 "value": "10.99"
             },
-            "fees": [
-                {
-                    "amount": {
-                        "currency_code": 152,
-                        "value": "119"
-                    },
-                    "type": "CL_IVA"
-                }
-            ],
+            "fees": [{
+                "amount": {
+                    "currency_code": 152,
+                    "value": "119"
+                },
+                "type": "CL_IVA"
+            }],
             "status": "REJECTED",
             "merchant": {
                 "code": "123456789012345",
@@ -344,16 +635,16 @@
     }
     ```
 
-## 5. Eventos de transacción (Cash-out Multicaja)
+## 6. Eventos de transacción (Cash-out Multicaja)
 * __TRANSACTION_AUTHORIZED__
 
     Se gatilla cuando se registra exitosamente la aprobación de Tecnocom de una transacción de cash-out.
 
     ```json
     {
-        "user_id": "",
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
-        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+        "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
             "id": "",
             "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
@@ -366,15 +657,13 @@
                 "currency_code": 840,
                 "value": "10.99"
             },
-            "fees": [
-                {
-                    "amount": {
-                        "currency_code": 152,
-                        "value": "119"
-                    },
-                    "type": "CL_IVA"
-                }
-            ],
+            "fees": [{
+                "amount": {
+                    "currency_code": 152,
+                    "value": "119"
+                },
+                "type": "CL_IVA"
+            }],
             "status": "AUTHORIZED",
             "merchant": {
                 "code": "123456789012345",
@@ -399,9 +688,9 @@
 
     ```json
     {
-        "user_id": "",
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
-        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+        "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
             "id": "",
             "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
@@ -414,15 +703,13 @@
                 "currency_code": 840,
                 "value": "10.99"
             },
-            "fees": [
-                {
-                    "amount": {
-                        "currency_code": 152,
-                        "value": "119"
-                    },
-                    "type": "CL_IVA"
-                }
-            ],
+            "fees": [{
+                "amount": {
+                    "currency_code": 152,
+                    "value": "119"
+                },
+                "type": "CL_IVA"
+            }],
             "status": "REVERSED",
             "merchant": {
                 "code": "123456789012345",
@@ -444,9 +731,9 @@
 
     ```json
     {
-        "user_id": "",
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
-        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+        "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
             "id": "",
             "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
@@ -459,15 +746,13 @@
                 "currency_code": 840,
                 "value": "10.99"
             },
-            "fees": [
-                {
-                    "amount": {
-                        "currency_code": 152,
-                        "value": "119"
-                    },
-                    "type": "CL_IVA"
-                }
-            ],
+            "fees": [{
+                "amount": {
+                    "currency_code": 152,
+                    "value": "119"
+                },
+                "type": "CL_IVA"
+            }],
             "status": "REJECTED",
             "merchant": {
                 "code": "123456789012345",
@@ -484,16 +769,16 @@
     }
     ```
 
-## 6. Eventos de transacción (Cash-out diferido Multicaja)
+## 7. Eventos de transacción (Cash-out diferido Multicaja)
 * __TRANSACTION_AUTHORIZED__
 
     Se gatilla cuando se registra exitosamente la aprobación de Tecnocom de una transacción de cash-out diferido. Esto ocurre en el momento en que el Cliente solicita el retiro.
 
     ```json
     {
-        "user_id": "",
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
-        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+        "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
             "id": "",
             "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
@@ -506,15 +791,13 @@
                 "currency_code": 840,
                 "value": "10.99"
             },
-            "fees": [
-                {
-                    "amount": {
-                        "currency_code": 152,
-                        "value": "119"
-                    },
-                    "type": "CL_IVA"
-                }
-            ],
+            "fees": [{
+                "amount": {
+                    "currency_code": 152,
+                    "value": "119"
+                },
+                "type": "CL_IVA"
+            }],
             "status": "AUTHORIZED",
             "merchant": {
                 "code": "123456789012345",
@@ -539,9 +822,9 @@
 
     ```json
     {
-        "user_id": "",
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
-        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+        "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
             "id": "",
             "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
@@ -554,15 +837,13 @@
                 "currency_code": 840,
                 "value": "10.99"
             },
-            "fees": [
-                {
-                    "amount": {
-                        "currency_code": 152,
-                        "value": "119"
-                    },
-                    "type": "CL_IVA"
-                }
-            ],
+            "fees": [{
+                "amount": {
+                    "currency_code": 152,
+                    "value": "119"
+                },
+                "type": "CL_IVA"
+            }],
             "status": "REVERSED",
             "merchant": {
                 "code": "123456789012345",
@@ -584,9 +865,9 @@
 
     ```json
     {
-        "user_id": "",
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
-        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+        "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
             "id": "",
             "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
@@ -599,15 +880,13 @@
                 "currency_code": 840,
                 "value": "10.99"
             },
-            "fees": [
-                {
-                    "amount": {
-                        "currency_code": 152,
-                        "value": "119"
-                    },
-                    "type": "CL_IVA"
-                }
-            ],
+            "fees": [{
+                "amount": {
+                    "currency_code": 152,
+                    "value": "119"
+                },
+                "type": "CL_IVA"
+            }],
             "status": "REJECTED",
             "merchant": {
                 "code": "123456789012345",
@@ -629,9 +908,9 @@
 
     ```json
     {
-        "user_id": "",
+        "user_id": "4391b914-4f6e-4e0f-9027-28b717b23600",
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
-        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
+        "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
             "id": "",
             "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
@@ -644,15 +923,13 @@
                 "currency_code": 840,
                 "value": "10.99"
             },
-            "fees": [
-                {
-                    "amount": {
-                        "currency_code": 152,
-                        "value": "119"
-                    },
-                    "type": "CL_IVA"
-                }
-            ],
+            "fees": [{
+                "amount": {
+                    "currency_code": 152,
+                    "value": "119"
+                },
+                "type": "CL_IVA"
+            }],
             "status": "PAID",
             "merchant": {
                 "code": "123456789012345",
@@ -661,55 +938,6 @@
             },
             "type": "DEFERRED_CASH_OUT_MULTICAJA",
             "country_code": 152,
-            "timestamps": {
-                "created_at": "2018-01-14T15:27:42.669Z",
-                "updated_at": "2018-03-02T10:03:12.123Z"
-            }
-        }
-    }
-    ```
-
-## 7. Eventos de transacción (Boleta de comision)
-* __TRANSACTION_INVOICE_ISSUED__
-
-    Este evento se gatilla cuando se genera una boleta por las comisiones de una transacción.
-
-    ```json
-    {
-        "user_id": "",
-        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
-        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
-        "transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
-        "invoice" : {
-            "id" : "82423a17-0d47-4f3e-9028-e0bb7dd97ce3",
-            "folio": "",
-            "status": "ISSUED",
-            "url": "",
-            "timestamps": {
-                "created_at": "2018-01-14T15:27:42.669Z",
-                "updated_at": "2018-03-02T10:03:12.123Z"
-            }
-        }
-    }
-    ```
-* __TRANSACTION_INVOICE_REVERSED__
-
-    Se puede gatillar en los siguientes momentos:
-
-    - __Online__: Cuando API-Prepago recibe la notificación desde Tecnocom al webservice de callback y la boleta ya estaba emitida. __(Por validar)__.
-    - __Conciliación con Tecnocom__: Si el archivo de Operaciones Diarias no cuenta con la Autorización o Movimiento de la compra, ésta ha sido recibido y notificada en línea y la boleta ya estaba emitida. __(Por validar)__.
-
-    ```json
-    {
-        "user_id": "",
-        "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
-        "card_id": "c2a0e917-742f-4367-a468-5278ccd8ace2",
-        "transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
-        "invoice" : {
-            "id" : "82423a17-0d47-4f3e-9028-e0bb7dd97ce3",
-            "folio": "",
-            "status": "REVERSED",
-            "url": "",
             "timestamps": {
                 "created_at": "2018-01-14T15:27:42.669Z",
                 "updated_at": "2018-03-02T10:03:12.123Z"
