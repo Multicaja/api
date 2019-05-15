@@ -467,7 +467,7 @@
     }
     ```
 
-* __TRANSACTION_AUTHORIZED__
+* __TRANSACTION_REVERSED__
 
     ```json
     {
