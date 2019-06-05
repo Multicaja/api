@@ -1169,6 +1169,8 @@ definitions:
             description: Lista de variables para usar en el voucher
             items:
               $ref: '#/definitions/variable_data'
+            example: [{"name" : "amount_paid", "value" : "3.300"},
+                      {"name" : "rut", "value" : "17.680.522-6"}]
           timestamps:
             $ref: '#/definitions/timestamps'
 
