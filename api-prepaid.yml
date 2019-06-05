@@ -1169,10 +1169,6 @@ definitions:
             description: Lista de variables para usar en el voucher
             items:
               $ref: '#/definitions/variable_data'
-          user_id:
-            type: integer
-            description: Identificador del Cliente Multicaja afectado
-            example: 1291020
           timestamps:
             $ref: '#/definitions/timestamps'
 
