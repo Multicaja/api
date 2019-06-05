@@ -1126,7 +1126,7 @@ definitions:
           password:
             type: integer
             description: La clave del usuario
-            example: 1324
+            example: 132465
             
   variable_data:
     type: object
