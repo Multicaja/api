@@ -1126,7 +1126,7 @@ definitions:
           password:
             type: integer
             description: La clave del usuario
-            example: 1324
+            example: 132465
             
   variable_data:
     type: object
@@ -1169,10 +1169,8 @@ definitions:
             description: Lista de variables para usar en el voucher
             items:
               $ref: '#/definitions/variable_data'
-          user_id:
-            type: integer
-            description: Identificador del Cliente Multicaja afectado
-            example: 1291020
+            example: [{"name" : "amount_paid", "value" : "3.300"},
+                      {"name" : "rut", "value" : "17.680.522-6"}]
           timestamps:
             $ref: '#/definitions/timestamps'
 
@@ -1483,6 +1481,10 @@ definitions:
     required:
       - code
     properties:
+      traceId:
+        type: string
+        description: Id interno del mensaje
+        example: "201906051704040564"
       code:
         type: integer
         format: int32
