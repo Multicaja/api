@@ -1481,10 +1481,6 @@ definitions:
     required:
       - code
     properties:
-      traceId:
-        type: string
-        description: Id interno del mensaje
-        example: "201906051704040564"
       code:
         type: integer
         format: int32
