@@ -218,22 +218,32 @@ paths:
         '201':
           description: |
             OK - Carga se realizará en los próximos segundos
+          headers: 
+            $ref: '#/definitions/default_header'
           schema:
             $ref: '#/definitions/prepaid_topup'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado ó no cumple formato
+          headers:
+            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe o no tiene prepago
+          headers:
+            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '422':
           description: Carga no exitosa, revise error
+          headers:
+            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'        
         '500':
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          headers:
+            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
 
@@ -273,22 +283,32 @@ paths:
             $ref: '#/definitions/error_obj'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          headers:
+            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe o no tiene prepago
+          headers:
+            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '410':
           description: Plazo para reversar expirado
+          headers:
+            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '422':
           description: Información de reversa no concuerda con la carga
+          headers:
+            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '500':
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          headers:
+            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
 
@@ -346,18 +366,26 @@ paths:
             $ref: '#/definitions/prepaid_withdrawal'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado ó no cumple formato
+          headers:
+            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe o no tiene prepago
+          headers:
+            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '422':
           description: Retiro no exitoso, revise error
+          headers:
+            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '500':
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          headers:
+            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
 
@@ -397,22 +425,32 @@ paths:
             $ref: '#/definitions/error_obj'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          headers:
+            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe o no tiene prepago
+          headers:
+            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '410':
           description: Plazo para reversar expirado
+          headers:
+            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '422':
           description: Información de reversa no concuerda con el retiro
+          headers:
+            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '500':
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          headers:
+            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
 
@@ -1475,9 +1513,40 @@ definitions:
       amount_to_discount:
         $ref: "#/definitions/amount_and_currency_new"
 
+  default_header:
+    Transfer-Encoding:
+      schema: 
+        type: string
+    Content-Type:
+      schema:
+        type: string
+    Date:
+      schema:
+        type: timestamp
+
+  error_header:
+    Transfer-Encoding:
+      schema: 
+        type: string
+    Content-Type:
+      schema:
+        type: string
+    Date:
+      schema:
+        type: timestamp
+    TracerId:
+      schema:
+        type: string
+      description: Id interno
+
   error_obj:
     type: object
     description: Error que devuelve la api ante un `HTTP 422` **(Response)**
+    headers: 
+      algun-nombre-de-error:
+        schema: 
+          type: integer
+        description: esto se lee?
     required:
       - code
     properties:
