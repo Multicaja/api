@@ -187,7 +187,7 @@ paths:
         * 101007: Si un parámetro no cumple formato.
 
         ### Responderá `404` en los siguientes casos:
-        * 102001: Si el cliente no existe.
+        * 102001: Si el cliente no está registrado en Tenpo.
         * 102003: Si el cliente no tiene prepago.
 
         ### Responderá `422` en los siguientes casos:
@@ -294,6 +294,14 @@ paths:
         ### Responderá `202` en los siguientes casos:
         * 130001: Si la carga nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibir la carga mas adelante.
         * 130003: Si la reversa fue recibida previamente para su procesamiento.
+
+        ### Responderá `400` en los siguientes casos:
+        * 101004: Si un parámetro es requerido y no se ha enviado.
+        * 101007: Si un parámetro no cumple formato.
+
+        ### Responderá `404` en los siguientes casos:
+        * 102001: Si el cliente no está registrado en Tenpo.
+        * 102003: Si el cliente no tiene prepago.
 
         ### Responderá `410` en los siguientes casos:
         * 130004: Si es que la carga fue recibida y no está reversada, pero el plazo para reversarla ya expiró.
@@ -412,7 +420,7 @@ paths:
         * 101007: Si un parámetro no cumple formato.
 
         ### Responderá `404` en los siguientes casos:
-        * 102001: Si el cliente no existe.
+        * 102001: Si el cliente no está registrado en Tenpo.
         * 102003: Si el cliente no tiene prepago.
 
         ### Responderá `422` en los siguientes casos:       
@@ -427,7 +435,6 @@ paths:
         * 108301: El retiro supera el monto máximo de un retiro web.
         * 108302: El retiro supera el monto máximo de un retiro pos.
         * 108303: El monto de retiro es menor al monto mínimo de retiros.
-        * 108203: La carga es menor al mínimo de carga.
         * 108304: El retiro supera el monto máximo de retiros mensuales.
         
         ### Responderá `500` en los siguientes casos:
@@ -444,23 +451,64 @@ paths:
           description: |
             OK - Retiro realizado
           headers:
-            $ref: '#/definitions/default_header_2'
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
           schema:
             $ref: '#/definitions/prepaid_withdrawal'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado ó no cumple formato
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe o no tiene prepago
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '422':
           description: Retiro no exitoso, revise error
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '500':
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
 
@@ -479,6 +527,14 @@ paths:
         * 130001: Si el retiro nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibir el retiro mas adelante.
         * 130003: Si la reversa fue recibida previamente para su procesamiento.
 
+        ### Responderá `400` en los siguientes casos:
+        * 101004: Si un parámetro es requerido y no se ha enviado.
+        * 101007: Si un parámetro no cumple formato.
+
+        ### Responderá `404` en los siguientes casos:
+        * 102001: Si el cliente no está registrado en Tenpo.
+        * 102003: Si el cliente no tiene prepago.
+
         ### Responderá `410` en los siguientes casos:
         * 130004: Si es que el retiro fue recibido y no está reversado, pero el plazo para reversarlo ya expiró.
 
@@ -494,28 +550,87 @@ paths:
       responses:
         '201':
           description: OK - Proceso de reversa iniciado
+          headers:
+            Content-Length:
+              type: string
+            Date:
+              type: string
         '202':
           description: OK - Reversa recibida previamente
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe o no tiene prepago
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              type: string          
           schema:
             $ref: '#/definitions/error_obj'
         '410':
           description: Plazo para reversar expirado
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '422':
           description: Información de reversa no concuerda con el retiro
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '500':
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
 
@@ -1471,40 +1586,6 @@ definitions:
         type: integer
         description: Código que identifica el resultado de la transacción
         example: 100
-
-  default_header_2:
-    Transfer-Encoding:
-      schema:
-        type: string
-    Content-Type:
-      schema:
-        type: string
-    Date:
-      schema:
-        type: string
-
-  default_header:
-    type: object
-    properties:
-      Transfer-Encoding:
-        type: string
-      Content-Type:
-        type: string
-      Date:
-        type: string
-
-  error_header:
-    type: object
-    properties:
-      Transfer-Encoding:
-        type: string
-      Content-Type:
-        type: string
-      Date:
-        type: string
-      TracerId:
-        type: string
-        description: Id interno
 
   raw_transaction_new:
     type: object
