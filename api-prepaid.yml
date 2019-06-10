@@ -1,4 +1,4 @@
-swagger: '2.0'
+swagger: '3.0'
 info:
   description: |
     Prepago Multicaja - API Alpha
@@ -218,250 +218,112 @@ paths:
         '201':
           description: |
             OK - Carga se realizará en los próximos segundos
-          headers: 
-            $ref: '#/definitions/default_header'
-          headers: 
-            $ref: '#/definitions/default_header'
-          headers: 
-            $ref: '#/definitions/default_header'
           headers:
-            $ref: '#/definitions/error_header'
-          headers: 
-            $ref: '#/definitions/default_header'
-          headers:
-            $ref: '#/definitions/error_header'
-          headers:
-            $ref: '#/definitions/error_header'
-          headers: 
-            $ref: '#/definitions/default_header'
-          headers:
-            $ref: '#/definitions/error_header'
-          headers:
-            $ref: '#/definitions/error_header'
-          headers:
-            $ref: '#/definitions/error_header'
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
           schema:
             $ref: '#/definitions/prepaid_topup'
-          headers:
-            $ref: '#/definitions/error_header'
-          headers:
-            $ref: '#/definitions/error_header'
-          headers:
-            $ref: '#/definitions/error_header'
-          headers:
-            $ref: '#/definitions/error_header'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado ó no cumple formato
-          headers:
-            $ref: '#/definitions/error_header'
-          headers:
-            $ref: '#/definitions/error_header'
-          headers:
-            $ref: '#/definitions/error_header'
-          headers:
-            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
-          headers:
-            $ref: '#/definitions/error_header'
         '404':
           description: Cliente no existe o no tiene prepago
-          headers:
-            $ref: '#/definitions/error_header'
-          headers:
-            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
-          headers:
-            $ref: '#/definitions/error_header'
         '422':
           description: Carga no exitosa, revise error
-          headers:
-          headers: 
-            $ref: '#/definitions/default_header'
-            $ref: '#/definitions/error_header'
           schema:
-          headers: 
-            $ref: '#/definitions/default_header'
             $ref: '#/definitions/error_obj'        
         '500':
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
-          headers:
-          headers:
-            $ref: '#/definitions/error_header'
-            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
 
-          headers:
-            $ref: '#/definitions/error_header'
   /prepaid/topup/reverse:
     post:
       tags:
         - prepaid
-          headers:
-            $ref: '#/definitions/error_header'
       summary: Reversa una carga
       description: |
-          headers:
-            $ref: '#/definitions/error_header'
-          headers:
-            $ref: '#/definitions/error_header'
         Reversa una carga que a) coincida en todos los campos de prepaid_topup_new y b) se haya recibido en las últimas 24 horas.
         
         ### Responderá `201` en los siguientes casos:
         * Si la carga se recibió, en cuyo caso iniciara el proceso de reversa.
-          headers:
-            $ref: '#/definitions/error_header'
-          headers:
-            $ref: '#/definitions/error_header'
 
         ### Responderá `202` en los siguientes casos:
         * 130001: Si la carga nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibir la carga mas adelante.
         * 130003: Si la reversa fue recibida previamente para su procesamiento.
-          headers:
-            $ref: '#/definitions/error_header'
 
         ### Responderá `410` en los siguientes casos:
-          headers:
-            $ref: '#/definitions/error_header'
-          headers:
-            $ref: '#/definitions/error_header'
         * 130004: Si es que la carga fue recibida y no está reversada, pero el plazo para reversarla ya expiró.
 
         ### Responderá `422` en los siguientes casos:
         * 130002: Si es que la carga fue recibida y la información de la reversa no concuerda.
-          headers:
-            $ref: '#/definitions/error_header'
-          headers:
-            $ref: '#/definitions/error_header'
       parameters:
         - in: body
           name: new_topup
           description: Detalle de la carga a realizar
-          headers:
-            $ref: '#/definitions/error_header'
           required: true
           schema:
-          headers:
-            $ref: '#/definitions/error_header'
-          headers:
-            $ref: '#/definitions/error_header'
             $ref: '#/definitions/prepaid_topup_new'
       responses:
         '201':
           description: OK - Proceso de reversa iniciado
-          headers:
-            $ref: '#/definitions/error_header'
-          headers:
-            $ref: '#/definitions/error_header'
         '202':
           description: OK - Reversa recibida previamente
           schema:
             $ref: '#/definitions/error_obj'
-          headers:
-            $ref: '#/definitions/error_header'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
-          headers:
-            $ref: '#/definitions/error_header'
-          headers:
-          headers: 
-            $ref: '#/definitions/default_header'
-            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '404':
-          headers:
-            $ref: '#/definitions/error_header'
           description: Cliente no existe o no tiene prepago
-          headers:
-            $ref: '#/definitions/error_header'
-          headers:
-          headers:
-            $ref: '#/definitions/error_header'
-            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '410':
-          headers:
-            $ref: '#/definitions/error_header'
           description: Plazo para reversar expirado
-          headers:
-            $ref: '#/definitions/error_header'
           schema:
-          headers:
-            $ref: '#/definitions/error_header'
             $ref: '#/definitions/error_obj'
         '422':
           description: Información de reversa no concuerda con la carga
-          headers:
-            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '500':
-          headers:
-            $ref: '#/definitions/error_header'
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
-          headers:
-            $ref: '#/definitions/error_header'
           schema:
-          headers:
-            $ref: '#/definitions/error_header'
             $ref: '#/definitions/error_obj'
 
   /prepaid/withdrawal:
     post:
-          headers:
-            $ref: '#/definitions/error_header'
       tags:
         - prepaid
       summary: Retira dinero de una tarjeta
       description: |
-          headers:
-            $ref: '#/definitions/error_header'
         Debita una tarjeta
         
         ### Notas
         * Valida que el usuario esté habilitado para retirar. 
         * Valida que el retiro no exceda los límites
-          headers: 
-              $ref: '#/definitions/default_header'
         * Debita la Tarjeta de Prepago y abona a la Cuenta de Traspaso Personal (CTP), luego debita la CTP y abona a la cuenta de destino.
 
-          headers: 
-            $ref: '#/definitions/default_header'
         ### Responderá `400` en los siguientes casos:
-          headers:
-            $ref: '#/definitions/error_header'
         * 101004: Si un parámetro es requerido y no se ha enviado.
-          headers:
-            $ref: '#/definitions/error_header'
         * 101007: Si un parámetro no cumple formato.
 
         ### Responderá `404` en los siguientes casos:
-          headers:
-          headers:
-            $ref: '#/definitions/error_header'
-            $ref: '#/definitions/error_header'
         * 102001: Si el cliente no existe.
         * 102003: Si el cliente no tiene prepago.
 
-          headers:
-            $ref: '#/definitions/error_header'
-        ### Responderá `422` en los siguientes casos:
-          headers:
-            $ref: '#/definitions/error_header'
-        
-          headers:
-            $ref: '#/definitions/error_header'
+        ### Responderá `422` en los siguientes casos:       
         * 102002: Si el cliente está bloqueado o borrado.
         * 102004: Si el cliente está bloqueado o borrado de prepago.
         * 102053: Si la clave ingresada no coincide.
-          headers:
-          headers:
-            $ref: '#/definitions/error_header'
-            $ref: '#/definitions/error_header'
         * 102015: Si el cliente está en una lista negra, por lo tanto no puede realizar la carga.
         * 103001: Si la cuenta bancaria seleccionada no está asociada al cliente.
         * 106000: Si la tarjeta está expirada o tiene un bloqueo duro.
@@ -470,36 +332,18 @@ paths:
         * 108301: El retiro supera el monto máximo de un retiro web.
         * 108302: El retiro supera el monto máximo de un retiro pos.
         * 108303: El monto de retiro es menor al monto mínimo de retiros.
-          headers:
-            $ref: '#/definitions/error_header'
         * 108203: La carga es menor al mínimo de carga.
-          headers:
-            $ref: '#/definitions/error_header'
         * 108304: El retiro supera el monto máximo de retiros mensuales.
         
         ### Responderá `500` en los siguientes casos:
-          headers:
-          headers:
-            $ref: '#/definitions/error_header'
-            $ref: '#/definitions/error_header'
         * Error imprevisto de sistema
       parameters:
         - in: body
-          headers:
-            $ref: '#/definitions/error_header'
           name: new_withdrawal
-          headers:
-            $ref: '#/definitions/error_header'
           description: Detalle del retiro a realizar
-          headers:
-            $ref: '#/definitions/error_header'
           required: true
           schema:
             $ref: '#/definitions/prepaid_withdrawal_new'
-          headers:
-          headers:
-            $ref: '#/definitions/error_header'
-            $ref: '#/definitions/error_header'
       responses:
         '201':
           description: |
@@ -508,36 +352,18 @@ paths:
             $ref: '#/definitions/prepaid_withdrawal'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado ó no cumple formato
-          headers:
-            $ref: '#/definitions/error_header'
           schema:
-          headers:
-            $ref: '#/definitions/error_header'
             $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe o no tiene prepago
-          headers:
-          headers:
-            $ref: '#/definitions/error_header'
-            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '422':
-          headers:
-            $ref: '#/definitions/error_header'
           description: Retiro no exitoso, revise error
-          headers:
-            $ref: '#/definitions/error_header'
           schema:
-          headers:
-            $ref: '#/definitions/error_header'
             $ref: '#/definitions/error_obj'
         '500':
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
-          headers:
-          headers:
-            $ref: '#/definitions/error_header'
-            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
 
@@ -549,32 +375,22 @@ paths:
       description: |
         Reversa un retiro que a) coincida en todos los campos de prepaid_withdrawal_new y b) se haya recibido en las últimas 24 horas.
         
-          headers:
-            $ref: '#/definitions/error_header'
         ### Responderá `201` (éxito) en los siguientes casos:
         * Si el retiro se recibió, en cuyo caso iniciara el proceso de reversa.
 
         ### Responderá `202` en los siguientes casos:
-          headers:
-            $ref: '#/definitions/error_header'
         * 130001: Si el retiro nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibir el retiro mas adelante.
         * 130003: Si la reversa fue recibida previamente para su procesamiento.
 
         ### Responderá `410` en los siguientes casos:
-          headers:
-            $ref: '#/definitions/error_header'
         * 130004: Si es que el retiro fue recibido y no está reversado, pero el plazo para reversarlo ya expiró.
 
         ### Responderá `422` en los siguientes casos:
         * 130002: Si es que el retiro fue recibido la información de la reversa no concuerda.
-          headers:
-            $ref: '#/definitions/error_header'
       parameters:
         - in: body
           name: new_withdrawal
           description: Detalle de la carga a realizar
-          headers:
-            $ref: '#/definitions/error_header'
           required: true
           schema:
             $ref: '#/definitions/prepaid_withdrawal_new'
@@ -587,32 +403,22 @@ paths:
             $ref: '#/definitions/error_obj'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
-          headers:
-            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe o no tiene prepago
-          headers:
-            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '410':
           description: Plazo para reversar expirado
-          headers:
-            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '422':
           description: Información de reversa no concuerda con el retiro
-          headers:
-            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
         '500':
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
-          headers:
-            $ref: '#/definitions/error_header'
           schema:
             $ref: '#/definitions/error_obj'
 
@@ -1331,8 +1137,6 @@ definitions:
   variable_data:
     type: object
     description: Dato de tipo llave=valor **(Response)**
-    required:
-      - code
     properties:
       name:
         type: string
@@ -1488,6 +1292,7 @@ definitions:
         description: PAN truncado. (máx. 22 dígitos)
         example: "411111******1111"
         maxLength: 22
+
   raw_transaction_body_new:
     type: object
     description: |
@@ -1523,35 +1328,8 @@ definitions:
         description: |
           Importe divisa: Código ISO 4217 (numeric) de la moneda
         example: 152
-  
-  default_header:
-    Transfer-Encoding:
-      schema: 
-        type: string
-    Content-Type:
-      schema:
-        type: string
-    Date:
-      schema:
-        type: timestamp
-
-  error_header:
-    Transfer-Encoding:
-      schema: 
-        type: string
-    Content-Type:
-      schema:
-        type: string
-    Date:
-      schema:
-        type: timestamp
-    TracerId:
-      schema:
       id_value:
-      description: Id interno
-
-  simulation_topup_pos:
-    $ref: "#/definitions/simulation_topup"
+        type: number
         format: double
         description: |
           Importe divisa: Monto en formato decimal
@@ -1596,6 +1374,29 @@ definitions:
         type: integer
         description: Código que identifica el resultado de la transacción
         example: 100
+
+  default_header:
+    type: object
+    properties:
+      Transfer-Encoding:
+        type: string
+      Content-Type:
+        type: string
+      Date:
+        type: string
+
+  error_header:
+    type: object
+    properties:
+      Transfer-Encoding:
+        type: string
+      Content-Type:
+        type: string
+      Date:
+        type: string
+      TracerId:
+        type: string
+        description: Id interno
 
   raw_transaction_new:
     type: object
@@ -2015,7 +1816,7 @@ definitions:
     required:
       - file_name
       - mime_type
-      - content
+      - content_file
     properties:
       file_name:
         type: string
