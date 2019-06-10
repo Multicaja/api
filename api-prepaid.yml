@@ -237,6 +237,7 @@ paths:
             Date:
               type: string
             tracer-id:
+              description: Id Interno
               type: string
           schema:
             $ref: '#/definitions/error_obj'
@@ -250,6 +251,7 @@ paths:
             Date:
               type: string
             tracer-id:
+              description: Id Interno
               type: string
           schema:
             $ref: '#/definitions/error_obj'
@@ -263,6 +265,7 @@ paths:
             Date:
               type: string
             tracer-id:
+              description: Id Interno
               type: string
           schema:
             $ref: '#/definitions/error_obj'        
@@ -276,6 +279,7 @@ paths:
             Date:
               type: string
             tracer-id:
+              description: Id Interno
               type: string
           schema:
             $ref: '#/definitions/error_obj'
@@ -333,6 +337,7 @@ paths:
             Date:
               type: string
             tracer-id:
+              description: Id Interno
               type: string
           schema:
             $ref: '#/definitions/error_obj'
@@ -346,6 +351,7 @@ paths:
             Date:
               type: string
             tracer-id:
+              description: Id Interno
               type: string
           schema:
             $ref: '#/definitions/error_obj'
@@ -359,6 +365,7 @@ paths:
             Date:
               type: string
             tracer-id:
+              description: Id Interno
               type: string
           schema:
             $ref: '#/definitions/error_obj'
@@ -372,6 +379,7 @@ paths:
             Date:
               type: string
             tracer-id:
+              description: Id Interno
               type: string
           schema:
             $ref: '#/definitions/error_obj'
@@ -385,6 +393,7 @@ paths:
             Date:
               type: string
             tracer-id:
+              description: Id Interno
               type: string
           schema:
             $ref: '#/definitions/error_obj'
@@ -398,6 +407,7 @@ paths:
             Date:
               type: string
             tracer-id:
+              description: Id Interno
               type: string
           schema:
             $ref: '#/definitions/error_obj'
@@ -469,6 +479,7 @@ paths:
             Date:
               type: string
             tracer-id:
+              description: Id Interno
               type: string
           schema:
             $ref: '#/definitions/error_obj'
@@ -482,6 +493,7 @@ paths:
             Date:
               type: string
             tracer-id:
+              description: Id Interno
               type: string
           schema:
             $ref: '#/definitions/error_obj'
@@ -495,6 +507,7 @@ paths:
             Date:
               type: string
             tracer-id:
+              description: Id Interno
               type: string
           schema:
             $ref: '#/definitions/error_obj'
@@ -508,6 +521,7 @@ paths:
             Date:
               type: string
             tracer-id:
+              description: Id Interno
               type: string
           schema:
             $ref: '#/definitions/error_obj'
@@ -565,6 +579,7 @@ paths:
             Date:
               type: string
             tracer-id:
+              description: Id Interno
               type: string
           schema:
             $ref: '#/definitions/error_obj'
@@ -578,6 +593,7 @@ paths:
             Date:
               type: string
             tracer-id:
+              description: Id Interno
               type: string
           schema:
             $ref: '#/definitions/error_obj'
@@ -591,6 +607,7 @@ paths:
             Date:
               type: string
             tracer-id:
+              description: Id Interno
               type: string          
           schema:
             $ref: '#/definitions/error_obj'
@@ -604,6 +621,7 @@ paths:
             Date:
               type: string
             tracer-id:
+              description: Id Interno
               type: string
           schema:
             $ref: '#/definitions/error_obj'
@@ -617,6 +635,7 @@ paths:
             Date:
               type: string
             tracer-id:
+              description: Id Interno
               type: string
           schema:
             $ref: '#/definitions/error_obj'
@@ -630,6 +649,7 @@ paths:
             Date:
               type: string
             tracer-id:
+              description: Id Interno
               type: string
           schema:
             $ref: '#/definitions/error_obj'
