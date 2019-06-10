@@ -229,18 +229,54 @@ paths:
             $ref: '#/definitions/prepaid_topup'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado ó no cumple formato
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe o no tiene prepago
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '422':
           description: Carga no exitosa, revise error
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              type: string
           schema:
             $ref: '#/definitions/error_obj'        
         '500':
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
 
@@ -274,28 +310,87 @@ paths:
       responses:
         '201':
           description: OK - Proceso de reversa iniciado
+          headers:
+            Content-Length:
+              type: string
+            Date:
+              type: string
         '202':
           description: OK - Reversa recibida previamente
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe o no tiene prepago
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '410':
           description: Plazo para reversar expirado
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '422':
           description: Información de reversa no concuerda con la carga
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '500':
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
 
@@ -348,6 +443,8 @@ paths:
         '201':
           description: |
             OK - Retiro realizado
+          headers:
+            $ref: '#/definitions/default_header_2'
           schema:
             $ref: '#/definitions/prepaid_withdrawal'
         '400':
@@ -1374,6 +1471,17 @@ definitions:
         type: integer
         description: Código que identifica el resultado de la transacción
         example: 100
+
+  default_header_2:
+    Transfer-Encoding:
+      schema:
+        type: string
+    Content-Type:
+      schema:
+        type: string
+    Date:
+      schema:
+        type: string
 
   default_header:
     type: object
