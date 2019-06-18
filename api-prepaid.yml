@@ -187,7 +187,7 @@ paths:
         * 101007: Si un parámetro no cumple formato.
 
         ### Responderá `404` en los siguientes casos:
-        * 102001: Si el cliente no existe.
+        * 102001: Si el cliente no está registrado en Tenpo.
         * 102003: Si el cliente no tiene prepago.
 
         ### Responderá `422` en los siguientes casos:
@@ -218,22 +218,69 @@ paths:
         '201':
           description: |
             OK - Carga se realizará en los próximos segundos
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
           schema:
             $ref: '#/definitions/prepaid_topup'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado ó no cumple formato
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              description: Id Interno
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe o no tiene prepago
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              description: Id Interno
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '422':
           description: Carga no exitosa, revise error
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              description: Id Interno
+              type: string
           schema:
             $ref: '#/definitions/error_obj'        
         '500':
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              description: Id Interno
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
 
@@ -252,6 +299,14 @@ paths:
         * 130001: Si la carga nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibir la carga mas adelante.
         * 130003: Si la reversa fue recibida previamente para su procesamiento.
 
+        ### Responderá `400` en los siguientes casos:
+        * 101004: Si un parámetro es requerido y no se ha enviado.
+        * 101007: Si un parámetro no cumple formato.
+
+        ### Responderá `404` en los siguientes casos:
+        * 102001: Si el cliente no está registrado en Tenpo.
+        * 102003: Si el cliente no tiene prepago.
+
         ### Responderá `410` en los siguientes casos:
         * 130004: Si es que la carga fue recibida y no está reversada, pero el plazo para reversarla ya expiró.
 
@@ -267,28 +322,93 @@ paths:
       responses:
         '201':
           description: OK - Proceso de reversa iniciado
+          headers:
+            Content-Length:
+              type: string
+            Date:
+              type: string
         '202':
           description: OK - Reversa recibida previamente
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              description: Id Interno
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              description: Id Interno
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe o no tiene prepago
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              description: Id Interno
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '410':
           description: Plazo para reversar expirado
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              description: Id Interno
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '422':
           description: Información de reversa no concuerda con la carga
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              description: Id Interno
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '500':
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              description: Id Interno
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
 
@@ -310,11 +430,10 @@ paths:
         * 101007: Si un parámetro no cumple formato.
 
         ### Responderá `404` en los siguientes casos:
-        * 102001: Si el cliente no existe.
+        * 102001: Si el cliente no está registrado en Tenpo.
         * 102003: Si el cliente no tiene prepago.
 
-        ### Responderá `422` en los siguientes casos:
-        
+        ### Responderá `422` en los siguientes casos:       
         * 102002: Si el cliente está bloqueado o borrado.
         * 102004: Si el cliente está bloqueado o borrado de prepago.
         * 102053: Si la clave ingresada no coincide.
@@ -326,7 +445,6 @@ paths:
         * 108301: El retiro supera el monto máximo de un retiro web.
         * 108302: El retiro supera el monto máximo de un retiro pos.
         * 108303: El monto de retiro es menor al monto mínimo de retiros.
-        * 108203: La carga es menor al mínimo de carga.
         * 108304: El retiro supera el monto máximo de retiros mensuales.
         
         ### Responderá `500` en los siguientes casos:
@@ -342,22 +460,69 @@ paths:
         '201':
           description: |
             OK - Retiro realizado
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
           schema:
             $ref: '#/definitions/prepaid_withdrawal'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado ó no cumple formato
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              description: Id Interno
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe o no tiene prepago
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              description: Id Interno
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '422':
           description: Retiro no exitoso, revise error
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              description: Id Interno
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '500':
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              description: Id Interno
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
 
@@ -376,6 +541,14 @@ paths:
         * 130001: Si el retiro nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibir el retiro mas adelante.
         * 130003: Si la reversa fue recibida previamente para su procesamiento.
 
+        ### Responderá `400` en los siguientes casos:
+        * 101004: Si un parámetro es requerido y no se ha enviado.
+        * 101007: Si un parámetro no cumple formato.
+
+        ### Responderá `404` en los siguientes casos:
+        * 102001: Si el cliente no está registrado en Tenpo.
+        * 102003: Si el cliente no tiene prepago.
+
         ### Responderá `410` en los siguientes casos:
         * 130004: Si es que el retiro fue recibido y no está reversado, pero el plazo para reversarlo ya expiró.
 
@@ -391,28 +564,93 @@ paths:
       responses:
         '201':
           description: OK - Proceso de reversa iniciado
+          headers:
+            Content-Length:
+              type: string
+            Date:
+              type: string
         '202':
           description: OK - Reversa recibida previamente
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              description: Id Interno
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '400':
           description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              description: Id Interno
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '404':
           description: Cliente no existe o no tiene prepago
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              description: Id Interno
+              type: string          
           schema:
             $ref: '#/definitions/error_obj'
         '410':
           description: Plazo para reversar expirado
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              description: Id Interno
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '422':
           description: Información de reversa no concuerda con el retiro
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              description: Id Interno
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
         '500':
           description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          headers:
+            Content-Type:
+              type: string
+            Transfer-Encoding:
+              type: string
+            Date:
+              type: string
+            tracer-id:
+              description: Id Interno
+              type: string
           schema:
             $ref: '#/definitions/error_obj'
 
@@ -1131,8 +1369,6 @@ definitions:
   variable_data:
     type: object
     description: Dato de tipo llave=valor **(Response)**
-    required:
-      - code
     properties:
       name:
         type: string
@@ -1288,6 +1524,7 @@ definitions:
         description: PAN truncado. (máx. 22 dígitos)
         example: "411111******1111"
         maxLength: 22
+
   raw_transaction_body_new:
     type: object
     description: |
@@ -1788,7 +2025,7 @@ definitions:
     required:
       - file_name
       - mime_type
-      - content
+      - content_file
     properties:
       file_name:
         type: string
