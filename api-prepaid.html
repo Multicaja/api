@@ -215,7 +215,7 @@
                   </ul>
                   <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
                   <ul>
-                    <li>102001: Si el cliente no existe.</li>
+                    <li>102001: Si el cliente no está registrado en Tenpo.</li>
                     <li>102003: Si el cliente no tiene prepago.</li>
                   </ul>
                   <h3 id="responder-422-en-los-siguientes-casos-">Responderá <code>422</code> en los siguientes casos:</h3>
@@ -394,6 +394,54 @@
                   <!-- </div> -->
                 </section>
                 <section>
+                  <h5>Response Headers
+                    <span>(201 Created)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
@@ -407,6 +455,64 @@
 </code></pre> </body>
                   </html>
                   <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-tracer-id">
+                          <td> tracer-id
+                            <td>
+                              <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
                 </section>
                 <section>
                   <h5>Response Example
@@ -424,6 +530,64 @@
                   <!-- </div> -->
                 </section>
                 <section>
+                  <h5>Response Headers
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-tracer-id">
+                          <td> tracer-id
+                            <td>
+                              <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
@@ -439,6 +603,64 @@
                   <!-- </div> -->
                 </section>
                 <section>
+                  <h5>Response Headers
+                    <span>(422 Unprocessable Entity)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-tracer-id">
+                          <td> tracer-id
+                            <td>
+                              <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
@@ -452,6 +674,64 @@
 </code></pre> </body>
                   </html>
                   <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-tracer-id">
+                          <td> tracer-id
+                            <td>
+                              <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
                 </section>
               </div>
             </div>
@@ -488,6 +768,16 @@
                   <ul>
                     <li>130001: Si la carga nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibir la carga mas adelante.</li>
                     <li>130003: Si la reversa fue recibida previamente para su procesamiento.</li>
+                  </ul>
+                  <h3 id="responder-400-en-los-siguientes-casos-">Responderá <code>400</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>101004: Si un parámetro es requerido y no se ha enviado.</li>
+                    <li>101007: Si un parámetro no cumple formato.</li>
+                  </ul>
+                  <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>102001: Si el cliente no está registrado en Tenpo.</li>
+                    <li>102003: Si el cliente no tiene prepago.</li>
                   </ul>
                   <h3 id="responder-410-en-los-siguientes-casos-">Responderá <code>410</code> en los siguientes casos:</h3>
                   <ul>
@@ -641,6 +931,44 @@
               </div>
               <div class="doc-examples">
                 <section>
+                  <h5>Response Headers
+                    <span>(201 Created)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Length">
+                          <td> Content-Length
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
                   <h5>Response Example
                     <span>(202 Accepted)</span>
                   </h5>
@@ -654,6 +982,64 @@
 </code></pre> </body>
                   </html>
                   <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(202 Accepted)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-tracer-id">
+                          <td> tracer-id
+                            <td>
+                              <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
                 </section>
                 <section>
                   <h5>Response Example
@@ -671,6 +1057,64 @@
                   <!-- </div> -->
                 </section>
                 <section>
+                  <h5>Response Headers
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-tracer-id">
+                          <td> tracer-id
+                            <td>
+                              <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
@@ -684,6 +1128,64 @@
 </code></pre> </body>
                   </html>
                   <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-tracer-id">
+                          <td> tracer-id
+                            <td>
+                              <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
                 </section>
                 <section>
                   <h5>Response Example
@@ -701,6 +1203,64 @@
                   <!-- </div> -->
                 </section>
                 <section>
+                  <h5>Response Headers
+                    <span>(410 Gone)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-tracer-id">
+                          <td> tracer-id
+                            <td>
+                              <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
@@ -716,6 +1276,64 @@
                   <!-- </div> -->
                 </section>
                 <section>
+                  <h5>Response Headers
+                    <span>(422 Unprocessable Entity)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-tracer-id">
+                          <td> tracer-id
+                            <td>
+                              <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
@@ -729,6 +1347,64 @@
 </code></pre> </body>
                   </html>
                   <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-tracer-id">
+                          <td> tracer-id
+                            <td>
+                              <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
                 </section>
               </div>
             </div>
@@ -770,7 +1446,7 @@
                   </ul>
                   <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
                   <ul>
-                    <li>102001: Si el cliente no existe.</li>
+                    <li>102001: Si el cliente no está registrado en Tenpo.</li>
                     <li>102003: Si el cliente no tiene prepago.</li>
                   </ul>
                   <h3 id="responder-422-en-los-siguientes-casos-">Responderá <code>422</code> en los siguientes casos:</h3>
@@ -786,7 +1462,6 @@
                     <li>108301: El retiro supera el monto máximo de un retiro web.</li>
                     <li>108302: El retiro supera el monto máximo de un retiro pos.</li>
                     <li>108303: El monto de retiro es menor al monto mínimo de retiros.</li>
-                    <li>108203: La carga es menor al mínimo de carga.</li>
                     <li>108304: El retiro supera el monto máximo de retiros mensuales.</li>
                   </ul>
                   <h3 id="responder-500-en-los-siguientes-casos-">Responderá <code>500</code> en los siguientes casos:</h3>
@@ -950,6 +1625,54 @@
                   <!-- </div> -->
                 </section>
                 <section>
+                  <h5>Response Headers
+                    <span>(201 Created)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
                   <h5>Response Example
                     <span>(400 Bad Request)</span>
                   </h5>
@@ -963,6 +1686,64 @@
 </code></pre> </body>
                   </html>
                   <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-tracer-id">
+                          <td> tracer-id
+                            <td>
+                              <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
                 </section>
                 <section>
                   <h5>Response Example
@@ -980,6 +1761,64 @@
                   <!-- </div> -->
                 </section>
                 <section>
+                  <h5>Response Headers
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-tracer-id">
+                          <td> tracer-id
+                            <td>
+                              <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
@@ -995,6 +1834,64 @@
                   <!-- </div> -->
                 </section>
                 <section>
+                  <h5>Response Headers
+                    <span>(422 Unprocessable Entity)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-tracer-id">
+                          <td> tracer-id
+                            <td>
+                              <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
@@ -1008,6 +1905,64 @@
 </code></pre> </body>
                   </html>
                   <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-tracer-id">
+                          <td> tracer-id
+                            <td>
+                              <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
                 </section>
               </div>
             </div>
@@ -1044,6 +1999,16 @@
                   <ul>
                     <li>130001: Si el retiro nunca se recibió, en cuyo caso se dejara registro de la reversa en caso de recibir el retiro mas adelante.</li>
                     <li>130003: Si la reversa fue recibida previamente para su procesamiento.</li>
+                  </ul>
+                  <h3 id="responder-400-en-los-siguientes-casos-">Responderá <code>400</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>101004: Si un parámetro es requerido y no se ha enviado.</li>
+                    <li>101007: Si un parámetro no cumple formato.</li>
+                  </ul>
+                  <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>102001: Si el cliente no está registrado en Tenpo.</li>
+                    <li>102003: Si el cliente no tiene prepago.</li>
                   </ul>
                   <h3 id="responder-410-en-los-siguientes-casos-">Responderá <code>410</code> en los siguientes casos:</h3>
                   <ul>
@@ -1198,6 +2163,44 @@
               </div>
               <div class="doc-examples">
                 <section>
+                  <h5>Response Headers
+                    <span>(201 Created)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Length">
+                          <td> Content-Length
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
                   <h5>Response Example
                     <span>(202 Accepted)</span>
                   </h5>
@@ -1211,6 +2214,64 @@
 </code></pre> </body>
                   </html>
                   <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(202 Accepted)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-tracer-id">
+                          <td> tracer-id
+                            <td>
+                              <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
                 </section>
                 <section>
                   <h5>Response Example
@@ -1228,6 +2289,64 @@
                   <!-- </div> -->
                 </section>
                 <section>
+                  <h5>Response Headers
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-tracer-id">
+                          <td> tracer-id
+                            <td>
+                              <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
                   <h5>Response Example
                     <span>(404 Not Found)</span>
                   </h5>
@@ -1241,6 +2360,64 @@
 </code></pre> </body>
                   </html>
                   <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-tracer-id">
+                          <td> tracer-id
+                            <td>
+                              <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
                 </section>
                 <section>
                   <h5>Response Example
@@ -1258,6 +2435,64 @@
                   <!-- </div> -->
                 </section>
                 <section>
+                  <h5>Response Headers
+                    <span>(410 Gone)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-tracer-id">
+                          <td> tracer-id
+                            <td>
+                              <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
                   <h5>Response Example
                     <span>(422 Unprocessable Entity)</span>
                   </h5>
@@ -1273,6 +2508,64 @@
                   <!-- </div> -->
                 </section>
                 <section>
+                  <h5>Response Headers
+                    <span>(422 Unprocessable Entity)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-tracer-id">
+                          <td> tracer-id
+                            <td>
+                              <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
                   <h5>Response Example
                     <span>(500 Internal Server Error)</span>
                   </h5>
@@ -1286,6 +2579,64 @@
 </code></pre> </body>
                   </html>
                   <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Transfer-Encoding">
+                          <td> Transfer-Encoding
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-tracer-id">
+                          <td> tracer-id
+                            <td>
+                              <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
                 </section>
               </div>
             </div>
@@ -7607,6 +8958,7 @@
                       <span class="json-property-name">content_file:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
                     </dt>
                     <dd>
                       <p>El texto del contenido en base64 no debe contener <code>data:image/jpeg;base64</code>, Solo el cuerpo del archivo</p>
