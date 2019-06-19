@@ -215,10 +215,9 @@ paths:
       parameters:
         - in: header
           name: Ocp-Apim-Subscription-Key
-          description: Key de suscripción requerido (es entregado por Tenpo)
+          description: Key de subscripción requerido (es entregado por Tenpo)
           required: true
           type: string
-          example: '98s7df89a098f98shs7df'
         - in: body
           name: new_topup
           description: Detalle de la carga a realizar
@@ -334,13 +333,11 @@ paths:
           description: Key de subscripción requerido (es entregado por Tenpo)
           required: true
           type: string
-          example: '98s7df89a098f98shs7df'
         - in: header
           name: user-timezone
           description: La zona horaria del cliente (default America/Santiago)
           required: false
           type: string
-          example: 'America/Santiago'
         - in: body
           name: new_topup
           description: Detalle de la carga a realizar
@@ -488,7 +485,6 @@ paths:
           description: Key de subscripción requerido (es entregado por Tenpo)
           required: true
           type: string
-          example: '98s7df89a098f98shs7df'
         - in: body
           name: new_withdrawal
           description: Detalle del retiro a realizar
@@ -604,13 +600,11 @@ paths:
           description: Key de subscripción requerido (es entregado por Tenpo)
           required: true
           type: string
-          example: '98s7df89a098f98shs7df'
         - in: header
           name: user-timezone
           description: La zona horaria del cliente (default America/Santiago)
           required: false
           type: string
-          example: 'America/Santiago'
         - in: body
           name: new_withdrawal
           description: Detalle de la carga a realizar
