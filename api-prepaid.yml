@@ -251,6 +251,20 @@ paths:
               type: string
           schema:
             $ref: '#/definitions/error_obj'
+        '401':
+          description: Error de key, se lanza a cuando el key de suscripción no fue incluido en el header o está incorrecto
+          headers:
+            Content-Type:
+              type: string
+            Content-Length:
+              type: int32
+            Date:
+              type: string
+            WWW-Authenticate:
+              description: Metodo de autenticación
+              type: string
+          schema:
+            $ref: '#/definitions/error_obj_401'
         '404':
           description: Cliente no existe o no tiene prepago
           headers:
@@ -380,6 +394,20 @@ paths:
               type: string
           schema:
             $ref: '#/definitions/error_obj'
+        '401':
+          description: Error de key, se lanza a cuando el key de suscripción no fue incluido en el header o está incorrecto
+          headers:
+            Content-Type:
+              type: string
+            Content-Length:
+              type: int32
+            Date:
+              type: string
+            WWW-Authenticate:
+              description: Metodo de autenticación
+              type: string
+          schema:
+            $ref: '#/definitions/error_obj_401'
         '404':
           description: Cliente no existe o no tiene prepago
           headers:
@@ -518,6 +546,20 @@ paths:
               type: string
           schema:
             $ref: '#/definitions/error_obj'
+        '401':
+          description: Error de key, se lanza a cuando el key de suscripción no fue incluido en el header o está incorrecto
+          headers:
+            Content-Type:
+              type: string
+            Content-Length:
+              type: int32
+            Date:
+              type: string
+            WWW-Authenticate:
+              description: Metodo de autenticación
+              type: string
+          schema:
+            $ref: '#/definitions/error_obj_401'
         '404':
           description: Cliente no existe o no tiene prepago
           headers:
@@ -647,6 +689,20 @@ paths:
               type: string
           schema:
             $ref: '#/definitions/error_obj'
+        '401':
+          description: Error de key, se lanza a cuando el key de suscripción no fue incluido en el header o está incorrecto
+          headers:
+            Content-Type:
+              type: string
+            Content-Length:
+              type: int32
+            Date:
+              type: string
+            WWW-Authenticate:
+              description: Metodo de autenticación
+              type: string
+          schema:
+            $ref: '#/definitions/error_obj_401'
         '404':
           description: Cliente no existe o no tiene prepago
           headers:
@@ -1777,6 +1833,22 @@ definitions:
         type: string
         description: Descripción corta del error
         example: "El cliente no pasó la validación"
+
+  error_obj_401:
+    type: object
+    description: Error que devuelve la api ante un `HTTP 401` **(Response)**
+    required:
+      - code
+    properties:
+      code:
+        type: integer
+        format: int32
+        description: Código que representa el error.
+        example: 401
+      message:
+        type: string
+        description: Descripción corta del error
+        example: "Access denied due to missing subscription key. Make sure to include subscription key when making requests to an API."
 
   prepaid_card:
     type: object
