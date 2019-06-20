@@ -174,6 +174,8 @@ paths:
       tags:
         - prepaid
       summary: Carga una tarjeta
+      consumes:
+        - application/json
       description: |
         Carga una tarjeta
         
@@ -185,6 +187,9 @@ paths:
         ### Responderá `400` en los siguientes casos:
         * 101004: Si un parámetro es requerido y no se ha enviado.
         * 101007: Si un parámetro no cumple formato.
+
+        ### Responderá `401` en los siguientes casos:
+        * 401: Si faltó incluir la key de suscripción en el header, o si la key es incorrecta.
 
         ### Responderá `404` en los siguientes casos:
         * 102001: Si el cliente no está registrado en Tenpo.
@@ -208,6 +213,11 @@ paths:
         ### Responderá `500` en los siguientes casos:
         * Error imprevisto de sistema
       parameters:
+        - in: header
+          name: Ocp-Apim-Subscription-Key
+          description: Key de subscripción requerido (es entregado por Tenpo)
+          required: true
+          type: string
         - in: body
           name: new_topup
           description: Detalle de la carga a realizar
@@ -289,6 +299,8 @@ paths:
       tags:
         - prepaid
       summary: Reversa una carga
+      consumes:
+        - application/json
       description: |
         Reversa una carga que a) coincida en todos los campos de prepaid_topup_new y b) se haya recibido en las últimas 24 horas.
         
@@ -303,6 +315,9 @@ paths:
         * 101004: Si un parámetro es requerido y no se ha enviado.
         * 101007: Si un parámetro no cumple formato.
 
+        ### Responderá `401` en los siguientes casos:
+        * 401: Si faltó incluir la key de suscripción en el header, o si la key es incorrecta.
+
         ### Responderá `404` en los siguientes casos:
         * 102001: Si el cliente no está registrado en Tenpo.
         * 102003: Si el cliente no tiene prepago.
@@ -313,6 +328,16 @@ paths:
         ### Responderá `422` en los siguientes casos:
         * 130002: Si es que la carga fue recibida y la información de la reversa no concuerda.
       parameters:
+        - in: header
+          name: Ocp-Apim-Subscription-Key
+          description: Key de subscripción requerido (es entregado por Tenpo)
+          required: true
+          type: string
+        - in: header
+          name: user-timezone
+          description: La zona horaria del cliente (default America/Santiago)
+          required: false
+          type: string
         - in: body
           name: new_topup
           description: Detalle de la carga a realizar
@@ -417,6 +442,8 @@ paths:
       tags:
         - prepaid
       summary: Retira dinero de una tarjeta
+      consumes:
+        - application/json
       description: |
         Debita una tarjeta
         
@@ -428,6 +455,9 @@ paths:
         ### Responderá `400` en los siguientes casos:
         * 101004: Si un parámetro es requerido y no se ha enviado.
         * 101007: Si un parámetro no cumple formato.
+
+        ### Responderá `401` en los siguientes casos:
+        * 401: Si faltó incluir la key de suscripción en el header, o si la key es incorrecta.
 
         ### Responderá `404` en los siguientes casos:
         * 102001: Si el cliente no está registrado en Tenpo.
@@ -450,6 +480,11 @@ paths:
         ### Responderá `500` en los siguientes casos:
         * Error imprevisto de sistema
       parameters:
+        - in: header
+          name: Ocp-Apim-Subscription-Key
+          description: Key de subscripción requerido (es entregado por Tenpo)
+          required: true
+          type: string
         - in: body
           name: new_withdrawal
           description: Detalle del retiro a realizar
@@ -531,6 +566,8 @@ paths:
       tags:
         - prepaid
       summary: Reversa un retiro
+      consumes:
+        - application/json
       description: |
         Reversa un retiro que a) coincida en todos los campos de prepaid_withdrawal_new y b) se haya recibido en las últimas 24 horas.
         
@@ -545,6 +582,9 @@ paths:
         * 101004: Si un parámetro es requerido y no se ha enviado.
         * 101007: Si un parámetro no cumple formato.
 
+        ### Responderá `401` en los siguientes casos:
+        * 401: Si faltó incluir la key de suscripción en el header, o si la key es incorrecta.
+
         ### Responderá `404` en los siguientes casos:
         * 102001: Si el cliente no está registrado en Tenpo.
         * 102003: Si el cliente no tiene prepago.
@@ -555,6 +595,16 @@ paths:
         ### Responderá `422` en los siguientes casos:
         * 130002: Si es que el retiro fue recibido la información de la reversa no concuerda.
       parameters:
+        - in: header
+          name: Ocp-Apim-Subscription-Key
+          description: Key de subscripción requerido (es entregado por Tenpo)
+          required: true
+          type: string
+        - in: header
+          name: user-timezone
+          description: La zona horaria del cliente (default America/Santiago)
+          required: false
+          type: string
         - in: body
           name: new_withdrawal
           description: Detalle de la carga a realizar
