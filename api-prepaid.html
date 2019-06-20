@@ -213,6 +213,10 @@
                     <li>101004: Si un parámetro es requerido y no se ha enviado.</li>
                     <li>101007: Si un parámetro no cumple formato.</li>
                   </ul>
+                  <h3 id="responder-401-en-los-siguientes-casos-">Responderá <code>401</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>401: Si faltó incluir la key de suscripción en el header, o si la key es incorrecta.</li>
+                  </ul>
                   <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
                   <ul>
                     <li>102001: Si el cliente no está registrado en Tenpo.</li>
@@ -259,9 +263,29 @@
                     </div>
                   </div>
                 </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Ocp-Apim-Subscription-Key:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Key de subscripción requerido (es entregado por Tenpo)</p>
+                    </div>
+                  </div>
+                </section>
               </div>
               <div class="doc-examples">
                 <section>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> -->
                   <html>
@@ -774,6 +798,10 @@
                     <li>101004: Si un parámetro es requerido y no se ha enviado.</li>
                     <li>101007: Si un parámetro no cumple formato.</li>
                   </ul>
+                  <h3 id="responder-401-en-los-siguientes-casos-">Responderá <code>401</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>401: Si faltó incluir la key de suscripción en el header, o si la key es incorrecta.</li>
+                  </ul>
                   <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
                   <ul>
                     <li>102001: Si el cliente no está registrado en Tenpo.</li>
@@ -808,9 +836,43 @@
                     </div>
                   </div>
                 </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Ocp-Apim-Subscription-Key:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Key de subscripción requerido (es entregado por Tenpo)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">user-timezone:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>La zona horaria del cliente (default America/Santiago)</p>
+                    </div>
+                  </div>
+                </section>
               </div>
               <div class="doc-examples">
                 <section>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> -->
                   <html>
@@ -1444,6 +1506,10 @@
                     <li>101004: Si un parámetro es requerido y no se ha enviado.</li>
                     <li>101007: Si un parámetro no cumple formato.</li>
                   </ul>
+                  <h3 id="responder-401-en-los-siguientes-casos-">Responderá <code>401</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>401: Si faltó incluir la key de suscripción en el header, o si la key es incorrecta.</li>
+                  </ul>
                   <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
                   <ul>
                     <li>102001: Si el cliente no está registrado en Tenpo.</li>
@@ -1489,9 +1555,29 @@
                     </div>
                   </div>
                 </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Ocp-Apim-Subscription-Key:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Key de subscripción requerido (es entregado por Tenpo)</p>
+                    </div>
+                  </div>
+                </section>
               </div>
               <div class="doc-examples">
                 <section>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> -->
                   <html>
@@ -2005,6 +2091,10 @@
                     <li>101004: Si un parámetro es requerido y no se ha enviado.</li>
                     <li>101007: Si un parámetro no cumple formato.</li>
                   </ul>
+                  <h3 id="responder-401-en-los-siguientes-casos-">Responderá <code>401</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>401: Si faltó incluir la key de suscripción en el header, o si la key es incorrecta.</li>
+                  </ul>
                   <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
                   <ul>
                     <li>102001: Si el cliente no está registrado en Tenpo.</li>
@@ -2039,9 +2129,43 @@
                     </div>
                   </div>
                 </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">Ocp-Apim-Subscription-Key:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Key de subscripción requerido (es entregado por Tenpo)</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">user-timezone:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <div class="prop-subtitle"> in header </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>La zona horaria del cliente (default America/Santiago)</p>
+                    </div>
+                  </div>
+                </section>
               </div>
               <div class="doc-examples">
                 <section>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
                   <h5>Request Example</h5>
                   <!-- <div class="hljs"> -->
                   <html>
