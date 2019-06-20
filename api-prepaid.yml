@@ -257,7 +257,7 @@ paths:
             Content-Type:
               type: string
             Content-Length:
-              type: int32
+              type: integer
             Date:
               type: string
             WWW-Authenticate:
@@ -400,7 +400,7 @@ paths:
             Content-Type:
               type: string
             Content-Length:
-              type: int32
+              type: integer
             Date:
               type: string
             WWW-Authenticate:
@@ -552,7 +552,7 @@ paths:
             Content-Type:
               type: string
             Content-Length:
-              type: int32
+              type: integer
             Date:
               type: string
             WWW-Authenticate:
@@ -695,7 +695,7 @@ paths:
             Content-Type:
               type: string
             Content-Length:
-              type: int32
+              type: integer
             Date:
               type: string
             WWW-Authenticate:
@@ -1842,7 +1842,6 @@ definitions:
     properties:
       code:
         type: integer
-        format: int32
         description: Código que representa el error.
         example: 401
       message:
