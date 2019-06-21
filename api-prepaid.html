@@ -125,6 +125,7 @@
           <a href="#definition-simulation_topup"> simulation_topup </a>
           <a href="#definition-simulation_withdrawal"> simulation_withdrawal </a>
           <a href="#definition-error_obj"> error_obj </a>
+          <a href="#definition-error_obj_401"> error_obj_401 </a>
           <a href="#definition-prepaid_card"> prepaid_card </a>
           <a href="#definition-prepaid_user"> prepaid_user </a>
           <a href="#definition-prepaid_transaction"> prepaid_transaction </a>
@@ -340,6 +341,20 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj_401">error_obj_401</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error de key, se lanza a cuando el key de suscripción no fue incluido en el header o está incorrecto</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
                       <div class="prop-title">404 Not Found</div>
                       <div class="prop-ref">
                         <span class="">
@@ -528,6 +543,79 @@
                           <td> tracer-id
                             <td>
                               <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">401</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Access denied due to missing subscription key. Make sure to include subscription key when making requests to an API.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Content-Length">
+                          <td> Content-Length
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">integer</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-WWW-Authenticate">
+                          <td> WWW-Authenticate
+                            <td>
+                              <p>Metodo de autenticación</p>
                             </td>
                             <td>
                               <span class="json-property-type">string</span>
@@ -935,6 +1023,20 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj_401">error_obj_401</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error de key, se lanza a cuando el key de suscripción no fue incluido en el header o está incorrecto</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
                       <div class="prop-title">404 Not Found</div>
                       <div class="prop-ref">
                         <span class="">
@@ -1166,6 +1268,79 @@
                           <td> tracer-id
                             <td>
                               <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">401</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Access denied due to missing subscription key. Make sure to include subscription key when making requests to an API.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Content-Length">
+                          <td> Content-Length
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">integer</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-WWW-Authenticate">
+                          <td> WWW-Authenticate
+                            <td>
+                              <p>Metodo de autenticación</p>
                             </td>
                             <td>
                               <span class="json-property-type">string</span>
@@ -1633,6 +1808,20 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj_401">error_obj_401</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error de key, se lanza a cuando el key de suscripción no fue incluido en el header o está incorrecto</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
                       <div class="prop-title">404 Not Found</div>
                       <div class="prop-ref">
                         <span class="">
@@ -1821,6 +2010,79 @@
                           <td> tracer-id
                             <td>
                               <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">401</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Access denied due to missing subscription key. Make sure to include subscription key when making requests to an API.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Content-Length">
+                          <td> Content-Length
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">integer</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-WWW-Authenticate">
+                          <td> WWW-Authenticate
+                            <td>
+                              <p>Metodo de autenticación</p>
                             </td>
                             <td>
                               <span class="json-property-type">string</span>
@@ -2229,6 +2491,20 @@
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj_401">error_obj_401</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error de key, se lanza a cuando el key de suscripción no fue incluido en el header o está incorrecto</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
                       <div class="prop-title">404 Not Found</div>
                       <div class="prop-ref">
                         <span class="">
@@ -2460,6 +2736,79 @@
                           <td> tracer-id
                             <td>
                               <p>Id Interno</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">401</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Access denied due to missing subscription key. Make sure to include subscription key when making requests to an API.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-Content-Type">
+                          <td> Content-Type
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Content-Length">
+                          <td> Content-Length
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">integer</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Date">
+                          <td> Date
+                            <td>
+                              <p>undefined</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-WWW-Authenticate">
+                          <td> WWW-Authenticate
+                            <td>
+                              <p>Metodo de autenticación</p>
                             </td>
                             <td>
                               <span class="json-property-type">string</span>
@@ -8207,6 +8556,61 @@
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
   <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-error_obj_401" class="definition panel" data-traverse-target="definition-error_obj_401">
+            <h2 class="panel-title">
+              <a name="/definitions/error_obj_401"></a>error_obj_401: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Error que devuelve la api ante un <code>HTTP 401</code>
+                    <strong>(Response)</strong>
+                  </p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="code" class="has-description">
+                      <span class="json-property-name">code:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Código que representa el error.</p>
+                    </dd>
+                    <dt data-property-name="message" class="has-description">
+                      <span class="json-property-name">message:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Descripción corta del error</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">401</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Access denied due to missing subscription key. Make sure to include subscription key when making requests to an API.&quot;</span>
 }
 </code></pre> </body>
                   </html>
