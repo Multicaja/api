@@ -499,7 +499,7 @@ paths:
       description: |
         Retorna la información de la tarjeta prepago
 
-        __Nota__: Este servicio solo retornara informacion si el cliente posee tarjeta de Nivel 2
+        __Nota__: Este servicio solo retornara informacion si el cliente posee tarjeta de Nivel 2.
 
         ### Responderá `404` en los siguientes casos:
         * 102001: Si el cliente no existe
@@ -531,9 +531,36 @@ paths:
       responses:
         '200':
           description: |
-            OK - Información de la tarjeta prepago
+            OK - Información encriptada de la tarjeta prepago
           schema:
-            $ref: '#/definitions/prepaid_card'
+            type: string
+            example: |
+              -----BEGIN PGP MESSAGE-----
+              Version: BCPG v1.59
+
+              hQEMA8lrFZvFE3EOAQgA1vKQ4i5a/pYl9EtHGPR+o5rcqY3ggQIijnOIJVVTI/Nj
+              qYZ3937xoxQEvWn6D6LnDGjMT8Csz2ANuoZI4XGtrhvJhsh5DVda7QMBSe7akNUg
+              IqW6t4vgvHHjpFD85npBgzBEa3KE/xQQMpY/jd75NYUl9UAdt3UM+iXizT1eIIK9
+              UU0Y4eHY/xkWfPJTCt8O9wdDMjWax+ATE4JcgtAvkQ6y68h8EgHWYaJ0PkRXO/7t
+              nRsPr7d0OqpP+Fi6sI/GNSyOi0tLe9WbPn4vzrZiUuSsaQEftA36yQ5KMT3LpOq3
+              qNbY6HLoWSfF/uZ2Ra1Y17fYOW8ko7X/mOyCxVbtlNLB5AFTGflCQITw7WGoo25+
+              2zglqkA7+GSLLFhEOvstJZTmRRM0X96NNJdwbTkCEdUurYgNjC+3vm4zDU1cYmMy
+              wzR2DRHjO2jFjxKNArw+yjuI4MBte9Kz2T31UpwSs+iZndZxMspQqRCH3DZMrMKa
+              TGI6xLNkrpzuZyz9tUdliKFMyURRJq8jAvtaYX5eaWt3AHHpa0KFdTi5aAPkAVAt
+              FL8VzxHMJgQkXUdX061Cc9TUqSv872grCo8ozqhCq/NRJRdSyJobtOoFAC8Y3XJq
+              nF4kShX1Q1ibwqx9jiQ1t4mYsYzrZ3vV3a3XVmjTx7d//maC9geNsonQD1F/ERyh
+              MVQRIz2yVno5UOYZtQyyubeiFmdAcO2HgxfdYp/TKyHuMPcv1amxiEwrLqjj5Rmf
+              ZlKPmzbkgwclfdbilPB8e87WBLFNdnJq7UmMb7NpU8BsITp0QpoiSiSEQ/2DZZqW
+              clJ3zZ+zachkp/1zoBlP8UgBS/XCN3VQLvL7Xf5p9OuiL/GOFVZRonLtwRnrq8i8
+              OO8FrXwKDkllPb5TVPp9ShcHdm4q6tdYe6W3iKMuY8S81fg6mRVfCPN81m6o1L1V
+              fg2L3xg8+PdZTcsGUTD/7xqnaQA78XfqKuVg5bCxgAvQ28MFz7/6RlpLoXNpA7tA
+              UBf6tYnx3UYCCZ3r4DpR58aqOIqBs2z7gpv6zNQZ5LSPv07NFyhwkmx73J5ufXqA
+              M8VnlBro900mWKyrf+GQxvzgHEZBdB/isXS0O0CfTctezi5V8wNhSj9Oiin8xcEB
+              vnSSZ7y0x57JCK13vFwdCZRDVr6JUsvpabQbvePzO/bcpOimvVJd/LGk40KCU7mm
+              IU5VfI8kC6vTwTqTULq2ztVsBIqOHvNYcl2NHsEhftlHzrVUjyU=
+              =mE45
+              -----END PGP MESSAGE-----
+
         '404':
           description: Tarjeta no existe
           schema:
