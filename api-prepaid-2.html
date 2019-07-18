@@ -2377,7 +2377,7 @@
                 <section class="swagger-operation-description">
                   <p>Retorna la información de la tarjeta prepago</p>
                   <p>
-                    <strong>Nota</strong>: Este servicio solo retornara informacion si el cliente posee tarjeta de Nivel 2</p>
+                    <strong>Nota</strong>: Este servicio solo retornara informacion si el cliente posee tarjeta de Nivel 2.</p>
                   <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
                   <ul>
                     <li>102001: Si el cliente no existe</li>
@@ -2452,15 +2452,18 @@
                   <div class="prop-row prop-group">
                     <div class="prop-name">
                       <div class="prop-title">200 OK</div>
-                      <div class="prop-ref">
-                        <span class="">
-                          <a class="json-schema-ref" href="#/definitions/prepaid_card">prepaid_card</a>
-                        </span>
-                      </div>
+                      <div class="prop-ref"></div>
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>OK - Información de la tarjeta prepago</p>
+                      <p>OK - Información encriptada de la tarjeta prepago</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -2515,18 +2518,7 @@
                   <!-- <div class="hljs"> -->
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;a4579ad7-e016-4118-afbe-ea939e6c616b&quot;</span>,
-  <span class="hljs-attr">&quot;pan&quot;</span>: <span class="hljs-string">&quot;5176081234564840&quot;</span>,
-  <span class="hljs-attr">&quot;name_on_card&quot;</span>: <span class="hljs-string">&quot;Pedro Perez&quot;</span>,
-  <span class="hljs-attr">&quot;expiration_date&quot;</span>: <span class="hljs-number">202301</span>,
-  <span class="hljs-attr">&quot;security_code&quot;</span>: <span class="hljs-number">123</span>,
-  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
-    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
-    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
-  }
-}
+                  <body><pre><code class="hljs language-json"><span class="hljs-string">&quot;-----BEGIN PGP MESSAGE-----\nVersion: BCPG v1.59\n\nhQEMA8lrFZvFE3EOAQgA1vKQ4i5a/pYl9EtHGPR+o5rcqY3ggQIijnOIJVVTI/Nj\nqYZ3937xoxQEvWn6D6LnDGjMT8Csz2ANuoZI4XGtrhvJhsh5DVda7QMBSe7akNUg\nIqW6t4vgvHHjpFD85npBgzBEa3KE/xQQMpY/jd75NYUl9UAdt3UM+iXizT1eIIK9\nUU0Y4eHY/xkWfPJTCt8O9wdDMjWax+ATE4JcgtAvkQ6y68h8EgHWYaJ0PkRXO/7t\nnRsPr7d0OqpP+Fi6sI/GNSyOi0tLe9WbPn4vzrZiUuSsaQEftA36yQ5KMT3LpOq3\nqNbY6HLoWSfF/uZ2Ra1Y17fYOW8ko7X/mOyCxVbtlNLB5AFTGflCQITw7WGoo25+\n2zglqkA7+GSLLFhEOvstJZTmRRM0X96NNJdwbTkCEdUurYgNjC+3vm4zDU1cYmMy\nwzR2DRHjO2jFjxKNArw+yjuI4MBte9Kz2T31UpwSs+iZndZxMspQqRCH3DZMrMKa\nTGI6xLNkrpzuZyz9tUdliKFMyURRJq8jAvtaYX5eaWt3AHHpa0KFdTi5aAPkAVAt\nFL8VzxHMJgQkXUdX061Cc9TUqSv872grCo8ozqhCq/NRJRdSyJobtOoFAC8Y3XJq\nnF4kShX1Q1ibwqx9jiQ1t4mYsYzrZ3vV3a3XVmjTx7d//maC9geNsonQD1F/ERyh\nMVQRIz2yVno5UOYZtQyyubeiFmdAcO2HgxfdYp/TKyHuMPcv1amxiEwrLqjj5Rmf\nZlKPmzbkgwclfdbilPB8e87WBLFNdnJq7UmMb7NpU8BsITp0QpoiSiSEQ/2DZZqW\nclJ3zZ+zachkp/1zoBlP8UgBS/XCN3VQLvL7Xf5p9OuiL/GOFVZRonLtwRnrq8i8\nOO8FrXwKDkllPb5TVPp9ShcHdm4q6tdYe6W3iKMuY8S81fg6mRVfCPN81m6o1L1V\nfg2L3xg8+PdZTcsGUTD/7xqnaQA78XfqKuVg5bCxgAvQ28MFz7/6RlpLoXNpA7tA\nUBf6tYnx3UYCCZ3r4DpR58aqOIqBs2z7gpv6zNQZ5LSPv07NFyhwkmx73J5ufXqA\nM8VnlBro900mWKyrf+GQxvzgHEZBdB/isXS0O0CfTctezi5V8wNhSj9Oiin8xcEB\nvnSSZ7y0x57JCK13vFwdCZRDVr6JUsvpabQbvePzO/bcpOimvVJd/LGk40KCU7mm\nIU5VfI8kC6vTwTqTULq2ztVsBIqOHvNYcl2NHsEhftlHzrVUjyU=\n=mE45\n-----END PGP MESSAGE-----\n&quot;</span>
 </code></pre> </body>
                   </html>
                   <!-- </div> -->
