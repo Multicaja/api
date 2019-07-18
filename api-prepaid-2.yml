@@ -949,6 +949,10 @@ definitions:
               - vista
               - corriente
               - ahorro
+              - cuenta rut
+          account_name:
+            type: string
+            description: Nombre completo del destinatario
           account_number:
             type: integer
             description: Número de cuenta sin puntos, guiones, ni ceros a la izquierda
