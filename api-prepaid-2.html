@@ -1461,6 +1461,7 @@
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">4</span>,
   <span class="hljs-attr">&quot;account_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;account_name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;account_number&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
   <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
@@ -1742,6 +1743,7 @@
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">4</span>,
   <span class="hljs-attr">&quot;account_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;account_name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;account_number&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
   <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
@@ -4273,12 +4275,21 @@
                           <span class="json-property-enum" title="Possible values">
                             <span class="json-property-enum-item">vista</span>,
                             <span class="json-property-enum-item">corriente</span>,
-                            <span class="json-property-enum-item">ahorro</span>
+                            <span class="json-property-enum-item">ahorro</span>,
+                            <span class="json-property-enum-item">cuenta rut</span>
                           </span>
                           <span class="json-property-range" title="Value limits"></span>
                         </dt>
                         <dd>
                           <p>Tipo de cuenta</p>
+                        </dd>
+                        <dt data-property-name="account_name" class="has-description">
+                          <span class="json-property-name">account_name:</span>
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </dt>
+                        <dd>
+                          <p>Nombre completo del destinatario</p>
                         </dd>
                         <dt data-property-name="account_number" class="has-description">
                           <span class="json-property-name">account_number:</span>
@@ -4310,6 +4321,7 @@
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;bank_id&quot;</span>: <span class="hljs-number">4</span>,
   <span class="hljs-attr">&quot;account_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;account_name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;account_number&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
   <span class="hljs-attr">&quot;rut&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
   <span class="hljs-attr">&quot;merchant_code&quot;</span>: <span class="hljs-string">&quot;0023434&quot;</span>,
