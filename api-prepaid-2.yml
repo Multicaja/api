@@ -980,12 +980,14 @@ definitions:
           account_name:
             type: string
             description: Nombre completo del destinatario
+            example: "Juan Perez"
           account_number:
             type: integer
             description: Número de cuenta sin puntos, guiones, ni ceros a la izquierda
           rut:
-            type: integer
-            description: El rut destinatario sin puntos, guión, ni dígito verificador
+            type: string
+            description: El rut destinatario sin puntos
+            example: "12345678-9"
 
   prepaid_defered_cashout:
     type: object
