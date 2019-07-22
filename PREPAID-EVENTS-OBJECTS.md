@@ -76,8 +76,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
-            "id": "",
-            "remote_transaction_id": "173200",
+            "id": "8925ea98-16a3-4dbb-b9f7-36cfa0176927",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -124,8 +123,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
-            "id": "",
-            "remote_transaction_id": "173200",
+            "id": "8925ea98-16a3-4dbb-b9f7-36cfa0176927",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -164,8 +162,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
-            "id": "",
-            "remote_transaction_id": "173200",
+            "id": "8925ea98-16a3-4dbb-b9f7-36cfa0176927",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -212,8 +209,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
-            "id": "",
-            "remote_transaction_id": "173200",
+            "id": "8925ea98-16a3-4dbb-b9f7-36cfa0176927",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -260,8 +256,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
-            "id": "",
-            "remote_transaction_id": "173200",
+            "id": "8925ea98-16a3-4dbb-b9f7-36cfa0176927",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -309,8 +304,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
-            "id": "",
-            "remote_transaction_id": "173200",
+            "id": "8925ea98-16a3-4dbb-b9f7-36cfa0176927",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -350,8 +344,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
-            "id": "",
-            "remote_transaction_id": "173200",
+            "id": "8925ea98-16a3-4dbb-b9f7-36cfa0176927",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -399,8 +392,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
-            "id": "",
-            "remote_transaction_id": "173200",
+            "id": "8925ea98-16a3-4dbb-b9f7-36cfa0176927",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -441,8 +433,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
-            "id": "",
-            "remote_transaction_id": "173200",
+            "id": "8925ea98-16a3-4dbb-b9f7-36cfa0176927",
             "auth_code": "173200",
             "primary_amount": {
                 "currency_code": 152,
@@ -475,8 +466,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
-            "id": "",
-            "remote_transaction_id": "173200",
+            "id": "8925ea98-16a3-4dbb-b9f7-36cfa0176927",
             "auth_code": "173200",
             "primary_amount": {
                 "currency_code": 152,
@@ -512,8 +502,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
-            "id": "",
-            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+            "id": "8925ea98-16a3-4dbb-b9f7-36cfa0176927",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -558,8 +547,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
-            "id": "",
-            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+            "id": "8925ea98-16a3-4dbb-b9f7-36cfa0176927",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -601,8 +589,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
-            "id": "",
-            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+            "id": "8925ea98-16a3-4dbb-b9f7-36cfa0176927",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -646,8 +633,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
-            "id": "",
-            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+            "id": "8925ea98-16a3-4dbb-b9f7-36cfa0176927",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -692,8 +678,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
-            "id": "",
-            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+            "id": "8925ea98-16a3-4dbb-b9f7-36cfa0176927",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -735,8 +720,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
-            "id": "",
-            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+            "id": "8925ea98-16a3-4dbb-b9f7-36cfa0176927",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -780,8 +764,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
-            "id": "",
-            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+            "id": "8925ea98-16a3-4dbb-b9f7-36cfa0176927",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -826,8 +809,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
-            "id": "",
-            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+            "id": "8925ea98-16a3-4dbb-b9f7-36cfa0176927",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -869,8 +851,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
-            "id": "",
-            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+            "id": "8925ea98-16a3-4dbb-b9f7-36cfa0176927",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
@@ -912,8 +893,7 @@
         "account_id": "d036377a-761c-4ca9-9eb3-d2ccdec6e605",
         "card_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
         "transaction": {
-            "id": "",
-            "remote_transaction_id": "6f78a2fa-989c-4317-8447-3f119d949c83",
+            "id": "8925ea98-16a3-4dbb-b9f7-36cfa0176927",
             "auth_code": "123456",
             "primary_amount": {
                 "currency_code": 152,
