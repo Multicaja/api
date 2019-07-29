@@ -201,14 +201,23 @@ paths:
         * 102015: Si el cliente está en una lista negra, por lo tanto no puede realizar la carga.
         * 106000: Si la tarjeta está expirada o tiene un bloqueo duro.
         * 106001: La procesadora rechazó la carga, verificar mensaje.
+        * 106002: Si la tarjeta no existe.
+        * 106011: Si la tarjeta está bloqueada.
         * 108000: Error al validar transacción.
         * 108001: El usuario en nivel 1 solo puede realizar 1 carga.
         * 108201: La carga supera el monto máximo de carga web.
         * 108202: La carga supera el monto máximo de carga pos.
         * 108203: La carga es menor al mínimo de carga.
         * 108204: La carga supera el monto máximo de cargas mensuales.
+        * 108901: La carga supera el monto máximo de carga permitida.
+        * 108902: El importe es menor al mínimo permitido.
+        * 108903: Excedido límite diario en cajeros.
         * 108205 y 108206: La carga supera el monto máximo de primera carga.
         * 130005: Si es que se recibio una reversa para la carga previamente.
+        * 140003: Si la cuenta está cerrada.
+        * 140004: Si la cuenta está bloqueada.
+        * 140005: Si la cuenta está inactiva.
+        * 108909: Si el saldo es mayor al saldo permitido.
 
         ### Responderá `500` en los siguientes casos:
         * Error imprevisto de sistema
@@ -499,11 +508,20 @@ paths:
         * 103001: Si la cuenta bancaria seleccionada no está asociada al cliente.
         * 106000: Si la tarjeta está expirada o tiene un bloqueo duro.
         * 106001: La procesadora rechazó el retiro, verificar mensaje.
+        * 106002: Si la tarjeta no existe.
+        * 106011: Si la tarjeta está bloqueada.
         * 108000: Error al validar transacción.
         * 108301: El retiro supera el monto máximo de un retiro web.
         * 108302: El retiro supera el monto máximo de un retiro pos.
         * 108303: El monto de retiro es menor al monto mínimo de retiros.
         * 108304: El retiro supera el monto máximo de retiros mensuales.
+        * 108901: El retiro supera el monto máximo de un retiro.
+        * 108902: El importe es menor al mínimo permitido.
+        * 108903: Excedido límite diario en cajeros.
+        * 140003: Si la cuenta está cerrada.
+        * 140004: Si la cuenta está bloqueada.
+        * 140005: Si la cuenta está inactiva.
+        * 108909: Si el saldo es mayor al saldo permitido.
         
         ### Responderá `500` en los siguientes casos:
         * Error imprevisto de sistema
