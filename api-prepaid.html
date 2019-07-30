@@ -230,14 +230,23 @@
                     <li>102015: Si el cliente está en una lista negra, por lo tanto no puede realizar la carga.</li>
                     <li>106000: Si la tarjeta está expirada o tiene un bloqueo duro.</li>
                     <li>106001: La procesadora rechazó la carga, verificar mensaje.</li>
+                    <li>106002: Si la tarjeta no existe.</li>
+                    <li>106011: Si la tarjeta está bloqueada.</li>
                     <li>108000: Error al validar transacción.</li>
                     <li>108001: El usuario en nivel 1 solo puede realizar 1 carga.</li>
                     <li>108201: La carga supera el monto máximo de carga web.</li>
                     <li>108202: La carga supera el monto máximo de carga pos.</li>
                     <li>108203: La carga es menor al mínimo de carga.</li>
                     <li>108204: La carga supera el monto máximo de cargas mensuales.</li>
+                    <li>108901: La carga supera el monto máximo de carga permitida.</li>
+                    <li>108902: El importe es menor al mínimo permitido.</li>
+                    <li>108903: Excedido límite diario en cajeros.</li>
                     <li>108205 y 108206: La carga supera el monto máximo de primera carga.</li>
                     <li>130005: Si es que se recibio una reversa para la carga previamente.</li>
+                    <li>140003: Si la cuenta está cerrada.</li>
+                    <li>140004: Si la cuenta está bloqueada.</li>
+                    <li>140005: Si la cuenta está inactiva.</li>
+                    <li>108909: Si el saldo es mayor al saldo permitido.</li>
                   </ul>
                   <h3 id="responder-500-en-los-siguientes-casos-">Responderá <code>500</code> en los siguientes casos:</h3>
                   <ul>
@@ -1699,11 +1708,20 @@
                     <li>103001: Si la cuenta bancaria seleccionada no está asociada al cliente.</li>
                     <li>106000: Si la tarjeta está expirada o tiene un bloqueo duro.</li>
                     <li>106001: La procesadora rechazó el retiro, verificar mensaje.</li>
+                    <li>106002: Si la tarjeta no existe.</li>
+                    <li>106011: Si la tarjeta está bloqueada.</li>
                     <li>108000: Error al validar transacción.</li>
                     <li>108301: El retiro supera el monto máximo de un retiro web.</li>
                     <li>108302: El retiro supera el monto máximo de un retiro pos.</li>
                     <li>108303: El monto de retiro es menor al monto mínimo de retiros.</li>
                     <li>108304: El retiro supera el monto máximo de retiros mensuales.</li>
+                    <li>108901: El retiro supera el monto máximo de un retiro.</li>
+                    <li>108902: El importe es menor al mínimo permitido.</li>
+                    <li>108903: Excedido límite diario en cajeros.</li>
+                    <li>140003: Si la cuenta está cerrada.</li>
+                    <li>140004: Si la cuenta está bloqueada.</li>
+                    <li>140005: Si la cuenta está inactiva.</li>
+                    <li>108909: Si el saldo es mayor al saldo permitido.</li>
                   </ul>
                   <h3 id="responder-500-en-los-siguientes-casos-">Responderá <code>500</code> en los siguientes casos:</h3>
                   <ul>
