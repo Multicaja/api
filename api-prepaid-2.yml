@@ -1608,17 +1608,17 @@ definitions:
       amount:
         description: Monto
         $ref: '#/definitions/amount_and_currency_new'
-      id_transaction:
+      transaction_reference_id:
         type: string
         description: Id de tranasccion externo
         example: "1234567890"
+      transaction_description:
+        type: string
+        description: Descripcion de transaccion
+        example: "Recarga en ..."
       status:
         type: string
         description: Status
         example: "OK"
       timestamps:
         $ref: '#/definitions/timestamps'
-      description:
-        type: string
-        description: Descripcion de transaccion
-        example: "Recarga en ..."
