@@ -4,7 +4,6 @@
 
 | API | Redoc        | Status        | Descripción |
 | ---------- |:-------------:|:-------------:|------------:|
-| [Users](https://multicaja.github.io/api/api-users.html) | [Users](https://multicaja.github.io/api/api-users-redoc.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-users.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-users.yml) | Usuarios, contacto, cuentas, direcciones |
 | [Prepaid](https://multicaja.github.io/api/api-prepaid.html) | [Prepaid](https://multicaja.github.io/api/api-prepaid-redoc.html)| [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-prepaid.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-prepaid.yml) | Tarjetas de prepago, saldo, emisión, transacciones |
 | [PayPal](https://multicaja.github.io/api/api-paypal.html) | [PayPal](https://multicaja.github.io/api/api-paypal-redoc.html)| [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-paypal.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-paypal.yml) | Multicaja/PayPal |
 | [Recharges](https://multicaja.github.io/api/api-recharges.html) | [Recharges](https://multicaja.github.io/api/api-recharges-redoc.html) | [![Swagger](http://online.swagger.io/validator?url=https://raw.githubusercontent.com/Multicaja/api/master/api-recharges.yml)](https://raw.githubusercontent.com/Multicaja/api/master/api-recharges.yml) | Recargas en Switch Multicaja|

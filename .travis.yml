@@ -25,8 +25,6 @@ script:
   # All variables ready - run the test script
   - bash api-spec_validation_test.sh
   # Build docs pages
-  - spectacle --target-dir docs --target-file api-users.html api-users.yml
-  - redoc-cli bundle -o api-users-redoc.html api-users.yml
   - spectacle --target-dir docs-prepaid --target-file api-prepaid.html api-prepaid.yml
   - redoc-cli bundle -o api-prepaid-redoc.html api-prepaid.yml
   - spectacle --target-dir docs-paypal --target-file api-paypal.html api-paypal.yml

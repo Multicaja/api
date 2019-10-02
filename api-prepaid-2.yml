@@ -278,6 +278,119 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
 
+  /prepaid/{user_id}/withdraw:
+    post:
+      tags:
+        - prepaid
+      summary: Retiro generico de dinero
+      description: |
+        Debita una tarjeta
+        Utilizado para Recarga y Pago de cuenta
+        
+        ### Responderá `400` en los siguientes casos:
+        * 101004: Si un parámetro es requerido y no se ha enviado.
+        * 101007: Si un parámetro no cumple formato.
+
+        ### Responderá `404` en los siguientes casos:
+        * 102001: Si el cliente no existe.
+        * 102003: Si el cliente no tiene prepago.
+
+        ### Responderá `422` en los siguientes casos:
+        * 102004: Si el cliente está bloqueado o borrado de prepago.
+        * 106000: Si la tarjeta está expirada o tiene un bloqueo duro.
+        * 106001: La procesadora rechazó el retiro, verificar mensaje.
+        * 108000: Transacción duplicada CDT.
+        * 108304: El retiro supera el monto máximo de retiros mensuales.
+        
+        ### Responderá `500` en los siguientes casos:
+        * Error imprevisto de sistema
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: new_topup
+          description: Detalle del withdraw a realizar
+          required: true
+          schema:
+            $ref: '#/definitions/prepaid_generic_withdraw_new'
+      responses:
+        '201':
+          description: |
+            OK - Retiro realizado
+          schema:
+            $ref: '#/definitions/prepaid_generic_withdraw_response'
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado ó no cumple formato
+          schema:
+            $ref: '#/definitions/error_obj'
+        '404':
+          description: Cliente no existe o no tiene prepago
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: Retiro no exitoso, revise error
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'
+
+  /prepaid/{user_id}/withdraw/{transaction_id}/reverse:
+    post:
+      tags:
+        - prepaid
+      summary: Reversa un retiro generico
+      description: |
+        Reversa un retiro generico
+        Utilizado para Recarga y Pago de cuenta
+        
+        ### Responderá `201` (éxito) en los siguientes casos:
+        * Si el retiro se recibió, en cuyo caso iniciara el proceso de reversa.
+
+        ### Responderá `202` en los siguientes casos:
+        * 130003: Si la reversa fue recibida previamente para su procesamiento.
+      parameters:
+        - in: path
+          name: user_id
+          description: ID del Cliente
+          required: true
+          type: string
+          format: uuid
+        - in: path
+          name: transaction_id
+          description: ID de transaccion
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '201':
+          description: OK - Proceso de reversa iniciado
+        '202':
+          description: OK - Reversa recibida previamente
+          schema:
+            $ref: '#/definitions/error_obj'
+        '400':
+          description: Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado
+          schema:
+            $ref: '#/definitions/error_obj'
+        '404':
+          description: Cliente no existe o no tiene prepago
+          schema:
+            $ref: '#/definitions/error_obj'
+        '422':
+          description: Error de validacion
+          schema:
+            $ref: '#/definitions/error_obj'
+        '500':
+          description: Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema
+          schema:
+            $ref: '#/definitions/error_obj'
+
   /prepaid/cl/{user_id}/defered_cash_out:
     post:
       tags:
@@ -1432,3 +1545,80 @@ definitions:
       queues_name_type:
         type: string
         enum: ['TopUp', 'WithDrawal','PendingCreateCard','ReverseTopup','ReverseWithdrawal','SendMail','PendingEmision','IssuanceFee']
+  merchant:
+    type: object
+    properties:
+      code:
+        type: string
+        description: Codigo de comercio
+        example: "987654321"
+      name:
+        type: string
+        description: Nombre del comercio
+        example: "Merchant name"
+  
+  prepaid_generic_withdraw_new:
+    type: object
+    required:
+      - transaction_type_id
+      - transaction_reference_id
+      - amount
+      - merchant
+    description: |
+      Solicitud de retiro generico
+    properties:
+      transaction_type_id:
+        type: number
+        description: Tipo de transaccion
+        example: 3025
+        enum: [3025, 3026]
+      transaction_reference_id:
+        type: string
+        description: Id de tranasccion externo
+        example: "1234567890"
+      transaction_description:
+        type: string
+        description: Descripcion de transaccion
+        example: "Recarga en ..."
+      amount:
+        $ref: '#/definitions/amount_and_currency_new'
+      merchant:
+        $ref: '#/definitions/merchant'
+
+  prepaid_generic_withdraw_response:
+    type: object
+    description: |
+      Response de retiro generico
+    properties:
+      id:
+        type: string
+        format: uuid
+        description: Id de transaccion
+        example: "6f813496-ac93-4ee7-a14d-21cc07a2a2a0"
+      account_id:
+        type: string
+        format: uuid
+        description: Id de cuenta
+        example: "0cfd47de-b67f-41b0-9648-6a5af33cfac1"
+      card_id:
+        type: string
+        format: uuid
+        description: Id de tarjeta
+        example: "dee33b24-80f1-4915-bd11-57e448ee7369"
+      amount:
+        description: Monto
+        $ref: '#/definitions/amount_and_currency_new'
+      id_transaction:
+        type: string
+        description: Id de tranasccion externo
+        example: "1234567890"
+      status:
+        type: string
+        description: Status
+        example: "OK"
+      timestamps:
+        $ref: '#/definitions/timestamps'
+      description:
+        type: string
+        description: Descripcion de transaccion
+        example: "Recarga en ..."
