@@ -53,6 +53,22 @@
           <!-- </ul>
               </section> -->
           <!-- <section>
+                <a href="#path--prepaid--user_id--withdraw">/prepaid/{user_id}/withdraw</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--prepaid--user_id--withdraw-post"> Retiro generico de dinero </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
+                <a href="#path--prepaid--user_id--withdraw--transaction_id--reverse">/prepaid/{user_id}/withdraw/{transaction_id}/reverse</a>
+                <ul> -->
+          <!-- <li> -->
+          <a href="#operation--prepaid--user_id--withdraw--transaction_id--reverse-post"> Reversa un retiro generico </a>
+          <!-- </li> -->
+          <!-- </ul>
+              </section> -->
+          <!-- <section>
                 <a href="#path--prepaid-cl--user_id--defered_cash_out">/prepaid/cl/{user_id}/defered_cash_out</a>
                 <ul> -->
           <!-- <li> -->
@@ -162,6 +178,9 @@
           <a href="#definition-prepaid_user"> prepaid_user </a>
           <a href="#definition-prepaid_transaction"> prepaid_transaction </a>
           <a href="#definition-reproces_queue"> reproces_queue </a>
+          <a href="#definition-merchant"> merchant </a>
+          <a href="#definition-prepaid_generic_withdraw_new"> prepaid_generic_withdraw_new </a>
+          <a href="#definition-prepaid_generic_withdraw_response"> prepaid_generic_withdraw_response </a>
         </nav>
       </div>
       <div id="docs" class="row collapse expanded drawer" data-drawer>
@@ -1318,6 +1337,521 @@
                 <section>
                   <h5>Response Example
                     <span>(410 Gone)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(422 Unprocessable Entity)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <span id="path--prepaid--user_id--withdraw"></span>
+          <div id="operation--prepaid--user_id--withdraw-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--withdraw-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-prepaid">prepaid</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Retiro generico de dinero</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/prepaid/{user_id}/withdraw</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Debita una tarjeta Utilizado para Recarga y Pago de cuenta</p>
+                  <h3 id="responder-400-en-los-siguientes-casos-">Responderá <code>400</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>101004: Si un parámetro es requerido y no se ha enviado.</li>
+                    <li>101007: Si un parámetro no cumple formato.</li>
+                  </ul>
+                  <h3 id="responder-404-en-los-siguientes-casos-">Responderá <code>404</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>102001: Si el cliente no existe.</li>
+                    <li>102003: Si el cliente no tiene prepago.</li>
+                  </ul>
+                  <h3 id="responder-422-en-los-siguientes-casos-">Responderá <code>422</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>102004: Si el cliente está bloqueado o borrado de prepago.</li>
+                    <li>106000: Si la tarjeta está expirada o tiene un bloqueo duro.</li>
+                    <li>106001: La procesadora rechazó el retiro, verificar mensaje.</li>
+                    <li>108000: Transacción duplicada CDT.</li>
+                    <li>108304: El retiro supera el monto máximo de retiros mensuales.</li>
+                  </ul>
+                  <h3 id="responder-500-en-los-siguientes-casos-">Responderá <code>500</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>Error imprevisto de sistema</li>
+                  </ul>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/prepaid_generic_withdraw_new">prepaid_generic_withdraw_new</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Detalle del withdraw a realizar</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">user_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-format">(uuid)</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID del Cliente</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;transaction_type_id&quot;</span>: <span class="hljs-number">3025</span>,
+  <span class="hljs-attr">&quot;transaction_reference_id&quot;</span>: <span class="hljs-string">&quot;1234567890&quot;</span>,
+  <span class="hljs-attr">&quot;transaction_description&quot;</span>: <span class="hljs-string">&quot;Recarga en ...&quot;</span>,
+  <span class="hljs-attr">&quot;amount&quot;</span>: {
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  },
+  <span class="hljs-attr">&quot;merchant&quot;</span>: {
+    <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;987654321&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Merchant name&quot;</span>
+  }
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">201 Created</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/prepaid_generic_withdraw_response">prepaid_generic_withdraw_response</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK - Retiro realizado</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado ó no cumple formato</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Cliente no existe o no tiene prepago</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">422 Unprocessable Entity</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Retiro no exitoso, revise error</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(201 Created)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;6f813496-ac93-4ee7-a14d-21cc07a2a2a0&quot;</span>,
+  <span class="hljs-attr">&quot;account_id&quot;</span>: <span class="hljs-string">&quot;0cfd47de-b67f-41b0-9648-6a5af33cfac1&quot;</span>,
+  <span class="hljs-attr">&quot;card_id&quot;</span>: <span class="hljs-string">&quot;dee33b24-80f1-4915-bd11-57e448ee7369&quot;</span>,
+  <span class="hljs-attr">&quot;amount&quot;</span>: {
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  },
+  <span class="hljs-attr">&quot;id_transaction&quot;</span>: <span class="hljs-string">&quot;1234567890&quot;</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;OK&quot;</span>,
+  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+  },
+  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Recarga en ...&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(422 Unprocessable Entity)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <span id="path--prepaid--user_id--withdraw--transaction_id--reverse"></span>
+          <div id="operation--prepaid--user_id--withdraw--transaction_id--reverse-post" class="operation panel" data-traverse-target="operation--prepaid--user_id--withdraw--transaction_id--reverse-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-prepaid">prepaid</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Reversa un retiro generico</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/prepaid/{user_id}/withdraw/{transaction_id}/reverse</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Reversa un retiro generico Utilizado para Recarga y Pago de cuenta</p>
+                  <h3 id="responder-201-xito-en-los-siguientes-casos-">Responderá <code>201</code> (éxito) en los siguientes casos:</h3>
+                  <ul>
+                    <li>Si el retiro se recibió, en cuyo caso iniciara el proceso de reversa.</li>
+                  </ul>
+                  <h3 id="responder-202-en-los-siguientes-casos-">Responderá <code>202</code> en los siguientes casos:</h3>
+                  <ul>
+                    <li>130003: Si la reversa fue recibida previamente para su procesamiento.</li>
+                  </ul>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">user_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-format">(uuid)</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID del Cliente</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">transaction_id:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-format">(uuid)</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>ID de transaccion</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">201 Created</div>
+                    </div>
+                    <div class="prop-value">
+                      <p>OK - Proceso de reversa iniciado</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">202 Accepted</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK - Reversa recibida previamente</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error en parámetros, se lanza a cuando un parámetro es requerido y no se ha enviado</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Cliente no existe o no tiene prepago</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">422 Unprocessable Entity</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error de validacion</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/error_obj">error_obj</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Error indeterminado, se lanza cuando ocurre un error imprevisto de sistema</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Response Example
+                    <span>(202 Accepted)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-number">1024</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;El cliente no pas&#xF3; la validaci&#xF3;n&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(404 Not Found)</span>
                   </h5>
                   <!-- <div class="hljs"> -->
                   <html>
@@ -5666,6 +6200,270 @@
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">&quot;id_queue&quot;</span>: <span class="hljs-string">&quot;xkfuqwofklasjf&quot;</span>,
   <span class="hljs-attr">&quot;queues_name_type&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-merchant" class="definition panel" data-traverse-target="definition-merchant">
+            <h2 class="panel-title">
+              <a name="/definitions/merchant"></a>merchant: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="code" class="has-description">
+                      <span class="json-property-name">code:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Codigo de comercio</p>
+                    </dd>
+                    <dt data-property-name="name" class="has-description">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Nombre del comercio</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;987654321&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Merchant name&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-prepaid_generic_withdraw_new" class="definition panel" data-traverse-target="definition-prepaid_generic_withdraw_new">
+            <h2 class="panel-title">
+              <a name="/definitions/prepaid_generic_withdraw_new"></a>prepaid_generic_withdraw_new: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Solicitud de retiro generico</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="transaction_type_id" class="has-description">
+                      <span class="json-property-name">transaction_type_id:</span>
+                      <span class="json-property-type">number</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">3025</span>,
+                        <span class="json-property-enum-item">3026</span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Tipo de transaccion</p>
+                    </dd>
+                    <dt data-property-name="transaction_reference_id" class="has-description">
+                      <span class="json-property-name">transaction_reference_id:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dd>
+                      <p>Id de tranasccion externo</p>
+                    </dd>
+                    <dt data-property-name="transaction_description" class="has-description">
+                      <span class="json-property-name">transaction_description:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Descripcion de transaccion</p>
+                    </dd>
+                    <dt data-property-name="amount">
+                      <span class="json-property-name">amount:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/amount_and_currency_new">amount_and_currency_new</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                    <dt data-property-name="merchant">
+                      <span class="json-property-name">merchant:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/merchant">merchant</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-required"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;transaction_type_id&quot;</span>: <span class="hljs-number">3025</span>,
+  <span class="hljs-attr">&quot;transaction_reference_id&quot;</span>: <span class="hljs-string">&quot;1234567890&quot;</span>,
+  <span class="hljs-attr">&quot;transaction_description&quot;</span>: <span class="hljs-string">&quot;Recarga en ...&quot;</span>,
+  <span class="hljs-attr">&quot;amount&quot;</span>: {
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  },
+  <span class="hljs-attr">&quot;merchant&quot;</span>: {
+    <span class="hljs-attr">&quot;code&quot;</span>: <span class="hljs-string">&quot;987654321&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Merchant name&quot;</span>
+  }
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-prepaid_generic_withdraw_response" class="definition panel" data-traverse-target="definition-prepaid_generic_withdraw_response">
+            <h2 class="panel-title">
+              <a name="/definitions/prepaid_generic_withdraw_response"></a>prepaid_generic_withdraw_response: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Response de retiro generico</p>
+                </section>
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="id" class="has-description">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-format">(uuid)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Id de transaccion</p>
+                    </dd>
+                    <dt data-property-name="account_id" class="has-description">
+                      <span class="json-property-name">account_id:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-format">(uuid)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Id de cuenta</p>
+                    </dd>
+                    <dt data-property-name="card_id" class="has-description">
+                      <span class="json-property-name">card_id:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-format">(uuid)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Id de tarjeta</p>
+                    </dd>
+                    <dt data-property-name="amount" class="has-description">
+                      <span class="json-property-name">amount:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/amount_and_currency_new">amount_and_currency_new</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Monto</p>
+                    </dd>
+                    <dt data-property-name="id_transaction" class="has-description">
+                      <span class="json-property-name">id_transaction:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Id de tranasccion externo</p>
+                    </dd>
+                    <dt data-property-name="status" class="has-description">
+                      <span class="json-property-name">status:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Status</p>
+                    </dd>
+                    <dt data-property-name="timestamps">
+                      <span class="json-property-name">timestamps:</span>
+                      <span class="json-property-type">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/timestamps">timestamps</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt data-property-name="description" class="has-description">
+                      <span class="json-property-name">description:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Descripcion de transaccion</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;6f813496-ac93-4ee7-a14d-21cc07a2a2a0&quot;</span>,
+  <span class="hljs-attr">&quot;account_id&quot;</span>: <span class="hljs-string">&quot;0cfd47de-b67f-41b0-9648-6a5af33cfac1&quot;</span>,
+  <span class="hljs-attr">&quot;card_id&quot;</span>: <span class="hljs-string">&quot;dee33b24-80f1-4915-bd11-57e448ee7369&quot;</span>,
+  <span class="hljs-attr">&quot;amount&quot;</span>: {
+    <span class="hljs-attr">&quot;currency_code&quot;</span>: <span class="hljs-number">152</span>,
+    <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;1000.00&quot;</span>
+  },
+  <span class="hljs-attr">&quot;id_transaction&quot;</span>: <span class="hljs-string">&quot;1234567890&quot;</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;OK&quot;</span>,
+  <span class="hljs-attr">&quot;timestamps&quot;</span>: {
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2018-01-14T15:27:42.669Z&quot;</span>,
+    <span class="hljs-attr">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2018-03-02T10:03:12.123Z&quot;</span>
+  },
+  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;Recarga en ...&quot;</span>
 }
 </code></pre> </body>
                   </html>
