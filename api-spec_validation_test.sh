@@ -11,7 +11,6 @@ setUp()
   githubProjectId=api
   
   openApiSpecFileNames=(
-     'api-users.yml'
      'api-prepaid.yml'
      'api-prepaid-2.yml'
      'api-paypal.yml'
