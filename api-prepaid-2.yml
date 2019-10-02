@@ -383,6 +383,7 @@ paths:
           schema:
             $ref: '#/definitions/error_obj'
         '422':
+          description: Error de validacion
           schema:
             $ref: '#/definitions/error_obj'
         '500':
