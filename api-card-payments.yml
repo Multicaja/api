@@ -32,6 +32,9 @@ info:
 
     ## Gestión de llaves
     Los campos del nodo `card` se deben enviar encriptados por una llave simétrica utilizando el algoritmo AES-256. Para establecer la llave simétrica, el comsumidor de la API debe generar y enviar a Multicaja un componente de la llave con sus respectivos dígitos de chequeo. Multicaja generará y enviará otro componenente. Luego, ambos actores deberán cargar los componentes en sus HSMs, generando la llave final y verificando que los digitos de chequeo coincidan. Esta llave debe ser cambiada cada 3 años.
+  x-logo:
+    url: 'https://www.flow.cl/images/logos/mc-sf.svg'
+    altText: Multicaja logo
 
 basePath: /card-payments/v0.2/
 paths:
