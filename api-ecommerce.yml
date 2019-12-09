@@ -1,0 +1,411 @@
+openapi: 3.0.0
+info:
+  title: API Multicaja
+  description: This is a sample server for a pet store.
+  version: "0.1"
+  x-logo:
+    url: "https://www.multicaja.cl/paypal/assets/logo.svg"
+    backgroundColor: "#000"
+
+servers:
+  - url: https://10.170.5.8/v0.1
+    description: Develpment
+    variables:
+        port:
+          default: '8443'
+  - url: https://10.170.5.X/v0.1
+    description: Master
+
+
+paths:
+  /card-payment/charge:
+    post:
+      tags:
+        - charge
+      description: Returns all pets from the system that the user has access to Nam sed condimentum est. Maecenas tempor sagittis sapien, nec rhoncus sem sagittis sit amet. Aenean at gravida augue, ac iaculis sem. Curabitur odio lorem, ornare eget elementum nec, cursus id lectus. Duis mi turpis, pulvinar ac eros ac, tincidunt varius justo. In hac habitasse platea dictumst. Integer at adipiscing ante, a sagittis ligula. Aenean pharetra tempor ante molestie imperdiet. Vivamus id aliquam diam. Cras quis velit non tortor eleifend sagittis. Praesent at enim pharetra urna volutpat venenatis eget eget mauris. In eleifend fermentum facilisis. Praesent enim enim, gravida ac sodales sed, placerat id erat. Suspendisse lacus dolor, consectetur non augue vel, vehicula interdum libero. Morbi euismod sagittis libero sed lacinia.
+      operationId: findPets
+      parameters:
+        - name: Api-Key
+          in: header
+          description: Llave de acceso
+          required: true
+          schema:
+            type: string
+          allowReserved: true
+          example: W1mkfvktogE3RaafxodJglfD414EuATL
+        - name: Content-Type
+          in: header
+          description: Tipo de datos en Body
+          required: true
+          schema:
+            type: string
+          allowReserved: true
+          example: application/json
+      requestBody:
+        description: Cargo a ser realizado
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/charge'
+      responses:
+        200:
+          description: Respuesta correcta
+          content:
+            application/json:
+              schema:
+                properties:
+                  transaction:
+                    type: object
+                    description: Objeto que contiene el balance de la cuanta PayPal. Puede contener mas de una moneda por email
+                    properties:
+                      amount:
+                        type: number
+                        description: Monto a cobrar
+                        example: 1250.00
+                      currency:
+                        type: integer
+                        description: Código de Moneda
+                        example: 152
+                      transactionDateTime:
+                        type: string
+                        format: date-time
+                        description: Hora y Fecha de transmisión
+                        example: "2018-05-14T14:34:07.824-07:00"
+                  amount:
+                    type: object
+                    description: País de origen de la cuenta PayPal
+                  account_id:
+                    type: string
+                    description: Id del cliente en paypal
+                    example: "6FR8UB95HSZZU"
+                  timestamp:
+                    type: string
+                    description: Fecha de la consulta PayPal
+                    example: "2018-05-14T14:34:07.824-07:00"
+                  name:
+                    type: string
+                    description: Nombre del cliente registrado en paypal
+                    example: "Juan"
+                  last_name:
+                    type: string
+                    description: Apellido del cliente registrado en paypal
+                    example: "Perez"
+                  correlation_id:
+                    type: string
+                    description: Identificador de la llamada a la API de PayPal
+                    example: "2ef6d00c6b77c"
+                  type:
+                    type: string
+                    description: Tipo de cliente registrado en paypal
+                    example: "PREMIER"
+                  status:
+                    type: string
+                    description: Estado del cliente en paypal
+                    example: "UNVERIFIED/VERIFIED"
+        404:
+          description: El email ingresado no fue encontrado en PayPal
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    description: Codigo de error
+                    example: 200100
+                  message:
+                    type: string
+                    description: Mensaje de error
+                    example: Email no encontrado en PayPal
+        422:
+          description: El email ingresado es invalido o no fue ingresado
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    description: Codigo de error
+                    example: 200101
+                  message:
+                    type: string
+                    description: Mensaje de error
+                    example: El email ingresado es invalido
+        500:
+          description: Ocurrió un error al consultar la API de PayPal
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    description: Codigo de error
+                    example: 200000
+                  message:
+                    type: string
+                    description: Mensaje de error
+                    example: Ha ocurrido un error al obtener la información de PayPal
+        401:
+          $ref: "#/components/responses/NoApiKeyFound"
+        403:
+          $ref: "#/components/responses/InvalidCredentials"
+
+  /paypal/users/balance:
+    get:
+      tags:
+        - users
+      description: Obtienen el balance de un un cliente en PayPal
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+          allowReserved: true
+          example: ABONO
+          required: true
+          description: Tipo de transacción PayPal [ABONO/RETIRO/PIVOTE]
+        - name: email
+          in: query
+          schema:
+            type: string
+          allowReserved: true
+          example: l=2w2w@studio505.cl
+          required: true
+          description: Email del cliente de PayPal que se quiere consultar
+      responses:
+        200:
+          description: Respuesta correcta
+          content:
+            application/json:
+              schema:
+                properties:
+                  correlation_id:
+                    type: string
+                    description: Identificador de la llamada a la API de PayPal
+                    example: "33308fedb33e3"
+                  ack:
+                    type: string
+                    description: Estado de respuesta de la API de PayPal
+                    example: "SUCCESS"
+                  balance:
+                    type: object
+                    description: Objeto que contiene el balance de la cuanta PayPal. Puede contener mas de una moneda por email
+                    properties:
+                      value:
+                        type: string
+                        description: Saldo de la cuenta
+                        example: 60.00
+                      currency_id:
+                        type: string
+                        description: Moneda del saldo
+                        example: "USD"
+                  timestamp:
+                    type: string
+                    description: Fecha de la consulta PayPal
+                    example: "2018-05-14T14:34:07.824-07:00"
+        404:
+          description: El email ingresado no fue encontrado en PayPal
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    description: Codigo de error
+                    example: 200100
+                  message:
+                    type: string
+                    description: Mensaje de error
+                    example: Email no encontrado en PayPal
+        422:
+          description: Alguno de los parametros no fue ingresado o es invalido
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    description: Codigo de error
+                    example: 200101
+                  message:
+                    type: string
+                    description: Mensaje de error
+                    example: El email ingresado es invalido
+        500:
+          description: Ocurrió un error al consultar la API de PayPal
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: integer
+                    description: Codigo de error
+                    example: 200000
+                  message:
+                    type: string
+                    description: Mensaje de error
+                    example: Ha ocurrido un error al obtener la información de PayPal
+        401:
+          $ref: "#/components/responses/NoApiKeyFound"
+        403:
+          $ref: "#/components/responses/InvalidCredentials"
+
+tags:
+  - name: charge
+    description: Obtener información de clientes de Multicaja/PayPal
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+  responses:
+    NoApiKeyFound:
+      description: No se ha enviado el ApiKey en los headers
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                type: string
+                example: No API key found in request
+    InvalidCredentials:
+      description: El ApiKey enviado es invalido
+      content:
+        application/json:
+          schema:
+            properties:
+              message:
+                type: string
+                example: Invalid authentication credentials
+  schemas:
+    charge:
+      type: object
+      required:
+        - name
+      properties:
+        transaction:
+          type: object
+          description: Objeto que contiene el balance de la cuanta PayPal. Puede contener mas de una moneda por email
+          properties:
+            amount:
+              type: number
+              description: Monto a cobrar
+              example: 1250.00
+            currency:
+              type: integer
+              description: Código de Moneda
+              example: 152
+            transactionDateTime:
+              type: string
+              format: date-time
+              description: Hora y Fecha de transacción
+              example: "2019-12-06T17:00:07.824-04:00"
+            cashback:
+              type: number
+              description: Monto vuelto
+              example: 5000.00
+            gratuity:
+              type: number
+              description: Monto propina
+              example: 250.00
+            installments:
+              type: integer
+              description: Nùmero de cuotas
+              default: 1
+              example: 1
+        terminal:
+          type: object
+          description: Objeto datos terminal
+          properties:
+            id:
+              type: string
+              description: Codigo de Terminal
+              example: "02380176"
+            stan:
+              type: integer
+              description: Codigo de Trace Audit Transaction
+              example: 226513
+              minimum: 1
+              maximum: 999999
+            data:
+              type: string
+              description: Point-of-Service data
+              example: "00000000003001528320256"
+            aid:
+              type: string
+              description: Application Contactless
+              example: "A0000000042010"
+            apn:
+              type: string
+              description: APN
+              example: "APN.MOVISTAR.CL"
+            bdk:
+              type: string
+              description: BDK
+              example: "C20184562"
+            ksid:
+              type: string
+              description: KSID
+              example: "000000A0054"
+            brand:
+              type: string
+              description: Marca del Terminal
+              example: "VERIFONE A1"
+            ms:
+              type: string
+              description: Master
+              example: "K20184562"
+            sim:
+              type: string
+              description: SIM
+              example: "154512154519324858761"
+            docTypeSii:
+              type: integer
+              description: Tipo Documento SII
+              example: 1
+            version:
+              type: string
+              description: Versión
+              example: "A4.23.1"
+            transmissionDateTime:
+              type: string
+              format: date-time
+              description: Hora y Fecha de transmisión
+              example: "2019-12-06T17:00:07.824-04:00"
+            entryMode:
+              type: integer
+              description: Versión
+              example: 71
+            application:
+              type: string
+              description: Nombre de la aplicación
+              example: "A4.23.1"
+            serie:
+              type: string
+              description: Serie del terminal
+              example: "3238014454"
+            red:
+              type: string
+              description: Nombre de la red
+              example: "TELEFONICA"
+            advice:
+              type: string
+              description: Advice Reason Code
+              example: "003"
+            mac:
+              type: string
+              description: MAC
+              example: "8:61,50,222,-52,53,-88,4,-96"
+        card:
+          type: object
+          description: Objeto datos tarjeta
+          properties:
+            pan:
+              type: integer
+              format: int64
+              description: Primary Account Number
+              example: 5204464147884555
+
+
