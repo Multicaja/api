@@ -31,7 +31,9 @@ script:
 
   - spectacle --target-dir docs-recharges --target-file api-recharges.html api-recharges.yml
   - redoc-cli bundle -o api-recharges-redoc.html api-recharges.yml
+  - spectacle --target-dir docs-ecommerce --target-file api-ecommerce.html api-ecommerce.yml
   - spectacle --target-dir docs-card-payments --target-file api-card-payments.html api-card-payments.yml
+  - redoc-cli bundle -o api-ecommerce-redoc.html api-ecommerce.yml
   - redoc-cli bundle -o api-card-payments-redoc.html api-card-payments.yml
   - spectacle --target-dir docs-api-prepaid-2 --target-file api-prepaid-2.html api-prepaid-2.yml
   - redoc-cli bundle -o api-prepaid-2-redoc.html api-prepaid-2.yml
@@ -42,13 +44,15 @@ script:
 
   - mv docs-recharges/api-recharges.html docs/
   - mv api-recharges-redoc.html docs/
+  - mv docs-ecommerce/api-ecommerce.html docs/
   - mv docs-card-payments/api-card-payments.html docs/
+  - mv api-ecommerce-redoc.html docs/
   - mv api-card-payments-redoc.html docs/
   - mv docs-api-prepaid-2/api-prepaid-2.html docs/
   - mv api-prepaid-2-redoc.html docs/
 
   - cp README.md docs/
- 
+
 deploy:
   provider: pages
   skip-cleanup: true
